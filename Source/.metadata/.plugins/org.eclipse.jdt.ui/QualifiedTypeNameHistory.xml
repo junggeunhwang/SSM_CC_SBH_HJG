@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<qualifiedTypeNameHistroy>
+<fullyQualifiedTypeName name="com.facebook.Session.StatusCallback"/>
+<fullyQualifiedTypeName name="android.app.DownloadManager.Request"/>
+<fullyQualifiedTypeName name="com.facebook.internal.ImageRequest"/>
+<fullyQualifiedTypeName name="android.graphics.Bitmap"/>
+<fullyQualifiedTypeName name="com.facebook.internal.ImageDownloader"/>
+<fullyQualifiedTypeName name="java.net.URISyntaxException"/>
+<fullyQualifiedTypeName name="java.util.List"/>
+<fullyQualifiedTypeName name="java.util.Arrays"/>
+<fullyQualifiedTypeName name="android.content.Context"/>
+<fullyQualifiedTypeName name="com.facebook.Session"/>
+<fullyQualifiedTypeName name="android.widget.Button"/>
+<fullyQualifiedTypeName name="com.facebook.SessionState"/>
+<fullyQualifiedTypeName name="android.annotation.SuppressLint"/>
+<fullyQualifiedTypeName name="com.facebook.Settings"/>
+<fullyQualifiedTypeName name="com.facebook.LoggingBehavior"/>
+<fullyQualifiedTypeName name="android.content.Intent"/>
+<fullyQualifiedTypeName name="android.view.View.OnClickListener"/>
+<fullyQualifiedTypeName name="com.example.fblogintest.MainActivity.SessionStatusCallback"/>
+<fullyQualifiedTypeName name="android.app.Activity"/>
+<fullyQualifiedTypeName name="android.widget.TextView"/>
+<fullyQualifiedTypeName name="android.content.pm.PackageInfo"/>
+<fullyQualifiedTypeName name="android.content.pm.Signature"/>
+<fullyQualifiedTypeName name="java.security.MessageDigest"/>
+<fullyQualifiedTypeName name="android.content.pm.PackageManager.NameNotFoundException"/>
+<fullyQualifiedTypeName name="android.util.Log"/>
+<fullyQualifiedTypeName name="java.security.NoSuchAlgorithmException"/>
+<fullyQualifiedTypeName name="android.content.pm.PackageManager"/>
+<fullyQualifiedTypeName name="android.util.Base64"/>
+<fullyQualifiedTypeName name="com.example.facebooklogintest.R.id"/>
+<fullyQualifiedTypeName name="com.facebook.Request"/>
+<fullyQualifiedTypeName name="com.facebook.HttpMethod"/>
+<fullyQualifiedTypeName name="com.facebook.Response"/>
+<fullyQualifiedTypeName name="com.facebook.model.GraphUser"/>
+</qualifiedTypeNameHistroy>
