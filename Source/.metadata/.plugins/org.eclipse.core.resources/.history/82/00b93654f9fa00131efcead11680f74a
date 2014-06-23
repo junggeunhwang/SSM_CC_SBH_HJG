@@ -1,0 +1,8 @@
+package com.ssm.menuprototype.view;
+
+public interface OnBackPressedBtnListener {
+	
+	public void onBackPressedBtn(){
+		
+	}
+}

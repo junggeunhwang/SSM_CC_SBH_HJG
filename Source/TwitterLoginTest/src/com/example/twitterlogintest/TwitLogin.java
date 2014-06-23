@@ -1,10 +1,19 @@
 package com.example.twitterlogintest;
 
+import java.net.URL;
+
+import twitter4j.Twitter;
+import twitter4j.TwitterException;
+import twitter4j.TwitterFactory;
+import twitter4j.auth.RequestToken;
+import twitter4j.conf.ConfigurationBuilder;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBar;
 import android.support.v4.app.Fragment;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -16,17 +25,11 @@ import android.os.Build;
 
 public class TwitLogin extends ActionBarActivity {
 
-	static String TWIT_CALLBACK_URL;
-	
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_twit_login);
-
-		if (savedInstanceState == null) {
-			getSupportFragmentManager().beginTransaction()
-					.add(R.id.container, new PlaceholderFragment()).commit();
-		}
 		
 		WebView webview = (WebView)findViewById(R.id.webview);
 		webview.setWebViewClient(new WebViewClient(){
@@ -37,7 +40,7 @@ public class TwitLogin extends ActionBarActivity {
 				
 				if(url != null && url.equals("http://mobile.twitter.com/")){
 					finish();
-				}else if(url != null && url.startsWith(TWIT_CALLBACK_URL)){//////////////////TWIT_CALLBACK_URL is null value(temporary)
+				}else if(url != null && url.startsWith(TwitterBasicInfo.TWIT_CALLBACK_URL)){//////////////////TWIT_CALLBACK_URL is null value(temporary)
 					String[] params = url.split("\\?")[1].split("&");
 					String oauthToken = "";
 					String oauthVerifier = "";
@@ -91,22 +94,4 @@ public class TwitLogin extends ActionBarActivity {
 		}
 		return super.onOptionsItemSelected(item);
 	}
-
-	/**
-	 * A placeholder fragment containing a simple view.
-	 */
-	public static class PlaceholderFragment extends Fragment {
-
-		public PlaceholderFragment() {
-		}
-
-		@Override
-		public View onCreateView(LayoutInflater inflater, ViewGroup container,
-				Bundle savedInstanceState) {
-			View rootView = inflater.inflate(R.layout.fragment_twit_login,
-					container, false);
-			return rootView;
-		}
-	}
-
 }

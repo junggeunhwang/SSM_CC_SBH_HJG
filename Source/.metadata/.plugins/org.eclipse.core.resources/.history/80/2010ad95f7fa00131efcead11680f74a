@@ -1,0 +1,16 @@
+package com.ssm.menuprototype.view;
+
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+
+public class BackPressedReceiver extends BroadcastReceiver{
+
+	@Override
+	public void onReceive(Context context, Intent intent) {
+		
+		if(intent.getAction()=="ACTION_BACK_PRESSED");
+//			onBackPressed();			
+	}
+	
+}

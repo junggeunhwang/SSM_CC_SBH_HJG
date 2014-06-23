@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">MenuPrototype</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+ 	<string name="sample_window">Sample of dragging the entire window.\nThe menu is a simple ScrollView, with a click
+        listener set on each item.\nThe drawer will animate slightly open, to make it more discoverable.\nAdditionally,
+        if the menu is open, a back press will close it.
+    </string>
+</resources>
