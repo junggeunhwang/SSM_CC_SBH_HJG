@@ -1,0 +1,7 @@
+INDEX VERSION 1.126+C:\Users\È²Á¤±Ù\Documents\GitHub\SSM_CC_SBH_HJG\Source\SplashTestApp\.metadata\.plugins\org.eclipse.jdt.core
+798792021.index
+1826340857.index
+1284074322.index
+1697353298.index
+387441874.index
+3730621045.index
