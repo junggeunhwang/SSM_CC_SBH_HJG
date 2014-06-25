@@ -1,0 +1,31 @@
+package com.ssm.view;
+
+import com.ssm.controller.CycleTrackerFragment;
+
+public class CycleTrackerLayout {
+
+	CycleTrackerLayout fragment;
+	
+	public CycleTrackerLayout(CycleTrackerFragment instance) {
+		fragment = instance;
+	}
+	
+	public void init(){
+		fragment.getView().findViewById(R.id.menu_button_cyclemate).setOnClickListener(buildButtonClickListner());
+	}
+	
+	private OnClickListener buildButtonClickListner(){
+		return new OnClickListener(){
+				
+					@Override
+					public void onClick(View v) {
+						switch(v.getId())
+						{
+						case R.id.menu_button_cyclemate :
+							((MainActivity)fragment.getActivity()).getLayout().open_button(v);
+							break;
+						}
+					}
+				};
+	}
+}

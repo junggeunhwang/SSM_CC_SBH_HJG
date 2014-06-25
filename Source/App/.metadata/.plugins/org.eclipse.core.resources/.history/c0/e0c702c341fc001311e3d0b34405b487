@@ -1,0 +1,17 @@
+package com.ssm.view;
+
+import android.widget.ImageView;
+
+import com.example.cyclists.R;
+
+public class SplashLayout {
+	private ImageView splash_image;
+	
+	public SplashLayout() {
+		// TODO Auto-generated constructor stub
+	}
+	
+	private void init(){
+		splash_image = (ImageView)findViewById(R.id.splash_imageview);
+	}
+}

@@ -1,0 +1,38 @@
+package com.ssm.view;
+
+import com.example.cyclists.R;
+import com.ssm.controller.CycleMateFragment;
+
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.Button;
+
+public class CycleMateLayout {
+
+
+	CycleMateFragment fragment;
+	public CycleMateLayout(CycleMateFragment instance) {
+		fragment = instance;
+		
+	}
+	
+	public void init(){
+		fragment.getView().findViewById(R.id.menu_button_cyclemate).setOnClickListener(buildButtonClickListner());
+	}
+	
+	private OnClickListener buildButtonClickListner(){
+		return new OnClickListener(){
+				
+					@Override
+					public void onClick(View v) {
+						switch(v.getId())
+						{
+						case R.id.menu_button_home | R.id.menu_button_cyclemate |
+						     R.id.menu_button_cycletracker | R.id.menu_button_settings:
+							open_button(v);
+							break;
+						}
+					}
+				};
+	}
+}

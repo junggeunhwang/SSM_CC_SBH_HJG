@@ -1,5 +1,0 @@
-package com.ssm.menuprototype.view;
-
-public class OnBackPressedListener {
-
-}

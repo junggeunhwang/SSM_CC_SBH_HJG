@@ -1,0 +1,19 @@
+package com.ssm.view;
+
+import com.ssm.controller.CycleMateFragment;
+
+import android.widget.Button;
+
+public class CycleMateLayout {
+
+	Button menu_button;
+	CycleMateFragment fragment;
+	public CycleMateLayout(CycleMateFragment instance) {
+		fragment = instance;
+	}
+	
+	public void init(){
+		menu_button = (Button)findViewById(R.id.menu_button_cyclemate).setOnClickListener(buildButtonClickListner());
+	}
+	
+}

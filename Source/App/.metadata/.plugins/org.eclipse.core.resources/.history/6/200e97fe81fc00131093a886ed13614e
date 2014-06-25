@@ -1,0 +1,17 @@
+package com.ssm.view;
+
+import android.app.Fragment;
+import android.view.View;
+
+import com.ssm.controller.SettingsFragment;
+
+public abstract class BaseLayout {
+
+	Fragment fragment;
+	View view;
+	
+	public View getView(){
+		return view;
+	}
+	
+}

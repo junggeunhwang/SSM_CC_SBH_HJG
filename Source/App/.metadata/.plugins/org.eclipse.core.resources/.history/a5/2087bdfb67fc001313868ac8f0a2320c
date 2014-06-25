@@ -1,0 +1,44 @@
+package com.ssm.view;
+
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.view.View.OnClickListener;
+
+import com.example.cyclists.R;
+import com.ssm.controller.HomeFragment;
+import com.ssm.controller.MainActivity;
+
+public class HomeLayout {
+	
+	HomeFragment fragment;
+	
+	View view;
+	
+	public HomeLayout(HomeFragment instance) {
+		fragment = instance;
+	}
+	
+	public void init(){
+		fragment.getView().findViewById(R.id.menu_button_home).setOnClickListener(buildButtonClickListner());
+	}
+	
+	public void createView(LayoutInflater inflater, ViewGroup container){
+		view = inflater.inflate(R.layout.fragment_home, container, false);
+	}
+	
+	private OnClickListener buildButtonClickListner(){
+		return new OnClickListener(){
+				
+					@Override
+					public void onClick(View v) {
+						switch(v.getId())
+						{
+						case R.id.menu_button_home:
+							((MainActivity)fragment.getActivity()).getLayout().open_button(v);
+							break;
+						}
+					}
+				};
+	}
+}

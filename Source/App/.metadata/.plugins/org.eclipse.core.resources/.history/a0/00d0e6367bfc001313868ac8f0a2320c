@@ -1,0 +1,126 @@
+package com.ssm.view;
+
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
+import android.os.Bundle;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.Button;
+import android.widget.TextView;
+
+import com.example.cyclists.R;
+import com.ssm.controller.HomeFragment;
+import com.ssm.controller.MainActivity;
+
+import net.simonvt.menudrawer.MenuDrawer;
+
+public class MainLayout{
+	
+	public interface Listener{
+	}
+	
+	public static final String STATE_MENUDRAWER = "com.ssm.view.menuDrawer";
+	public static final String STATE_ACTIVE_VIEW_ID = "com.ssm.view.activeViewId";
+	  
+	private MenuDrawer mMenuDrawer;
+	private int mActiveViewId;
+	private int view = R.layout.activity_main;
+	
+	MainActivity activity;
+	
+	public MainLayout(MainActivity instance) {
+		this.activity = instance;
+	}
+	
+	public void init(){
+		
+		 mMenuDrawer = MenuDrawer.attach(activity, MenuDrawer.MENU_DRAG_WINDOW);
+		 
+	     mMenuDrawer.setContentView(R.layout.fragment_home);
+	     mMenuDrawer.setMenuView(R.layout.menu_scrollview);
+
+//	     activity.findViewById(R.id.menu_button_home).setOnClickListener(buildButtonClickListner());
+	     
+	     activity.findViewById(R.id.home_menu).setOnClickListener(buildMenuListenr());
+	     activity.findViewById(R.id.cycle_tracker_menu).setOnClickListener(buildMenuListenr());
+	     activity.findViewById(R.id.cycle_mate_menu).setOnClickListener(buildMenuListenr());
+	     activity.findViewById(R.id.settings_menu).setOnClickListener(buildMenuListenr());
+	     activity.findViewById(R.id.item5).setOnClickListener(buildMenuListenr());
+	     activity.findViewById(R.id.item6).setOnClickListener(buildMenuListenr());
+	     
+	     TextView activeView = (TextView)activity.findViewById(mActiveViewId);
+	     if (activeView != null) {
+	          mMenuDrawer.setActiveView(activeView);
+	     }
+	     
+	     FragmentManager fm = activity.getFragmentManager();
+	     FragmentTransaction ft = fm.beginTransaction();
+	     
+	     HomeFragment home_fragment = new HomeFragment();
+	     ft.add(R.layout.fragment_home, home_fragment);
+	     ft.add(home_fragment, "home_fragment");
+	     ft.commit();
+	     
+	     
+	}
+	
+	private OnClickListener buildMenuListenr(){
+		return new OnClickListener(){
+			
+			@Override
+			public void onClick(View v) {
+				 mMenuDrawer.setActiveView(v);
+			     mMenuDrawer.closeMenu();
+			     mActiveViewId = v.getId();
+			     switch(mActiveViewId){
+			     case R.id.home_menu:
+			    	 mMenuDrawer.setContentView(R.layout.fragment_home);
+			    	 break;
+			     case R.id.cycle_tracker_menu:
+			    	 mMenuDrawer.setContentView(R.layout.fragment_cycle_tracker);
+			    	 break;
+			     case R.id.cycle_mate_menu:
+			    	 mMenuDrawer.setContentView(R.layout.fragment_cycle_mate);
+			    	 break;
+			     case R.id.settings_menu:
+			    	 mMenuDrawer.setContentView(R.layout.fragment_settings);
+			    	 break;
+			     }
+			     
+			}
+		};
+	}
+	
+	public void open_button(View v){
+    	mMenuDrawer.openMenu();
+    }
+	
+	public void toggle_menu(){
+		 mMenuDrawer.toggleMenu();
+	}
+		
+	public void onBackBtnPressed(){
+		final int drawerState = mMenuDrawer.getDrawerState();
+        if (drawerState == MenuDrawer.STATE_OPEN || drawerState == MenuDrawer.STATE_OPENING) {
+            mMenuDrawer.closeMenu();
+            return;
+        }
+	}
+	
+	public void onRestoreInstanceState(Bundle inState){
+		mMenuDrawer.restoreState(inState.getParcelable(STATE_MENUDRAWER));
+	}
+	
+	public void onSaveInstanceState(Bundle outState) {
+        outState.putParcelable(STATE_MENUDRAWER, mMenuDrawer.saveState());
+        outState.putInt(STATE_ACTIVE_VIEW_ID, mActiveViewId);
+    }
+	    
+	public int getView(){
+		return view;
+	}
+
+	public void setActiveViewID(int activeViewId){
+		mActiveViewId = activeViewId;
+	}
+}
