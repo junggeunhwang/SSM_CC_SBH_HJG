@@ -1,0 +1,7 @@
+package com.ssm.controller;
+
+import android.app.Fragment;
+
+public class CycleMateFragment extends Fragment {
+
+}

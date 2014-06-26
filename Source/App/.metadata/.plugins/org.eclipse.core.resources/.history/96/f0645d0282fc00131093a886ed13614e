@@ -1,0 +1,21 @@
+package com.ssm.view;
+
+import android.app.Fragment;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+
+import com.ssm.controller.SettingsFragment;
+
+public abstract class BaseLayout {
+
+	Fragment fragment;
+	View view;
+	
+	public void createView(LayoutInflater inflater, ViewGroup container);
+	
+	public View getView(){
+		return view;
+	}
+	
+}

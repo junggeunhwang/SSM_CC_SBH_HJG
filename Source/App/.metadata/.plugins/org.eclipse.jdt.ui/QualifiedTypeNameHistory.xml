@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<qualifiedTypeNameHistroy>
+<fullyQualifiedTypeName name="net.simonvt.menudrawer.MenuDrawer"/>
+<fullyQualifiedTypeName name="android.widget.TextView"/>
+<fullyQualifiedTypeName name="android.widget.ImageView"/>
+<fullyQualifiedTypeName name="android.widget.ImageView.ScaleType"/>
+<fullyQualifiedTypeName name="android.os.Handler"/>
+<fullyQualifiedTypeName name="android.content.Intent"/>
+<fullyQualifiedTypeName name="com.example.cyclists.R.anim"/>
+<fullyQualifiedTypeName name="android.content.Context"/>
+<fullyQualifiedTypeName name="com.ssm.view.MainLayout"/>
+<fullyQualifiedTypeName name="android.os.Bundle"/>
+<fullyQualifiedTypeName name="com.ssm.controller.SplashActivity"/>
+<fullyQualifiedTypeName name="com.ssm.view.SplashLayout"/>
+<fullyQualifiedTypeName name="android.view.View"/>
+<fullyQualifiedTypeName name="com.ssm.controller.MainActivity"/>
+<fullyQualifiedTypeName name="com.ssm.view.HomeLayout"/>
+<fullyQualifiedTypeName name="android.widget.Button"/>
+<fullyQualifiedTypeName name="android.app.FragmentManager"/>
+<fullyQualifiedTypeName name="java.io.ObjectInputStream.GetField"/>
+<fullyQualifiedTypeName name="com.ssm.controller.HomeFragment"/>
+<fullyQualifiedTypeName name="android.view.View.OnClickListener"/>
+<fullyQualifiedTypeName name="android.util.Log"/>
+<fullyQualifiedTypeName name="com.example.cyclists.R"/>
+<fullyQualifiedTypeName name="android.support.v4.app.FragmentActivity"/>
+<fullyQualifiedTypeName name="com.ssm.controller.CycleTrackerFragment"/>
+<fullyQualifiedTypeName name="com.ssm.controller.CycleMateFragment"/>
+<fullyQualifiedTypeName name="com.ssm.controller.SettingsFragment"/>
+<fullyQualifiedTypeName name="android.support.v4.app.Fragment"/>
+<fullyQualifiedTypeName name="android.support.v4.app.FragmentTransaction"/>
+<fullyQualifiedTypeName name="android.app.FragmentTransaction"/>
+<fullyQualifiedTypeName name="com.example.cyclists.R.id"/>
+<fullyQualifiedTypeName name="com.example.cyclists.R.layout"/>
+<fullyQualifiedTypeName name="android.app.Fragment"/>
+<fullyQualifiedTypeName name="android.app.Activity"/>
+<fullyQualifiedTypeName name="com.ssm.view.CycleMateLayout"/>
+<fullyQualifiedTypeName name="com.ssm.view.CycleTrackerLayout"/>
+<fullyQualifiedTypeName name="com.ssm.view.SettingsLayout"/>
+</qualifiedTypeNameHistroy>
