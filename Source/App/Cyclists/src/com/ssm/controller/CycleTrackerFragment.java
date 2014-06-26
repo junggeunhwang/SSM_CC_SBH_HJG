@@ -1,6 +1,5 @@
 package com.ssm.controller;
 
-import com.ssm.view.CycleMateLayout;
 import com.ssm.view.CycleTrackerLayout;
 
 import android.app.Fragment;

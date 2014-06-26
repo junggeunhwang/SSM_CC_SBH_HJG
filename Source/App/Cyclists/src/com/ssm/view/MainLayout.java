@@ -5,6 +5,7 @@ import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.cyclists.R;
@@ -30,6 +31,8 @@ public class MainLayout{
 	
 	MainActivity activity;
 	
+	Button menu_button;
+	
 	public MainLayout(MainActivity instance) {
 		activity = instance;
 	}
@@ -41,6 +44,17 @@ public class MainLayout{
 	     mMenuDrawer.setContentView(R.layout.activity_main);
 	     mMenuDrawer.setMenuView(R.layout.menu_scrollview);
 
+	     menu_button = (Button)activity.findViewById(R.id.menu_btn);
+	     menu_button.setOnClickListener(new OnClickListener(){
+
+			@Override
+			public void onClick(View v) {
+				open_button(v);
+				
+			}
+	    	 
+	     });
+	     
 	     activity.findViewById(R.id.home_menu).setOnClickListener(buildClickListenr());
 	     
 	     activity.findViewById(R.id.cycle_tracker_menu).setOnClickListener(buildClickListenr());
@@ -59,8 +73,6 @@ public class MainLayout{
 	}
 	
 	public void replaceFragment(int resID){
-		
-		
 		
 		Fragment newFragment = null;
 		

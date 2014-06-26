@@ -1,0 +1,7 @@
+package com.ssm.view;
+
+import android.widget.ImageView;
+
+public class CircleImageView extends ImageView {
+
+}

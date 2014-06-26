@@ -1,0 +1,72 @@
+package com.ssm.view;
+
+import java.io.IOException;
+import java.io.InputStream;
+
+import android.content.res.AssetManager;
+import android.graphics.Typeface;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.view.View.OnClickListener;
+import android.widget.Button;
+import android.widget.TextView;
+
+import com.example.cyclists.R;
+import com.ssm.controller.HomeFragment;
+
+public class HomeLayout extends BaseFragmentLayout {
+	
+	Button menubutton;
+	
+	TextView tvUserID;
+	TextView tvLocation;
+	TextView tvWeekDay;
+	TextView tvTemperature;
+	TextView tvRainPercent;
+	
+	public HomeLayout(HomeFragment instance) {
+		super(instance);
+	}
+	
+	public void init(){
+		
+
+		
+		tvUserID = (TextView)getView().findViewById(R.id.user_id_home);
+		tvLocation = (TextView)getView().findViewById(R.id.location_home);
+		tvWeekDay = (TextView)getView().findViewById(R.id.weekday_home);
+		tvTemperature = (TextView)getView().findViewById(R.id.temperature_home);
+		tvRainPercent = (TextView)getView().findViewById(R.id.rainpercent_home);
+		
+		AssetManager asset = fragment.getActivity().getAssets();
+		
+		Typeface typeface = Typeface.createFromAsset(fragment.getActivity().getAssets(),"fonts/helvetica.ttf");
+		tvUserID.setTypeface(typeface);
+		tvLocation.setTypeface(typeface);
+		tvWeekDay.setTypeface(typeface);
+		
+		typeface = Typeface.createFromAsset(fragment.getActivity().getAssets(),"fonts/nanum_gothic.ttf");
+		tvTemperature.setTypeface(typeface);
+		tvRainPercent.setTypeface(typeface);
+		
+		
+		
+	}
+	@Override
+	public void createView(LayoutInflater inflater, ViewGroup container){
+		view = inflater.inflate(R.layout.fragment_home, container, false);
+	}
+	
+	private OnClickListener buildButtonClickListner(){
+		
+		return new Button.OnClickListener(){
+				
+					@Override
+					public void onClick(View v) {
+
+					}
+				};
+	}
+
+}
