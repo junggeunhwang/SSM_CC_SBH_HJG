@@ -6,7 +6,7 @@
     tools:context="com.example.menuprototype.MainActivity"
     tools:ignore="MergeRootFrame"
     android:orientation="vertical"
-    android:background="@color/bk_color">
+    android:background="@color/bk_color_heavy">
 
     <Button 
         android:id="@+id/menu_btn"

@@ -1,17 +1,36 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/splash"
+    android:gravity="center_vertical|center_horizontal"
+    android:orientation="vertical"
+    android:weightSum="1"
     tools:context="com.ssm.controller.SplashActivity"
     tools:ignore="MergeRootFrame" >
 
-    <ImageView
-        android:id="@+id/splash_imageview"
+    <Space
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:src="@drawable/splash"
-        android:scaleType="fitXY"/>
+        android:layout_height="0dip"
+        android:layout_weight="0.6" />
+    
+    <TextView
+        android:id="@+id/app_name_splash"
+        android:layout_width="wrap_content"
+        android:layout_height="0dip"
+        android:layout_weight="0.2"
+        android:gravity="center_vertical|center_horizontal"
+        android:text="Bicycle App"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textColor="@color/white"
+        android:textSize="35dp" />
 
-</FrameLayout>
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="0dip"
+        android:layout_weight="0.2" />
+    
+
+</LinearLayout>
 

@@ -46,19 +46,19 @@
             style="@style/MenuDrawer.Widget.Category" />
         
         <TextView
+            android:id="@+id/map_menu"
+            android:layout_width="match_parent" 
+            android:layout_height="wrap_content"
+            android:drawableLeft="@drawable/ic_action_refresh_dark"
+            android:text="Map"
+            style="@style/MenuDrawer.Widget.Title" />
+        
+        <TextView
             android:id="@+id/settings_menu"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:drawableLeft="@drawable/ic_action_select_all_dark"
             android:text="Settings"
-            style="@style/MenuDrawer.Widget.Title" />
-
-        <TextView
-            android:id="@+id/item5"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:drawableLeft="@drawable/ic_action_refresh_dark"
-            android:text="Item 5"
             style="@style/MenuDrawer.Widget.Title" />
 
         <TextView

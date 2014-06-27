@@ -13,10 +13,8 @@
 <fullyQualifiedTypeName name="android.view.View"/>
 <fullyQualifiedTypeName name="com.ssm.controller.MainActivity"/>
 <fullyQualifiedTypeName name="com.ssm.view.HomeLayout"/>
-<fullyQualifiedTypeName name="android.app.FragmentManager"/>
 <fullyQualifiedTypeName name="java.io.ObjectInputStream.GetField"/>
 <fullyQualifiedTypeName name="com.ssm.controller.HomeFragment"/>
-<fullyQualifiedTypeName name="android.view.View.OnClickListener"/>
 <fullyQualifiedTypeName name="android.util.Log"/>
 <fullyQualifiedTypeName name="com.example.cyclists.R"/>
 <fullyQualifiedTypeName name="android.support.v4.app.FragmentActivity"/>
@@ -32,7 +30,6 @@
 <fullyQualifiedTypeName name="com.ssm.view.CycleMateLayout"/>
 <fullyQualifiedTypeName name="com.ssm.view.CycleTrackerLayout"/>
 <fullyQualifiedTypeName name="com.ssm.view.SettingsLayout"/>
-<fullyQualifiedTypeName name="android.widget.Button"/>
 <fullyQualifiedTypeName name="android.widget.TextView"/>
 <fullyQualifiedTypeName name="android.graphics.Typeface"/>
 <fullyQualifiedTypeName name="android.content.res.AssetManager"/>
@@ -46,11 +43,20 @@
 <fullyQualifiedTypeName name="android.graphics.Path"/>
 <fullyQualifiedTypeName name="android.graphics.Rect"/>
 <fullyQualifiedTypeName name="android.graphics.Paint"/>
-<fullyQualifiedTypeName name="android.graphics.Color"/>
 <fullyQualifiedTypeName name="android.graphics.RectF"/>
 <fullyQualifiedTypeName name="android.widget.ImageView"/>
 <fullyQualifiedTypeName name="android.graphics.Bitmap"/>
 <fullyQualifiedTypeName name="com.ssm.view.ImageViewRounded"/>
-<fullyQualifiedTypeName name="com.example.cyclists.R.id"/>
 <fullyQualifiedTypeName name="com.example.cyclists.R.drawable"/>
+<fullyQualifiedTypeName name="com.ssm.view.MapLayout"/>
+<fullyQualifiedTypeName name="com.ssm.controller.MapFragment"/>
+<fullyQualifiedTypeName name="com.example.cyclists.R.id"/>
+<fullyQualifiedTypeName name="android.widget.Button"/>
+<fullyQualifiedTypeName name="android.widget.EditText"/>
+<fullyQualifiedTypeName name="android.view.View.OnClickListener"/>
+<fullyQualifiedTypeName name="com.example.colortest.R.layout"/>
+<fullyQualifiedTypeName name="android.app.FragmentManager"/>
+<fullyQualifiedTypeName name="android.widget.LinearLayout"/>
+<fullyQualifiedTypeName name="com.example.colortest.R.id"/>
+<fullyQualifiedTypeName name="android.graphics.Color"/>
 </qualifiedTypeNameHistroy>

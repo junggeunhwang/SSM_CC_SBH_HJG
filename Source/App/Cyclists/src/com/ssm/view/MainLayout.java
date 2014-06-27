@@ -13,6 +13,7 @@ import com.ssm.controller.CycleMateFragment;
 import com.ssm.controller.CycleTrackerFragment;
 import com.ssm.controller.HomeFragment;
 import com.ssm.controller.MainActivity;
+import com.ssm.controller.MapFragment;
 import com.ssm.controller.SettingsFragment;
 
 import net.simonvt.menudrawer.MenuDrawer;
@@ -60,7 +61,7 @@ public class MainLayout{
 	     activity.findViewById(R.id.cycle_tracker_menu).setOnClickListener(buildClickListenr());
 	     activity.findViewById(R.id.cycle_mate_menu).setOnClickListener(buildClickListenr());
 	     activity.findViewById(R.id.settings_menu).setOnClickListener(buildClickListenr());
-	     activity.findViewById(R.id.item5).setOnClickListener(buildClickListenr());
+	     activity.findViewById(R.id.map_menu).setOnClickListener(buildClickListenr());
 	     activity.findViewById(R.id.item6).setOnClickListener(buildClickListenr());
 	     activity.findViewById(R.id.menu_btn).setOnClickListener(buildClickListenr());
 	    
@@ -98,6 +99,9 @@ public class MainLayout{
 		case R.layout.fragment_cycle_mate:
 			newFragment = new CycleMateFragment();
 			break;
+		case R.layout.fragment_map:
+			newFragment = new MapFragment();
+			break;
 		case R.layout.fragment_settings:
 			newFragment = new SettingsFragment();
 			break;
@@ -125,6 +129,9 @@ public class MainLayout{
 			    	 break;
 			     case R.id.cycle_mate_menu:
 			    	 replaceFragment(R.layout.fragment_cycle_mate);
+			    	 break;
+			     case R.id.map_menu:
+			    	 replaceFragment(R.layout.fragment_map);
 			    	 break;
 			     case R.id.settings_menu:
 			    	 replaceFragment(R.layout.fragment_settings);
