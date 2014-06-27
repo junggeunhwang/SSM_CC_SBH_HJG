@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+	<meta name="viewport" content="width=device-width,user-scalable=no"/>
+	<title>Wearable UI</title>
+	<link rel="stylesheet"  href="lib/tau/themes/default/tau.min.css">
+	<!-- load theme file for your application -->
+	<link rel="stylesheet"  href="css/style.css">
+    <style>
+        body{
+            font-size: 12px;
+        }
+    </style>
+</head>
+<body>
+	<!-- MainUI -->
+    <div id = "mainpage" class="ui-page ui-page-active">
+    <h1>Prototype</h1>
+        <footer class="maincontrol">
+           	<button type="button" style="width:98%;height:45px" id = "accellog">accel log</button><br>
+            <button type="button" style="width:98%;height:45px" id = "delete_log">delete log</button><br>
+            <button type="button" style="width:98%;height:45px" id = "start_record">start record</button><br>
+            <button type="button" style="width:98%;height:45px" id = "play_record">play record</button><br>
+            <button type="button" style="width:98%;height:45px" id = "toggle">toggle</button><br>
+            <button type="button" style="width:98%;height:45px" id = "send_to_host">send to host</button>
+    	</footer>
+    </div>
+    <!-- Togglepage for directiontictok -->
+    <div id = "togglepage" class="ui-page">
+    	<ul class="ui-listview">
+    		<li><a href="#" id = "left">left</a></li>
+			<li><a href="#" id = "right">right</a></li>
+		</ul>
+    </div>
+    <div id = "directiontictok" class="ui-page">
+    	<img src = "/images/background.PNG" id = "toggleimg">
+    </div>
+    <div id = "accellogpage" class="ui-page">
+    	<p id="firElem">
+       	 	Acceleration value x : 0.0 y : 0.0 z : 9.8<br>
+        </p>
+        <p id="secElem">
+        	AccelerationIncludingGravity value x : 0.0 y : 0.0 z : 9.8<br>
+        </p>
+    	<button type="button" style="width:98%;height:60%" id = "log_operation">start accel log</button><br>
+    	<button type="button" style="width:98%;height:20%" id = "normal_operation">start normal log</button>
+    </div>
+</body>
+<script type="text/javascript" src="/lib/tau/js/tau.min.js"></script>
+<!-- load javascript file for your application -->
+<script src="./js/core/filesystem.js"></script>
+<script src="./js/core/event.js"></script>
+<script src="./js/core/timer.js"></script>
+<script src="./js/core/stream.js"></script>
+<script src="./js/core/audioplay.js"></script>
+<script src="./js/core/audiorecord.js"></script>
+<script src="./js/toggle.js"></script>
+<script src="./js/motioncheck.js"></script>
+<script src="./js/motionlog.js"></script>
+<script src="./js/main.js"></script>
+<script src="./js/lowBatteryCheck.js"></script>
+</html>
