@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <section name="Workbench">
 	<section name="WorkbenchPreferenceDialogSettings">
-		<item value="513" key="DIALOG_X_ORIGIN"/>
-		<item value="158" key="DIALOG_Y_ORIGIN"/>
+		<item value="651" key="DIALOG_X_ORIGIN"/>
+		<item value="160" key="DIALOG_Y_ORIGIN"/>
 	</section>
 	<section name="org.eclipse.ui.internal.QuickAccess">
 		<item value="759" key="dialogHeight"/>
@@ -17,15 +17,10 @@
 		</list>
 	</section>
 	<section name="NewWizardAction">
-		<item value="com.android.ide.eclipse.editors.wizards.NewXmlFileWizard.Layout" key="NewWizardSelectionPage.STORE_SELECTED_ID"/>
-		<list key="NewWizardSelectionPage.STORE_EXPANDED_CATEGORIES_ID">
-			<item value="com.android.ide.eclipse.wizards.category"/>
-		</list>
 	</section>
 	<section name="ImportExportAction">
 		<item value="com.android.ide.eclipse.adt.project.ImportProjectWizard" key="ImportExportPage.STORE_SELECTED_IMPORT_WIZARD_ID"/>
 		<list key="ImportExportPage.STORE_EXPANDED_IMPORT_CATEGORIES">
-			<item value="org.eclipse.ui.Basic"/>
 			<item value="com.android.ide.eclipse.wizards.category"/>
 		</list>
 	</section>
@@ -38,15 +33,6 @@
 		<item value="237" key="DIALOG_Y_ORIGIN"/>
 		<list key="ShowViewDialog.STORE_EXPANDED_CATEGORIES_ID">
 			<item value="com.android.ide.eclipse.ddms.views.category"/>
-		</list>
-	</section>
-	<section name="ZipFileImportWizard">
-	</section>
-	<section name="FileSystemImportWizard">
-		<item value="false" key="WizardFileSystemResourceImportPage1.STORE_CREATE_CONTAINER_STRUCTURE_ID"/>
-		<item value="false" key="WizardFileSystemResourceImportPage1.STORE_OVERWRITE_EXISTING_RESOURCES_ID"/>
-		<list key="WizardFileSystemResourceImportPage1.STORE_SOURCE_NAMES_ID">
-			<item value="C:\Users\황정근\Desktop"/>
 		</list>
 	</section>
 </section>

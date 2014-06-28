@@ -1,7 +1,0 @@
-package com.ssm.view;
-
-import ImageView;
-
-public class CircularImageView extends ImageView {
-
-}

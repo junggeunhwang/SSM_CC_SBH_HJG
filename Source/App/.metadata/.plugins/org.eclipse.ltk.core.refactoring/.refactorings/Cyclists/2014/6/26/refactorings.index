@@ -1,38 +1,5 @@
-1403628059678	Delete element
-1403628447197	Rename package 'com.example.cyclists'
-1403628744287	Rename package 'com.ssm.view'
-1403629570318	Rename resource 'drawble'
-1403629710343	Delete element
-1403669824561	Move file
-1403669872902	Rename resource 'Splash.png'
-1403669995985	Move compilation unit
-1403670013319	Delete element
-1403670040121	Delete element
-1403686497279	Copy file
-1403686503434	Copy file
-1403686513693	Rename resource 'Copy of fragment_slidemenu4.xml'
-1403686519963	Copy file
-1403686527014	Rename resource 'Copy of fragment_slidemenu4.xml'
-1403686581348	Rename resource 'fragment_slidemenu.xml'
-1403686596252	Rename resource 'fragment_slidemenu2.xml'
-1403686613977	Rename resource 'fragment_slidemenu3.xml'
-1403686633539	Rename resource 'fragment_slidemenu4.xml'
-1403688433718	Move compilation unit
-1403688617064	Rename type 'CycleMateFragment'
-1403692919828	Delete element
-1403712574815	Rename type 'BaseLayout'
-1403754451506	Rename resource 'Helvetica.ttf'
-1403755343991	Delete element
-1403755656310	Delete element
-1403759664074	Rename resource 'Helvetica.ttf'
-1403761495936	Delete element
-1403761516789	Delete element
-1403761547638	Rename resource 'Helvetica.ttf'
-1403762196615	Move file
-1403763934628	Rename resource 'NanumGothic.ttf'
-1403765005875	Delete element
-1403765988290	Delete element
-1403766743590	Delete element
-1403768130849	Delete element
-1403768889157	Delete element
-1403769601173	Rename resource '크기변환_황정근증명_2013_400x479.jpg'
+1403931365312	Rename type 'MapFragment'
+1403931369578	Rename type 'MapviewFragment'
+1403931473254	Rename package 'com.ssm.controller'
+1403931480549	Rename package 'com.ssm.model'
+1403931486440	Rename package 'com.ssm.view'

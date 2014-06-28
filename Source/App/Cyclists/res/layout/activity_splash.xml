@@ -7,7 +7,7 @@
     android:gravity="center_vertical|center_horizontal"
     android:orientation="vertical"
     android:weightSum="1"
-    tools:context="com.ssm.controller.SplashActivity"
+    tools:context="com.ssm.cyclists.controller.SplashActivity"
     tools:ignore="MergeRootFrame" >
 
     <Space
@@ -24,7 +24,7 @@
         android:text="Bicycle App"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:textColor="@color/white"
-        android:textSize="35dp" />
+        android:textSize="25dp" />
 
     <Space
         android:layout_width="match_parent"

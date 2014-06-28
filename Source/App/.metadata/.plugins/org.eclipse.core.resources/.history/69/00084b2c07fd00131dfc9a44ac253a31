@@ -1,7 +1,0 @@
-package com.ssm.view;
-
-import android.widget.ImageView;
-
-public class ImageViewRounded extends ImageView {
-
-}

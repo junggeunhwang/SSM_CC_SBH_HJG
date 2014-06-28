@@ -5,21 +5,76 @@
     android:background="@color/bk_color_light"
     android:orientation="vertical"
     android:weightSum="1" >
-
-    <View
-        android:id="@+id/view2"
-        android:layout_width="wrap_content"
-        android:layout_height="210dp"
-        android:layout_marginTop="10dp"
-        android:layout_weight="0.5"
-        android:background="#FFFFFF" />
-
+    
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="111dp"
-        android:layout_marginTop="30dp"
-        android:layout_marginBottom="10dp"
-        android:layout_weight="0.15"
+        android:layout_height="0dip"
+        android:layout_weight="0.1035"
+        android:background="@color/bk_color_heavy"
+        android:gravity="center_vertical"
+        android:weightSum="1" >
+
+        <View
+	        android:layout_width="0dip"
+	        android:layout_height="match_parent"
+	        android:layout_weight="0.0348"/>
+        <Button
+            android:id="@+id/menu_button_map"
+            android:layout_width="0dip"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/menu_btn"
+            android:layout_weight="0.1059" />
+        <View
+	        android:layout_width="0dip"
+	        android:layout_height="match_parent"
+	        android:layout_weight="0.2840"/>
+
+        <TextView
+            android:id="@+id/fragment_name_map"
+            android:layout_width="0dip"
+            android:layout_height="match_parent"
+            android:layout_weight="0.1594"
+            android:gravity="center_vertical|center_horizontal"
+            android:text="Map"
+            android:textColor="@color/white"
+            android:textSize="15sp" />
+
+        <ImageView
+            android:id="@+id/location_icon_map"
+            android:layout_width="0dip"
+            android:layout_height="wrap_content"
+            android:src="@drawable/location_icon" 
+            android:layout_weight="0.0366"/>
+        <View
+	        android:layout_width="0dip"
+	        android:layout_height="match_parent"
+	        android:layout_weight="0.3794"/>
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0dip"
+        android:layout_weight="0.0183"/>
+    <fragment
+        android:id="@+id/map_map"
+        android:layout_width="wrap_content"
+        android:layout_height="0dip"
+        android:layout_weight="0.4385"
+        class="com.google.android.gms.maps.MapFragment"/>
+    
+    
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0dip"
+        android:layout_weight="0.0622"/>
+    
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dip"
+        android:layout_weight="0.2873"
         android:background="@color/bk_color_mid"
         android:orientation="vertical"
         android:weightSum="1" >
@@ -37,30 +92,36 @@
                 android:layout_weight="0.5"
                 android:weightSum="1"
                 android:orientation="vertical">
-
+ 
+                <View
+			        android:layout_width="match_parent"
+			        android:layout_height="0dip"
+			        android:layout_weight="0.1010"/>
                 <TextView
+                    android:id="@+id/tv_title_top_left_map"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginBottom="1dp"
+                    android:layout_height="0dip"
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="10dp"
-                    android:layout_marginTop="5dp"
-                    android:layout_weight="0.65"
+                    android:layout_weight="0.24"
                     android:background="@color/bk_color_heavy"
                     android:gravity="center_vertical|center_horizontal"
                     android:text="First starter"
                     android:textColor="@color/white"
                     android:textSize="8sp" />
-                
+                 <View
+			        android:layout_width="match_parent"
+			        android:layout_height="0dip"
+			        android:layout_weight="0.035"/>
                 <TextView
+                    android:id="@+id/tv_value_top_left_map"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginBottom="5dp"
+                    android:layout_height="0dip"
+
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="10dp"
-                    android:layout_marginTop="1dp"
                     
-                    android:layout_weight="0.35"
+                    android:layout_weight="0.54"
                     android:background="@color/bk_color_heavy"
                     android:gravity="center_vertical|center_horizontal"
                     android:text="20 Km"
@@ -74,35 +135,43 @@
                 android:layout_height="match_parent"
                 android:layout_weight="0.5"
                 android:weightSum="1"
-                android:orientation="vertical" >
-
+                android:orientation="vertical">
+ 
+                <View
+			        android:layout_width="match_parent"
+			        android:layout_height="0dip"
+			        android:layout_weight="0.1010"/>
                 <TextView
+                    android:id="@+id/tv_title_top_right_map"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginBottom="1dp"
+                    android:layout_height="0dip"
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="10dp"
-                    android:layout_marginTop="5dp"
-                    android:layout_weight="0.65"
+                    android:layout_weight="0.24"
                     android:background="@color/bk_color_heavy"
                     android:gravity="center_vertical|center_horizontal"
                     android:text="Start point"
                     android:textColor="@color/white"
                     android:textSize="8sp" />
-
+                 <View
+			        android:layout_width="match_parent"
+			        android:layout_height="0dip"
+			        android:layout_weight="0.035"/>
                 <TextView
+                    android:id="@+id/tv_value_top_right_map"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginBottom="5dp"
+                    android:layout_height="0dip"
+
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="10dp"
-                    android:layout_marginTop="1dp"
-                    android:layout_weight="0.35"
+                    
+                    android:layout_weight="0.54"
                     android:background="@color/bk_color_heavy"
                     android:gravity="center_vertical|center_horizontal"
                     android:text="Distance 20 Km"
                     android:textColor="@color/white"
-                    android:textSize="12sp" />
+                    android:textSize="12sp"/>
+
             </LinearLayout>
 
         </LinearLayout>
@@ -120,28 +189,36 @@
                 android:layout_weight="0.5"
                 android:weightSum="1"
                 android:orientation="vertical">
-
+ 
+                <View
+			        android:layout_width="match_parent"
+			        android:layout_height="0dip"
+			        android:layout_weight="0.1010"/>
                 <TextView
+                    android:id="@+id/tv_title_bottom_left_map"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginBottom="1dp"
+                    android:layout_height="0dip"
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="10dp"
-                    android:layout_marginTop="5dp"
-                    android:layout_weight="0.65"
+                    android:layout_weight="0.24"
                     android:background="@color/bk_color_heavy"
                     android:gravity="center_vertical|center_horizontal"
                     android:text="Last starter"
                     android:textColor="@color/white"
                     android:textSize="8sp" />
-               <TextView
+                 <View
+			        android:layout_width="match_parent"
+			        android:layout_height="0dip"
+			        android:layout_weight="0.035"/>
+                <TextView
+                    android:id="@+id/tv_value_bottom_left_map"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginBottom="5dp"
+                    android:layout_height="0dip"
+
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="10dp"
-                    android:layout_marginTop="1dp"
-					android:layout_weight="0.35"
+                    
+                    android:layout_weight="0.54"
                     android:background="@color/bk_color_heavy"
                     android:gravity="center_vertical|center_horizontal"
                     android:text="11 Km"
@@ -155,29 +232,37 @@
                 android:layout_height="match_parent"
                 android:layout_weight="0.5"
                 android:weightSum="1"
-                android:orientation="vertical" >
-
+                android:orientation="vertical">
+ 
+                <View
+			        android:layout_width="match_parent"
+			        android:layout_height="0dip"
+			        android:layout_weight="0.1010"/>
                 <TextView
+                    android:id="@+id/tv_title_bottom_right_map"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginBottom="1dp"
+                    android:layout_height="0dip"
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="10dp"
-                    android:layout_marginTop="5dp"
-                    android:layout_weight="0.65"
+                    android:layout_weight="0.24"
                     android:background="@color/bk_color_heavy"
                     android:gravity="center_vertical|center_horizontal"
                     android:text="Total member"
                     android:textColor="@color/white"
-                    android:textSize="8sp"/>
-               <TextView
+                    android:textSize="8sp" />
+                 <View
+			        android:layout_width="match_parent"
+			        android:layout_height="0dip"
+			        android:layout_weight="0.035"/>
+                <TextView
+                    android:id="@+id/tv_value_bottom_right_map"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginBottom="5dp"
+                    android:layout_height="0dip"
+
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="10dp"
-                    android:layout_marginTop="1dp"
-                    android:layout_weight="0.35"
+                    
+                    android:layout_weight="0.54"
                     android:background="@color/bk_color_heavy"
                     android:gravity="center_vertical|center_horizontal"
                     android:text="5 People"
@@ -188,11 +273,17 @@
 
         </LinearLayout>
     </LinearLayout>
-
-    <TextView
+    
+    <View
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="0.35"
+        android:layout_height="0dip"
+        android:layout_weight="0.0487"/>
+        
+    <TextView
+        android:id="@+id/app_name_map"
+        android:layout_width="match_parent"
+        android:layout_height="0dip"
+        android:layout_weight="0.0416"
         android:gravity="center_vertical|center_horizontal"
         android:text="Bicycle app"
         android:textSize="10sp"
