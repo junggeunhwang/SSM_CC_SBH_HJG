@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="vertical">
+
+  	<LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dip"
+        android:layout_weight="0.1"
+        android:background="@color/bk_color_heavy"
+        android:gravity="center_vertical"
+        android:weightSum="1" >
+
+
+        <View
+	        android:layout_width="0dip"
+	        android:layout_height="match_parent"
+	        android:layout_weight="0.05"/>
+                
+        <Button
+            android:id="@+id/menu_button_cruise"
+            android:layout_width="0dip"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:layout_marginBottom="12dp"
+            android:background="@drawable/menu_btn"
+            android:layout_weight="0.1" />
+        <View
+	        android:layout_width="0dip"
+	        android:layout_height="match_parent"
+	        android:layout_weight="0.2540"/>
+
+        <TextView
+            android:id="@+id/fragment_name_cruise"
+            android:layout_width="0dip"
+            android:layout_height="match_parent"
+            android:layout_weight="0.1594"
+            android:gravity="center_vertical|center_horizontal"
+            android:text="Cruise"
+            android:textColor="@color/white"
+            android:textSize="15sp" />
+        
+        <View
+	        android:layout_width="0dip"
+	        android:layout_height="match_parent"
+	        android:layout_weight="0.4160"/>
+
+    </LinearLayout>
+    <LinearLayout
+          android:layout_width="match_parent"
+        android:layout_height="0dip"
+        android:layout_weight="0.9"
+        android:background="@color/white"
+        android:gravity="center_vertical">
+        
+    </LinearLayout>
+</LinearLayout>

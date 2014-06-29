@@ -3,21 +3,58 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center"
-    android:orientation="vertical"
-    android:padding="16dp" >
+    android:orientation="vertical">
 
-    <LinearLayout
+  	<LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="0.55"
-        android:orientation="horizontal" >
+        android:layout_height="0dip"
+        android:layout_weight="0.1"
+        android:background="@color/bk_color_heavy"
+        android:gravity="center_vertical"
+        android:weightSum="1" >
 
-       
-        <TextView
-            android:id="@+id/settings_text"
-            android:layout_width="wrap_content"
+
+        <View
+	        android:layout_width="0dip"
+	        android:layout_height="match_parent"
+	        android:layout_weight="0.05"/>
+                
+        <Button
+            android:id="@+id/menu_button_settings"
+            android:layout_width="0dip"
             android:layout_height="wrap_content"
-            android:text="settings" />
-    </LinearLayout>
+            android:layout_marginTop="12dp"
+            android:layout_marginBottom="12dp"
+            android:background="@drawable/menu_btn"
+            android:layout_weight="0.1" />
+        <View
+	        android:layout_width="0dip"
+	        android:layout_height="match_parent"
+	        android:layout_weight="0.2540"/>
 
+        <TextView
+            android:id="@+id/fragment_name_settings"
+            android:layout_width="0dip"
+            android:layout_height="match_parent"
+            android:layout_weight="0.1594"
+            android:gravity="center_vertical|center_horizontal"
+            android:text="Settings"
+            android:textColor="@color/white"
+            android:textSize="15sp" />
+        
+        <View
+	        android:layout_width="0dip"
+	        android:layout_height="match_parent"
+	        android:layout_weight="0.4160"/>
+
+    </LinearLayout>
+    
+    <LinearLayout
+          android:layout_width="match_parent"
+        android:layout_height="0dip"
+        android:layout_weight="0.9"
+        android:background="@color/white"
+        android:gravity="center_vertical">
+        
+    </LinearLayout>
 </LinearLayout>

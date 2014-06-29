@@ -1,0 +1,9 @@
+package com.ssm.cyclists.controller;
+
+import android.app.Fragment;
+
+public class CruiseFragment extends Fragment {
+	
+	
+
+}

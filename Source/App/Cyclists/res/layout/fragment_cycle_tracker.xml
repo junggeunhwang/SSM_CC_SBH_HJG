@@ -4,21 +4,59 @@
     android:layout_height="match_parent"
     android:gravity="center"
     android:orientation="vertical"
-    android:padding="16dp" >
+    android:background="@color/white">
 
-    <LinearLayout
+ 	 <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="0.55"
-        android:orientation="horizontal" >
+        android:layout_height="0dip"
+        android:layout_weight="0.1"
+        android:background="@color/bk_color_heavy"
+        android:gravity="center_vertical"
+        android:weightSum="1" >
 
-    
 
-         <TextView
-            android:id="@+id/cycle_tracker_text"
-            android:layout_width="wrap_content"
+        <View
+	        android:layout_width="0dip"
+	        android:layout_height="match_parent"
+	        android:layout_weight="0.05"/>
+                
+        <Button
+            android:id="@+id/menu_button_cycletracker"
+            android:layout_width="0dip"
             android:layout_height="wrap_content"
-            android:text="cycle_tracker" />
+            android:layout_marginTop="12dp"
+            android:layout_marginBottom="12dp"
+            android:background="@drawable/menu_btn"
+            android:layout_weight="0.1" />
+        <View
+	        android:layout_width="0dip"
+	        android:layout_height="match_parent"
+	        android:layout_weight="0.1540"/>
+
+        <TextView
+            android:id="@+id/fragment_name_cycletracker"
+            android:layout_width="0dip"
+            android:layout_height="match_parent"
+            android:layout_weight="0.3594"
+            android:gravity="center_vertical|center_horizontal"
+            android:text="Cycle Tracker"
+            android:textColor="@color/white"
+            android:textSize="15sp" />
+        
+        <View
+	        android:layout_width="0dip"
+	        android:layout_height="match_parent"
+	        android:layout_weight="0.3160"/>
+
+    </LinearLayout>
+    
+    <LinearLayout
+          android:layout_width="match_parent"
+        android:layout_height="0dip"
+        android:layout_weight="0.9"
+        android:background="@color/white"
+        android:gravity="center_vertical">
+        
     </LinearLayout>
 
 </LinearLayout>

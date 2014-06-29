@@ -1,6 +1,7 @@
 package com.ssm.cyclists.view;
 
 import com.ssm.cyclists.R;
+import com.ssm.cyclists.controller.CruiseFragment;
 import com.ssm.cyclists.controller.CycleMateFragment;
 import com.ssm.cyclists.controller.CycleTrackerFragment;
 import com.ssm.cyclists.controller.HomeFragment;
@@ -19,7 +20,12 @@ import net.simonvt.menudrawer.MenuDrawer;
 
 public class MainLayout{
 	
-	
+	HomeFragment 			mFragmentHome;
+	CruiseFragment			mFragmentCruise;
+	CycleMateFragment 		mFragmentCycleMate;
+	CycleTrackerFragment 	mFragmentCycleTracker;
+	MapViewFragment 		mMapViewFragment;
+	SettingsFragment 		mSettingsFragment;
 	
 	public interface Listener{
 	}
@@ -53,15 +59,22 @@ public class MainLayout{
 	     activity.findViewById(R.id.cycle_mate_menu).setOnClickListener(buildClickListenr());
 	     activity.findViewById(R.id.settings_menu).setOnClickListener(buildClickListenr());
 	     activity.findViewById(R.id.map_menu).setOnClickListener(buildClickListenr());
-	     activity.findViewById(R.id.item6).setOnClickListener(buildClickListenr());
+	     activity.findViewById(R.id.cruise_menu).setOnClickListener(buildClickListenr());
 	     
 	    
 	     TextView activeView = (TextView)activity.findViewById(mActiveViewId);
 	     if (activeView != null) {
 	          mMenuDrawer.setActiveView(activeView);
 	     }
-	 
-	     replaceFragment(R.layout.fragment_home);
+	    
+	 	mFragmentHome = (HomeFragment)activity.getFragmentManager().findFragmentById(R.layout.fragment_home);
+	 	mFragmentCruise = (CruiseFragment)activity.getFragmentManager().findFragmentById(R.layout.fragment_cruise);
+		mFragmentCycleMate = (CycleMateFragment)activity.getFragmentManager().findFragmentById(R.layout.fragment_cycle_mate);
+		mFragmentCycleTracker = (CycleTrackerFragment)activity.getFragmentManager().findFragmentById(R.layout.fragment_cycle_tracker);
+		mMapViewFragment = (MapViewFragment)activity.getFragmentManager().findFragmentById(R.layout.fragment_map);
+		mSettingsFragment = (SettingsFragment)activity.getFragmentManager().findFragmentById(R.layout.fragment_settings);
+	     
+	    replaceFragment(R.layout.fragment_home);
 	}
 	
 	public void replaceFragment(int resID){
@@ -83,6 +96,9 @@ public class MainLayout{
 		{
 		case R.layout.fragment_home:
 			newFragment = new HomeFragment();
+			break;
+		case R.layout.fragment_cruise:
+			newFragment = new CruiseFragment();
 			break;
 		case R.layout.fragment_cycle_tracker:
 			newFragment = new CycleTrackerFragment();
@@ -111,6 +127,9 @@ public class MainLayout{
 			     switch(mActiveViewId){
 			     case R.id.home_menu:
 			    	 replaceFragment(R.layout.fragment_home);
+			    	 break;
+			     case R.id.cruise_menu:
+			    	 replaceFragment(R.layout.fragment_cruise);
 			    	 break;
 			     case R.id.cycle_tracker_menu:
 			    	 replaceFragment(R.layout.fragment_cycle_tracker);

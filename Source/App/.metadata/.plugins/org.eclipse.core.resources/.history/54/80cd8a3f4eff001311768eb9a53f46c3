@@ -1,0 +1,55 @@
+package com.ssm.cyclists.view;
+
+import com.ssm.cyclists.R;
+import com.ssm.cyclists.controller.MainActivity;
+import com.ssm.cyclists.model.ResourceManager;
+
+import android.app.Fragment;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.view.View.OnClickListener;
+import android.widget.Button;
+import android.widget.TextView;
+
+public class CruiseLayout extends BaseFragmentLayout {
+
+	private Button btnMenu;
+	
+	private TextView tvKcalData;
+	private TextView tvAltitudeData;
+	private TextView tvMaxSpeedData;
+	
+	public CruiseLayout(Fragment instance) {
+		super(instance);
+		// TODO Auto-generated constructor stub
+	}
+	
+	public void init(){
+		tvKcalData = (TextView)getView().findViewById(R.id.tv_kcal_data_cruise);
+		tvAltitudeData = (TextView)getView().findViewById(R.id.tv_altitude_data_cruise);
+		tvMaxSpeedData = (TextView)getView().findViewById(R.id.tv_max_speed_data_cruise);
+		
+		btnMenu = (Button)getView().findViewById(R.id.menu_button_cruise);
+		btnMenu.setOnClickListener(buildMenuButtonListener());
+		
+		tvKcalData.setTypeface(ResourceManager.getInstance().getFont("nanum_gothic"));
+		
+	}
+
+	@Override
+	public void createView(LayoutInflater inflater, ViewGroup container) {
+		view = inflater.inflate(R.layout.fragment_cruise, container, false);
+	}
+
+	private OnClickListener buildMenuButtonListener(){
+		
+		return new OnClickListener(){
+
+			@Override
+			public void onClick(View v) {
+				((MainActivity)fragment.getActivity()).open_button(v);
+			}
+		};
+	}
+}

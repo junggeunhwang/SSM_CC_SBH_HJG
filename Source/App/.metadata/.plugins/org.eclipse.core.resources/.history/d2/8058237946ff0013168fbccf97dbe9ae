@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <GridLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:columnCount="3"
+        android:rowCount="3" >
+
+        <Button
+            android:layout_columnSpan="3"
+            android:layout_gravity="fill_horizontal"
+            android:text="1"/>
+		<Button
+            android:text="2"/>
+		<Button
+            android:text="3"/>
+		<Button
+            android:text="4"/>
+		<Button
+            android:layout_columnSpan="3"
+            android:layout_gravity="fill_horizontal"
+            android:text="5"/>
+		
+                
+    </GridLayout>
+
+</LinearLayout>

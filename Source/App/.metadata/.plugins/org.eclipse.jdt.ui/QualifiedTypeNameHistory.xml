@@ -20,4 +20,10 @@
 <fullyQualifiedTypeName name="com.google.android.gms.maps.model.LatLng"/>
 <fullyQualifiedTypeName name="com.google.android.gms.maps.CameraUpdateFactory"/>
 <fullyQualifiedTypeName name="android.widget.Toast"/>
+<fullyQualifiedTypeName name="android.widget.TextView"/>
+<fullyQualifiedTypeName name="com.ssm.cyclists.view.CruiseLayout"/>
+<fullyQualifiedTypeName name="com.ssm.cyclists.controller.CruiseFragment"/>
+<fullyQualifiedTypeName name="com.ssm.cyclists.R.id"/>
+<fullyQualifiedTypeName name="com.ssm.cyclists.R.layout"/>
+<fullyQualifiedTypeName name="com.ssm.cyclists.model.ResourceManager"/>
 </qualifiedTypeNameHistroy>

@@ -1,0 +1,20 @@
+package com.ssm.cyclists.view;
+
+import android.app.Fragment;
+import android.view.LayoutInflater;
+import android.view.ViewGroup;
+
+public class CruiseLayout extends BaseFragmentLayout {
+
+	public CruiseLayout(Fragment instance) {
+		super(instance);
+		// TODO Auto-generated constructor stub
+	}
+
+	@Override
+	public void createView(LayoutInflater inflater, ViewGroup container) {
+		// TODO Auto-generated method stub
+
+	}
+
+}
