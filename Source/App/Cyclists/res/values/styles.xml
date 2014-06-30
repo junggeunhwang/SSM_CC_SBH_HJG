@@ -70,4 +70,9 @@
         <item name="mdMenuSize">64dp</item>
     </style>
     
+    	<style name="elv_fade_animation">
+		<item name="@android:windowEnterAnimation">@anim/elv_popup_show</item>
+		<item name="@android:windowExitAnimation">@anim/elv_popup_hide</item>
+	</style>
+	
 </resources>

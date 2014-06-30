@@ -1,0 +1,77 @@
+package com.ssm.cyclists.view;
+
+import java.util.ArrayList;
+
+import com.ssm.cyclists.R;
+import com.ssm.cyclists.model.UserData;
+
+import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.BaseAdapter;
+import android.widget.ImageView;
+import android.widget.TextView;
+
+public class EnhancedListViewAdapter extends BaseAdapter {
+	
+	Context context;
+	LayoutInflater Inflater;
+	ArrayList<UserData> arSrc;
+	int layout;
+	
+	public void insert(UserData data){
+		arSrc.add(data);
+	}
+	
+	public void remove(int position){
+		arSrc.remove(position);		
+	}
+	
+	public EnhancedListViewAdapter(Context context,int alayout, ArrayList<UserData> aarSrc) {
+		this.context = context;
+		Inflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+		arSrc = aarSrc;
+		layout = alayout;
+	}
+	
+	@Override
+	public int getCount() {
+		return arSrc.size();
+	}
+
+	@Override
+	public Object getItem(int position) {
+		return arSrc.get(position);
+	}
+
+	@Override
+	public long getItemId(int position){ 
+		return position;
+	}
+
+	@Override
+	public View getView(int position, View convertView, ViewGroup parent) {
+		
+		if(convertView == null){
+			convertView = Inflater.inflate(layout,parent,false);
+		}
+		ImageView img = (ImageView)convertView.findViewById(R.id.profile_listview_row);
+
+		if(arSrc.get(position).getProfileImg() == null){
+			img.setImageBitmap(((BitmapDrawable)context.getResources().getDrawable(R.id.profile_image)).getBitmap());
+		}
+		else{
+			img.setImageBitmap(arSrc.get(position).getProfileImg());	
+		}
+		
+		
+		TextView txt = (TextView)convertView.findViewById(R.id.cycle_mate_id_listview_row);
+		txt.setText(arSrc.get(position).getUserName());
+		
+		return convertView;
+	}
+
+}

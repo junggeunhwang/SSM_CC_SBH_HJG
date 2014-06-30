@@ -47,7 +47,7 @@
         android:id="@+id/user_id_home"
         android:layout_width="wrap_content"
         android:layout_height="0dip"
-        android:text="sssssssssseul"
+        android:text="junggeun hwang"
         android:textColor="@color/text_color"
         android:textSize="20dp" 
         android:layout_weight="0.045" />

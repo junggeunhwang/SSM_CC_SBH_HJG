@@ -1,0 +1,13 @@
+package com.ssm.cyclists.view;
+
+import android.content.Context;
+import android.widget.ArrayAdapter;
+
+public class MyListAdapter extends ArrayAdapter<Integer> {
+
+	public MyListAdapter(Context context, int resource) {
+		super(context, resource);
+		// TODO Auto-generated constructor stub
+	}
+
+}

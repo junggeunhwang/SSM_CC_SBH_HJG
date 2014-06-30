@@ -1,22 +1,76 @@
 package com.ssm.cyclists.view;
 
+import java.util.ArrayList;
+
+
+import com.nhaarman.listviewanimations.itemmanipulation.OnDismissCallback;
 import com.ssm.cyclists.R;
 import com.ssm.cyclists.controller.CycleMateFragment;
+import com.ssm.cyclists.controller.MainActivity;
+import com.ssm.cyclists.model.ResourceManager;
+import com.ssm.cyclists.model.UserData;
+import com.ssm.cyclists.view.EnhancedListView.Undoable;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ListView;
+import android.widget.TextView;
+import android.widget.Toast;
 
-public class CycleMateLayout extends BaseFragmentLayout {
 
+public class CycleMateLayout extends BaseFragmentLayout{
+
+	private Button btnMenu;
+	private Button btnSearch;
+	private Button btnRefresh;
+	
+	private TextView tvFragmentName;
+	private TextView tvSearch;
+	private EditText etSearchData;
+
+	private EnhancedListView lvCycleMate;
+	
+	EnhancedListViewAdapter Adapter;
+	
 	public CycleMateLayout(CycleMateFragment instance) {
 		super(instance);
 	}
 	
 	public void init(){
+
 		
+		btnMenu 		= (Button)getView().findViewById(R.id.menu_button_cyclemate);
+		btnMenu.setOnClickListener(buildMenuButtonListener());
+		
+		
+		btnSearch		= (Button)getView().findViewById(R.id.btn_search_cyclemate);
+		btnRefresh 		= (Button)getView().findViewById(R.id.btn_refresh_cyclemate);
+		tvFragmentName 	= (TextView)getView().findViewById(R.id.fragment_name_cyclemate);
+		tvSearch 		= (TextView)getView().findViewById(R.id.tv_search_cyclemate);
+		etSearchData 	= (EditText)getView().findViewById(R.id.et_search_data_cyclemate);
+		lvCycleMate		= (EnhancedListView)getView().findViewById(R.id.lv_cyclemate);
+		
+		tvFragmentName.setTypeface(ResourceManager.getInstance().getFont("helveitica"));
+		tvSearch.setTypeface(ResourceManager.getInstance().getFont("helveitica"));
+		etSearchData.setTypeface(ResourceManager.getInstance().getFont("helveitica"));		
+		
+		ArrayList<UserData> arGeneral = new ArrayList<UserData>();
+		UserData data = new UserData();
+		data.setUserName("È²Á¤±Ù");
+		arGeneral.add(data);
+
+		Adapter = new EnhancedListViewAdapter(getView().getContext(),R.layout.listview_row,arGeneral);
+		
+		lvCycleMate.setAdapter(Adapter);
+		lvCycleMate.setDismissCallback(buildOnDismissCallback());
+				
+		lvCycleMate.enableSwipeToDismiss();
 	}
 	
 	@Override
@@ -24,15 +78,37 @@ public class CycleMateLayout extends BaseFragmentLayout {
 		view = inflater.inflate(R.layout.fragment_cycle_mate, container, false);
 	}
 	
-	private OnClickListener buildButtonClickListner(){
-		return new OnClickListener(){
+	private EnhancedListView.OnDismissCallback buildOnDismissCallback(){
+		return new EnhancedListView.OnDismissCallback() {
+			
+			@Override
+			public EnhancedListView.Undoable onDismiss(EnhancedListView listView, final int position) {
 				
-					@Override
-					public void onClick(View v) {
-						
-					}
-				};
+				
+				final UserData item = (UserData) Adapter.getItem(position);
+				Adapter.remove(position);
+                
+				return new EnhancedListView.Undoable() {
+                    @Override
+                    public void undo() {
+                    	Adapter.insert(item, position);
+                    }
+                };
+			}
+		};
+	}
+	
+	
+	
+	private OnClickListener buildMenuButtonListener(){
+		
+		return new OnClickListener(){
+
+			@Override
+			public void onClick(View v) {
+				((MainActivity)fragment.getActivity()).open_button(v);
+			}
+		};
 	}
 
-	
 }

@@ -8,6 +8,7 @@ import com.ssm.cyclists.controller.HomeFragment;
 import com.ssm.cyclists.controller.MainActivity;
 import com.ssm.cyclists.controller.MapViewFragment;
 import com.ssm.cyclists.controller.SettingsFragment;
+import com.ssm.cyclists.model.ResourceManager;
 
 import android.app.Fragment;
 import android.app.FragmentTransaction;
@@ -37,9 +38,16 @@ public class MainLayout{
 	private int mActiveViewId;
 	private int view = R.layout.activity_main;
 	
+	private TextView tvHomeMenu;
+	private TextView tvCruiseMenu;
+	private TextView tvCycleTrackerMenu;
+	private TextView tvCycleMateMenu;
+	private TextView tvMapMenu;
+	private TextView tvSettingsMenu;
+	
 	MainActivity activity;
 	
-	
+	Fragment activated_fragment;
 	
 	public MainLayout(MainActivity instance) {
 		activity = instance;
@@ -52,40 +60,114 @@ public class MainLayout{
 	     mMenuDrawer.setContentView(R.layout.activity_main);
 	     mMenuDrawer.setMenuView(R.layout.menu_scrollview);
 
+	     tvHomeMenu = (TextView)activity.findViewById(R.id.home_menu);
+	     tvCruiseMenu = (TextView)activity.findViewById(R.id.cruise_menu);
+	     tvCycleTrackerMenu = (TextView)activity.findViewById(R.id.cycle_tracker_menu);
+	     tvCycleMateMenu = (TextView)activity.findViewById(R.id.cycle_mate_menu);
+	     tvMapMenu = (TextView)activity.findViewById(R.id.map_menu);
+	     tvSettingsMenu = (TextView)activity.findViewById(R.id.settings_menu);
 	     
-	     activity.findViewById(R.id.home_menu).setOnClickListener(buildClickListenr());
+	     tvHomeMenu.setOnClickListener(buildClickListenr());
+	     tvCruiseMenu.setOnClickListener(buildClickListenr());
+	     tvCycleTrackerMenu.setOnClickListener(buildClickListenr());
+	     tvCycleMateMenu.setOnClickListener(buildClickListenr());
+	     tvMapMenu.setOnClickListener(buildClickListenr());
+	     tvSettingsMenu.setOnClickListener(buildClickListenr());
 	     
-	     activity.findViewById(R.id.cycle_tracker_menu).setOnClickListener(buildClickListenr());
-	     activity.findViewById(R.id.cycle_mate_menu).setOnClickListener(buildClickListenr());
-	     activity.findViewById(R.id.settings_menu).setOnClickListener(buildClickListenr());
-	     activity.findViewById(R.id.map_menu).setOnClickListener(buildClickListenr());
-	     activity.findViewById(R.id.cruise_menu).setOnClickListener(buildClickListenr());
+	     tvHomeMenu.setTypeface(ResourceManager.getInstance().getFont("helvetica"));
+	     tvCruiseMenu.setTypeface(ResourceManager.getInstance().getFont("helvetica"));
+	     tvCycleTrackerMenu.setTypeface(ResourceManager.getInstance().getFont("helvetica"));
+	     tvCycleMateMenu.setTypeface(ResourceManager.getInstance().getFont("helvetica"));
+	     tvMapMenu.setTypeface(ResourceManager.getInstance().getFont("helvetica"));
+	     tvSettingsMenu.setTypeface(ResourceManager.getInstance().getFont("helvetica"));
+	     
+//	     activity.findViewById(R.id.home_menu).setOnClickListener(buildClickListenr());
+//	     activity.findViewById(R.id.cycle_tracker_menu).setOnClickListener(buildClickListenr());
+//	     activity.findViewById(R.id.cycle_mate_menu).setOnClickListener(buildClickListenr());
+//	     activity.findViewById(R.id.settings_menu).setOnClickListener(buildClickListenr());
+//	     activity.findViewById(R.id.map_menu).setOnClickListener(buildClickListenr());
+//	     activity.findViewById(R.id.cruise_menu).setOnClickListener(buildClickListenr());
 	     
 	    
 	     TextView activeView = (TextView)activity.findViewById(mActiveViewId);
 	     if (activeView != null) {
 	          mMenuDrawer.setActiveView(activeView);
 	     }
-	    
-	 	mFragmentHome = (HomeFragment)activity.getFragmentManager().findFragmentById(R.layout.fragment_home);
-	 	mFragmentCruise = (CruiseFragment)activity.getFragmentManager().findFragmentById(R.layout.fragment_cruise);
-		mFragmentCycleMate = (CycleMateFragment)activity.getFragmentManager().findFragmentById(R.layout.fragment_cycle_mate);
-		mFragmentCycleTracker = (CycleTrackerFragment)activity.getFragmentManager().findFragmentById(R.layout.fragment_cycle_tracker);
-		mMapViewFragment = (MapViewFragment)activity.getFragmentManager().findFragmentById(R.layout.fragment_map);
-		mSettingsFragment = (SettingsFragment)activity.getFragmentManager().findFragmentById(R.layout.fragment_settings);
 	     
-	    replaceFragment(R.layout.fragment_home);
+	     mFragmentHome = new HomeFragment();
+		 mFragmentCruise = new CruiseFragment();
+         mFragmentCycleMate = new CycleMateFragment();
+		 mFragmentCycleTracker = new CycleTrackerFragment();
+		 mMapViewFragment = new MapViewFragment();
+		 mSettingsFragment = new SettingsFragment();
+	     
+		 FragmentTransaction transaction = activity.getFragmentManager().beginTransaction();
+		 transaction.add(R.id.fragment, mFragmentHome);
+		 transaction.add(R.id.fragment, mFragmentCruise);
+		 transaction.add(R.id.fragment, mFragmentCycleMate);
+		 transaction.add(R.id.fragment, mFragmentCycleTracker);
+		 transaction.add(R.id.fragment, mMapViewFragment);
+		 transaction.add(R.id.fragment, mSettingsFragment);
+		 
+		 transaction.show(mFragmentHome);
+		 transaction.hide(mFragmentCruise);
+		 transaction.hide(mFragmentCycleMate);
+		 transaction.hide(mFragmentCycleTracker);
+		 transaction.hide(mMapViewFragment);
+		 transaction.hide(mSettingsFragment);
+		 
+		 transaction.commit();
+		 
+		 activated_fragment = mFragmentHome;
+	    
 	}
 	
 	public void replaceFragment(int resID){
 		
 		Fragment newFragment = null;
-		
-		newFragment = getFragment(resID);
-		
 		final FragmentTransaction transaction = activity.getFragmentManager().beginTransaction();
-		transaction.replace(R.id.fragment,newFragment);
 		
+		switch(resID)
+		{
+		case R.layout.fragment_home:
+			newFragment = mFragmentHome;
+			transaction.show(newFragment);
+			if(!newFragment.equals(activated_fragment)) 
+				transaction.hide(activated_fragment);
+			activated_fragment = mFragmentHome;
+			break;
+		case R.layout.fragment_cruise:
+			newFragment = mFragmentCruise;
+			transaction.show(newFragment);
+			if(!newFragment.equals(activated_fragment)) transaction.hide(activated_fragment);
+			activated_fragment = mFragmentCruise;
+			break;
+		case R.layout.fragment_cycle_tracker:
+			newFragment = mFragmentCycleTracker;
+			transaction.show(newFragment);
+			if(!newFragment.equals(activated_fragment)) transaction.hide(activated_fragment);
+			activated_fragment = mFragmentCycleTracker;
+			break;
+		case R.layout.fragment_cycle_mate:
+			newFragment = mFragmentCycleMate;
+			transaction.show(newFragment);
+			if(!newFragment.equals(activated_fragment)) transaction.hide(activated_fragment);
+			activated_fragment = mFragmentCycleMate;
+			break;
+		case R.layout.fragment_map:
+			newFragment = mMapViewFragment;
+			transaction.show(newFragment);
+			if(!newFragment.equals(activated_fragment)) transaction.hide(activated_fragment);
+			activated_fragment = mMapViewFragment;
+			break;
+		case R.layout.fragment_settings:
+			newFragment = mSettingsFragment;
+			transaction.show(newFragment);
+			if(!newFragment.equals(activated_fragment)) transaction.hide(activated_fragment);
+			activated_fragment = mSettingsFragment;
+			break;
+		}
+
 		transaction.commit();
 	}
 	

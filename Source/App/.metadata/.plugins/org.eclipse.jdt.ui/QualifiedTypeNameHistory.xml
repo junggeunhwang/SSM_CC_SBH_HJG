@@ -2,7 +2,6 @@
 <qualifiedTypeNameHistroy>
 <fullyQualifiedTypeName name="com.google.android.gms.maps.GoogleMap"/>
 <fullyQualifiedTypeName name="com.google.android.gms.maps.MapFragment"/>
-<fullyQualifiedTypeName name="com.ssm.cyclists.R"/>
 <fullyQualifiedTypeName name="twitter4j.Location"/>
 <fullyQualifiedTypeName name="android.location.Location"/>
 <fullyQualifiedTypeName name="com.google.android.gms.maps.GoogleMap.OnMyLocationButtonClickListener"/>
@@ -15,15 +14,31 @@
 <fullyQualifiedTypeName name="com.google.android.gms.maps.MapView"/>
 <fullyQualifiedTypeName name="com.google.android.gms.maps.LocationSource.OnLocationChangedListener"/>
 <fullyQualifiedTypeName name="android.location.LocationListener"/>
-<fullyQualifiedTypeName name="android.content.Context"/>
-<fullyQualifiedTypeName name="com.ssm.cyclists.controller.MapViewFragment"/>
 <fullyQualifiedTypeName name="com.google.android.gms.maps.model.LatLng"/>
 <fullyQualifiedTypeName name="com.google.android.gms.maps.CameraUpdateFactory"/>
 <fullyQualifiedTypeName name="android.widget.Toast"/>
-<fullyQualifiedTypeName name="android.widget.TextView"/>
 <fullyQualifiedTypeName name="com.ssm.cyclists.view.CruiseLayout"/>
+<fullyQualifiedTypeName name="com.ssm.cyclists.controller.HomeFragment"/>
 <fullyQualifiedTypeName name="com.ssm.cyclists.controller.CruiseFragment"/>
-<fullyQualifiedTypeName name="com.ssm.cyclists.R.id"/>
+<fullyQualifiedTypeName name="com.ssm.cyclists.controller.CycleMateFragment"/>
+<fullyQualifiedTypeName name="com.ssm.cyclists.controller.CycleTrackerFragment"/>
+<fullyQualifiedTypeName name="com.ssm.cyclists.controller.MapViewFragment"/>
+<fullyQualifiedTypeName name="com.ssm.cyclists.controller.SettingsFragment"/>
+<fullyQualifiedTypeName name="android.widget.Button"/>
+<fullyQualifiedTypeName name="android.widget.EditText"/>
+<fullyQualifiedTypeName name="android.content.Context"/>
+<fullyQualifiedTypeName name="android.view.LayoutInflater"/>
+<fullyQualifiedTypeName name="java.util.ArrayList"/>
+<fullyQualifiedTypeName name="android.widget.ImageView"/>
+<fullyQualifiedTypeName name="android.graphics.Bitmap"/>
+<fullyQualifiedTypeName name="android.graphics.drawable.BitmapDrawable"/>
+<fullyQualifiedTypeName name="com.ssm.cyclists.model.UserData"/>
+<fullyQualifiedTypeName name="com.ssm.cyclists.view.EnhancedListViewAdapter"/>
+<fullyQualifiedTypeName name="com.ssm.cyclists.R.drawable"/>
+<fullyQualifiedTypeName name="android.R.layout"/>
+<fullyQualifiedTypeName name="com.ssm.cyclists.R"/>
 <fullyQualifiedTypeName name="com.ssm.cyclists.R.layout"/>
+<fullyQualifiedTypeName name="android.widget.TextView"/>
+<fullyQualifiedTypeName name="com.ssm.cyclists.R.id"/>
 <fullyQualifiedTypeName name="com.ssm.cyclists.model.ResourceManager"/>
 </qualifiedTypeNameHistroy>

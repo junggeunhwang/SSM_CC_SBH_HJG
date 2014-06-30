@@ -13,7 +13,7 @@
             android:id="@+id/home_menu"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:drawableLeft="@drawable/ic_action_refresh_dark"
+            android:drawableLeft="@drawable/home_icon"
             android:text="Home"
             style="@style/MenuDrawer.Widget.Title" />
 
@@ -27,7 +27,7 @@
             android:id="@+id/cruise_menu"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:drawableLeft="@drawable/ic_action_select_all_dark"
+            android:drawableLeft="@drawable/cruise_icon"
             android:text="Cruise"
             style="@style/MenuDrawer.Widget.Title" />
         

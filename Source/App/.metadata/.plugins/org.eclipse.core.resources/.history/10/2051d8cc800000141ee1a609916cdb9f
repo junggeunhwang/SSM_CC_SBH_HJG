@@ -1,0 +1,54 @@
+package com.ssm.cyclists.view;
+
+import com.ssm.cyclists.R;
+import com.ssm.cyclists.controller.MainActivity;
+import com.ssm.cyclists.controller.SettingsFragment;
+
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.view.View.OnClickListener;
+import android.widget.Button;
+
+public class SettingsLayout extends BaseFragmentLayout {
+
+	private Button btnMenu;
+	
+	public SettingsLayout(SettingsFragment instance) {
+		super(instance);
+	}
+	
+	@Override
+	public void createView(LayoutInflater inflater, ViewGroup container) {
+		view = inflater.inflate(R.layout.fragment_settings, container, false);
+	}
+	
+	public void init(){
+		
+		btnMenu = (Button)getView().findViewById(R.id.menu_button_settings);
+		btnMenu.setOnClickListener(buildMenuButtonListener());
+		
+	}
+		
+	private OnClickListener buildButtonClickListner(){
+		return new OnClickListener(){
+				
+					@Override
+					public void onClick(View v) {
+						
+					}
+				};
+	}
+
+	private OnClickListener buildMenuButtonListener(){
+		
+		return new OnClickListener(){
+
+			@Override
+			public void onClick(View v) {
+				((MainActivity)fragment.getActivity()).open_button(v);
+			}
+		};
+	}
+	
+}

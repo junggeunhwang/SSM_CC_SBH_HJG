@@ -1,0 +1,15 @@
+package com.ssm.cyclists.model;
+
+import android.graphics.Bitmap;
+
+public class UserData {
+	
+	private String UserName = "Default";
+	private Bitmap ProfileImg = null;
+	
+	public UserData() {
+	}
+	
+	
+	
+}

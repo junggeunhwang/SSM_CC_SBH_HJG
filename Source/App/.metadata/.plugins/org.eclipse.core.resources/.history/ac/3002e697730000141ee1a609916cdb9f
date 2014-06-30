@@ -1,0 +1,6 @@
+package com.ssm.cyclists.model;
+
+public class UserData {
+	private String ID;
+	
+}

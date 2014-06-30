@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="vertical">
+
+  	<LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dip"
+        android:layout_weight="0.1"
+        android:background="@color/bk_color_heavy"
+        android:gravity="center_vertical"
+        android:weightSum="1" >
+
+
+        <View
+	        android:layout_width="0dip"
+	        android:layout_height="match_parent"
+	        android:layout_weight="0.05"/>
+                
+        <Button
+            android:id="@+id/menu_button_settings"
+            android:layout_width="0dip"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:layout_marginBottom="12dp"
+            android:background="@drawable/menu_btn"
+            android:layout_weight="0.1" />
+        <View
+	        android:layout_width="0dip"
+	        android:layout_height="match_parent"
+	        android:layout_weight="0.2540"/>
+
+        <TextView
+            android:id="@+id/fragment_name_settings"
+            android:layout_width="0dip"
+            android:layout_height="match_parent"
+            android:layout_weight="0.20"
+            android:gravity="center_vertical|center_horizontal"
+            android:text="Settings"
+            android:textColor="@color/white"
+            android:textSize="15sp" />
+        
+        <View
+            android:layout_width="0dip"
+            android:layout_height="match_parent"
+            android:layout_weight="0.36" />
+
+    </LinearLayout>
+    
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dip"
+        android:layout_weight="0.3"
+        android:layout_marginLeft="12dp"
+        android:layout_marginRight="12dp"
+        android:background="@color/white">
+        
+    </LinearLayout>
+    
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dip"
+        android:layout_weight="0.3"
+		android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:background="@color/white"
+        android:orientation="vertical">
+      
+	    <TextView
+	    	android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:text="Color"
+	        android:textSize="12sp"
+	        android:textStyle="bold"
+	        android:textColor="@color/text_pink"/>
+	    <View
+	        android:layout_width="match_parent"
+	        android:layout_height="2dp"
+	        android:background="@color/text_pink"/>
+            
+    </LinearLayout>
+    
+	<LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dip"
+        android:layout_weight="0.3"
+        android:background="@color/white"
+        android:orientation="vertical">
+                
+		<TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Contact SNS"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            android:textColor="@color/text_pink"/>
+		<View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="@color/text_pink"/>
+	            
+    </LinearLayout>
+</LinearLayout>
