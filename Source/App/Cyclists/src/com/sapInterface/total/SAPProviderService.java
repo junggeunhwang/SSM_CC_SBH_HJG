@@ -29,20 +29,19 @@ import com.samsung.android.sdk.accessoryfiletransfer.SAFileTransfer;
 import com.samsung.android.sdk.accessoryfiletransfer.SAft;
 import com.samsung.android.sdk.accessoryfiletransfer.SAFileTransfer.EventListener;
 import com.sapInterface.total.SAPProviderService;
-import com.sapInterface.total.SAPProviderService.LocalBinder;
-import com.sapInterface.total.SAPProviderService.SAPStringProviderConnection;
+
 
 
 public class SAPProviderService extends SAAgent {
 
 public static final String TAG = "SAPStringProviderService";
-	
+
 	// peerDevice 인증 관련
 	public Boolean isAuthentication = false;
-	
+
 	// 어플리케이션 컨텍스트
 	public Context mContext = null;
-	
+
 	// 서비스 외부로 알리기위한 문자열 전송 관련 인터페이스
 	private StringAction stringAction;
 	// 서비스 외부로 알리기위한 파일 전송 관련 인터페이스
@@ -88,14 +87,14 @@ public static final String TAG = "SAPStringProviderService";
 		{
 			Log.e(TAG, "Connection is not alive ERROR: " + errorString + "  "
 					+ error);
-			
+
 			stringAction.onError(channelId, errorString, error);
 		}
 		@Override
 		public void onReceive(int channelId, byte[] data) 
 		{
 			Log.d(TAG, "onReceive");
-			
+
 			// 호출
 			stringAction.onReceive(channelId, data);
 		}
@@ -216,11 +215,11 @@ public static final String TAG = "SAPStringProviderService";
     
     protected void onAuthenticationResponse(SAPeerAgent uPeerAgent,	SAAuthenticationToken authToken, int error) 
     {
-		
+
 		if (authToken.getAuthenticationType() == SAAuthenticationToken.AUTHENTICATION_TYPE_CERTIFICATE_X509) {
 			mContext = getApplicationContext();
 			byte[] myAppKey = getApplicationCertificate(mContext);
-		
+
 			if (authToken.getKey() != null)
 			{
 				boolean matched = true;
@@ -251,7 +250,7 @@ public static final String TAG = "SAPStringProviderService";
 		} else if (authToken.getAuthenticationType() == SAAuthenticationToken.AUTHENTICATION_TYPE_NONE) 
 			Log.e(TAG, "onAuthenticationResponse : CERT_TYPE(NONE)");		
 	}
-	
+
 	private static byte[] getApplicationCertificate(Context context) {
 		if(context == null) {
 			Log.e(TAG, "getApplicationCertificate ERROR, context input null");
@@ -307,11 +306,11 @@ public static final String TAG = "SAPStringProviderService";
 	{
 		if (result == CONNECTION_SUCCESS)
 		{
-			
+
 			if (thisConnection != null) {
 				mSAPSocket = (SAPStringProviderConnection)thisConnection;
 				mPeerAgent = thisConnection.getConnectedPeerAgent();
-				
+
 				Log.e(TAG, "Connection Success");
 			} 
 			else 
@@ -332,7 +331,7 @@ public static final String TAG = "SAPStringProviderService";
 	public void registerFileAction(FileAction action){
         this.fileAction = action;
     }
-	
+
 	public void SendByteData(byte[] data)
 	{
 		if(mSAPSocket == null)

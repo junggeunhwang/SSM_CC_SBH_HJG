@@ -60,8 +60,11 @@ public class CycleTrackerListViewAdapter extends BaseAdapter {
 		
 		date.setText(arSrc.get(position).getDate().toString());
 		
-		TextView cal = (TextView)convertView.findViewById(R.id.kcal_cycletracker_listview_row);
+		TextView cal = (TextView)convertView.findViewById(R.id.kcal_data_cycletracker_listview_row);
+		cal.setTypeface(ResourceManager.getInstance().getFont("nanum_gothic"));
 		
+		((TextView)convertView.findViewById(R.id.kcal_cycletracker_listview_row)).setTypeface(ResourceManager.getInstance().getFont("nanum-gothic"));
+	
 		
 		
 		cal.setText(String.valueOf(arSrc.get(position).getConsume_calrories()));

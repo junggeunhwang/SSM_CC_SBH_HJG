@@ -136,7 +136,7 @@ public final class R {
 		public static final int abc_split_action_bar_is_narrow = 0x7f0c0002;
 	}
 	public static final class color {
-		public static final int abc_search_url_text_holo = 0x7f070037;
+		public static final int abc_search_url_text_holo = 0x7f070038;
 		public static final int abc_search_url_text_normal = 0x7f07001f;
 		public static final int abc_search_url_text_pressed = 0x7f070021;
 		public static final int abc_search_url_text_selected = 0x7f070020;
@@ -575,7 +575,7 @@ public final class R {
 		public static final int MenuItem_android_titleCondensed = 8;
 		public static final int MenuItem_android_visible = 4;
 		public static final int MenuItem_showAsAction = 13;
-		public static final int[] MenuView = { 0x010100ae, 0x0101012c, 0x0101012d, 0x0101012e, 0x0101012f, 0x01010130, 0x01010131, 0x0101040c };
+		public static final int[] MenuView = { 0x010100ae, 0x0101012c, 0x0101012d, 0x0101012e, 0x0101012f, 0x01010130, 0x01010131, 0x01010435 };
 		public static final int MenuView_android_headerBackground = 4;
 		public static final int MenuView_android_horizontalDivider = 2;
 		public static final int MenuView_android_itemBackground = 5;
