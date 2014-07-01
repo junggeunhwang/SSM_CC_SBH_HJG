@@ -1,0 +1,8 @@
+package com.ssm.cyclists.controller;
+
+import android.app.Fragment;
+
+public class CycleTrackerDetailFragment extends Fragment {
+
+	
+}

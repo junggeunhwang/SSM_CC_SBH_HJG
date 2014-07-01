@@ -1,0 +1,32 @@
+package com.ssm.cyclists.model;
+
+import java.util.Date;
+
+public class CycleData {
+
+	private Date date;
+	private int  consume_calrories;
+	
+	public CycleData() {
+		// TODO Auto-generated constructor stub
+	}
+
+	public Date getDate() {
+		return date;
+	}
+
+	public void setDate(Date cycle_date) {
+		this.date = cycle_date;
+	}
+
+	public int getConsume_calrories() {
+		return consume_calrories;
+	}
+
+	public void setConsume_calrories(int consume_calrories) {
+		this.consume_calrories = consume_calrories;
+	}
+	
+	
+	
+}

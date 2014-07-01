@@ -1,0 +1,12 @@
+package com.ssm.cyclists.view.layout;
+
+import android.app.Fragment;
+
+public class CycleTrackerDetailLayout extends BaseFragmentLayout {
+
+	public CycleTrackerDetailLayout(Fragment instance) {
+		super(instance);
+		// TODO Auto-generated constructor stub
+	}
+
+}

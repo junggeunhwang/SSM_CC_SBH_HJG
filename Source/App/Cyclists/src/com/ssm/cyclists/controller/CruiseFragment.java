@@ -1,6 +1,6 @@
 package com.ssm.cyclists.controller;
 
-import com.ssm.cyclists.view.CruiseLayout;
+import com.ssm.cyclists.view.layout.CruiseLayout;
 
 import android.app.Fragment;
 import android.os.Bundle;

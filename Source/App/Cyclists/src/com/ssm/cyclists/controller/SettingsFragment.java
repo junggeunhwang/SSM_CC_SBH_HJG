@@ -1,7 +1,7 @@
 package com.ssm.cyclists.controller;
 
-import com.ssm.cyclists.view.CycleTrackerLayout;
-import com.ssm.cyclists.view.SettingsLayout;
+import com.ssm.cyclists.view.layout.CycleTrackerLayout;
+import com.ssm.cyclists.view.layout.SettingsLayout;
 
 import android.app.Fragment;
 import android.os.Bundle;

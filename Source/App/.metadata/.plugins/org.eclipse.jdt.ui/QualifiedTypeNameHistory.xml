@@ -38,7 +38,13 @@
 <fullyQualifiedTypeName name="android.R.layout"/>
 <fullyQualifiedTypeName name="com.ssm.cyclists.R"/>
 <fullyQualifiedTypeName name="com.ssm.cyclists.R.layout"/>
-<fullyQualifiedTypeName name="android.widget.TextView"/>
 <fullyQualifiedTypeName name="com.ssm.cyclists.R.id"/>
 <fullyQualifiedTypeName name="com.ssm.cyclists.model.ResourceManager"/>
+<fullyQualifiedTypeName name="com.ssm.cyclists.view.layout.BaseFragmentLayout"/>
+<fullyQualifiedTypeName name="com.ssm.cyclists.view.layout.CycleTrackerDetailLayout"/>
+<fullyQualifiedTypeName name="android.widget.TextView"/>
+<fullyQualifiedTypeName name="com.ssm.cyclists.model.CycleTrackerListViewAdapter"/>
+<fullyQualifiedTypeName name="com.ssm.cyclists.model.CycleData"/>
+<fullyQualifiedTypeName name="java.util.Date"/>
+<fullyQualifiedTypeName name="java.util.Calendar"/>
 </qualifiedTypeNameHistroy>

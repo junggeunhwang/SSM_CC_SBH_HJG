@@ -2,7 +2,7 @@ package com.ssm.cyclists.controller;
 
 import com.ssm.cyclists.R;
 import com.ssm.cyclists.model.ResourceManager;
-import com.ssm.cyclists.view.MainLayout;
+import com.ssm.cyclists.view.layout.MainLayout;
 
 import android.support.v4.app.FragmentActivity;
 import android.content.Intent;

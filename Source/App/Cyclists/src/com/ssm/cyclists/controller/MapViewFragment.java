@@ -7,7 +7,7 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.LocationSource.OnLocationChangedListener;
 import com.google.android.gms.maps.model.LatLng;
 import com.ssm.cyclists.R;
-import com.ssm.cyclists.view.MapViewLayout;
+import com.ssm.cyclists.view.layout.MapViewLayout;
 
 import android.app.Dialog;
 import android.app.Fragment;

@@ -49,14 +49,13 @@
 	        android:layout_weight="0.3160"/>
 
     </LinearLayout>
-    
-    <LinearLayout
-          android:layout_width="match_parent"
-        android:layout_height="0dip"
-        android:layout_weight="0.9"
-        android:background="@color/white"
-        android:gravity="center_vertical">
-        
-    </LinearLayout>
+
+ 	 <com.ssm.cyclists.view.EnhancedListView
+ 	     android:id="@+id/lv_cycletracker"
+ 	     android:layout_width="match_parent"
+ 	     android:layout_height="0dp"
+ 		 android:layout_weight="0.9"
+ 		 android:background="@color/white">
+ 	 </com.ssm.cyclists.view.EnhancedListView>
 
 </LinearLayout>

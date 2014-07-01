@@ -1,7 +1,7 @@
 package com.ssm.cyclists.controller;
 
 import com.ssm.cyclists.R;
-import com.ssm.cyclists.view.SplashLayout;
+import com.ssm.cyclists.view.layout.SplashLayout;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;

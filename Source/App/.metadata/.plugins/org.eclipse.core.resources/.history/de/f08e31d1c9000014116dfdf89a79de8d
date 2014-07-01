@@ -1,0 +1,65 @@
+package com.ssm.cyclists.view.layout;
+
+import java.util.ArrayList;
+
+import com.ssm.cyclists.R;
+import com.ssm.cyclists.controller.CycleTrackerFragment;
+import com.ssm.cyclists.controller.MainActivity;
+import com.ssm.cyclists.model.CycleMateListViewAdapter;
+import com.ssm.cyclists.model.UserData;
+import com.ssm.cyclists.view.EnhancedListView;
+
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.view.View.OnClickListener;
+import android.widget.Button;
+
+
+
+public class CycleTrackerLayout extends BaseFragmentLayout {
+	
+	private Button btnMenu;
+	private EnhancedListView lvCycleList;
+	
+	public CycleTrackerLayout(CycleTrackerFragment instance) {
+		super(instance);
+	}
+	
+	@Override
+	public void createView(LayoutInflater inflater, ViewGroup container){
+		view = inflater.inflate(R.layout.fragment_cycle_tracker, container, false);
+	}
+	
+	public void init(){
+		btnMenu 		= (Button)getView().findViewById(R.id.menu_button_cycletracker);
+		btnMenu.setOnClickListener(buildMenuButtonListener());
+		
+		lvCycleList		= (EnhancedListView)getView().findViewById(R.id.lv_cyclemate);
+		
+		ArrayList<UserData> arGeneral = new ArrayList<UserData>();
+		UserData data = new UserData();
+		data.setUserName("È²Á¤±Ù");
+		arGeneral.add(data);
+
+		Adapter = new CycleMateListViewAdapter(getView().getContext(),R.layout.cyclemate_listview_row,arGeneral);
+		
+		lvCycleList.setAdapter(Adapter);
+		lvCycleList.setDismissCallback(buildOnDismissCallback());
+				
+		lvCycleList.enableSwipeToDismiss();
+		
+	}
+	
+	private OnClickListener buildMenuButtonListener(){
+		
+		return new OnClickListener(){
+
+			@Override
+			public void onClick(View v) {
+				((MainActivity)fragment.getActivity()).open_button(v);
+			}
+		};
+	}
+	
+}

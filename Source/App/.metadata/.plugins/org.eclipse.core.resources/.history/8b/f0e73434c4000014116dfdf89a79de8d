@@ -1,0 +1,13 @@
+package com.ssm.cyclists.controller;
+
+import com.ssm.cyclists.view.layout.CycleTrackerDetailLayout;
+
+import android.app.Fragment;
+
+public class CycleTrackerDetailFragment extends Fragment {
+
+	CycleTrackerDetailLayout layout;
+	
+	
+	
+}
