@@ -1,5 +1,16 @@
 package com.ssm.cyclists.view.layout;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import com.ssm.cyclists.R;
 import com.ssm.cyclists.controller.HomeFragment;
 import com.ssm.cyclists.model.ResourceManager;
@@ -12,16 +23,22 @@ import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.Rect;
 import android.graphics.RectF;
+import android.os.AsyncTask;
+import android.os.NetworkOnMainThreadException;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 
 public class HomeLayout extends BaseFragmentLayout {
+	
+	static String TAG = HomeLayout.class.getSimpleName();
 	
 	Button menubutton;
 	
@@ -56,10 +73,64 @@ public class HomeLayout extends BaseFragmentLayout {
 		tvTemperature.setTypeface(ResourceManager.getInstance().getFont("helvetica"));
 		tvRainPercent.setTypeface(ResourceManager.getInstance().getFont("nanum_gothic"));
 		
+		new Thread(new Runnable() {
+			
+			@Override
+			public void run() {
+			 	   getWeatherStatus(37.559904, 127.037562);
+			}
+		}).start();
+		
 	}
 	@Override
 	public void createView(LayoutInflater inflater, ViewGroup container){
 		view = inflater.inflate(R.layout.fragment_home, container, false);
+	}
+	
+	public void getWeatherStatus(double latitude, double longitude){
+		String strURL = String.format("http://api.openweathermap.org/data/2.5/weather?lat=%f&lon=%f",latitude,longitude); 
+		String jsonString = DownloadHtml(strURL);
+		try {
+			JSONObject jsonObj = new JSONObject(jsonString);
+			JSONObject weather = jsonObj.getJSONArray("weather").getJSONObject(0);
+			Log.d(TAG, "weather : " + weather.getString("main"));
+
+			JSONObject main = jsonObj.getJSONObject("main");
+			Log.d(TAG,"temp : " + main.getString("temp"));
+			Log.d(TAG, "pressure : " + main.getString("pressure"));
+			Log.d(TAG, "humidity : " + main.getString("humidity"));
+
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	private String DownloadHtml(String addr){
+		StringBuilder html = new StringBuilder();
+		
+		try{
+			URL url = new URL(addr);
+			HttpURLConnection conn = (HttpURLConnection)url.openConnection();
+			if(conn != null){
+				conn.setConnectTimeout(10000);
+				conn.setUseCaches(false);
+				if(conn.getResponseCode() == HttpURLConnection.HTTP_OK){
+					BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+					for(;;){
+						String line = br.readLine();
+						if(line == null)break;
+						html.append(line + '\n');
+					}
+					br.close();
+				}
+				conn.disconnect();
+			}
+		
+		}catch(Exception e){
+			Log.e(TAG,e.getMessage());
+		}
+		return html.toString();
 	}
 	
 	/*
