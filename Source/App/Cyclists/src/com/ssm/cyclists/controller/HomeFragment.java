@@ -2,18 +2,42 @@ package com.ssm.cyclists.controller;
 
 
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+
+
+
+
+import com.ssm.cyclists.R;
+import com.ssm.cyclists.model.CruiseDataManager;
 import com.ssm.cyclists.view.layout.HomeLayout;
 
 import android.app.Fragment;
+import android.content.Context;
+import android.location.Criteria;
+import android.location.Location;
+import android.location.LocationManager;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 
 public class HomeFragment extends Fragment {
 
+	static String TAG = HomeLayout.class.getSimpleName();
+	
 	HomeLayout layout;
+	
 	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -22,7 +46,19 @@ public class HomeFragment extends Fragment {
 		layout = new HomeLayout(this);
 		layout.createView(inflater, container);
 		layout.init();
-
+		
+		CruiseDataManager.getInstance().updateCruiseData();		 
+		
 		return layout.getView();
 	}
+
+	public void updateHomeInfo(){
+		layout.updateHomeInfo();
+	}
+	
+	public HomeLayout getLayout() {
+		assert(layout!=null);
+		return layout;
+	}
+
 }

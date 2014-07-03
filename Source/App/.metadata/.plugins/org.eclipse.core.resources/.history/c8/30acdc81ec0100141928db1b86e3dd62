@@ -1,0 +1,197 @@
+package com.ssm.cyclists.view.layout;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.util.Calendar;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import com.ssm.cyclists.R;
+import com.ssm.cyclists.controller.HomeFragment;
+import com.ssm.cyclists.controller.MainActivity;
+import com.ssm.cyclists.model.ResourceManager;
+import com.ssm.cyclists.view.ImageViewRounded;
+
+import android.app.FragmentManager;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.Path;
+import android.graphics.Rect;
+import android.graphics.RectF;
+import android.os.AsyncTask;
+import android.os.NetworkOnMainThreadException;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.view.View.OnClickListener;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
+
+
+
+public class HomeLayout extends BaseFragmentLayout {
+	
+	static String TAG = HomeLayout.class.getSimpleName();
+	
+	Button menubutton;
+	
+	TextView tvUserID;
+	TextView tvLocation;
+	TextView tvWeekDay;
+	TextView tvTemperature;
+	TextView tvHumidity;
+	
+	ImageViewRounded ivProfileImage;
+	ImageView ivWeatherIcon;
+	
+	public HomeLayout(HomeFragment instance) {
+		super(instance);
+	}
+	
+	public void init(){
+		
+
+		
+		tvUserID = (TextView)getView().findViewById(R.id.user_id_home);
+		tvLocation = (TextView)getView().findViewById(R.id.location_home);
+		tvWeekDay = (TextView)getView().findViewById(R.id.weekday_home);
+		tvTemperature = (TextView)getView().findViewById(R.id.temperature_home);
+		tvHumidity = (TextView)getView().findViewById(R.id.humidity_home);
+		ivProfileImage = (ImageViewRounded)getView().findViewById(R.id.profile_image);
+		ivWeatherIcon = (ImageView)getView().findViewById(R.id.weather_icon_image);
+		
+		ivProfileImage.setImageResource(R.drawable.profile_sample);
+		
+		
+		tvUserID.setTypeface(ResourceManager.getInstance().getFont("helvetica"));
+		tvLocation.setTypeface(ResourceManager.getInstance().getFont("helvetica"));
+		tvWeekDay.setTypeface(ResourceManager.getInstance().getFont("helvetica"));
+		
+		tvTemperature.setTypeface(ResourceManager.getInstance().getFont("helvetica"));
+		tvHumidity.setTypeface(ResourceManager.getInstance().getFont("nanum_gothic"));
+		
+	
+		Calendar today = Calendar.getInstance();
+		
+		switch(today.get(Calendar.DAY_OF_WEEK))
+		{
+		case Calendar.SUNDAY:
+			tvWeekDay.setText("Sunday");
+			break;
+		case Calendar.MONDAY:
+			tvWeekDay.setText("Monday");
+			break;
+		case Calendar.TUESDAY:
+			tvWeekDay.setText("Tuesday");
+			break;
+		case Calendar.WEDNESDAY:
+			tvWeekDay.setText("Wednesday");
+			break;
+		case Calendar.THURSDAY:
+			tvWeekDay.setText("Thursday");
+			break;
+		case Calendar.FRIDAY:
+			tvWeekDay.setText("Friday");
+			break;
+		case Calendar.SATURDAY:
+			tvWeekDay.setText("Saturday");
+			break;
+		}
+		FragmentManager fm = fragment.getActivity().getFragmentManager();
+		fm.findFragmentById(R.layout.fragment_map);
+	}
+	@Override
+	public void createView(LayoutInflater inflater, ViewGroup container){
+		view = inflater.inflate(R.layout.fragment_home, container, false);
+	}
+	
+	public void setLocationText(final String location){
+		tvLocation.post(new Runnable() {
+			
+			@Override
+			public void run() {
+				tvLocation.setText(location);
+			}
+		});
+		
+	}
+	
+	/*
+	  * Making image in circular shape
+	  */
+	 public Bitmap getRoundedShape(Bitmap scaleBitmapImage) {
+
+	  int targetWidth = 50;
+	  int targetHeight = 50;
+
+	
+	  Bitmap targetBitmap = Bitmap.createBitmap(targetWidth, targetHeight,Bitmap.Config.ARGB_8888);
+	  Canvas canvas = new Canvas(targetBitmap);
+	  Path path = new Path();
+	  path.addCircle(((float) targetWidth) / 2,((float) targetHeight) / 2,(Math.min(((float) targetWidth),
+			  ((float) targetHeight)) / 2),Path.Direction.CW);
+	  Paint paint = new Paint(); 
+	  paint.setColor(Color.GRAY); 
+
+	  paint.setStyle(Paint.Style.FILL);
+	  paint.setAntiAlias(true);
+	  paint.setDither(true);
+	  paint.setFilterBitmap(true);
+	  canvas.drawOval(new RectF(0, 0, targetWidth, targetHeight), paint) ;
+ 
+	  canvas.clipPath(path);
+	  Bitmap sourceBitmap = scaleBitmapImage;
+	  canvas.drawBitmap(sourceBitmap, new Rect(0, 0, sourceBitmap.getWidth(),
+			  sourceBitmap.getHeight()), new RectF(0, 0, targetWidth,
+			  targetHeight), paint);
+	  
+	  
+	  canvas.drawBitmap(sourceBitmap,new Rect(0, 0, sourceBitmap.getWidth(),
+	    sourceBitmap.getHeight()),new Rect(0, 0, targetWidth,
+	    targetHeight), null);
+	  
+	  return targetBitmap;
+	 }
+
+	 public void setTemperature(final String temperature){
+		 tvTemperature.post(new Runnable() {
+				
+				@Override
+				public void run() {
+					tvTemperature.setText(temperature);
+				}
+			});
+	 }
+	 
+	 public void setHumidityText(final String humidity){
+		 tvHumidity.post(new Runnable() {
+				
+				@Override
+				public void run() {
+					tvHumidity.setText(humidity);
+				}
+			});
+	 }
+
+	 public void setWeatherIcon(final int resID){
+		 ivWeatherIcon.post(new Runnable() {
+				
+				@Override
+				public void run() {
+					ivWeatherIcon.setImageResource(resID);
+				}
+			});
+	 }
+
+}

@@ -1,5 +1,7 @@
 package com.ssm.cyclists.view.layout;
 
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.MapFragment;
 import com.ssm.cyclists.R;
 import com.ssm.cyclists.controller.CruiseFragment;
 import com.ssm.cyclists.controller.CycleMateFragment;
@@ -8,25 +10,33 @@ import com.ssm.cyclists.controller.HomeFragment;
 import com.ssm.cyclists.controller.MainActivity;
 import com.ssm.cyclists.controller.MapViewFragment;
 import com.ssm.cyclists.controller.SettingsFragment;
+import com.ssm.cyclists.model.CruiseDataManager;
 import com.ssm.cyclists.model.ResourceManager;
 
 import android.app.Fragment;
 import android.app.FragmentTransaction;
+import android.content.Context;
+import android.location.Criteria;
+import android.location.Location;
+import android.location.LocationManager;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.webkit.WebView.FindListener;
 import android.widget.TextView;
-
 import net.simonvt.menudrawer.MenuDrawer;
 
 public class MainLayout{
 	
-	HomeFragment 			mFragmentHome;
-	CruiseFragment			mFragmentCruise;
-	CycleMateFragment 		mFragmentCycleMate;
-	CycleTrackerFragment 	mFragmentCycleTracker;
-	MapViewFragment 		mMapViewFragment;
-	SettingsFragment 		mSettingsFragment;
+	static String TAG = MainLayout.class.getSimpleName();
+	
+	static private HomeFragment 			mFragmentHome  	= new HomeFragment();
+	static private CruiseFragment			mFragmentCruise = new CruiseFragment();
+	static private CycleMateFragment 		mFragmentCycleMate = new CycleMateFragment();
+	static private CycleTrackerFragment 	mFragmentCycleTracker = new CycleTrackerFragment();
+	static private MapViewFragment 			mMapViewFragment = new MapViewFragment();
+	static private SettingsFragment 		mSettingsFragment = new SettingsFragment();
 	
 	public interface Listener{
 	}
@@ -48,7 +58,7 @@ public class MainLayout{
 	MainActivity activity;
 	
 	Fragment activated_fragment;
-	
+		
 	public MainLayout(MainActivity instance) {
 		activity = instance;
 	}
@@ -80,52 +90,43 @@ public class MainLayout{
 	     tvCycleMateMenu.setTypeface(ResourceManager.getInstance().getFont("helvetica"));
 	     tvMapMenu.setTypeface(ResourceManager.getInstance().getFont("helvetica"));
 	     tvSettingsMenu.setTypeface(ResourceManager.getInstance().getFont("helvetica"));
-	     
-//	     activity.findViewById(R.id.home_menu).setOnClickListener(buildClickListenr());
-//	     activity.findViewById(R.id.cycle_tracker_menu).setOnClickListener(buildClickListenr());
-//	     activity.findViewById(R.id.cycle_mate_menu).setOnClickListener(buildClickListenr());
-//	     activity.findViewById(R.id.settings_menu).setOnClickListener(buildClickListenr());
-//	     activity.findViewById(R.id.map_menu).setOnClickListener(buildClickListenr());
-//	     activity.findViewById(R.id.cruise_menu).setOnClickListener(buildClickListenr());
-	     
-	    
+
 	     TextView activeView = (TextView)activity.findViewById(mActiveViewId);
 	     if (activeView != null) {
 	          mMenuDrawer.setActiveView(activeView);
 	     }
-	     
-	     mFragmentHome = new HomeFragment();
-		 mFragmentCruise = new CruiseFragment();
-         mFragmentCycleMate = new CycleMateFragment();
-		 mFragmentCycleTracker = new CycleTrackerFragment();
-		 mMapViewFragment = new MapViewFragment();
-		 mSettingsFragment = new SettingsFragment();
-	     
+		 
 		 FragmentTransaction transaction = activity.getFragmentManager().beginTransaction();
+
+		 
+		 transaction.add(R.id.fragment, mMapViewFragment);
 		 transaction.add(R.id.fragment, mFragmentHome);
 		 transaction.add(R.id.fragment, mFragmentCruise);
 		 transaction.add(R.id.fragment, mFragmentCycleMate);
 		 transaction.add(R.id.fragment, mFragmentCycleTracker);
-		 transaction.add(R.id.fragment, mMapViewFragment);
 		 transaction.add(R.id.fragment, mSettingsFragment);
 		 
 		 transaction.show(mFragmentHome);
 		 transaction.hide(mFragmentCruise);
 		 transaction.hide(mFragmentCycleMate);
 		 transaction.hide(mFragmentCycleTracker);
+//		 transaction.show(mMapViewFragment);
 		 transaction.hide(mMapViewFragment);
 		 transaction.hide(mSettingsFragment);
-		 
 		 transaction.commit();
-		 
+//		
+//		 FragmentTransaction transaction2 = activity.getFragmentManager().beginTransaction();
+//		 transaction2.hide(mMapViewFragment);
+//		 transaction2.show(mFragmentHome);
+//		 transaction2.commit();
 		 activated_fragment = mFragmentHome;
-	    
 	}
 	
 	public void replaceFragment(int resID){
 		
 		Fragment newFragment = null;
 		final FragmentTransaction transaction = activity.getFragmentManager().beginTransaction();
+		Location lo = null;
 		
 		switch(resID)
 		{
@@ -135,12 +136,14 @@ public class MainLayout{
 			if(!newFragment.equals(activated_fragment)) 
 				transaction.hide(activated_fragment);
 			activated_fragment = mFragmentHome;
+			mFragmentHome.updateHomeInfo();
 			break;
 		case R.layout.fragment_cruise:
 			newFragment = mFragmentCruise;
 			transaction.show(newFragment);
 			if(!newFragment.equals(activated_fragment)) transaction.hide(activated_fragment);
 			activated_fragment = mFragmentCruise;
+			mFragmentCruise.updateCruiseInfo();
 			break;
 		case R.layout.fragment_cycle_tracker:
 			newFragment = mFragmentCycleTracker;
@@ -159,6 +162,7 @@ public class MainLayout{
 			transaction.show(newFragment);
 			if(!newFragment.equals(activated_fragment)) transaction.hide(activated_fragment);
 			activated_fragment = mMapViewFragment;
+			mMapViewFragment.updateMapViewInfo();
 			break;
 		case R.layout.fragment_settings:
 			newFragment = mSettingsFragment;
@@ -169,33 +173,6 @@ public class MainLayout{
 		}
 
 		transaction.commit();
-	}
-	
-	public Fragment getFragment(int resID){
-		Fragment newFragment = null;
-		
-		switch(resID)
-		{
-		case R.layout.fragment_home:
-			newFragment = new HomeFragment();
-			break;
-		case R.layout.fragment_cruise:
-			newFragment = new CruiseFragment();
-			break;
-		case R.layout.fragment_cycle_tracker:
-			newFragment = new CycleTrackerFragment();
-			break;
-		case R.layout.fragment_cycle_mate:
-			newFragment = new CycleMateFragment();
-			break;
-		case R.layout.fragment_map:
-			newFragment = new MapViewFragment();
-			break;
-		case R.layout.fragment_settings:
-			newFragment = new SettingsFragment();
-			break;
-		}
-		return newFragment;
 	}
 	
 	private OnClickListener buildClickListenr(){
@@ -247,6 +224,8 @@ public class MainLayout{
         }
 	}
 	
+
+	
 	public void onRestoreInstanceState(Bundle inState){
 		mMenuDrawer.restoreState(inState.getParcelable(STATE_MENUDRAWER));
 	}
@@ -255,12 +234,40 @@ public class MainLayout{
         outState.putParcelable(STATE_MENUDRAWER, mMenuDrawer.saveState());
         outState.putInt(STATE_ACTIVE_VIEW_ID, mActiveViewId);
     }
-	    
+
 	public int getView(){
 		return view;
 	}
 
-	public void setActiveViewID(int activeViewId){
-		mActiveViewId = activeViewId;
+	public HomeFragment getmFragmentHome() {
+		assert(mFragmentHome!=null);
+ 		return mFragmentHome;
 	}
+
+	public CruiseFragment getmFragmentCruise() {
+		assert(mFragmentCruise!=null);
+		return mFragmentCruise;
+	}
+
+	public CycleMateFragment getmFragmentCycleMate() {
+		assert(mFragmentCycleMate!=null);
+		return mFragmentCycleMate;
+	}
+
+	public CycleTrackerFragment getmFragmentCycleTracker() {
+		assert(mFragmentCycleTracker!=null);
+		return mFragmentCycleTracker;
+	}
+
+	public MapViewFragment getmMapViewFragment() {
+		assert(mMapViewFragment!=null);
+		return mMapViewFragment;
+	}
+
+	public SettingsFragment getmSettingsFragment() {
+		assert(mSettingsFragment!=null);
+		return mSettingsFragment;
+	}
+
+
 }

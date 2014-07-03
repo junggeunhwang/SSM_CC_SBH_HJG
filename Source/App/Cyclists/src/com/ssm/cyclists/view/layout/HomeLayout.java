@@ -6,6 +6,7 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.Calendar;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -13,9 +14,13 @@ import org.json.JSONObject;
 
 import com.ssm.cyclists.R;
 import com.ssm.cyclists.controller.HomeFragment;
+import com.ssm.cyclists.controller.MainActivity;
+import com.ssm.cyclists.controller.MapViewFragment;
+import com.ssm.cyclists.model.CruiseDataManager;
 import com.ssm.cyclists.model.ResourceManager;
 import com.ssm.cyclists.view.ImageViewRounded;
 
+import android.app.FragmentManager;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -23,6 +28,7 @@ import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.Rect;
 import android.graphics.RectF;
+import android.location.Location;
 import android.os.AsyncTask;
 import android.os.NetworkOnMainThreadException;
 import android.util.Log;
@@ -31,6 +37,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -46,8 +53,11 @@ public class HomeLayout extends BaseFragmentLayout {
 	TextView tvLocation;
 	TextView tvWeekDay;
 	TextView tvTemperature;
-	TextView tvRainPercent;
+	TextView tvHumidity;
+	
 	ImageViewRounded ivProfileImage;
+	ImageView ivWeatherIcon;
+	
 	public HomeLayout(HomeFragment instance) {
 		super(instance);
 	}
@@ -60,8 +70,9 @@ public class HomeLayout extends BaseFragmentLayout {
 		tvLocation = (TextView)getView().findViewById(R.id.location_home);
 		tvWeekDay = (TextView)getView().findViewById(R.id.weekday_home);
 		tvTemperature = (TextView)getView().findViewById(R.id.temperature_home);
-		tvRainPercent = (TextView)getView().findViewById(R.id.rainpercent_home);
+		tvHumidity = (TextView)getView().findViewById(R.id.humidity_home);
 		ivProfileImage = (ImageViewRounded)getView().findViewById(R.id.profile_image);
+		ivWeatherIcon = (ImageView)getView().findViewById(R.id.weather_icon_image);
 		
 		ivProfileImage.setImageResource(R.drawable.profile_sample);
 		
@@ -71,67 +82,42 @@ public class HomeLayout extends BaseFragmentLayout {
 		tvWeekDay.setTypeface(ResourceManager.getInstance().getFont("helvetica"));
 		
 		tvTemperature.setTypeface(ResourceManager.getInstance().getFont("helvetica"));
-		tvRainPercent.setTypeface(ResourceManager.getInstance().getFont("nanum_gothic"));
+		tvHumidity.setTypeface(ResourceManager.getInstance().getFont("nanum_gothic"));
 		
-		new Thread(new Runnable() {
-			
-			@Override
-			public void run() {
-			 	   getWeatherStatus(37.559904, 127.037562);
-			}
-		}).start();
+	
+		Calendar today = Calendar.getInstance();
 		
+		switch(today.get(Calendar.DAY_OF_WEEK))
+		{
+		case Calendar.SUNDAY:
+			tvWeekDay.setText("Sunday");
+			break;
+		case Calendar.MONDAY:
+			tvWeekDay.setText("Monday");
+			break;
+		case Calendar.TUESDAY:
+			tvWeekDay.setText("Tuesday");
+			break;
+		case Calendar.WEDNESDAY:
+			tvWeekDay.setText("Wednesday");
+			break;
+		case Calendar.THURSDAY:
+			tvWeekDay.setText("Thursday");
+			break;
+		case Calendar.FRIDAY:
+			tvWeekDay.setText("Friday");
+			break;
+		case Calendar.SATURDAY:
+			tvWeekDay.setText("Saturday");
+			break;
+		}
 	}
 	@Override
 	public void createView(LayoutInflater inflater, ViewGroup container){
 		view = inflater.inflate(R.layout.fragment_home, container, false);
 	}
 	
-	public void getWeatherStatus(double latitude, double longitude){
-		String strURL = String.format("http://api.openweathermap.org/data/2.5/weather?lat=%f&lon=%f",latitude,longitude); 
-		String jsonString = DownloadHtml(strURL);
-		try {
-			JSONObject jsonObj = new JSONObject(jsonString);
-			JSONObject weather = jsonObj.getJSONArray("weather").getJSONObject(0);
-			Log.d(TAG, "weather : " + weather.getString("main"));
 
-			JSONObject main = jsonObj.getJSONObject("main");
-			Log.d(TAG,"temp : " + main.getString("temp"));
-			Log.d(TAG, "pressure : " + main.getString("pressure"));
-			Log.d(TAG, "humidity : " + main.getString("humidity"));
-
-		} catch (JSONException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
-	
-	private String DownloadHtml(String addr){
-		StringBuilder html = new StringBuilder();
-		
-		try{
-			URL url = new URL(addr);
-			HttpURLConnection conn = (HttpURLConnection)url.openConnection();
-			if(conn != null){
-				conn.setConnectTimeout(10000);
-				conn.setUseCaches(false);
-				if(conn.getResponseCode() == HttpURLConnection.HTTP_OK){
-					BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-					for(;;){
-						String line = br.readLine();
-						if(line == null)break;
-						html.append(line + '\n');
-					}
-					br.close();
-				}
-				conn.disconnect();
-			}
-		
-		}catch(Exception e){
-			Log.e(TAG,e.getMessage());
-		}
-		return html.toString();
-	}
 	
 	/*
 	  * Making image in circular shape
@@ -170,4 +156,64 @@ public class HomeLayout extends BaseFragmentLayout {
 	  return targetBitmap;
 	 }
 
+
+	 public void updateHomeInfo(){
+		 setTemperature(String.valueOf(CruiseDataManager.getInstance().getTemperature()));
+		 setHumidityText(String.valueOf(CruiseDataManager.getInstance().getHumidity()));
+		 setWeatherIcon(CruiseDataManager.getInstance().getWeather());
+		 setAddress(CruiseDataManager.getInstance().getAddress());
+	 }
+
+	 
+	 public void setAddress(final String address){
+ 		 if(tvLocation!=null)
+		 {
+			 tvLocation.post(new Runnable() {
+				
+				@Override
+				public void run() {
+					tvLocation.setText(address);
+				}
+			});
+		 }
+	 }
+	 
+	 public void setTemperature(final String temperature){
+		 if(ivWeatherIcon!=null)
+		 {
+			 tvTemperature.post(new Runnable() {
+					
+					@Override
+					public void run() {
+						tvTemperature.setText(temperature);
+					}
+				});
+		 }
+	 }
+	 
+	 public void setHumidityText(final String humidity){
+		 if(ivWeatherIcon!=null)
+		 {
+			 tvHumidity.post(new Runnable() {
+					
+					@Override
+					public void run() {
+						tvHumidity.setText(humidity);
+					}
+				});
+		 }
+	 }
+
+	 public void setWeatherIcon(final int resID){
+		 if(ivWeatherIcon!=null)
+		 {
+			 ivWeatherIcon.post(new Runnable() {
+					
+					@Override
+					public void run() {
+						ivWeatherIcon.setImageResource(resID);
+					}
+				});
+		 }
+	 }
 }

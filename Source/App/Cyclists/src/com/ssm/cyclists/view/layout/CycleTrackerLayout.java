@@ -1,5 +1,6 @@
 package com.ssm.cyclists.view.layout;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -45,11 +46,9 @@ public class CycleTrackerLayout extends BaseFragmentLayout {
 		ArrayList<CycleData> arGeneral = new ArrayList<CycleData>();
 		CycleData data = new CycleData();
 		
-		String tmpDate = new String();
-		tmpDate = tmpDate.format("%d-%d-%d",
-					Calendar.getInstance().get(Calendar.YEAR),
-					Calendar.getInstance().get(Calendar.MONTH),
-					Calendar.getInstance().get(Calendar.DATE));
+		long time = System.currentTimeMillis(); 
+		SimpleDateFormat dayTime = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss");
+		String tmpDate = dayTime.format(new Date(time));
 
 		data.setDate(tmpDate);
 		data.setConsume_calrories(127);

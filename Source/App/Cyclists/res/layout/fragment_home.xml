@@ -62,34 +62,62 @@
         android:layout_height="0dip"
         android:gravity="center_vertical|center_horizontal"
         android:orientation="horizontal"
-        android:layout_weight="0.0491">
+        android:layout_weight="0.0491"
+        android:weightSum="1">
+        
+        <View
+            android:layout_width="0dip"
+            android:layout_height="match_parent"
+            android:layout_weight="0.18"/>
+
 
         <ImageView
             android:id="@+id/weather_icon_image"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="10dp"
+            android:layout_width="0dip"
+            android:layout_height="match_parent"
+            android:layout_weight="0.10"
+      		android:layout_gravity="center_horizontal"
             android:src="@drawable/rainy" />
 
+        <View
+            android:layout_width="0dip"
+            android:layout_height="match_parent"
+            android:layout_weight="0.02"/>
+        <View
+            android:layout_width="0dip"
+            android:layout_height="match_parent"
+            android:layout_weight="0.03"/>
+        
         <TextView
             android:id="@+id/location_home"
-            android:layout_width="wrap_content"
+            android:layout_width="0dip"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="10dp"
+            android:layout_weight="0.32"
+            android:gravity="center_vertical|center_horizontal"
             android:text="ApGuJeongDong"
             android:textColor="@color/text_color"
             android:textSize="11dp" />
 
+        <View
+            android:layout_width="0dip"
+            android:layout_height="match_parent"
+            android:layout_weight="0.05"/>
+        
+        
+        
         <TextView
             android:id="@+id/weekday_home"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="30dp"
+            android:layout_width="0dip"
+            android:layout_height="match_parent"
+            android:layout_weight="0.2"
+            android:gravity="center_vertical|center_horizontal"
             android:text="Monday"
             android:textColor="@color/text_color"
             android:textSize="11dp" />
+        <View
+            android:layout_width="0dip"
+            android:layout_height="match_parent"
+            android:layout_weight="0.1"/>
     </LinearLayout>
 
     <Space
@@ -120,7 +148,7 @@
             android:textSize="60dp" />
 
         <TextView
-            android:id="@+id/rainpercent_home"
+            android:id="@+id/humidity_home"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="60"

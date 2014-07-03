@@ -22,5 +22,10 @@ public class CycleTrackerDetailFragment extends Fragment {
 		
 		return layout.getView();
 	}
-	
+
+	public CycleTrackerDetailLayout getLayout() {
+		assert(layout!=null);
+		return layout;
+	}
+
 }

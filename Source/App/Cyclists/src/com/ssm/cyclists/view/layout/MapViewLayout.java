@@ -5,17 +5,24 @@ import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.GoogleMap.OnMyLocationButtonClickListener;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.ssm.cyclists.controller.DataBaseManager;
 import com.ssm.cyclists.controller.MainActivity;
+import com.ssm.cyclists.controller.MapViewFragment;
+import com.ssm.cyclists.model.CruiseDataManager;
 import com.ssm.cyclists.model.ResourceManager;
 
 import android.app.Dialog;
 import android.app.Fragment;
+import android.content.Context;
 import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -25,6 +32,8 @@ import android.widget.TextView;
 
 public class MapViewLayout extends BaseFragmentLayout {
 
+	static String TAG = MapViewLayout.class.getSimpleName();
+	
 	private Button btnMenu;
 	private TextView tvFragmentName;
 	private TextView tvTitleTopLeft;
@@ -39,17 +48,24 @@ public class MapViewLayout extends BaseFragmentLayout {
 	private GoogleMap mGoogleMap;
 //	MapView map_view;
 	
+	
 	public MapViewLayout(Fragment instance) {
 		super(instance);
+		Log.d(TAG,"MapViewLayout");
+	}
+	
+	public void clean(){
+		mGoogleMap.setMyLocationEnabled(false);
 	}
 
 	@Override
 	public void createView(LayoutInflater inflater, ViewGroup container) {
+		Log.d(TAG,"onCreateView");
 		view = inflater.inflate(R.layout.fragment_map, container, false);
 	}
 	
 	public void init(){
-		
+		Log.d(TAG,"init");
 		btnMenu = (Button)getView().findViewById(R.id.menu_button_map);
 		btnMenu.setOnClickListener(buildMenuButtonListener());
 		
@@ -77,15 +93,71 @@ public class MapViewLayout extends BaseFragmentLayout {
 		tvAppName.setTypeface(ResourceManager.getInstance().getFont("helvetica"));
 			
 		mGoogleMap = ((MapFragment)fragment.getFragmentManager().findFragmentById(R.id.map_map)).getMap();
-//		map_view = (MapView)((MapFragment)fragment.getFragmentManager().findFragmentById(R.id.map_map)).getView();
 		
 		mGoogleMap.setMyLocationEnabled(true);
-		Location lo = mGoogleMap.getMyLocation();
 		
+		Location lo = mGoogleMap.getMyLocation();
+		if(lo==null) {
+			lo = CruiseDataManager.getInstance().getCurrent_loc();
+			if(lo==null)
+			{
+				 // Creating a criteria object to retrieve provider
+	            Criteria criteria = new Criteria();
+	 
+	            // Getting the name of the best provider
+	            String provider = ((LocationManager) getView().getContext().getSystemService(Context.LOCATION_SERVICE)).getBestProvider(criteria, true);
+	            lo = new Location(provider);
+				lo.setLatitude(37.523452);
+				lo.setLongitude(127.028540);
+			}
+			
+		}
+		else{
+			moveMapCamenra(lo);
+			final Location loc = lo;
+			new Thread(new Runnable() {
+				
+				@Override
+				public void run() {
+					CruiseDataManager.getInstance().setCurrent_loc(loc.getLatitude(),loc.getLongitude());
+				}
+			});
+			
+		}
+		
+		mGoogleMap.setOnMyLocationButtonClickListener(new OnMyLocationButtonClickListener() {
+			
+			@Override
+			public boolean onMyLocationButtonClick() {
+				Location lo = mGoogleMap.getMyLocation();
+				CruiseDataManager.getInstance().setCurrent_loc(lo.getLatitude(),lo.getLongitude());
+				DataBaseManager.getInstance().updateLastLocation(lo);
+				return false;
+			}
+		});
 	}
 
-
 	
+	public void moveMapCamenra(Location location){
+		
+		Log.d(TAG,"moveMapCamenra");
+		
+			// Getting latitude of the current location
+		     double latitude = location.getLatitude();
+		 
+		     // Getting longitude of the current location
+		     double longitude = location.getLongitude();
+		 
+		     // Creating a LatLng object for the current location
+		     LatLng latLng = new LatLng(latitude, longitude);
+		 
+		     // Showing the current location in Google Map
+		     mGoogleMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
+		 
+		     // Zoom in the Google Map
+		     mGoogleMap.animateCamera(CameraUpdateFactory.zoomTo(15));
+	
+	}
 	
 	
 	private OnClickListener buildMenuButtonListener(){
@@ -100,9 +172,11 @@ public class MapViewLayout extends BaseFragmentLayout {
 	}
 	
 	public GoogleMap getMapInstance(){
+		assert(mGoogleMap!=null);
 		return mGoogleMap;
 	}
-//	public MapView getMapView(){
-//		return map_view;
-//	}
+
+	public void updateMapViewInfo(){
+		moveMapCamenra(CruiseDataManager.getInstance().getCurrent_loc());
+	}
 }

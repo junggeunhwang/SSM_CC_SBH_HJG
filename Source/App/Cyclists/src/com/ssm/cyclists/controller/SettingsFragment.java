@@ -23,4 +23,10 @@ public class SettingsFragment extends Fragment {
 		
 		return layout.getView();
 	}
+
+	public SettingsLayout getLayout() {
+		assert(layout!=null);
+		return layout;
+	}
+	
 }

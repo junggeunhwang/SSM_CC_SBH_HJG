@@ -1,11 +1,21 @@
 package com.ssm.cyclists.controller;
 
+import twitter4j.GeoLocation;
+
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.ssm.cyclists.R;
+import com.ssm.cyclists.model.CruiseDataManager;
+import com.ssm.cyclists.model.ResourceManager;
 import com.ssm.cyclists.view.layout.SplashLayout;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.Dialog;
+import android.content.Context;
 import android.content.res.Configuration;
+import android.location.Criteria;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -26,7 +36,17 @@ public class SplashActivity extends Activity {
 		layout = new SplashLayout(this);
 		setContentView(layout.getView());
 		layout.init();
-
+		
+		ResourceManager.getInstance().setAssetManager(MainActivity.getInstasnce().getAssets());
+		init_map_service();
+		
+		GeoLocation location = DataBaseManager.getInstance().selectLastLocation();
+		if(location != null){
+			CruiseDataManager.getInstance().setCurrent_loc(location.getLatitude(),location.getLongitude());
+		}
+	
+		
+		
 		Handler handler = new Handler(){
 			@Override
 			public void handleMessage(Message msg) {
@@ -35,8 +55,8 @@ public class SplashActivity extends Activity {
 				super.handleMessage(msg);
 			}
 		};
-		
-		handler.sendEmptyMessageDelayed(0, 2500);
+
+		handler.sendEmptyMessageDelayed(0, 2000);
 	}
 
 	@Override
@@ -63,6 +83,40 @@ public class SplashActivity extends Activity {
 			return true;
 		}
 		return super.onOptionsItemSelected(item);
+	}
+	
+	public void init_map_service(){
+		
+		LocationManager locationManager;
+		
+		// Getting Google Play availability status
+        int status = GooglePlayServicesUtil.isGooglePlayServicesAvailable(getBaseContext());
+ 
+        // Showing status
+        if(status!=ConnectionResult.SUCCESS){ // Google Play Services are not available
+ 
+            int requestCode = 10;
+            Dialog dialog = GooglePlayServicesUtil.getErrorDialog(status, this, requestCode);
+            dialog.show();
+ 
+        }else { // Google Play Services are available
+ 
+ 
+            // Getting LocationManager object from System Service LOCATION_SERVICE
+            locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+ 
+            // Creating a criteria object to retrieve provider
+            Criteria criteria = new Criteria();
+            criteria.setAccuracy(Criteria.ACCURACY_FINE);
+            criteria.setAltitudeRequired(true);
+            criteria.setBearingRequired(true);
+            criteria.setSpeedRequired(true);
+            
+            // Getting the name of the best provider
+            String provider = locationManager.getBestProvider(criteria, true);
+ 
+            locationManager.requestLocationUpdates(provider, 2, 0, MainActivity.getInstasnce().buildLocationChangediListener());
+        }
 	}
 
 }

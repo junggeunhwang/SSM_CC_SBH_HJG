@@ -10,7 +10,7 @@ import android.view.ViewGroup;
 
 public class CruiseFragment extends Fragment {
 	
-	CruiseLayout layout;
+	private CruiseLayout layout;
 	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -22,4 +22,12 @@ public class CruiseFragment extends Fragment {
 		return layout.getView();
 	}
 
+	public void updateCruiseInfo(){
+		layout.updateCruiseInfo();
+	}
+
+	public CruiseLayout getLayout() {
+		assert(layout!=null);
+		return layout;
+	}
 }

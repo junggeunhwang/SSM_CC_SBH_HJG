@@ -7,11 +7,11 @@
     tools:ignore="MergeRootFrame"
     android:orientation="vertical"
     android:background="@color/bk_color_heavy">
-
+    
     <LinearLayout
         android:id="@+id/fragment"
         android:layout_width="fill_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"/>
-</LinearLayout>
+	</LinearLayout>
 

@@ -11,7 +11,7 @@ import android.view.ViewGroup;
 
 public class CycleMateFragment extends Fragment {
 
-	CycleMateLayout layout;
+	private CycleMateLayout layout;
 	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -23,4 +23,10 @@ public class CycleMateFragment extends Fragment {
 		
 		return layout.getView();
 	}
+
+	public CycleMateLayout getLayout() {
+		assert(layout!=null);
+		return layout;
+	}
+
 }
