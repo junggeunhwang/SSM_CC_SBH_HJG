@@ -103,7 +103,6 @@ public class CruiseLayout extends BaseFragmentLayout {
 	
 	public void updateCruiseInfo(){
 		tvAltitudeData.post(new Runnable() {
-			
 			@Override
 			public void run() {
 				tvAltitudeData.setText(String.valueOf(CruiseDataManager.getInstance().getElevation())+ "m");

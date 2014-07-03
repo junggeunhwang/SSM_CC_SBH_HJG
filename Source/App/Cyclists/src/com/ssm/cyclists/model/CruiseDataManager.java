@@ -61,18 +61,13 @@ public class CruiseDataManager {
 	}
 	
 	public void updateCruiseData(){
-//		updateLocation();
 		updateWeather(current_loc);
 		updateElevation(current_loc);
 		updateAddress(current_loc);
-//		MainActivity.getInstasnce().getLayout().getmFragmentHome().updateHomeInfo();
-//		MainActivity.getInstasnce().getLayout().getmFragmentCruise().updateCruiseInfo();
 	}
 	
 	public void updateLocation(){
-		
-//		current_loc = MainActivity.getInstasnce().getLayout().getmMapViewFragment().getLayout().getMapInstance().getMyLocation();
-		
+	
 		if(current_loc==null){
 			current_loc = MainActivity.getInstasnce().getLayout().getmMapViewFragment().getLayout().getMapInstance().getMyLocation();
 			if(current_loc == null){
@@ -163,7 +158,6 @@ public class CruiseDataManager {
 		new Thread(new Runnable(){
 			@Override
 			public void run() {
-				double elevation = 0;
 				String strURL = String.format("http://maps.googleapis.com/maps/api/elevation/json?locations=%f,%f&sensor=true_or_false",loc.getLatitude(),loc.getLongitude()); 
 				String jsonString = DownloadHtml(strURL);
 				
@@ -235,8 +229,6 @@ public class CruiseDataManager {
 		}
 		return html.toString();
 	}
-	
-	
 	
 	public int getWeather() {
 		return weather_resID;

@@ -3,6 +3,7 @@ package com.ssm.cyclists.controller;
 import com.ssm.cyclists.view.layout.CycleTrackerDetailLayout;
 
 import android.app.Fragment;
+import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -28,4 +29,17 @@ public class CycleTrackerDetailFragment extends Fragment {
 		return layout;
 	}
 
+	@Override
+	public void onDestroy() {
+		
+		FragmentTransaction transaction = MainActivity.getInstasnce().getFragmentManager().beginTransaction();
+		transaction.hide(this);
+		transaction.show(MainActivity.getInstasnce().getLayout().getmFragmentCycleTracker());
+		MainActivity.getInstasnce().getLayout().setActivated_fragment(MainActivity.getInstasnce().getLayout().getmFragmentCycleTracker());
+		transaction.commit();
+		
+		super.onDestroy();
+	}
+	
+	
 }

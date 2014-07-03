@@ -1,12 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <qualifiedTypeNameHistroy>
-<fullyQualifiedTypeName name="android.R.layout"/>
-<fullyQualifiedTypeName name="com.ssm.cyclists.view.layout.BaseFragmentLayout"/>
-<fullyQualifiedTypeName name="com.ssm.cyclists.view.layout.CycleTrackerDetailLayout"/>
-<fullyQualifiedTypeName name="android.widget.TextView"/>
-<fullyQualifiedTypeName name="com.ssm.cyclists.model.CycleTrackerListViewAdapter"/>
-<fullyQualifiedTypeName name="com.ssm.cyclists.model.CycleData"/>
-<fullyQualifiedTypeName name="java.util.Date"/>
 <fullyQualifiedTypeName name="java.util.Calendar"/>
 <fullyQualifiedTypeName name="com.ssm.cyclists.model.ResourceManager"/>
 <fullyQualifiedTypeName name="java.net.URL"/>
@@ -42,12 +35,9 @@
 <fullyQualifiedTypeName name="com.ssm.cyclists.R.drawable"/>
 <fullyQualifiedTypeName name="com.ssm.cyclists.R.layout"/>
 <fullyQualifiedTypeName name="com.ssm.cyclists.controller.CycleMateFragment"/>
-<fullyQualifiedTypeName name="com.ssm.cyclists.controller.CycleTrackerFragment"/>
 <fullyQualifiedTypeName name="com.ssm.cyclists.controller.MapViewFragment"/>
 <fullyQualifiedTypeName name="com.ssm.cyclists.controller.SettingsFragment"/>
-<fullyQualifiedTypeName name="com.ssm.cyclists.controller.MainActivity"/>
 <fullyQualifiedTypeName name="android.webkit.WebView.FindListener"/>
-<fullyQualifiedTypeName name="com.ssm.cyclists.R.id"/>
 <fullyQualifiedTypeName name="com.google.android.gms.maps.GoogleMap.OnMyLocationButtonClickListener"/>
 <fullyQualifiedTypeName name="java.lang.Thread"/>
 <fullyQualifiedTypeName name="java.lang.Runnable"/>
@@ -56,8 +46,18 @@
 <fullyQualifiedTypeName name="android.content.ContentValues"/>
 <fullyQualifiedTypeName name="android.database.Cursor"/>
 <fullyQualifiedTypeName name="twitter4j.GeoLocation"/>
-<fullyQualifiedTypeName name="com.ssm.cyclists.model.CruiseDataManager"/>
 <fullyQualifiedTypeName name="android.os.Handler"/>
 <fullyQualifiedTypeName name="com.ssm.cyclists.controller.DataBaseManager"/>
+<fullyQualifiedTypeName name="com.ssm.cyclists.model.CruiseDataManager"/>
+<fullyQualifiedTypeName name="com.ssm.cyclists.controller.CycleTrackerFragment"/>
+<fullyQualifiedTypeName name="android.os.Debug"/>
 <fullyQualifiedTypeName name="android.util.Log"/>
+<fullyQualifiedTypeName name="android.widget.AdapterView.OnItemClickListener"/>
+<fullyQualifiedTypeName name="android.app.FragmentTransaction"/>
+<fullyQualifiedTypeName name="com.ssm.cyclists.view.layout.CycleTrackerDetailLayout"/>
+<fullyQualifiedTypeName name="com.ssm.cyclists.controller.CycleTrackerDetailFragment"/>
+<fullyQualifiedTypeName name="com.ssm.cyclists.controller.MainActivity"/>
+<fullyQualifiedTypeName name="com.ssm.cyclists.R.id"/>
+<fullyQualifiedTypeName name="android.widget.Button"/>
+<fullyQualifiedTypeName name="android.view.View.OnClickListener"/>
 </qualifiedTypeNameHistroy>

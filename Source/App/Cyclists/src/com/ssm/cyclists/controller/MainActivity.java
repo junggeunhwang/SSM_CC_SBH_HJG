@@ -1,30 +1,23 @@
 package com.ssm.cyclists.controller;
 
-import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.GooglePlayServicesUtil;
+
 import com.sapInterface.total.SAPProviderService;
 import com.sapInterface.total.StringAction;
 import com.sapInterface.total.FileAction;
 import com.sapInterface.total.SAPProviderService.LocalBinder;
 import com.ssm.cyclists.R;
 import com.ssm.cyclists.model.CruiseDataManager;
-import com.ssm.cyclists.model.ResourceManager;
 import com.ssm.cyclists.view.layout.MainLayout;
 
 import android.support.v4.app.FragmentActivity;
 import android.app.AlertDialog;
-import android.app.Dialog;
 import android.content.ComponentName;
-import android.content.ContentValues;
 import android.content.Context; 
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.ServiceConnection;
-import android.database.sqlite.SQLiteDatabase;
-import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationListener;
-import android.location.LocationManager;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.util.Log;
@@ -76,6 +69,11 @@ public class MainActivity extends FragmentActivity{
         mCtxt.bindService(new Intent(getApplicationContext(), SAPProviderService.class), 
                 this.mSAPConnection, Context.BIND_AUTO_CREATE);
         
+    }
+    @Override
+    protected void onStart() {
+   	 	layout.getmFragmentHome().updateHomeInfo();
+    	super.onStart();
     }
 
 	public LocationListener buildLocationChangediListener(){

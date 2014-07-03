@@ -37,7 +37,7 @@ public class SplashActivity extends Activity {
 		setContentView(layout.getView());
 		layout.init();
 		
-		ResourceManager.getInstance().setAssetManager(MainActivity.getInstasnce().getAssets());
+		ResourceManager.getInstance().setAssetManager(getAssets());
 		init_map_service();
 		
 		GeoLocation location = DataBaseManager.getInstance().selectLastLocation();
@@ -45,7 +45,7 @@ public class SplashActivity extends Activity {
 			CruiseDataManager.getInstance().setCurrent_loc(location.getLatitude(),location.getLongitude());
 		}
 	
-		
+		CruiseDataManager.getInstance().updateCruiseData();
 		
 		Handler handler = new Handler(){
 			@Override
@@ -56,7 +56,7 @@ public class SplashActivity extends Activity {
 			}
 		};
 
-		handler.sendEmptyMessageDelayed(0, 2000);
+		handler.sendEmptyMessageDelayed(0, 1500);
 	}
 
 	@Override

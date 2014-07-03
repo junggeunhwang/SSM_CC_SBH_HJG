@@ -6,6 +6,7 @@ import java.util.Calendar;
 import java.util.Date;
 
 import com.ssm.cyclists.R;
+import com.ssm.cyclists.controller.CycleTrackerDetailFragment;
 import com.ssm.cyclists.controller.CycleTrackerFragment;
 import com.ssm.cyclists.controller.MainActivity;
 import com.ssm.cyclists.model.CycleData;
@@ -14,15 +15,22 @@ import com.ssm.cyclists.model.CycleTrackerListViewAdapter;
 import com.ssm.cyclists.model.UserData;
 import com.ssm.cyclists.view.EnhancedListView;
 
+import android.app.FragmentTransaction;
+import android.os.Debug;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.View.OnClickListener;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
 
 
 
 public class CycleTrackerLayout extends BaseFragmentLayout {
+	
+	static String TAG = CycleTrackerLayout.class.getSimpleName();
 	
 	private Button btnMenu;
 	private EnhancedListView lvCycleList;
@@ -60,6 +68,22 @@ public class CycleTrackerLayout extends BaseFragmentLayout {
 		lvCycleList.setDismissCallback(buildOnDismissCallback());
 				
 		lvCycleList.enableSwipeToDismiss();
+		
+		lvCycleList.setOnItemClickListener(new OnItemClickListener() {
+
+			@Override
+			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
+					long arg3) {
+				CycleTrackerDetailFragment detailFragment = new CycleTrackerDetailFragment();
+				
+				FragmentTransaction transaction = MainActivity.getInstasnce().getFragmentManager().beginTransaction();
+				transaction.add(R.id.fragment,detailFragment);
+				transaction.hide(MainActivity.getInstasnce().getLayout().getActivated_fragment());
+				transaction.show(detailFragment);
+				MainActivity.getInstasnce().getLayout().setActivated_fragment(detailFragment);
+				transaction.commit();
+			}
+		});
 		
 	}
 	
