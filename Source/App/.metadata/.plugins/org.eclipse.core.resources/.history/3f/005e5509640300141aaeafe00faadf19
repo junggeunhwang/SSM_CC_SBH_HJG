@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+	<LinearLayout
+	        android:layout_width="match_parent"
+	        android:layout_height="45dp"
+	        android:background="@color/bk_color_heavy"
+	        android:gravity="center_vertical"
+	        android:weightSum="1" >
+
+
+        <View
+	        android:layout_width="0dip"
+	        android:layout_height="match_parent"
+	        android:layout_weight="0.05"/>
+                
+        <Button
+				android:id="@+id/menu_button_settings"
+	            android:layout_width="35dp"
+	            android:layout_height="30dp"
+	            android:background="@drawable/menu_btn"/>
+        
+        
+        <View
+	        android:layout_width="0dip"
+	        android:layout_height="match_parent"
+	        android:layout_weight="0.2540"/>
+
+        <TextView
+            android:id="@+id/fragment_name_settings"
+            android:layout_width="0dip"
+            android:layout_height="match_parent"
+            android:layout_weight="0.20"
+            android:gravity="center_vertical|center_horizontal"
+            android:text="Settings"
+            android:textColor="@color/white"
+            android:textSize="15sp" />
+        
+        <View
+            android:layout_width="0dip"
+            android:layout_height="match_parent"
+            android:layout_weight="0.36" />
+
+    </LinearLayout>
+    
+	<LinearLayout
+	    android:layout_width="match_parent"
+	    android:layout_height="match_parent"
+	    android:weightSum="1"
+	    android:orientation="vertical">
+	<LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dip"
+        android:layout_weight="0.3"
+        android:layout_marginLeft="12dp"
+        android:layout_marginRight="12dp"
+        android:background="@color/white">
+        
+    </LinearLayout>
+    
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dip"
+        android:layout_weight="0.28"
+		android:layout_marginLeft="12dp"
+        android:layout_marginRight="12dp"
+        android:background="@color/white"
+        android:orientation="vertical">
+      
+	    <TextView
+	        android:id="@+id/tv_color_settings"
+	    	android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:text="Color"
+	        android:textSize="14sp"
+	        android:textStyle="bold"
+	        android:textColor="@color/text_pink"/>
+	    <View
+	        android:layout_width="match_parent"
+	        android:layout_height="2dp"
+	        android:background="@color/text_pink"/>
+	    <LinearLayout
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:orientation="horizontal">
+	         <com.ssm.cyclists.view.ImageViewRounded
+	            android:layout_width="50dp"
+	            android:layout_height="50dp"
+	            android:layout_marginTop="10dp"
+	            android:layout_marginLeft="10dp"
+	            android:src="@drawable/bk_sample_pink"
+	            android:scaleType="centerInside"/>
+	         
+	         <com.ssm.cyclists.view.ImageViewRounded
+	            android:layout_width="50dp"
+	            android:layout_height="50dp"
+	            android:layout_marginTop="10dp"
+	            android:layout_marginLeft="10dp"
+	            android:src="@drawable/bk_sample_green"
+	            android:scaleType="centerInside"/>
+	         
+	         <com.ssm.cyclists.view.ImageViewRounded
+	            android:layout_width="50dp"
+	            android:layout_height="50dp"
+	            android:layout_marginTop="10dp"
+	            android:layout_marginLeft="10dp"
+	            android:src="@drawable/bk_sample_gray"
+	            android:scaleType="centerInside"/>
+	    </LinearLayout>
+            
+	    <LinearLayout
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:orientation="horizontal">
+	        <ImageView
+	            android:layout_width="15dp"
+	            android:layout_height="15dp"
+	            android:layout_marginLeft="30dp"
+	            android:src="@drawable/check_icon"/>
+	        <ImageView
+	            android:layout_width="15dp"
+	            android:layout_height="15dp"
+	            android:layout_marginLeft="45dp"
+	            android:src="@drawable/check_icon_unchecked"/>
+	        <ImageView
+	            android:layout_width="15dp"
+	            android:layout_height="15dp"
+	            android:layout_marginLeft="45dp"
+	            android:src="@drawable/check_icon_unchecked"/>        
+	        
+	        
+	    </LinearLayout>
+    </LinearLayout>
+    
+	<LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dip"
+        android:layout_weight="0.4"
+        android:layout_marginLeft="12dp"
+        android:layout_marginRight="12dp"
+        android:background="@color/white"
+        android:orientation="vertical">
+                
+		<TextView
+		    android:id="@+id/tv_contact_sns_settings"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Contact SNS"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:textColor="@color/text_pink"/>
+		<View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:layout_marginBottom="12dp"
+            android:background="@color/text_pink"/>
+		
+		<LinearLayout
+	        android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+	        android:orientation="horizontal">
+	        <ImageView 
+	        	android:layout_width="20dp"
+            	android:layout_height="20dp"
+            	android:src="@drawable/facebook_ico"/>
+	        <TextView
+	            android:id="@+id/tv_facebook_settings"
+	            android:layout_width="wrap_content"
+            	android:layout_height="wrap_content"
+            	android:layout_marginLeft="5dp"
+            	android:text="Facebook"/>
+		</LinearLayout>
+	    
+		<LinearLayout
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:layout_marginBottom="10dp"
+	        android:orientation="horizontal">
+	        <ImageView 
+	        	android:layout_width="20dp"
+            	android:layout_height="20dp"
+            	android:src="@drawable/twitter_ico"/>
+	        <TextView
+	            android:id="@+id/tv_twitter_settings"
+	            android:layout_width="wrap_content"
+            	android:layout_height="wrap_content"
+            	android:layout_marginLeft="5dp"
+            	android:text="Twitter"/>
+		</LinearLayout>
+		
+		<LinearLayout
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:layout_marginBottom="10dp"
+	        android:orientation="horizontal">
+	        <ImageView 
+	        	android:layout_width="20dp"
+            	android:layout_height="20dp"
+            	android:src="@drawable/instagram_ico"/>
+	        <TextView
+	            android:id="@+id/tv_instagram_settings"
+	            android:layout_width="wrap_content"
+            	android:layout_height="wrap_content"
+            	android:layout_marginLeft="5dp"
+            	android:text="Instagram"/>
+		</LinearLayout>
+    </LinearLayout>
+    
+    <TextView
+	        android:id="@+id/app_name_settings"
+	        android:layout_width="match_parent"
+	        android:layout_height="0dip"
+	        android:layout_weight="0.0420"
+	        android:layout_marginBottom="10dp"
+	        android:gravity="center_vertical|center_horizontal"
+	        android:text="Bicycle app"
+	        android:textStyle="bold"
+	        android:textSize="13sp"
+	        android:textColor="@color/text_pink" />
+	</LinearLayout>
+   
+</LinearLayout>

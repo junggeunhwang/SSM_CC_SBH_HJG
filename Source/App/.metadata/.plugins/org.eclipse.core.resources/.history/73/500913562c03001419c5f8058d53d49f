@@ -1,0 +1,12 @@
+package com.ssm.cyclists.model;
+
+import com.jjoe64.graphview.GraphView.GraphViewData;
+
+public class GraphData extends GraphViewData {
+
+	public GraphData(double valueX, double valueY) {
+		super(valueX, valueY);
+		// TODO Auto-generated constructor stub
+	}
+
+}

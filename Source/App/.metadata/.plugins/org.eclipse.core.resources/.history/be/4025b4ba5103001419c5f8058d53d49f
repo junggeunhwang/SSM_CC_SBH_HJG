@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" 
+    android:weightSum="1">
+    
+     	 <LinearLayout
+	        android:layout_width="match_parent"
+	        android:layout_height="0dip"
+	        android:layout_weight="0.1"
+	        android:background="@color/bk_color_heavy"
+	        android:gravity="center_vertical"
+	        android:weightSum="1" >
+
+
+	        <View
+		        android:layout_width="0dip"
+		        android:layout_height="match_parent"
+		        android:layout_weight="0.05"/>
+	                
+	        <Button
+	            android:id="@+id/back_button_cycletracker_detail"
+	            android:layout_width="0dip"
+	            android:layout_height="wrap_content"
+	            android:layout_marginTop="12dp"
+	            android:layout_marginBottom="12dp"
+	            android:background="@drawable/menu_btn"
+	            android:layout_weight="0.1" />
+	        <View
+		        android:layout_width="0dip"
+		        android:layout_height="match_parent"
+		        android:layout_weight="0.1540"/>
+	
+	        <TextView
+	            android:id="@+id/fragment_name_cycletracker_detail"
+	            android:layout_width="0dip"
+	            android:layout_height="match_parent"
+	            android:layout_weight="0.3594"
+	            android:gravity="center_vertical|center_horizontal"
+	            android:text="2014-07-01"
+	            android:textColor="@color/white"
+	            android:textSize="15sp" />
+	        
+	        <View
+		        android:layout_width="0dip"
+		        android:layout_height="match_parent"
+		        android:layout_weight="0.3160"/>
+
+    </LinearLayout>
+    
+    <LinearLayout
+		android:layout_width="match_parent"
+        android:layout_height="0dip"
+        android:layout_weight="0.9"
+        android:weightSum="1"
+        android:background="@color/white"
+        android:orientation="vertical"
+        android:gravity="center_vertical">
+
+         
+		<TableLayout
+		    android:layout_width="match_parent"
+			android:layout_height="0dip"
+			android:layout_weight="0.8"
+			android:columnCount="3"
+			android:rowCount="1">
+
+	        <TextView
+	            android:id="@+id/tv_unit_cycletrackerdetail"
+	        	android:layout_width="wrap_content"
+	         	android:layout_height="match_parent"
+	         	android:gravity="top|right"
+	         	android:textSize="10sp"
+	         	android:text="(Km/h)"/>   
+	        
+		    <LinearLayout
+		        android:id="@+id/graph_cycle_tracker_detail"
+		        android:layout_width="match_parent"
+		        android:layout_height="match_parent"
+		        android:layout_marginTop="10dp"
+		        android:layout_toRightOf="@id/tv_unit_cycletrackerdetail"
+		        android:orientation="vertical" >
+
+		    </LinearLayout>
+
+			<TextView
+			    android:id="@+id/tv_distance_cycletrackerdetail"
+	         	android:layout_width="wrap_content"
+	         	android:layout_height="match_parent"
+	         	android:layout_marginLeft="3dp"
+	         	android:gravity="bottom|left"
+	         	android:textSize="10sp"
+				android:text="(Km)"
+				android:layout_toRightOf="@id/graph_cycle_tracker_detail"/>   
+		</GridLayout>
+         
+	    
+	    <RadioGroup
+	        android:layout_width="match_parent"
+	        android:layout_height="0dip"
+	        android:layout_weight="0.1"
+	        android:gravity="center_vertical|center_horizontal"
+	        android:orientation="horizontal" >
+
+		        <RadioButton
+		            android:id="@+id/radio_speed_cycletrackerdetail"
+		            android:layout_width="wrap_content"
+		            android:layout_height="wrap_content"
+		            android:text="Speed"
+		            android:textColor="@color/text_pink"
+		            android:textStyle="bold"
+		            android:textSize="12sp" />
+	
+		        <RadioButton
+		            android:id="@+id/radio_altitude_cycletrackerdetail"
+		            android:layout_width="wrap_content"
+		            android:layout_height="wrap_content"
+		            android:text="Altitude"
+		            android:textColor="@color/text_pink"
+		            android:textStyle="bold"
+		            android:textSize="12sp"
+		            style="android:radioButtonStyle" />
+	            
+	    </RadioGroup>
+	    
+		<LinearLayout
+		    android:layout_width="match_parent"
+		    android:layout_height="0dip"
+		    android:layout_weight="0.1"
+		    android:background="@color/white"
+		    android:gravity="center_vertical|center_horizontal" >
+        
+	       <TextView
+	           android:id="@+id/app_name_cycletrackerdetail"
+	           android:layout_width="0dip"
+	           android:layout_height="wrap_content"
+	           android:layout_weight="0.0420"
+	           android:gravity="center_vertical|center_horizontal"
+	           android:text="Bicycle app"
+	           android:textColor="@color/text_pink"
+	           android:textSize="13sp"
+	           android:textStyle="bold" />
+
+               	
+        </LinearLayout>
+    </LinearLayout>
+    
+    
+   
+</LinearLayout>

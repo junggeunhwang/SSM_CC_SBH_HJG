@@ -1,0 +1,7 @@
+package com.ssm.cyclists.model;
+
+import com.jjoe64.graphview.GraphView.GraphViewData;
+
+public class GraphData extends GraphViewData {
+
+}

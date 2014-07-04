@@ -16,6 +16,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.ServiceConnection;
+import android.content.pm.ActivityInfo;
 import android.location.Location;
 import android.location.LocationListener;
 import android.os.Bundle;
@@ -53,6 +54,8 @@ public class MainActivity extends FragmentActivity{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
     	
+    	this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+    	
     	Intent intent = new Intent(this,SplashActivity.class);
     	startActivity(intent);
     	
@@ -64,11 +67,12 @@ public class MainActivity extends FragmentActivity{
     	
         layout.init();
         
+        
+        
         // bind services
         mCtxt = getApplicationContext();
         mCtxt.bindService(new Intent(getApplicationContext(), SAPProviderService.class), 
                 this.mSAPConnection, Context.BIND_AUTO_CREATE);
-        
     }
     @Override
     protected void onStart() {

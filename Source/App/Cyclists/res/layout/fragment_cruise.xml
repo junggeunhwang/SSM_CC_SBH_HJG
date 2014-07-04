@@ -3,16 +3,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center"
-    android:orientation="vertical"
-    android:weightSum="1">
+    android:orientation="vertical">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dip"
-        android:layout_weight="0.1"
-        android:background="@color/bk_color_heavy"
-        android:gravity="center_vertical"
-        android:weightSum="1" >
+	<LinearLayout
+	        android:layout_width="match_parent"
+	        android:layout_height="45dp"
+	        android:background="@color/bk_color_heavy"
+	        android:gravity="center_vertical"
+	        android:weightSum="1" >
 
 
         <View
@@ -20,14 +18,11 @@
 	        android:layout_height="match_parent"
 	        android:layout_weight="0.05"/>
                 
-        <Button
-            android:id="@+id/menu_button_cruise"
-            android:layout_width="0dip"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:layout_marginBottom="12dp"
-            android:background="@drawable/menu_btn"
-            android:layout_weight="0.1" />
+		<Button
+			android:id="@+id/menu_button_cruise"
+	    	android:layout_width="35dp"
+	        android:layout_height="30dp"
+	        android:background="@drawable/menu_btn"/>
         <View
 	        android:layout_width="0dip"
 	        android:layout_height="match_parent"
@@ -52,8 +47,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="0dip"
-        android:layout_weight="0.9"
+        android:layout_height="match_parent"
         android:gravity="center_vertical|center_horizontal"
         android:orientation="vertical"
         android:weightSum="1" >

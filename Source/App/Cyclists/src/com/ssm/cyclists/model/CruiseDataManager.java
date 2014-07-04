@@ -141,7 +141,7 @@ public class CruiseDataManager {
 					}
 
 					humidity = main.getInt("humidity");
-					temperature = ((int)Math.round((main.getDouble("temp")/10)));
+					temperature = ((int)Math.round((main.getDouble("temp")-273.15)));
 										
 				} catch (JSONException e) {
 					// TODO Auto-generated catch block
@@ -273,6 +273,9 @@ public class CruiseDataManager {
 	public void setCurrent_loc(double latitude,double longitude) {
 		this.current_loc.setLatitude(latitude);
 		this.current_loc.setLongitude(longitude);
+		
+		MainActivity.getInstasnce().getLayout().getmFragmentHome().updateHomeInfo();
+		MainActivity.getInstasnce().getLayout().getmFragmentCruise().updateCruiseInfo();
 	}
 
 	public void setElevation(double elevation) {

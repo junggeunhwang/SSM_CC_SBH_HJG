@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 public class SettingsLayout extends BaseFragmentLayout {
@@ -24,6 +25,9 @@ public class SettingsLayout extends BaseFragmentLayout {
 	private TextView tvInstagram;
 	private TextView tvAppName;
 	
+	private LinearLayout llFacebookLayout;
+	private LinearLayout llTwitterLayout;
+	private LinearLayout llInstagramLayout;
 	
 	
 	public SettingsLayout(SettingsFragment instance) {
@@ -48,6 +52,10 @@ public class SettingsLayout extends BaseFragmentLayout {
 		tvInstagram = (TextView)getView().findViewById(R.id.tv_instagram_settings);
 		tvAppName = (TextView)getView().findViewById(R.id.app_name_settings);
 		
+		llFacebookLayout = (LinearLayout)getView().findViewById(R.id.ll_facebook_settings);
+		llTwitterLayout = (LinearLayout)getView().findViewById(R.id.ll_twitter_settings);
+		llInstagramLayout = (LinearLayout)getView().findViewById(R.id.ll_instagram_settings);
+		
 		tvFragmentName.setTypeface(ResourceManager.getInstance().getFont("helvetica"));
 		tvColor.setTypeface(ResourceManager.getInstance().getFont("helvetica"));
 		tvContactSNS.setTypeface(ResourceManager.getInstance().getFont("helvetica"));
@@ -55,6 +63,33 @@ public class SettingsLayout extends BaseFragmentLayout {
 		tvTwitter.setTypeface(ResourceManager.getInstance().getFont("helvetica"));
 		tvInstagram.setTypeface(ResourceManager.getInstance().getFont("helvetica"));
 		tvAppName.setTypeface(ResourceManager.getInstance().getFont("helvetica"));
+		
+		llFacebookLayout.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				
+			}
+		});
+		
+		llTwitterLayout.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
+		
+		llInstagramLayout.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
+		
 	}
 		
 

@@ -8,7 +8,7 @@
     android:orientation="vertical"
     android:weightSum="1"
     tools:context="com.ssm.cyclists.controller.SplashActivity"
-    tools:ignore="MergeRootFrame" >
+    tools:ignore="MergeRootFrame">
 
     <Space
         android:layout_width="match_parent"

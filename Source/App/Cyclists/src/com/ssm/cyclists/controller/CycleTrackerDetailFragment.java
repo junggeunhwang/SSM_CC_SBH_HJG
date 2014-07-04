@@ -4,6 +4,7 @@ import com.ssm.cyclists.view.layout.CycleTrackerDetailLayout;
 
 import android.app.Fragment;
 import android.app.FragmentTransaction;
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,7 +17,7 @@ public class CycleTrackerDetailFragment extends Fragment {
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-		
+		MainActivity.getInstasnce().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED);
 		layout = new CycleTrackerDetailLayout(this);
 		layout.createView(inflater, container);
 		layout.init();
@@ -29,6 +30,7 @@ public class CycleTrackerDetailFragment extends Fragment {
 		return layout;
 	}
 
+	
 	@Override
 	public void onDestroy() {
 		
@@ -37,7 +39,7 @@ public class CycleTrackerDetailFragment extends Fragment {
 		transaction.show(MainActivity.getInstasnce().getLayout().getmFragmentCycleTracker());
 		MainActivity.getInstasnce().getLayout().setActivated_fragment(MainActivity.getInstasnce().getLayout().getmFragmentCycleTracker());
 		transaction.commit();
-		
+
 		super.onDestroy();
 	}
 	
