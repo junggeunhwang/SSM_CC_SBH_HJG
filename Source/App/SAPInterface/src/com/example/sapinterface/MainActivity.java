@@ -9,7 +9,6 @@ import java.security.KeyStore;
 
 import org.apache.http.conn.ssl.SSLSocketFactory;
 import org.apache.http.Header;
-import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpVersion;
 import org.apache.http.client.ClientProtocolException;
@@ -287,7 +286,6 @@ public class MainActivity extends Activity
 
 	                            MultipartEntityBuilder builder = MultipartEntityBuilder.create();
 	                            builder.setMode(HttpMultipartMode.BROWSER_COMPATIBLE);
-	                            
 	                            builder.addTextBody("uniqueNumber", "01012345678");
 	                            // file, string, request - (mkroom,delroom,joinroom,exitroom,login,logout,get)
 	                            builder.addTextBody("type","file");
@@ -315,13 +313,12 @@ public class MainActivity extends Activity
 	                    }
 	                };
 
-
 	                thread.start();
 				}
 				break;
 			case R.id.sendstringtoserver:
 				{
-					Thread thread = new Thread() {
+					/*Thread thread = new Thread() {
 	                    @Override
 	                    public void run() {
 	                        
@@ -334,7 +331,6 @@ public class MainActivity extends Activity
 
 	                            MultipartEntityBuilder builder = MultipartEntityBuilder.create();
 	                            builder.setMode(HttpMultipartMode.BROWSER_COMPATIBLE);
-	                            
 	                            builder.addTextBody("uniqueNumber", "01012345678");
 	                            // file, string, request - (mkroom,delroom,joinroom,exitroom,login,logout,get)
 	                            builder.addTextBody("type","string");
@@ -370,9 +366,30 @@ public class MainActivity extends Activity
 
 	                    }
 	                };
-
-
-	                thread.start();
+	                
+	               	thread.start();*/
+					
+					HttpsCommunicationCallback callback = new HttpsCommunicationCallback() {
+						
+						@Override
+						public void onResponseSuccess(HttpsCommunication hcn) {
+							// TODO Auto-generated method stub
+							Log.d(TAG,hcn.getStringResponseData());
+						}
+						
+						@Override
+						public void onResponseFailure(String errMsg) {
+							// TODO Auto-generated method stub
+							
+						}
+					};
+					
+					HttpsCommunication hcn = new HttpsCommunication(callback);
+					
+					hcn.setUniqueNumber("01012345678");
+					hcn.setType(HttpsCommunication.TYPE_STRING);
+					hcn.setStringData("askjdhkjqhwdkjhqkfjh");
+					hcn.ExecuteRequest();
 				}
 				break;
 			case R.id.requestget:
@@ -392,7 +409,7 @@ public class MainActivity extends Activity
 	                            builder.setMode(HttpMultipartMode.BROWSER_COMPATIBLE);
 	                            
 	                            builder.addTextBody("uniqueNumber", "01012345678");
-	                            // file, string, request - (mkroom,delroom,joinroom,exitroom,login,logout,get)
+	                            // file, string, request - (mkroom,joinroom,exitroom,login,logout,get)
 	                            builder.addTextBody("type","request");
 	                            builder.addTextBody("data", "get");
 	                            
