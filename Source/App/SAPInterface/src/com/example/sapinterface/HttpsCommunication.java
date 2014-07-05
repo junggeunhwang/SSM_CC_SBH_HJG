@@ -7,6 +7,7 @@ import java.net.URISyntaxException;
 import java.security.KeyStore;
 
 import org.apache.http.conn.ssl.SSLSocketFactory;
+import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpVersion;
 import org.apache.http.client.ClientProtocolException;
@@ -81,12 +82,14 @@ public class HttpsCommunication
                   
                     Log.d(TAG,"type : " +responseType);
                     Log.d(TAG,"src number : "+responseUniqueNumber);
-                                                                                
-                    responseStringData = EntityUtils.toString(response.getEntity(), HTTP.UTF_8);
-                    responseByteData = EntityUtils.toByteArray(response.getEntity());
-
-                    Log.d(TAG, responseStringData);
                     
+                    HttpEntity a = response.getEntity();
+                                                                                
+                    
+           		 	responseByteData = EntityUtils.toByteArray(a);
+           		 	
+           		 	responseStringData = new String(responseByteData,"UTF-8");
+           
                     callback.onResponseSuccess(thispointer);
 
                 } catch (URISyntaxException e) 
@@ -116,7 +119,10 @@ public class HttpsCommunication
 	}
 	
 	// method
-	
+	/**
+	 * getHttpClient 
+	 * @return HttpClient Object
+	 */
 	private HttpClient getHttpClient() 
     {
         try 
@@ -142,7 +148,10 @@ public class HttpsCommunication
             return new DefaultHttpClient();
         }
     }
-	
+	/**
+	 * setUniqueNumber
+	 * @param uniqueNumber - phone number(String)
+	 */
 	public void setUniqueNumber(String uniqueNumber)
 	{
 		if(uniqueNumber != null)
@@ -178,7 +187,13 @@ public class HttpsCommunication
 			isDataSet = true;
 		}
 	}
-	
+	public void setExtraData(String extradata)
+	{
+		if(extradata != null)
+		{
+			builder.addTextBody("extradata", extradata);
+		}
+	}	
 	public boolean ExecuteRequest()
 	{
 		if(isDataSet && isTypeSet && isUniqueNumberSet)
@@ -199,37 +214,21 @@ public class HttpsCommunication
 	
 	public byte[] getByteResponseData()
 	{
-		if(requestThread.isAlive())
-		{
-			return null;
-		}
 		return responseByteData;		
 	}
 	
 	public String getStringResponseData()
 	{
-		if(requestThread.isAlive())
-		{
-			return null;
-		}
 		return responseStringData;
 	}
 	
 	public String getResponseType()
 	{
-		if(requestThread.isAlive())
-		{
-			return null;
-		}
 		return responseType;
 	}
 	
 	public String getResponseUniqueNumber()
 	{
-		if(requestThread.isAlive())
-		{
-			return null;
-		}
 		return responseUniqueNumber;
 	}	
 }
