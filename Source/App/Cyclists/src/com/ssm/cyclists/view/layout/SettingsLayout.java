@@ -1,8 +1,10 @@
 package com.ssm.cyclists.view.layout;
 
 import com.ssm.cyclists.R;
-import com.ssm.cyclists.controller.MainActivity;
-import com.ssm.cyclists.controller.SettingsFragment;
+import com.ssm.cyclists.controller.FacebookManager;
+import com.ssm.cyclists.controller.TwitterManager;
+import com.ssm.cyclists.controller.activity.MainActivity;
+import com.ssm.cyclists.controller.fragment.SettingsFragment;
 import com.ssm.cyclists.model.ResourceManager;
 
 import android.view.LayoutInflater;
@@ -68,7 +70,7 @@ public class SettingsLayout extends BaseFragmentLayout {
 			
 			@Override
 			public void onClick(View v) {
-				
+				FacebookManager.getInstance().onClickFacebook();
 			}
 		});
 		
@@ -76,8 +78,7 @@ public class SettingsLayout extends BaseFragmentLayout {
 			
 			@Override
 			public void onClick(View v) {
-				// TODO Auto-generated method stub
-				
+				TwitterManager.getInstance().connect();
 			}
 		});
 		

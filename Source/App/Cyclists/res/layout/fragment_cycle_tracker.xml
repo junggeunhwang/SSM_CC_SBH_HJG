@@ -26,24 +26,18 @@
 	        android:background="@drawable/menu_btn"/>
 
         <View
-	        android:layout_width="0dip"
-	        android:layout_height="match_parent"
-	        android:layout_weight="0.1540"/>
+            android:layout_width="0dip"
+            android:layout_height="match_parent"
+            android:layout_weight="0.36" />
 
         <TextView
             android:id="@+id/fragment_name_cycletracker"
-            android:layout_width="0dip"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_weight="0.3594"
             android:gravity="center_vertical|center_horizontal"
             android:text="Cycle Tracker"
             android:textColor="@color/white"
             android:textSize="15sp" />
-        
-        <View
-	        android:layout_width="0dip"
-	        android:layout_height="match_parent"
-	        android:layout_weight="0.3160"/>
 
     </LinearLayout>
 

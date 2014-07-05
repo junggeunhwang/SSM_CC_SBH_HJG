@@ -8,5 +8,6 @@
 	<string name="elv_undo_all">Undo All</string>
 	<string name="elv_item_deleted">Item deleted</string>
 	<string name="elv_n_items_deleted">%1$s items deleted</string>
-	
+	<string name="title_activity_twit_login">TwitLogin</string>
+	<string name="app_id">678397032215565</string>
 </resources>

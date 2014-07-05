@@ -23,10 +23,11 @@
 	    	android:layout_width="35dp"
 	        android:layout_height="30dp"
 	        android:background="@drawable/menu_btn"/>
+
         <View
-	        android:layout_width="0dip"
-	        android:layout_height="match_parent"
-	        android:layout_weight="0.2540"/>
+            android:layout_width="0dip"
+            android:layout_height="match_parent"
+            android:layout_weight="0.33" />
 
         <TextView
             android:id="@+id/fragment_name_cruise"
@@ -39,9 +40,9 @@
             android:textSize="15sp" />
         
         <View
-	        android:layout_width="0dip"
-	        android:layout_height="match_parent"
-	        android:layout_weight="0.4160"/>
+            android:layout_width="0dip"
+            android:layout_height="match_parent"
+            android:layout_weight="0.46" />
 
     </LinearLayout>
 
@@ -123,23 +124,50 @@
 			                        android:textColor="@color/text_pink"
 			                        android:textSize="15dp" />
 
-			                    <TextView
-			                        android:id="@+id/tv_distance_data_cruise"
+			                    <LinearLayout
+									android:layout_width="wrap_content"
+			                        android:layout_height="wrap_content"
+			                        android:layout_marginTop="10dp">
+									<TextView
+				                        android:id="@+id/tv_distance_data_cruise"
+				                        android:layout_width="wrap_content"
+				                        android:layout_height="wrap_content"
+				                        android:text="17"
+				                        android:textColor="@color/text_pink"
+				                        android:textSize="15dp" />
+									<TextView
+				                        android:id="@+id/tv_distance_data_unit_cruise"
+				                        android:layout_width="wrap_content"
+				                        android:layout_height="wrap_content"
+				                        android:text="Km"
+				                        android:textColor="@color/text_pink"
+				                        android:textSize="15dp" />
+			                        
+			                    </LinearLayout>
+			                   
+			                    <LinearLayout
 			                        android:layout_width="wrap_content"
 			                        android:layout_height="wrap_content"
-			                        android:layout_marginTop="10dp"
-			                        android:text="17Km"
-			                        android:textColor="@color/text_pink"
-			                        android:textSize="15dp" />
+			                        android:layout_marginTop="10dp">
+									<TextView
+				                        android:id="@+id/tv_average_velocity_data_cruise"
+				                        android:layout_width="wrap_content"
+				                        android:layout_height="wrap_content"
+				                        android:text="3.5"
+				                        android:textColor="@color/text_pink"
+				                        android:textSize="12dp" />		
+									
+									<TextView
+				                        android:id="@+id/tv_average_velocity_data_unit_cruise"
+				                        android:layout_width="wrap_content"
+				                        android:layout_height="wrap_content"
+				                        android:text="Km/h"
+				                        android:textColor="@color/text_pink"
+				                        android:textSize="12dp" />		                        
+			                        
+			                    </LinearLayout>
 
-			                    <TextView
-			                        android:id="@+id/tv_average_velocity_data_cruise"
-			                        android:layout_width="wrap_content"
-			                        android:layout_height="wrap_content"
-			                        android:layout_marginTop="10dp"
-			                        android:text="3.5Km/h"
-			                        android:textColor="@color/text_pink"
-			                        android:textSize="12dp" />
+
 			                    
 			                </LinearLayout>
 			                
@@ -186,13 +214,28 @@
         	        android:textColor="@color/text_pink"
         	        android:text="Kcal"
         	        android:textSize="10sp"/>
-        	    <TextView
-        	        android:id="@+id/tv_kcal_data_cruise"        	        
-        	        android:layout_width="wrap_content"
+        	    <LinearLayout
+        			android:layout_width="wrap_content"
         	        android:layout_height="wrap_content"
-        	        android:layout_margin="5dp"
-        	        android:textColor="@color/text_pink"
-        	        android:text="120 Kcal"/>        	    
+        	        android:layout_margin="5dp">
+        	    
+        	        <TextView
+	        	        android:id="@+id/tv_kcal_data_cruise"        	        
+	        	    	android:layout_width="wrap_content"
+	        	        android:layout_height="wrap_content"
+	        	        android:textColor="@color/text_pink"
+	        	        android:text="120"/>
+        	        
+        	        <TextView
+	        	        android:id="@+id/tv_kcal_data_unit_cruise"        	        
+	        	    	android:layout_width="wrap_content"
+	        	        android:layout_height="wrap_content"
+	        	        android:layout_marginLeft="3dp"
+	        	        android:textColor="@color/text_pink"
+	        	        android:text="Kcal"/>
+        	        
+        	    </LinearLayout>
+        	            	    
         	</LinearLayout>
         	
         	<ImageView 
@@ -216,13 +259,25 @@
         	        android:textColor="@color/text_pink"
         	        android:textSize="10sp" />
 
-        	    <TextView
-        	        android:id="@+id/tv_altitude_data_cruise"
-        	        android:layout_width="wrap_content"
+        	    <LinearLayout 
+        			android:layout_width="wrap_content"
         	        android:layout_height="wrap_content"
-        	        android:layout_margin="5dp"
-        	        android:textColor="@color/text_pink"
-        	        android:text="100 m"/>
+        	        android:layout_margin="5dp">
+        	    	<TextView
+	        	        android:id="@+id/tv_altitude_data_cruise"
+	        	     	android:layout_width="wrap_content"
+	        	        android:layout_height="wrap_content"
+	        	        android:textColor="@color/text_pink"
+	        	        android:text="100"/>
+        	    	<TextView
+	        	        android:id="@+id/tv_altitude_data_unit_cruise"
+	        	     	android:layout_width="wrap_content"
+	        	        android:layout_height="wrap_content"
+	        	        android:layout_marginLeft="3dp"
+	        	        android:textColor="@color/text_pink"
+	        	        android:text="m"/>
+        	    </LinearLayout>
+        	    
         	</LinearLayout>
         	
         	<ImageView 
@@ -244,13 +299,25 @@
         	        android:textColor="@color/text_pink"
         	        android:text="Maximum Speed"
         	        android:textSize="10sp"/>
-        	    <TextView
-        	        android:id="@+id/tv_max_speed_data_cruise"
-        	        android:layout_width="wrap_content"
+        	    <LinearLayout 
+        			android:layout_width="wrap_content"
         	        android:layout_height="wrap_content"
-        	        android:layout_margin="5dp"
-        	        android:textColor="@color/text_pink"
-        	        android:text="50 Km/h"/>
+        	        android:layout_margin="5dp">
+	        		<TextView
+	        	        android:id="@+id/tv_max_speed_data_cruise"
+	        			android:layout_width="wrap_content"
+	        	        android:layout_height="wrap_content"
+	        	        android:textColor="@color/text_pink"
+	        	        android:text="50"/>
+        	        <TextView
+	        	        android:id="@+id/tv_max_speed_data_unit_cruise"
+	        			android:layout_width="wrap_content"
+	        	        android:layout_height="wrap_content"
+	        	        android:layout_marginLeft="3dp"
+	        	        android:textColor="@color/text_pink"
+	        	        android:text="Km/h"/>
+        	    </LinearLayout>
+
         	</LinearLayout>
         </LinearLayout>
 

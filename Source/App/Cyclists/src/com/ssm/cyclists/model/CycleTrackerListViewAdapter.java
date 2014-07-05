@@ -56,17 +56,18 @@ public class CycleTrackerListViewAdapter extends BaseAdapter {
 			convertView = Inflater.inflate(layout,parent,false);
 		}
 		TextView date = (TextView)convertView.findViewById(R.id.date_cycletracker_listview_row);
-		
+		TextView cal = (TextView)convertView.findViewById(R.id.kcal_data_cycletracker_listview_row);
+		TextView distane = (TextView)convertView.findViewById(R.id.distance_cycletracker_listview_row);
 		
 		date.setText(arSrc.get(position).getDate().toString());
 		
-		TextView cal = (TextView)convertView.findViewById(R.id.kcal_data_cycletracker_listview_row);
+		date.setTypeface(ResourceManager.getInstance().getFont("nanum_gothic"));
 		cal.setTypeface(ResourceManager.getInstance().getFont("nanum_gothic"));
+		distane.setTypeface(ResourceManager.getInstance().getFont("nanum_gothic"));
 		
-		((TextView)convertView.findViewById(R.id.kcal_cycletracker_listview_row)).setTypeface(ResourceManager.getInstance().getFont("nanum-gothic"));
+		((TextView)convertView.findViewById(R.id.kcal_cycletracker_listview_row)).setTypeface(ResourceManager.getInstance().getFont("helvetica"));
+		((TextView)convertView.findViewById(R.id.km_cycletracker_listview_row)).setTypeface(ResourceManager.getInstance().getFont("helvetica"));
 	
-		
-		
 		cal.setText(String.valueOf(arSrc.get(position).getConsume_calrories()));
 		
 		return convertView;

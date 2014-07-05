@@ -1,7 +1,7 @@
 package com.ssm.cyclists.view.layout;
 
 import com.ssm.cyclists.R;
-import com.ssm.cyclists.controller.MainActivity;
+import com.ssm.cyclists.controller.activity.MainActivity;
 import com.ssm.cyclists.model.CruiseDataManager;
 import com.ssm.cyclists.model.ResourceManager;
 
@@ -29,16 +29,23 @@ public class CruiseLayout extends BaseFragmentLayout {
 	
 	private TextView tvDistance;
 	private TextView tvDistanceData;
+	private TextView tvDistanceDataUnit;
 	
 	private TextView tvAvgVelocityData;
+	private TextView tvAvgVelocityDataUnit;
 	
 	private TextView tvKcal;
-	private TextView tvAltitude;
-	private TextView tvMaxSpeed;
-	
+	private TextView tvKcalUnit;
 	private TextView tvKcalData;
+	
+	private TextView tvAltitude;
+	private TextView tvAltitudeUnit;
 	private TextView tvAltitudeData;
+	
+	private TextView tvMaxSpeed;
+	private TextView tvMaxSpeedUnit;
 	private TextView tvMaxSpeedData;
+	
 	LinearLayout lyInnerCircle;
 	
 	public CruiseLayout(Fragment instance) {
@@ -50,15 +57,27 @@ public class CruiseLayout extends BaseFragmentLayout {
 		
 		tvAppName 			= (TextView)getView().findViewById(R.id.app_name_cruise);
 		tvFragmentName		= (TextView)getView().findViewById(R.id.fragment_name_cruise);
+		
 		tvDistance 			= (TextView)getView().findViewById(R.id.tv_distance_cruise);
 		tvDistanceData 		= (TextView)getView().findViewById(R.id.tv_distance_data_cruise);
+		tvDistanceDataUnit 		= (TextView)getView().findViewById(R.id.tv_distance_data_unit_cruise);
+		
 		tvAvgVelocityData 	= (TextView)getView().findViewById(R.id.tv_average_velocity_data_cruise); 
+		tvAvgVelocityDataUnit 	= (TextView)getView().findViewById(R.id.tv_average_velocity_data_unit_cruise);
+		
 		tvKcal 				= (TextView)getView().findViewById(R.id.tv_kcal_cruise);
-		tvAltitude 			= (TextView)getView().findViewById(R.id.tv_altitude_cruise);
-		tvMaxSpeed 			= (TextView)getView().findViewById(R.id.tv_max_speed_cruise);
 		tvKcalData 			= (TextView)getView().findViewById(R.id.tv_kcal_data_cruise);
+		tvKcalUnit			= (TextView)getView().findViewById(R.id.tv_kcal_data_unit_cruise);
+		
+		tvAltitude 			= (TextView)getView().findViewById(R.id.tv_altitude_cruise);
 		tvAltitudeData	 	= (TextView)getView().findViewById(R.id.tv_altitude_data_cruise);
+		tvAltitudeUnit		= (TextView)getView().findViewById(R.id.tv_altitude_data_unit_cruise);
+		
+		tvMaxSpeed 			= (TextView)getView().findViewById(R.id.tv_max_speed_cruise);
 		tvMaxSpeedData 		= (TextView)getView().findViewById(R.id.tv_max_speed_data_cruise);
+		tvMaxSpeedUnit		= (TextView)getView().findViewById(R.id.tv_max_speed_data_unit_cruise);
+		
+		
 		lyInnerCircle		= (LinearLayout)getView().findViewById(R.id.inner_circle_cruise);
 		
 		btnMenu 		= (Button)getView().findViewById(R.id.menu_button_cruise);
@@ -66,15 +85,25 @@ public class CruiseLayout extends BaseFragmentLayout {
 		
 		tvAppName.setTypeface(ResourceManager.getInstance().getFont("helveitica"));
 		tvFragmentName.setTypeface(ResourceManager.getInstance().getFont("helveitica"));
+		
 		tvDistance.setTypeface(ResourceManager.getInstance().getFont("helveitica"));
 		tvDistanceData.setTypeface(ResourceManager.getInstance().getFont("nanum_gothic"));
-		tvAvgVelocityData.setTypeface(ResourceManager.getInstance().getFont("nanum_gothic")); 
+		tvDistanceDataUnit.setTypeface(ResourceManager.getInstance().getFont("helvetica"));
+		
+		tvAvgVelocityData.setTypeface(ResourceManager.getInstance().getFont("nanum_gothic"));
+		tvAvgVelocityDataUnit.setTypeface(ResourceManager.getInstance().getFont("helvetica"));
+		
 		tvKcal.setTypeface(ResourceManager.getInstance().getFont("helveitica"));
-		tvAltitude.setTypeface(ResourceManager.getInstance().getFont("helveitica"));
-		tvMaxSpeed.setTypeface(ResourceManager.getInstance().getFont("helveitica"));
 		tvKcalData.setTypeface(ResourceManager.getInstance().getFont("nanum_gothic"));
+		tvKcalUnit.setTypeface(ResourceManager.getInstance().getFont("helvetica"));
+		
+		tvAltitude.setTypeface(ResourceManager.getInstance().getFont("helveitica"));
 		tvAltitudeData.setTypeface(ResourceManager.getInstance().getFont("nanum_gothic"));
+		tvAltitudeUnit.setTypeface(ResourceManager.getInstance().getFont("helveitica"));
+		
+		tvMaxSpeed.setTypeface(ResourceManager.getInstance().getFont("helveitica"));
 		tvMaxSpeedData.setTypeface(ResourceManager.getInstance().getFont("nanum_gothic"));
+		tvMaxSpeedUnit.setTypeface(ResourceManager.getInstance().getFont("helveitica"));
 		
 		Drawable inner_circle = MainActivity.getInstasnce().getResources().getDrawable(R.drawable.inner_cycle_cruise);
 		LinearLayout.LayoutParams param = (LinearLayout.LayoutParams)lyInnerCircle.getLayoutParams();
@@ -105,7 +134,7 @@ public class CruiseLayout extends BaseFragmentLayout {
 		tvAltitudeData.post(new Runnable() {
 			@Override
 			public void run() {
-				tvAltitudeData.setText(String.valueOf(CruiseDataManager.getInstance().getElevation())+ "m");
+				tvAltitudeData.setText(String.valueOf(CruiseDataManager.getInstance().getElevation()));
 			}
 		});
 		
@@ -113,7 +142,31 @@ public class CruiseLayout extends BaseFragmentLayout {
 			
 			@Override
 			public void run() {
-				tvAvgVelocityData.setText(String.valueOf(CruiseDataManager.getInstance().getCurrent_speed()) + "Km/h");
+				tvAvgVelocityData.setText(String.valueOf(CruiseDataManager.getInstance().getCurrent_speed()));
+			}
+		});
+		
+		tvKcalData.post(new Runnable() {
+			
+			@Override
+			public void run() {
+				tvKcalData.setText(String.valueOf(CruiseDataManager.getInstance().getCalory()));
+			}
+		});
+		
+		tvDistanceData.post(new Runnable() {
+			
+			@Override
+			public void run() {
+				tvDistanceData.setText(String.valueOf(CruiseDataManager.getInstance().getDistnace()));
+			}
+		});
+		
+		tvMaxSpeedData.post(new Runnable() {
+			
+			@Override
+			public void run() {
+				tvMaxSpeedData.setText(String.valueOf(CruiseDataManager.getInstance().getMaximum_speed()));
 			}
 		});
 	}

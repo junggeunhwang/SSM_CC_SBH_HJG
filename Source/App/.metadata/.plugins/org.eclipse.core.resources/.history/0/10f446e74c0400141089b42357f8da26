@@ -1,0 +1,126 @@
+package com.ssm.cyclists.controller.activity;
+
+import twitter4j.GeoLocation;
+
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GooglePlayServicesUtil;
+import com.ssm.cyclists.R;
+import com.ssm.cyclists.controller.DataBaseManager;
+import com.ssm.cyclists.model.CruiseDataManager;
+import com.ssm.cyclists.model.ResourceManager;
+import com.ssm.cyclists.view.layout.SplashLayout;
+
+import android.annotation.SuppressLint;
+import android.app.Activity;
+import android.app.Dialog;
+import android.content.Context;
+import android.content.res.Configuration;
+import android.location.Criteria;
+import android.location.LocationManager;
+import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
+import android.view.Menu;
+import android.view.MenuItem;
+
+public class SplashActivity extends Activity {
+
+	private SplashLayout layout;
+	
+	public SplashActivity() {
+	}
+	
+	@SuppressLint("HandlerLeak") @Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		
+		layout = new SplashLayout(this);
+		setContentView(layout.getView());
+		layout.init();
+		
+		ResourceManager.getInstance().setAssetManager(getAssets());
+
+//    	init_map_service();
+		
+		GeoLocation location = DataBaseManager.getInstance().selectLastLocation();
+		if(location != null){
+			CruiseDataManager.getInstance().setCurrent_loc(location.getLatitude(),location.getLongitude());
+		}
+	
+//		CruiseDataManager.getInstance().updateCruiseData();
+    	
+		Handler handler = new Handler(){
+			@Override
+			public void handleMessage(Message msg) {
+				finish();
+				overridePendingTransition(R.anim.fade_in,R.anim.fade_out);
+				super.handleMessage(msg);
+			}
+		};
+
+		handler.sendEmptyMessageDelayed(0, 1500);
+	}
+
+	@Override
+	public void onConfigurationChanged(Configuration newConfig) {
+		// TODO Auto-generated method stub
+//		super.onConfigurationChanged(newConfig);
+	}
+	
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+
+		// Inflate the menu; this adds items to the action bar if it is present.
+		getMenuInflater().inflate(R.menu.splash, menu);
+		return true;
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		// Handle action bar item clicks here. The action bar will
+		// automatically handle clicks on the Home/Up button, so long
+		// as you specify a parent activity in AndroidManifest.xml.
+		int id = item.getItemId();
+		if (id == R.id.action_settings) {
+			return true;
+		}
+		return super.onOptionsItemSelected(item);
+	}
+	
+	
+    public void init_map_service(){
+		
+		LocationManager locationManager;
+		
+		// Getting Google Play availability status
+        int status = GooglePlayServicesUtil.isGooglePlayServicesAvailable(getBaseContext());
+ 
+        // Showing status
+        if(status!=ConnectionResult.SUCCESS){ // Google Play Services are not available
+ 
+            int requestCode = 10;
+            Dialog dialog = GooglePlayServicesUtil.getErrorDialog(status, this, requestCode);
+            dialog.show();
+ 
+        }else { // Google Play Services are available
+ 
+ 
+            // Getting LocationManager object from System Service LOCATION_SERVICE
+            locationManager = (LocationManager) MainActivity.getInstasnce().getSystemService(Context.LOCATION_SERVICE);
+ 
+            // Creating a criteria object to retrieve provider
+            Criteria criteria = new Criteria();
+            criteria.setAccuracy(Criteria.ACCURACY_FINE);
+            criteria.setAltitudeRequired(true);
+            criteria.setBearingRequired(true);
+            criteria.setSpeedRequired(true);
+            
+            // Getting the name of the best provider
+            String provider = locationManager.getBestProvider(criteria, true);
+ 
+            locationManager.requestLocationUpdates(provider, 2, 0, MainActivity.getInstasnce().buildLocationChangediListener());
+        }
+	}
+	
+
+}

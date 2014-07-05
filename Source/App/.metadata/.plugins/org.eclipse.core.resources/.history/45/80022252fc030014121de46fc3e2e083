@@ -1,0 +1,7 @@
+package com.ssm.cyclists.controller;
+
+import android.os.AsyncTask;
+
+public class WeatherUpdateAsyncTask extends AsyncTask<Params, Progress, Result> {
+
+}

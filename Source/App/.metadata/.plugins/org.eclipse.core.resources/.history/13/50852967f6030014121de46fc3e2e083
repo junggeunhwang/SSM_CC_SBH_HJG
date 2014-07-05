@@ -1,0 +1,52 @@
+package com.ssm.cyclists.controller;
+
+import com.ssm.cyclists.model.TwitterBasicInfo;
+
+import android.app.Activity;
+import android.content.Intent;
+import android.preference.PreferenceManager.OnActivityResultListener;
+import android.util.Log;
+import twitter4j.Twitter;
+import twitter4j.auth.AccessToken;
+import twitter4j.auth.RequestToken;
+
+public class TwitterManager implements OnActivityResultListener {
+
+	static String TAG = TwitterManager.class.getSimpleName();
+	
+	private Twitter TwitInstance;
+	private RequestToken TwitRequestToken;
+	private AccessToken TwitAccessToken;
+	
+	public void connect(){
+		TwitterConnectAsyncTask task = new TwitterConnectAsyncTask();
+		task.execute();
+	}
+	
+	
+	public boolean onActivityResult(int requestCode, int resultCode, Intent resultIntent) {
+		
+		if(resultCode == Activity.RESULT_OK){
+			if(requestCode == TwitterBasicInfo.REQ_CODE_TWIT_LOGIN){
+				try{
+					Twitter mTwit = TwitInstance;
+					
+					AccessToken mAccessToken = mTwit.getOAuthAccessToken(TwitRequestToken,resultIntent.getStringExtra("oauthVerifier"));
+					
+					TwitterBasicInfo.TwitLogin = true;
+					TwitterBasicInfo.TWIT_KEY_TOKEN = mAccessToken.getToken();
+					TwitterBasicInfo.TWIT_KEY_TOKEN_SECRET = mAccessToken.getTokenSecret();
+					
+					TwitAccessToken = mAccessToken;
+
+					Log.d(TAG,  "Twitter connection succeeded : + TWIT_KEY_TOKEN");
+					
+				}catch(Exception ex){
+					Log.e(TAG,ex.getLocalizedMessage());
+					ex.printStackTrace();
+				}
+			}
+		}
+		return false;
+	}
+}

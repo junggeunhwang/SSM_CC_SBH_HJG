@@ -1,0 +1,17 @@
+package com.ssm.cyclists.controller;
+
+import android.location.Location;
+import android.os.AsyncTask;
+
+public class LocationInfoUpdateAsyncTask extends
+		AsyncTask<Location,Integer,Long> {
+	
+	@Override
+	protected Long doInBackground(Location... params) {
+		//update elevation
+
+		
+		
+		return null;
+	}
+}

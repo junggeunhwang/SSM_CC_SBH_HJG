@@ -1,0 +1,39 @@
+package com.ssm.cyclists.controller;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import com.ssm.cyclists.model.CruiseDataManager;
+
+import android.location.Location;
+import android.os.AsyncTask;
+import android.util.Log;
+
+public class LocationInfoUpdateAsyncTask extends
+		AsyncTask<Location,Integer,Long> {
+	
+	public static String TAG = LocationInfoUpdateAsyncTask.class.getSimpleName();
+	
+	@Override
+	protected Long doInBackground(Location... loc) {
+		//update elevation
+		String strURL = String.format("http://maps.googleapis.com/maps/api/elevation/json?locations=%f,%f&sensor=true_or_false",loc[0].getLatitude(),loc[0].getLongitude()); 
+		String jsonString = CruiseDataManager.getInstance().DownloadHtml(strURL);
+		
+		try {
+			JSONObject jsonObj = new JSONObject(jsonString);
+			JSONArray results = jsonObj.getJSONArray("results");
+			CruiseDataManager.getInstance()
+				.setElevation(Double.valueOf(String.format("%.2f", results.getJSONObject(0).getDouble("elevation"))));
+			
+			Log.d(TAG,"elevation ("+loc[0].getLatitude() +", "+loc[0].getLongitude()+") : " + CruiseDataManager.getInstance().getElevation());
+		} catch (JSONException e) {
+			Log.e(TAG,e.getLocalizedMessage());
+			e.printStackTrace();
+		}
+		
+		
+		return null;
+	}
+}

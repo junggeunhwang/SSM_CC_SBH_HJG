@@ -1,14 +1,15 @@
 package com.ssm.cyclists.view.layout;
 
+import com.google.android.gms.maps.CameraUpdateFactory;
 import com.ssm.cyclists.R;
-import com.ssm.cyclists.controller.CruiseFragment;
-import com.ssm.cyclists.controller.CycleMateFragment;
-import com.ssm.cyclists.controller.CycleTrackerDetailFragment;
-import com.ssm.cyclists.controller.CycleTrackerFragment;
-import com.ssm.cyclists.controller.HomeFragment;
-import com.ssm.cyclists.controller.MainActivity;
-import com.ssm.cyclists.controller.MapViewFragment;
-import com.ssm.cyclists.controller.SettingsFragment;
+import com.ssm.cyclists.controller.activity.MainActivity;
+import com.ssm.cyclists.controller.fragment.CruiseFragment;
+import com.ssm.cyclists.controller.fragment.CycleMateFragment;
+import com.ssm.cyclists.controller.fragment.CycleTrackerDetailFragment;
+import com.ssm.cyclists.controller.fragment.CycleTrackerFragment;
+import com.ssm.cyclists.controller.fragment.HomeFragment;
+import com.ssm.cyclists.controller.fragment.MapViewFragment;
+import com.ssm.cyclists.controller.fragment.SettingsFragment;
 import com.ssm.cyclists.model.ResourceManager;
 
 import android.app.Fragment;
@@ -221,16 +222,6 @@ public class MainLayout{
 		 mMenuDrawer.toggleMenu();
 	}
 		
-	public void onBackBtnPressed(){
-		final int drawerState = mMenuDrawer.getDrawerState();
-        if (drawerState == MenuDrawer.STATE_OPEN || drawerState == MenuDrawer.STATE_OPENING) {
-            mMenuDrawer.closeMenu();
-            return;
-        }
-	}
-	
-
-	
 	public void onRestoreInstanceState(Bundle inState){
 		mMenuDrawer.restoreState(inState.getParcelable(STATE_MENUDRAWER));
 	}
@@ -276,6 +267,10 @@ public class MainLayout{
 
 	public Fragment getActivated_fragment() {
 		return activated_fragment;
+	}
+
+	public MenuDrawer getmMenuDrawer() {
+		return mMenuDrawer;
 	}
 
 	public void setActivated_fragment(Fragment activated_fragment) {

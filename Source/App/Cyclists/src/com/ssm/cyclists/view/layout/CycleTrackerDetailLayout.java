@@ -7,7 +7,7 @@ import com.jjoe64.graphview.GraphViewSeries;
 import com.jjoe64.graphview.GraphViewSeries.GraphViewSeriesStyle;
 import com.jjoe64.graphview.LineGraphView;
 import com.ssm.cyclists.R;
-import com.ssm.cyclists.controller.MainActivity;
+import com.ssm.cyclists.controller.activity.MainActivity;
 
 import android.app.Fragment;
 import android.app.FragmentTransaction;
@@ -23,6 +23,7 @@ import android.widget.LinearLayout;
 public class CycleTrackerDetailLayout extends BaseFragmentLayout {
 
 	Button btnBack;
+	
 	
 	public CycleTrackerDetailLayout(Fragment instance) {
 		super(instance);
@@ -40,14 +41,7 @@ public class CycleTrackerDetailLayout extends BaseFragmentLayout {
 			@Override
 			public void onClick(View v) {
 				//뒤로가기
-				FragmentTransaction transaction = MainActivity.getInstasnce().getFragmentManager().beginTransaction();
-				transaction.hide(fragment);
-				transaction.show(MainActivity.getInstasnce().getLayout().getmFragmentCycleTracker());
-				MainActivity.getInstasnce().getLayout().setActivated_fragment(MainActivity.getInstasnce().getLayout().getmFragmentCycleTracker());
-				transaction.commit();
-				
-				MainActivity.getInstasnce().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-				
+				backScreen();
 			}
 		});
 		
@@ -115,4 +109,13 @@ public class CycleTrackerDetailLayout extends BaseFragmentLayout {
 		
 	}
 
+	public void backScreen(){
+		FragmentTransaction transaction = MainActivity.getInstasnce().getFragmentManager().beginTransaction();
+		transaction.hide(fragment);
+		transaction.show(MainActivity.getInstasnce().getLayout().getmFragmentCycleTracker());
+		MainActivity.getInstasnce().getLayout().setActivated_fragment(MainActivity.getInstasnce().getLayout().getmFragmentCycleTracker());
+		transaction.commit();
+		
+		MainActivity.getInstasnce().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+	}
 }

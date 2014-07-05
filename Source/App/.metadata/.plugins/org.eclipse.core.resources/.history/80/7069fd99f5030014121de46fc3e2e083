@@ -1,0 +1,45 @@
+package com.ssm.cyclists.controller;
+
+import com.ssm.cyclists.model.TwitterBasicInfo;
+
+import android.content.Intent;
+import twitter4j.Twitter;
+import twitter4j.auth.AccessToken;
+import twitter4j.auth.RequestToken;
+
+public class TwitterManager {
+
+	Twitter TwitInstance;
+	RequestToken TwitRequestToken;
+	
+	public void connect(){
+		TwitterConnectAsyncTask task = new TwitterConnectAsyncTask();
+		task.execute();
+	}
+	
+	public void onActivityResult(int requestCode, int resultCode, Intent resultIntent) {
+		
+		if(resultCode == RESULT_OK){
+			if(requestCode == TwitterBasicInfo.REQ_CODE_TWIT_LOGIN){
+				try{
+					Twitter mTwit = TwitInstance;
+					
+					AccessToken mAccessToken = mTwit.getOAuthAccessToken(TwitRequestToken,resultIntent.getStringExtra("oauthVerifier"));
+					
+					TwitterBasicInfo.TwitLogin = true;
+					TwitterBasicInfo.TWIT_KEY_TOKEN = mAccessToken.getToken();
+					TwitterBasicInfo.TWIT_KEY_TOKEN_SECRET = mAccessToken.getTokenSecret();
+					
+					TwitAccessToken = mAccessToken;
+					
+					Toast.makeText(getBaseContext(), "Twitter connection succeeded : + TWIT_KEY_TOKEN",Toast.LENGTH_LONG).show();
+					
+					
+				}catch(Exception ex){
+					ex.printStackTrace();
+				}
+			}
+		}
+		
+	}
+}

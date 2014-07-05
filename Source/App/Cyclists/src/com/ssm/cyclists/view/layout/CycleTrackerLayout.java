@@ -6,9 +6,9 @@ import java.util.Calendar;
 import java.util.Date;
 
 import com.ssm.cyclists.R;
-import com.ssm.cyclists.controller.CycleTrackerDetailFragment;
-import com.ssm.cyclists.controller.CycleTrackerFragment;
-import com.ssm.cyclists.controller.MainActivity;
+import com.ssm.cyclists.controller.activity.MainActivity;
+import com.ssm.cyclists.controller.fragment.CycleTrackerDetailFragment;
+import com.ssm.cyclists.controller.fragment.CycleTrackerFragment;
 import com.ssm.cyclists.model.CycleData;
 import com.ssm.cyclists.model.CycleMateListViewAdapter;
 import com.ssm.cyclists.model.CycleTrackerListViewAdapter;

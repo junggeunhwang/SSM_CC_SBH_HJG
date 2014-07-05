@@ -103,18 +103,18 @@ import android.widget.TextView;
 //        Session.getActiveSession().removeCallback(statusCallback);
 //    }
 
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        Session.getActiveSession().onActivityResult(this, requestCode, resultCode, data);
-    }
+//    @Override
+//    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+//        super.onActivityResult(requestCode, resultCode, data);
+//        Session.getActiveSession().onActivityResult(this, requestCode, resultCode, data);
+//    }
 
-    @Override
-    protected void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-        Session session = Session.getActiveSession();
-        Session.saveSession(session, outState);
-    }
+//    @Override
+//    protected void onSaveInstanceState(Bundle outState) {
+//        super.onSaveInstanceState(outState);
+//        Session session = Session.getActiveSession();
+//        Session.saveSession(session, outState);
+//    }
 
     private void updateView() {
         Session session = Session.getActiveSession();

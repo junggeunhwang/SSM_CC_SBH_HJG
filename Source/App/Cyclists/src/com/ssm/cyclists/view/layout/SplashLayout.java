@@ -1,7 +1,7 @@
 package com.ssm.cyclists.view.layout;
 
 import com.ssm.cyclists.R;
-import com.ssm.cyclists.controller.SplashActivity;
+import com.ssm.cyclists.controller.activity.SplashActivity;
 import com.ssm.cyclists.model.ResourceManager;
 
 import android.widget.TextView;

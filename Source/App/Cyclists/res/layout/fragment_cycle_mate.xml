@@ -28,22 +28,17 @@
 		<View
 	        android:layout_width="0dip"
 	        android:layout_height="match_parent"
-	        android:layout_weight="0.1540"/>
+	        android:layout_weight="0.40"/>
 
         <TextView
             android:id="@+id/fragment_name_cyclemate"
-            android:layout_width="0dip"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_weight="0.3594"
+            
             android:gravity="center_vertical|center_horizontal"
             android:text="Cycle Mate"
             android:textColor="@color/white"
             android:textSize="15sp" />
-        
-        <View
-	        android:layout_width="0dip"
-	        android:layout_height="match_parent"
-	        android:layout_weight="0.3160"/>
 
     </LinearLayout>
 

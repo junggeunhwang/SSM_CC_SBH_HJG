@@ -13,7 +13,9 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.ssm.cyclists.R;
-import com.ssm.cyclists.controller.MainActivity;
+import com.ssm.cyclists.controller.activity.MainActivity;
+import com.ssm.cyclists.controller.asynctask.LocationInfoUpdateAsyncTask;
+import com.ssm.cyclists.controller.asynctask.WeatherUpdateAsyncTask;
 
 import android.content.Context;
 import android.location.Address;
@@ -21,6 +23,7 @@ import android.location.Criteria;
 import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationManager;
+import android.os.AsyncTask;
 import android.util.Log;
 
 public class CruiseDataManager {
@@ -30,19 +33,28 @@ public class CruiseDataManager {
 	private int weather_resID;
 	private int temperature;
 	private int humidity;
+	private int calory;
+	private int distnace;
+	private int maximum_speed;
 	private Location current_loc;
 	private double elevation;
 	private double current_speed;
 	private String curarent_address;
 	
+	
 	private Geocoder geoCoder;
 	
 	private CruiseDataManager(){
-		geoCoder = new Geocoder(MainActivity.getInstasnce(),Locale.KOREA);
-		humidity = 0;
-		elevation = 0;		
-		temperature = 0;
+		geoCoder 	  = new Geocoder(MainActivity.getInstasnce(),Locale.KOREA);
+		humidity 	  = 0;
+		elevation 	  = 0;		
+		temperature   = 0;
+		calory		  = 0;
+		distnace	  = 0;
+		maximum_speed = 0;
 		curarent_address = "";
+		
+		
 		// Creating a criteria object to retrieve provider
         Criteria criteria = new Criteria();
  
@@ -61,149 +73,14 @@ public class CruiseDataManager {
 	}
 	
 	public void updateCruiseData(){
-		updateWeather(current_loc);
-		updateElevation(current_loc);
-		updateAddress(current_loc);
+		WeatherUpdateAsyncTask weather_update_task = new WeatherUpdateAsyncTask();
+		weather_update_task.execute(current_loc);
+		
+		LocationInfoUpdateAsyncTask location_info_update_task = new LocationInfoUpdateAsyncTask();
+		location_info_update_task.execute(current_loc);
 	}
 	
-	public void updateLocation(){
-	
-		if(current_loc==null){
-			current_loc = MainActivity.getInstasnce().getLayout().getmMapViewFragment().getLayout().getMapInstance().getMyLocation();
-			if(current_loc == null){
-				Log.d(TAG,"null location");
-			 	// Creating a criteria object to retrieve provider
-	            Criteria criteria = new Criteria();
-	     
-	            // Getting the name of the best provider
-	            String provider = ((LocationManager) MainActivity.getInstasnce().getSystemService(Context.LOCATION_SERVICE)).getBestProvider(criteria, true);
-	            current_loc = new Location(provider);
-	            current_loc.setLatitude(37.561372);
-	            current_loc.setLongitude(127.037171);
-			}
-			 	
-		}
-	}
-	
-	public void updateWeather(final Location loc){
-		
-		new Thread(new Runnable(){
-
-			@Override
-			public void run() {
-				String strURL = String.format("http://api.openweathermap.org/data/2.5/weather?lat=%f&lon=%f",loc.getLatitude(),loc.getLongitude()); 
-				String jsonString = DownloadHtml(strURL);
-				try {
-					JSONObject jsonObj = new JSONObject(jsonString);
-					JSONObject weather = jsonObj.getJSONArray("weather").getJSONObject(0);
-					Log.d(TAG, "id : "+weather.getInt("id") +" weather : " + weather.getString("main"));
-
-					final JSONObject main = jsonObj.getJSONObject("main");
-						
-					int weather_id = weather.getInt("id");
-					
-					if(weather_id >=200 && weather_id < 300)		//Thunderstorm
-					{
-						weather_resID = R.drawable.thunder;
-					}
-					else if(weather_id >=300 && weather_id < 400)	//Drizzle
-					{
-						weather_resID = R.drawable.rainy;
-					}
-					else if(weather_id >=400 && weather_id < 500)	//empty
-					{
-					
-					}
-					else if(weather_id >=500 && weather_id < 600)	//Rain
-					{
-						weather_resID = R.drawable.rainy;
-					}
-					else if(weather_id >=600 && weather_id < 700)	//Snow
-					{
-						weather_resID = R.drawable.rainy;
-					}
-					else if(weather_id >=700 && weather_id < 800)	//Atmosphere
-					{
-						weather_resID = R.drawable.cloudy;
-					}
-					else if(weather_id >=800 && weather_id < 900)	//Clouds
-					{
-						if(weather_id == 800){
-							weather_resID = R.drawable.sunny;
-						}
-						else{
-							weather_resID = R.drawable.cloudy;
-						}
-					}
-					else
-					{
-						weather_resID = R.drawable.sunny;
-					}
-
-					humidity = main.getInt("humidity");
-					temperature = ((int)Math.round((main.getDouble("temp")-273.15)));
-										
-				} catch (JSONException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			}
-			
-		}).start();
-		
-}
-	
-	public void updateElevation(final Location loc){
-		
-		new Thread(new Runnable(){
-			@Override
-			public void run() {
-				String strURL = String.format("http://maps.googleapis.com/maps/api/elevation/json?locations=%f,%f&sensor=true_or_false",loc.getLatitude(),loc.getLongitude()); 
-				String jsonString = DownloadHtml(strURL);
-				
-				try {
-					JSONObject jsonObj = new JSONObject(jsonString);
-					JSONArray results = jsonObj.getJSONArray("results");
-					elevation = results.getJSONObject(0).getDouble("elevation");
-					elevation = Double.valueOf(String.format("%.2f", elevation));
-					Log.d(TAG,"elevation ("+loc.getLatitude() +", "+loc.getLongitude()+") : " + elevation);
-				} catch (JSONException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			}
-			
-		}).start();
-	}
-	
-	public void updateAddress(Location loc){
-  		StringBuffer juso = new StringBuffer();
-  		boolean ok = Geocoder.isPresent();
- 		if(!ok) Log.e(TAG,"Geocoder is not present. please check network.");
-		List<Address> addresses;
-		
-		try {
- 			addresses = geoCoder.getFromLocation(loc.getLatitude(), loc.getLongitude(),1);
-   			for(Address addr: addresses){
- 				int index = addr.getMaxAddressLineIndex();
-  				for(int i = 0 ; i <= index ; i++){   
-					juso.append(addr.getAddressLine(i));
-					juso.append(" ");
-				}
-			}
-			int space=0;
-			
- 			for(int i = 0;i<2;i++)
-				space= juso.indexOf(" ",space) + 1;
-			curarent_address = juso.subSequence(space, juso.indexOf(" ",space)).toString(); 
- 			
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		
-	}
-	
-	private String DownloadHtml(String addr){
+	public String DownloadHtml(String addr){
 		StringBuilder html = new StringBuilder();
 		
 		try{
@@ -256,6 +133,34 @@ public class CruiseDataManager {
 	
 	public String getAddress() {
 		return curarent_address;
+	}
+
+	public Geocoder getGeoCoder() {
+		return geoCoder;
+	}
+
+	public int getCalory() {
+		return calory;
+	}
+
+	public int getDistnace() {
+		return distnace;
+	}
+
+	public int getMaximum_speed() {
+		return maximum_speed;
+	}
+
+	public void setDistnace(int distnace) {
+		this.distnace = distnace;
+	}
+
+	public void setMaximum_speed(int maximum_speed) {
+		this.maximum_speed = maximum_speed;
+	}
+
+	public void setCalory(int calory) {
+		this.calory = calory;
 	}
 
 	public void setAddress(String address) {

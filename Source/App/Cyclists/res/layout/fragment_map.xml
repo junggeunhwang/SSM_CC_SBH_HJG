@@ -25,9 +25,9 @@
 	        android:background="@drawable/menu_btn"/>
       
         <View
-	        android:layout_width="0dip"
-	        android:layout_height="match_parent"
-	        android:layout_weight="0.2540"/>
+            android:layout_width="0dip"
+            android:layout_height="match_parent"
+            android:layout_weight="0.30" />
 
         <TextView
             android:id="@+id/fragment_name_map"
@@ -45,10 +45,6 @@
             android:layout_height="wrap_content"
             android:src="@drawable/location_icon" 
             android:layout_weight="0.0366"/>
-        <View
-	        android:layout_width="0dip"
-	        android:layout_height="match_parent"
-	        android:layout_weight="0.3794"/>
 
     </LinearLayout>
 

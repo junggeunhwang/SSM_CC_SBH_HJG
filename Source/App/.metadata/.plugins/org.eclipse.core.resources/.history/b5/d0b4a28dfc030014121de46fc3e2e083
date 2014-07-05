@@ -1,0 +1,14 @@
+package com.ssm.cyclists.controller;
+
+import android.location.Location;
+import android.os.AsyncTask;
+
+public class WeatherUpdateAsyncTask extends AsyncTask<Location, Integer, Long> {
+
+	@Override
+	protected Long doInBackground(Location... loc) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+}

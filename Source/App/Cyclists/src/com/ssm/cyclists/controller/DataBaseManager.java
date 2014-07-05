@@ -1,5 +1,8 @@
 package com.ssm.cyclists.controller;
 
+import com.ssm.cyclists.controller.activity.MainActivity;
+import com.ssm.cyclists.model.CruiseDataManager;
+
 import twitter4j.GeoLocation;
 import android.content.ContentValues;
 import android.content.Context;
@@ -39,7 +42,7 @@ public class DataBaseManager extends SQLiteOpenHelper {
 	}
 	
 	public void updateLastLocation(Location loc){
-	
+
 		ContentValues row = new ContentValues();
 		row.put("latitude",String.valueOf(loc.getLatitude()));
 		row.put("longitude",String.valueOf(loc.getLongitude()));

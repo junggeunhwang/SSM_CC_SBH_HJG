@@ -11,8 +11,8 @@ import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.ssm.cyclists.controller.DataBaseManager;
-import com.ssm.cyclists.controller.MainActivity;
-import com.ssm.cyclists.controller.MapViewFragment;
+import com.ssm.cyclists.controller.activity.MainActivity;
+import com.ssm.cyclists.controller.fragment.MapViewFragment;
 import com.ssm.cyclists.model.CruiseDataManager;
 import com.ssm.cyclists.model.ResourceManager;
 
@@ -29,6 +29,7 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class MapViewLayout extends BaseFragmentLayout {
 
@@ -48,6 +49,7 @@ public class MapViewLayout extends BaseFragmentLayout {
 	private GoogleMap mGoogleMap;
 //	MapView map_view;
 	
+	boolean init_map = false;
 	
 	public MapViewLayout(Fragment instance) {
 		super(instance);
@@ -115,14 +117,7 @@ public class MapViewLayout extends BaseFragmentLayout {
 		else{
 			moveMapCamenra(lo);
 			final Location loc = lo;
-			new Thread(new Runnable() {
-				
-				@Override
-				public void run() {
-					CruiseDataManager.getInstance().setCurrent_loc(loc.getLatitude(),loc.getLongitude());
-				}
-			});
-			
+			CruiseDataManager.getInstance().setCurrent_loc(loc.getLatitude(),loc.getLongitude());
 		}
 		
 		mGoogleMap.setOnMyLocationButtonClickListener(new OnMyLocationButtonClickListener() {
@@ -130,6 +125,11 @@ public class MapViewLayout extends BaseFragmentLayout {
 			@Override
 			public boolean onMyLocationButtonClick() {
 				Location lo = mGoogleMap.getMyLocation();
+				if(lo.hasSpeed())
+				{
+					Toast.makeText(getView().getContext(),String.valueOf(lo.getSpeed()), Toast.LENGTH_LONG).show();
+				}
+//				Toast.makeText(getView().getContext(),String.valueOf(lo.getSpeed()), Toast.LENGTH_LONG).show();
 				CruiseDataManager.getInstance().setCurrent_loc(lo.getLatitude(),lo.getLongitude());
 				DataBaseManager.getInstance().updateLastLocation(lo);
 				return false;
@@ -139,8 +139,9 @@ public class MapViewLayout extends BaseFragmentLayout {
 
 	
 	public void moveMapCamenra(Location location){
-		
+			
 		Log.d(TAG,"moveMapCamenra");
+
 		
 			// Getting latitude of the current location
 		     double latitude = location.getLatitude();
@@ -153,9 +154,15 @@ public class MapViewLayout extends BaseFragmentLayout {
 		 
 		     // Showing the current location in Google Map
 		     mGoogleMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
-		 
+		     
+		     if(!init_map){
+		    	 mGoogleMap.animateCamera(CameraUpdateFactory.zoomTo(15));
+		    	 init_map = true;
+		     }
+		     else	mGoogleMap.animateCamera(CameraUpdateFactory.zoomTo(mGoogleMap.getCameraPosition().zoom));
 		     // Zoom in the Google Map
-		     mGoogleMap.animateCamera(CameraUpdateFactory.zoomTo(15));
+		     
+		     Log.d(TAG,String.valueOf(mGoogleMap.getCameraPosition().zoom));
 	
 	}
 	

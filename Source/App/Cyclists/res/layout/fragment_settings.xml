@@ -24,12 +24,11 @@
 	            android:layout_width="35dp"
 	            android:layout_height="30dp"
 	            android:background="@drawable/menu_btn"/>
-        
-        
+
         <View
-	        android:layout_width="0dip"
-	        android:layout_height="match_parent"
-	        android:layout_weight="0.2540"/>
+            android:layout_width="0dip"
+            android:layout_height="match_parent"
+            android:layout_weight="0.30" />
 
         <TextView
             android:id="@+id/fragment_name_settings"
@@ -40,11 +39,6 @@
             android:text="Settings"
             android:textColor="@color/white"
             android:textSize="15sp" />
-        
-        <View
-            android:layout_width="0dip"
-            android:layout_height="match_parent"
-            android:layout_weight="0.36" />
 
     </LinearLayout>
     

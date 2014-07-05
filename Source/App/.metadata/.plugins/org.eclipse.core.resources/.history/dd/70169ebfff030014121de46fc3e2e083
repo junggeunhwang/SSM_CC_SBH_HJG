@@ -1,0 +1,73 @@
+package com.ssm.cyclists.controller;
+
+import java.io.IOException;
+import java.util.List;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import com.ssm.cyclists.model.CruiseDataManager;
+
+import android.location.Address;
+import android.location.Geocoder;
+import android.location.Location;
+import android.os.AsyncTask;
+import android.util.Log;
+
+public class LocationInfoUpdateAsyncTask extends
+		AsyncTask<Location,Integer,Long> {
+	
+	public static String TAG = LocationInfoUpdateAsyncTask.class.getSimpleName();
+	
+	@Override
+	protected Long doInBackground(Location... loc) {
+		//update elevation
+		String strURL = String.format("http://maps.googleapis.com/maps/api/elevation/json?locations=%f,%f&sensor=true_or_false",loc[0].getLatitude(),loc[0].getLongitude()); 
+		String jsonString = CruiseDataManager.getInstance().DownloadHtml(strURL);
+		
+		try {
+			JSONObject jsonObj = new JSONObject(jsonString);
+			JSONArray results = jsonObj.getJSONArray("results");
+			CruiseDataManager.getInstance()
+				.setElevation(Double.valueOf(String.format("%.2f", results.getJSONObject(0).getDouble("elevation"))));
+			
+			Log.d(TAG,"elevation ("+loc[0].getLatitude() +", "+loc[0].getLongitude()+") : " + CruiseDataManager.getInstance().getElevation());
+		} catch (JSONException e) {
+			Log.e(TAG,e.getLocalizedMessage());
+			e.printStackTrace();
+		}
+		
+		StringBuffer juso = new StringBuffer();
+  		boolean ok = Geocoder.isPresent();
+ 		if(!ok) Log.e(TAG,"Geocoder is not present. please check network.");
+		List<Address> addresses;
+		
+		try {
+ 			addresses = CruiseDataManager.getInstance().getGeoCoder().getFromLocation(loc[0].getLatitude(), loc[0].getLongitude(),1);
+   			for(Address addr: addresses){
+ 				int index = addr.getMaxAddressLineIndex();
+  				for(int i = 0 ; i <= index ; i++){   
+					juso.append(addr.getAddressLine(i));
+					juso.append(" ");
+				}
+			}
+			int space=0;
+			
+ 			for(int i = 0;i<2;i++)
+				space= juso.indexOf(" ",space) + 1;
+ 			CruiseDataManager.getInstance().setAddress(juso.subSequence(space, juso.indexOf(" ",space)).toString());
+			
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		return null;
+	}
+	
+	@Override
+	protected void onPostExecute(Long result) {
+		// TODO Auto-generated method stub
+		super.onPostExecute(result);
+	}
+}

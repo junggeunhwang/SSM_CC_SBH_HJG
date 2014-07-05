@@ -1,0 +1,8 @@
+package com.ssm.cyclists.controller;
+
+import android.os.AsyncTask;
+
+public class LocationInfoUpdateAsyncTask extends
+		AsyncTask<Params, Progress, Result> {
+
+}

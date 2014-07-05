@@ -1,0 +1,7 @@
+package com.ssm.cyclists.controller;
+
+import android.os.AsyncTask;
+
+public class TwitterConnectAsyncTask extends AsyncTask<URL, Integer, Long> {
+
+}

@@ -13,9 +13,9 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.ssm.cyclists.R;
-import com.ssm.cyclists.controller.HomeFragment;
-import com.ssm.cyclists.controller.MainActivity;
-import com.ssm.cyclists.controller.MapViewFragment;
+import com.ssm.cyclists.controller.activity.MainActivity;
+import com.ssm.cyclists.controller.fragment.HomeFragment;
+import com.ssm.cyclists.controller.fragment.MapViewFragment;
 import com.ssm.cyclists.model.CruiseDataManager;
 import com.ssm.cyclists.model.ResourceManager;
 import com.ssm.cyclists.view.ImageViewRounded;

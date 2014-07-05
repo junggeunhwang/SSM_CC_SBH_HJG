@@ -5,8 +5,8 @@ import java.util.ArrayList;
 
 import com.nhaarman.listviewanimations.itemmanipulation.OnDismissCallback;
 import com.ssm.cyclists.R;
-import com.ssm.cyclists.controller.CycleMateFragment;
-import com.ssm.cyclists.controller.MainActivity;
+import com.ssm.cyclists.controller.activity.MainActivity;
+import com.ssm.cyclists.controller.fragment.CycleMateFragment;
 import com.ssm.cyclists.model.CycleMateListViewAdapter;
 import com.ssm.cyclists.model.ResourceManager;
 import com.ssm.cyclists.model.UserData;

@@ -281,13 +281,13 @@ public static final String TAG = "SAPStringProviderService";
 					certificat = cert.getPublicKey().getEncoded();
 				}
 			} catch (NameNotFoundException e) {
-				// TODO Auto-generated catch block
+				Log.e(TAG,e.getLocalizedMessage());
 				e.printStackTrace();
 			} catch (CertificateException e) {
-				// TODO Auto-generated catch block
+				Log.e(TAG,e.getLocalizedMessage());
 				e.printStackTrace();
 			} catch (javax.security.cert.CertificateException e) {
-				// TODO Auto-generated catch block
+				Log.e(TAG,e.getLocalizedMessage());
 				e.printStackTrace();
 			}
 
@@ -343,7 +343,7 @@ public static final String TAG = "SAPStringProviderService";
 			mSAPSocket.send(SAPStringProvider_CHANNEL_ID, data);
 		} catch (IOException e) 
 		{
-			// TODO Auto-generated catch block
+			Log.e(TAG,e.getLocalizedMessage());
 			e.printStackTrace();
 		}
 	}
