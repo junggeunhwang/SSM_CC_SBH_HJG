@@ -61,6 +61,7 @@ public class CycleTrackerLayout extends BaseFragmentLayout {
 		data.setDate(tmpDate);
 		data.setConsume_calrories(127);
 		arGeneral.add(data);
+		arGeneral.add(data);
 
 		Adapter = new CycleTrackerListViewAdapter(getView().getContext(),R.layout.cycletracker_listview_row,arGeneral);
 		

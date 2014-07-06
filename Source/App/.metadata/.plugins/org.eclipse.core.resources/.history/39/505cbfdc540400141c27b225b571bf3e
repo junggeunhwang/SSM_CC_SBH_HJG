@@ -1,0 +1,42 @@
+package com.ssm.cyclists.model;
+
+import android.location.Location;
+import android.os.Bundle;
+import android.widget.Toast;
+
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GooglePlayServicesUtil;
+import com.google.android.gms.location.LocationClient;
+import com.google.android.gms.location.LocationListener;
+import com.google.android.gms.*;
+
+
+public class GPSListener implements LocationListener {
+
+	ConnectionCallbacks, OnConnectionFailedListener{
+		 
+	    com.google.android.gms.location.LocationClient locationClient= null;
+	    boolean isReconnect = false;
+	    @Override
+	    protected void onCreate(Bundle savedInstanceState) {
+	        super.onCreate(savedInstanceState);
+	        setContentView(R.layout.activity_main);
+	 
+	        // check Google Play service APK is available and up to date.
+	        // see http://developer.android.com/google/play-services/setup.html
+	        final int result = GooglePlayServicesUtil.isGooglePlayServicesAvailable(this);
+	        if (result != ConnectionResult.SUCCESS) {
+	            Toast.makeText(this, "Google Play service is not available (status=" + result + ")", Toast.LENGTH_LONG).show();
+	            finish();
+	        }
+	        locationClient= new LocationClient(this, this, this);
+	    }
+	
+	
+	@Override
+	public void onLocationChanged(Location arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+}

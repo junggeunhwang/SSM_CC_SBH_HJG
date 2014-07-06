@@ -1,0 +1,61 @@
+package com.ssm.cyclists.model;
+
+public class AppSettings {
+	
+	static String TAG = AppSettings.class.getSimpleName();
+
+	static final int pink = 1;
+	static final int green = 2;
+	static final int gray = 3;
+	
+	private int current_color;
+	
+	private boolean sns_facebook_state;
+	private boolean sns_twitter_state;
+	private boolean sns_instagram_state;
+	
+	private static AppSettings instance;
+	
+	
+	private AppSettings() {
+		// TODO Auto-generated constructor stub
+	}
+
+	public static AppSettings getInstance() {
+		if(instance==null) instance = new AppSettings(); 
+		return instance;
+	}
+
+	public int getCurrent_color() {
+		return current_color;
+	}
+
+	public boolean isSns_facebook_state() {
+		return sns_facebook_state;
+	}
+
+	public boolean isSns_twitter_state() {
+		return sns_twitter_state;
+	}
+
+	public boolean isSns_instagram_state() {
+		return sns_instagram_state;
+	}
+
+	public void setCurrent_color(int current_color) {
+		this.current_color = current_color;
+	}
+
+	public void setSns_facebook_state(boolean sns_facebook_state) {
+		this.sns_facebook_state = sns_facebook_state;
+	}
+
+	public void setSns_twitter_state(boolean sns_twitter_state) {
+		this.sns_twitter_state = sns_twitter_state;
+	}
+
+	public void setSns_instagram_state(boolean sns_instagram_state) {
+		this.sns_instagram_state = sns_instagram_state;
+	}
+	
+}

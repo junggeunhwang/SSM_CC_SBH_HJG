@@ -5,26 +5,24 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import com.ssm.cyclists.R;
 import com.ssm.cyclists.controller.activity.MainActivity;
 import com.ssm.cyclists.controller.asynctask.LocationInfoUpdateAsyncTask;
 import com.ssm.cyclists.controller.asynctask.WeatherUpdateAsyncTask;
 
 import android.content.Context;
-import android.location.Address;
 import android.location.Criteria;
 import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationManager;
-import android.os.AsyncTask;
+import android.text.format.Time;
 import android.util.Log;
+import android.widget.Toast;
 
 public class CruiseDataManager {
 	static CruiseDataManager instance;
@@ -35,24 +33,30 @@ public class CruiseDataManager {
 	private int humidity;
 	private int calory;
 	private int distnace;
-	private int maximum_speed;
+	private double maximum_speed;
 	private Location current_loc;
 	private double elevation;
 	private double current_speed;
 	private String curarent_address;
+	private long last_location_update_time;
 	
+	private int update_count;
+	private boolean firstLocationUpdateFlag; 
 	
 	private Geocoder geoCoder;
 	
 	private CruiseDataManager(){
-		geoCoder 	  = new Geocoder(MainActivity.getInstasnce(),Locale.KOREA);
+		geoCoder 	  = new Geocoder(MainActivity.getInstasnce(),Locale.ENGLISH);
 		humidity 	  = 0;
 		elevation 	  = 0;		
 		temperature   = 0;
 		calory		  = 0;
 		distnace	  = 0;
 		maximum_speed = 0;
+		update_count  = 12;
+		last_location_update_time = 0;
 		curarent_address = "";
+		firstLocationUpdateFlag = false;
 		
 		
 		// Creating a criteria object to retrieve provider
@@ -73,11 +77,18 @@ public class CruiseDataManager {
 	}
 	
 	public void updateCruiseData(){
-		WeatherUpdateAsyncTask weather_update_task = new WeatherUpdateAsyncTask();
-		weather_update_task.execute(current_loc);
+		if(update_count%2==0){
+			LocationInfoUpdateAsyncTask location_info_update_task = new LocationInfoUpdateAsyncTask();
+			location_info_update_task.execute(current_loc);	
+		}
 		
-		LocationInfoUpdateAsyncTask location_info_update_task = new LocationInfoUpdateAsyncTask();
-		location_info_update_task.execute(current_loc);
+		
+		if(update_count==12){
+			WeatherUpdateAsyncTask weather_update_task = new WeatherUpdateAsyncTask();
+			weather_update_task.execute(current_loc);
+			update_count=1;
+		}
+		update_count++;
 	}
 	
 	public String DownloadHtml(String addr){
@@ -147,7 +158,7 @@ public class CruiseDataManager {
 		return distnace;
 	}
 
-	public int getMaximum_speed() {
+	public double getMaximum_speed() {
 		return maximum_speed;
 	}
 
@@ -155,7 +166,7 @@ public class CruiseDataManager {
 		this.distnace = distnace;
 	}
 
-	public void setMaximum_speed(int maximum_speed) {
+	public void setMaximum_speed(double maximum_speed) {
 		this.maximum_speed = maximum_speed;
 	}
 
@@ -176,6 +187,30 @@ public class CruiseDataManager {
 	}
 
 	public void setCurrent_loc(double latitude,double longitude) {
+		
+		long current_location_update_time = System.currentTimeMillis(); 
+		if(last_location_update_time==0) last_location_update_time = current_location_update_time;
+		
+		long dif = (current_location_update_time - last_location_update_time)/1000;
+		if(dif == 0) dif = 1;
+		last_location_update_time = current_location_update_time;
+		Log.d(TAG,"dif = "+String.valueOf(dif));
+		
+		if(firstLocationUpdateFlag == true){
+			Location loc = new Location("gps");
+			loc.setLatitude(latitude);
+			loc.setLongitude(longitude);
+			
+			Toast.makeText(MainActivity.getInstasnce(),"distance : "+ current_loc.distanceTo(loc)+"m",Toast.LENGTH_SHORT).show();
+			
+			this.current_speed = Double.valueOf(String.format("%.2f",(current_loc.distanceTo(loc)/dif)*3.6));
+			if(this.maximum_speed < this.current_speed)
+				this.maximum_speed = this.current_speed;
+		}
+		else{
+			firstLocationUpdateFlag = true;
+		}
+	
 		this.current_loc.setLatitude(latitude);
 		this.current_loc.setLongitude(longitude);
 		

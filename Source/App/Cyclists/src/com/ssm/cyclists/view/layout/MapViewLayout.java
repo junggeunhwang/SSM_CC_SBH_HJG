@@ -119,22 +119,6 @@ public class MapViewLayout extends BaseFragmentLayout {
 			final Location loc = lo;
 			CruiseDataManager.getInstance().setCurrent_loc(loc.getLatitude(),loc.getLongitude());
 		}
-		
-		mGoogleMap.setOnMyLocationButtonClickListener(new OnMyLocationButtonClickListener() {
-			
-			@Override
-			public boolean onMyLocationButtonClick() {
-				Location lo = mGoogleMap.getMyLocation();
-				if(lo.hasSpeed())
-				{
-					Toast.makeText(getView().getContext(),String.valueOf(lo.getSpeed()), Toast.LENGTH_LONG).show();
-				}
-//				Toast.makeText(getView().getContext(),String.valueOf(lo.getSpeed()), Toast.LENGTH_LONG).show();
-				CruiseDataManager.getInstance().setCurrent_loc(lo.getLatitude(),lo.getLongitude());
-				DataBaseManager.getInstance().updateLastLocation(lo);
-				return false;
-			}
-		});
 	}
 
 	
@@ -143,27 +127,23 @@ public class MapViewLayout extends BaseFragmentLayout {
 		Log.d(TAG,"moveMapCamenra");
 
 		
-			// Getting latitude of the current location
-		     double latitude = location.getLatitude();
+		// Getting latitude of the current location
+		double latitude = location.getLatitude();
 		 
-		     // Getting longitude of the current location
-		     double longitude = location.getLongitude();
+		// Getting longitude of the current location
+		double longitude = location.getLongitude();
 		 
-		     // Creating a LatLng object for the current location
-		     LatLng latLng = new LatLng(latitude, longitude);
-		 
-		     // Showing the current location in Google Map
-		     mGoogleMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
-		     
-		     if(!init_map){
-		    	 mGoogleMap.animateCamera(CameraUpdateFactory.zoomTo(15));
-		    	 init_map = true;
-		     }
-		     else	mGoogleMap.animateCamera(CameraUpdateFactory.zoomTo(mGoogleMap.getCameraPosition().zoom));
-		     // Zoom in the Google Map
-		     
-		     Log.d(TAG,String.valueOf(mGoogleMap.getCameraPosition().zoom));
-	
+		// Creating a LatLng object for the current location
+		LatLng latLng = new LatLng(latitude, longitude);
+		 	     
+		if(!init_map){
+			// Showing the current location in Google Map
+			mGoogleMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
+			mGoogleMap.animateCamera(CameraUpdateFactory.zoomTo(15));
+		    init_map = true;
+		}
+
+		// Zoom in the Google Map
 	}
 	
 	

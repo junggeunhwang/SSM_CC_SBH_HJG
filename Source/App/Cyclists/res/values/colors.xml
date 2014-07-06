@@ -12,7 +12,8 @@
     <color name="light">#FFEEEEEE</color>
     <color name="white">#FFFFFF</color>
     <color name="black">#000000</color>
-    <color name="green">#69af6c</color>
+    <color name="green">#FF69af6c</color>
+    <color name="green_opcatiy88">#6669af6c</color>
     
     <color name="bk_pink">#fc9c97</color>
     <color name="bk_green">#2bd8b7</color>

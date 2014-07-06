@@ -20,6 +20,7 @@ import com.ssm.cyclists.controller.FacebookManager;
 import com.ssm.cyclists.controller.TwitterManager;
 import com.ssm.cyclists.controller.fragment.CycleTrackerDetailFragment;
 import com.ssm.cyclists.model.CruiseDataManager;
+import com.ssm.cyclists.model.GoogleLocationManager;
 import com.ssm.cyclists.model.TwitterBasicInfo;
 
 import com.ssm.cyclists.view.layout.MainLayout;
@@ -45,7 +46,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
-public class MainActivity extends FragmentActivity implements LocationListener{
+public class MainActivity extends FragmentActivity {
 
 	private static MainActivity instance;
 	
@@ -53,7 +54,7 @@ public class MainActivity extends FragmentActivity implements LocationListener{
 	private static final String DEST_PATH  = "/storage/emulated/legacy/test.amr";
 	private static final String TARGET_PATH = "/storage/emulated/legacy/testfromhost.amr";
 	
-//	private LocationListener mLocationListener;
+	private GoogleLocationManager googleLocationManager;
 	
 	private Context mCtxt;
 	private AlertDialog mAlert;
@@ -65,8 +66,10 @@ public class MainActivity extends FragmentActivity implements LocationListener{
 	
 	private MainLayout layout;
 	
+	
 	public MainActivity() {
 		this.instance = this;
+		
 	}
 	  
     @Override
@@ -77,7 +80,12 @@ public class MainActivity extends FragmentActivity implements LocationListener{
     	
     	Intent intent = new Intent(this,SplashActivity.class);
     	startActivity(intent);
-    	init_map_service();
+    	googleLocationManager = new GoogleLocationManager();
+    	googleLocationManager.init(this);
+    	//위치 서비스
+
+//    	googleLocationManager.resume();
+    	
     	CruiseDataManager.getInstance().updateCruiseData();
     	
     	super.onCreate(savedInstanceState);
@@ -101,12 +109,14 @@ public class MainActivity extends FragmentActivity implements LocationListener{
    	 	layout.getmFragmentHome().updateHomeInfo();
     	super.onStart();
     	FacebookManager.getInstance().start();
+    	googleLocationManager.resume();
     }
     
     @Override
     protected void onStop() {
     	super.onStop();
     	FacebookManager.getInstance().stop();
+    	googleLocationManager.pause();
     }
     
     @Override
@@ -121,43 +131,7 @@ public class MainActivity extends FragmentActivity implements LocationListener{
     	super.onResume();
     }
     
-    public void init_map_service(){
-		
-		LocationManager locationManager;
-		
-		// Getting Google Play availability status
-        int status = GooglePlayServicesUtil.isGooglePlayServicesAvailable(getBaseContext());
- 
-        // Showing status
-        if(status!=ConnectionResult.SUCCESS){ // Google Play Services are not available
- 
-            int requestCode = 10;
-            Dialog dialog = GooglePlayServicesUtil.getErrorDialog(status, this, requestCode);
-            dialog.show();
- 
-        }else { // Google Play Services are available
- 
- 
-            // Getting LocationManager object from System Service LOCATION_SERVICE
-            locationManager = (LocationManager) getApplicationContext().getSystemService(Context.LOCATION_SERVICE);
- 
-            // Creating a criteria object to retrieve provider
-            Criteria criteria = new Criteria();
-//            criteria.setAccuracy(Criteria.ACCURACY_FINE);
-//            criteria.setPowerRequirement(Criteria.NO_REQUIREMENT);
-//            criteria.setAltitudeRequired(true);
-//            criteria.setBearingRequired(true);
-//            criteria.setSpeedRequired(true);
-//            criteria.setCostAllowed(true);
-            
-            // Getting the name of the best provider
-            String provider = locationManager.getBestProvider(criteria, true);
- 
-            locationManager.requestLocationUpdates(provider, 20000, 0, this);
-        }
-	}
-
-	
+   
     private ServiceConnection mSAPConnection = new ServiceConnection() {
         @Override
         public void onServiceDisconnected(ComponentName arg0) {
@@ -356,42 +330,5 @@ public class MainActivity extends FragmentActivity implements LocationListener{
     public static MainActivity getInstasnce(){
     	return instance;
     }
-
-	@Override
-	public void onLocationChanged(Location location) {
-		Log.d(TAG,"altitude : " + location.getAltitude());
-		Toast.makeText(getApplicationContext(),String.valueOf(location.getSpeed()), Toast.LENGTH_LONG).show();
-		CruiseDataManager.getInstance().setCurrent_speed(location.getSpeed());
-		CruiseDataManager.getInstance().setCurrent_loc(location.getLatitude(),location.getLongitude()); 
-		CruiseDataManager.getInstance().updateCruiseData();
-		DataBaseManager.getInstance().updateLastLocation(location);				
-		if(layout.getmMapViewFragment().isVisible()){
-			layout.getmMapViewFragment().moveMapCamenra(location);
-		}
-		if(layout.getmFragmentCruise().isVisible()){
-			layout.getmFragmentCruise().updateCruiseInfo();
-		}
-		
-	}
-
-	@Override
-	public void onProviderDisabled(String provider) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void onProviderEnabled(String provider) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void onStatusChanged(String provider, int status, Bundle extras) {
-		// TODO Auto-generated method stub
-		
-	}
-
-
 
 }

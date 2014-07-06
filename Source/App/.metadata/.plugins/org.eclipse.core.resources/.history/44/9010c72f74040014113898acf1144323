@@ -1,0 +1,14 @@
+package com.ssm.cyclists.model;
+
+public class AppSettings {
+
+	AppSettings instance;
+	
+	private AppSettings() {
+		// TODO Auto-generated constructor stub
+	}
+	
+	
+	
+	
+}

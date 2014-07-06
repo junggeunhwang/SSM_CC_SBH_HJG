@@ -57,11 +57,10 @@ public class LocationInfoUpdateAsyncTask extends
 					juso.append(" ");
 				}
 			}
-			int space=0;
 			
- 			for(int i = 0;i<2;i++)
-				space= juso.indexOf(" ",space) + 1;
- 			CruiseDataManager.getInstance().setAddress(juso.subSequence(space, juso.indexOf(" ",space)).toString());
+			Address addr = addresses.get(0);
+
+			CruiseDataManager.getInstance().setAddress(addr.getThoroughfare());
 			
 		} catch (IOException e) {
 			Log.e(TAG,e.getLocalizedMessage());

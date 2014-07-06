@@ -1413,17 +1413,17 @@ containing a value of this type.
         public static final int abc_split_action_bar_is_narrow=0x7f0c0002;
     }
     public static final class color {
-        public static final int abc_search_url_text_holo=0x7f070038;
+        public static final int abc_search_url_text_holo=0x7f070039;
         public static final int abc_search_url_text_normal=0x7f07001f;
         public static final int abc_search_url_text_pressed=0x7f070021;
         public static final int abc_search_url_text_selected=0x7f070020;
         public static final int bk_color_heavy=0x7f070023;
         public static final int bk_color_light=0x7f070025;
         public static final int bk_color_mid=0x7f070024;
-        public static final int bk_gray=0x7f07002f;
-        public static final int bk_green=0x7f07002e;
-        public static final int bk_pink=0x7f07002d;
-        public static final int bk_scroll_menu=0x7f070030;
+        public static final int bk_gray=0x7f070030;
+        public static final int bk_green=0x7f07002f;
+        public static final int bk_pink=0x7f07002e;
+        public static final int bk_scroll_menu=0x7f070031;
         public static final int black=0x7f07002b;
         public static final int com_facebook_blue=0x7f070019;
         public static final int com_facebook_loginview_text_color=0x7f07001d;
@@ -1444,16 +1444,17 @@ containing a value of this type.
         public static final int common_signin_btn_light_text_disabled=0x7f070006;
         public static final int common_signin_btn_light_text_focused=0x7f070007;
         public static final int common_signin_btn_light_text_pressed=0x7f070005;
-        public static final int common_signin_btn_text_dark=0x7f070039;
-        public static final int common_signin_btn_text_light=0x7f07003a;
+        public static final int common_signin_btn_text_dark=0x7f07003a;
+        public static final int common_signin_btn_text_light=0x7f07003b;
         public static final int dark=0x7f070028;
-        public static final int elv_btn_focused=0x7f070032;
-        public static final int elv_btn_normal=0x7f070033;
-        public static final int elv_btn_pressed=0x7f070031;
-        public static final int elv_popup_bg_color=0x7f070034;
-        public static final int elv_popup_text_color=0x7f070036;
-        public static final int elv_separator_color=0x7f070035;
+        public static final int elv_btn_focused=0x7f070033;
+        public static final int elv_btn_normal=0x7f070034;
+        public static final int elv_btn_pressed=0x7f070032;
+        public static final int elv_popup_bg_color=0x7f070035;
+        public static final int elv_popup_text_color=0x7f070037;
+        public static final int elv_separator_color=0x7f070036;
         public static final int green=0x7f07002c;
+        public static final int green_opcatiy88=0x7f07002d;
         public static final int light=0x7f070029;
         /**  The default background of the menu. 
          */
@@ -1479,10 +1480,10 @@ containing a value of this type.
         public static final int wallet_hint_foreground_holo_light=0x7f070011;
         public static final int wallet_holo_blue_light=0x7f070015;
         public static final int wallet_link_text_light=0x7f070016;
-        public static final int wallet_primary_text_holo_light=0x7f07003b;
-        public static final int wallet_secondary_text_holo_dark=0x7f07003c;
+        public static final int wallet_primary_text_holo_light=0x7f07003c;
+        public static final int wallet_secondary_text_holo_dark=0x7f07003d;
         public static final int white=0x7f07002a;
-        public static final int windowBackground=0x7f070037;
+        public static final int windowBackground=0x7f070038;
     }
     public static final class dimen {
         /**  Default height of an action bar. 
@@ -1742,7 +1743,7 @@ containing a value of this type.
         public static final int com_facebook_list_section_header_background=0x7f02006c;
         public static final int com_facebook_loginbutton_silver=0x7f02006d;
         public static final int com_facebook_logo=0x7f02006e;
-        public static final int com_facebook_picker_default_separator_color=0x7f0200d4;
+        public static final int com_facebook_picker_default_separator_color=0x7f0200d7;
         public static final int com_facebook_picker_item_background=0x7f02006f;
         public static final int com_facebook_picker_list_focused=0x7f020070;
         public static final int com_facebook_picker_list_longpressed=0x7f020071;
@@ -1841,9 +1842,12 @@ containing a value of this type.
         public static final int search=0x7f0200ce;
         public static final int settings_menu_icon=0x7f0200cf;
         public static final int splash=0x7f0200d0;
-        public static final int sunny=0x7f0200d1;
-        public static final int thunder=0x7f0200d2;
-        public static final int twitter_ico=0x7f0200d3;
+        public static final int start_bicycle_btn_bg=0x7f0200d1;
+        public static final int start_bicycle_btn_bg_focused=0x7f0200d2;
+        public static final int start_bicycle_btn_bg_pressed=0x7f0200d3;
+        public static final int sunny=0x7f0200d4;
+        public static final int thunder=0x7f0200d5;
+        public static final int twitter_ico=0x7f0200d6;
     }
     public static final class id {
         public static final int action_bar=0x7f080036;

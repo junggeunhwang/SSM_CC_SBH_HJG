@@ -21,6 +21,7 @@ public class CycleTrackerListViewAdapter extends BaseAdapter {
 	
 	public void insert(CycleData data,int position){
 		arSrc.add(position,data);
+		notifyDataSetChanged();
 	}
 	
 	public void remove(int position){

@@ -24,6 +24,7 @@ public class CycleMateListViewAdapter extends BaseAdapter {
 	
 	public void insert(UserData data,int position){
 		arSrc.add(position,data);
+		notifyDataSetChanged();
 	}
 	
 	public void remove(int position){

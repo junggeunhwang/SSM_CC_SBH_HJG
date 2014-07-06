@@ -170,10 +170,10 @@
     
     <Button
         android:id="@+id/start_to_bicycle_home"
+        android:background ="@drawable/start_bicycle_btn_bg"
         android:layout_width="210dp"
         android:layout_height="0dip"
-        android:background="@color/green"
-        android:text="Start to bicycle" 
+        android:text="Start to bicycle"
         android:textColor="@color/white"
         android:layout_weight="0.0680"/>
 

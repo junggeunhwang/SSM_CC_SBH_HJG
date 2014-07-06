@@ -1,0 +1,21 @@
+package com.ssm.cyclists.model;
+
+public class AppSettings {
+	
+	static String TAG = AppSettings.class.getSimpleName();
+
+	private static AppSettings instance;
+	
+	
+	
+	
+	private AppSettings() {
+		// TODO Auto-generated constructor stub
+	}
+
+	public static AppSettings getInstance() {
+		if(instance==null) instance = new AppSettings(); 
+		return instance;
+	}
+	
+}
