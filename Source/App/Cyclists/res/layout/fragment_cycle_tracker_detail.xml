@@ -5,9 +5,10 @@
     android:orientation="vertical">
     
      	 <LinearLayout
+     		android:id="@+id/top_bar_cycle_tracker_detail"
 	        android:layout_width="match_parent"
 	        android:layout_height="45dp"
-	        android:background="@color/bk_color_heavy"
+	        android:background="@color/bk_color_pink_heavy"
 	        android:gravity="center_vertical"
 	        android:weightSum="1" >
 
@@ -19,9 +20,9 @@
 	                
 	        <Button
 	            android:id="@+id/back_button_cycletracker_detail"
-	            android:layout_width="35dp"
-	            android:layout_height="30dp"
-	            android:background="@drawable/menu_btn"
+	            android:layout_width="20dp"
+	            android:layout_height="20dp"
+	            android:background="@drawable/back_btn"
 	             />
 
 	        <View
@@ -65,6 +66,7 @@
 			    android:orientation="vertical" >
 
 	         	<TextView
+	         	    android:id="@+id/velocity_unit_cycletracker_detail"
 	         	    android:layout_width="wrap_content"
 	         	    android:layout_height="match_parent"
 	         	    android:gravity="top|right"
@@ -89,6 +91,7 @@
 		        android:orientation="vertical" >
 
 	         	<TextView
+	         	    android:id="@+id/distance_unit_cycletracker_detail"
 	         	    android:layout_width="wrap_content"
 	         	    android:layout_height="match_parent"
 	         	    android:gravity="bottom|left"
@@ -108,7 +111,7 @@
 
 		        <RadioButton
 		            android:id="@+id/radio_speed_cycletrackerdetail"
-		            android:button="@drawable/custom_drawable_radiobox"
+		            android:button="@drawable/custom_drawable_radiobox_pink"
 		            android:layout_width="wrap_content"
 		            android:layout_height="wrap_content"
 		            android:layout_marginRight="10dp"
@@ -119,7 +122,8 @@
 		            android:checked="true"/>
 	
 		        <RadioButton
-		            android:button="@drawable/custom_drawable_radiobox"
+		            android:id="@+id/radio_altitude_cycletrackerdetail"
+		            android:button="@drawable/custom_drawable_radiobox_pink"
 		            style="android:checkboxStyle"
 		            android:layout_width="wrap_content"
 		            android:layout_height="wrap_content"

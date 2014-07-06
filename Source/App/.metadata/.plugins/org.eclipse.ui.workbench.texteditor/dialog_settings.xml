@@ -2,20 +2,20 @@
 <section name="Workbench">
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
 		<item value="false" key="isRegEx"/>
-		<item value="start" key="selection"/>
+		<item value="SAP" key="selection"/>
 		<item value="false" key="casesensitive"/>
 		<item value="false" key="incremental"/>
 		<item value="true" key="wrap"/>
 		<item value="false" key="wholeword"/>
 		<list key="findhistory">
-			<item value="start"/>
-			<item value="geo"/>
-			<item value="address"/>
-			<item value="Build"/>
-			<item value="build"/>
-			<item value="com.google.android.gms.version"/>
-			<item value="onPause"/>
-			<item value="init"/>
+			<item value="sap"/>
+			<item value="st"/>
+			<item value="theme_color"/>
+			<item value="replace"/>
+			<item value="change"/>
+			<item value="change_color"/>
+			<item value="update"/>
+			<item value="getView"/>
 		</list>
 		<list key="replacehistory">
 		</list>

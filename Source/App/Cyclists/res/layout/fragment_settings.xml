@@ -7,11 +7,12 @@
     android:orientation="vertical">
 
 	<LinearLayout
-	        android:layout_width="match_parent"
-	        android:layout_height="45dp"
-	        android:background="@color/bk_color_heavy"
-	        android:gravity="center_vertical"
-	        android:weightSum="1" >
+	    android:id="@+id/top_bar_settings"
+		android:layout_width="match_parent"
+	    android:layout_height="45dp"
+	    android:background="@color/bk_color_pink_heavy"
+	    android:gravity="center_vertical"
+	    android:weightSum="1" >
 
 
         <View
@@ -76,6 +77,7 @@
             android:textStyle="bold" />
 
         <View
+            android:id="@+id/color_bar_settings"
             android:layout_width="match_parent"
             android:layout_height="2dp"
             android:background="@color/text_pink" 
@@ -115,25 +117,29 @@
             android:orientation="horizontal" >
 
             <RadioButton
+                android:id="@+id/radio_pink_settings"
                 android:layout_width="22dp"
                 android:layout_height="22dp"
                 android:layout_marginLeft="14dp"
                 android:layout_marginRight="14dp"
-                android:button="@drawable/custom_drawable_radiobox" />
+                android:button="@drawable/custom_drawable_radiobox_pink"
+                android:checked="true" />
 
             <RadioButton
+                android:id="@+id/radio_green_settings"
                 android:layout_width="22dp"
                 android:layout_height="22dp"
                 android:layout_marginLeft="24dp"
                 android:layout_marginRight="14dp"
-                android:button="@drawable/custom_drawable_radiobox" />
+                android:button="@drawable/custom_drawable_radiobox_pink" />
 
             <RadioButton
+                android:id="@+id/radio_gray_settings"
                 android:layout_width="22dp"
                 android:layout_height="22dp"
                 android:layout_marginLeft="24dp"
                 android:layout_marginRight="14dp"
-                android:button="@drawable/custom_drawable_radiobox" />
+                android:button="@drawable/custom_drawable_radiobox_pink" />
         </RadioGroup>
     </LinearLayout>
     
@@ -156,6 +162,7 @@
             android:textStyle="bold"
             android:textColor="@color/text_pink"/>
 		<View
+		    android:id="@+id/contact_sns_bar_settings"
             android:layout_width="match_parent"
             android:layout_height="2dp"
             android:layout_marginBottom="12dp"

@@ -1,26 +1,15 @@
 package com.ssm.cyclists.view.layout;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.util.Calendar;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
+import java.util.Calendar;
 
 import com.ssm.cyclists.R;
 import com.ssm.cyclists.controller.activity.MainActivity;
 import com.ssm.cyclists.controller.fragment.HomeFragment;
-import com.ssm.cyclists.controller.fragment.MapViewFragment;
 import com.ssm.cyclists.model.CruiseDataManager;
 import com.ssm.cyclists.model.ResourceManager;
 import com.ssm.cyclists.view.ImageViewRounded;
 
-import android.app.FragmentManager;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -28,43 +17,41 @@ import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.Rect;
 import android.graphics.RectF;
-import android.location.Location;
-import android.os.AsyncTask;
-import android.os.NetworkOnMainThreadException;
-import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
-import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
-
-
 
 public class HomeLayout extends BaseFragmentLayout {
 	
 	static String TAG = HomeLayout.class.getSimpleName();
 	
-	Button menubutton;
+	private String theme_color;
 	
-	TextView tvUserID;
-	TextView tvLocation;
-	TextView tvWeekDay;
-	TextView tvTemperature;
-	TextView tvHumidity;
+	private Button btnStartToBicycle;
 	
-	ImageViewRounded ivProfileImage;
-	ImageView ivWeatherIcon;
+	private TextView tvUserID;
+	private TextView tvLocation;
+	private TextView tvWeekDay;
+	private TextView tvTemperature;
+	private TextView tvHumidity;
+	
+	private ImageViewRounded ivProfileImage;
+	private ImageView ivWeatherIcon;
+	private ImageView ivLocationIcon;
+	
+	private LinearLayout lyBackground;
 	
 	public HomeLayout(HomeFragment instance) {
 		super(instance);
+		theme_color = "gray";
 	}
 	
 	public void init(){
 		
-
+		btnStartToBicycle = (Button)getView().findViewById(R.id.start_to_bicycle_home);
 		
 		tvUserID = (TextView)getView().findViewById(R.id.user_id_home);
 		tvLocation = (TextView)getView().findViewById(R.id.location_home);
@@ -73,6 +60,8 @@ public class HomeLayout extends BaseFragmentLayout {
 		tvHumidity = (TextView)getView().findViewById(R.id.humidity_home);
 		ivProfileImage = (ImageViewRounded)getView().findViewById(R.id.profile_image);
 		ivWeatherIcon = (ImageView)getView().findViewById(R.id.weather_icon_image);
+		ivLocationIcon = (ImageView)getView().findViewById(R.id.location_icon_home);
+		lyBackground = (LinearLayout)getView().findViewById(R.id.home_background_home);
 		
 		ivProfileImage.setImageResource(R.drawable.profile_sample);
 		
@@ -111,6 +100,8 @@ public class HomeLayout extends BaseFragmentLayout {
 			tvWeekDay.setText("Saturday");
 			break;
 		}
+		
+		updateColor();
 	}
 	@Override
 	public void createView(LayoutInflater inflater, ViewGroup container){
@@ -215,5 +206,30 @@ public class HomeLayout extends BaseFragmentLayout {
 					}
 				});
 		 }
+	 }
+	 
+		public void updateColor(){
+			
+			if(theme_color.equals("pink")){
+				lyBackground.setBackgroundColor(MainActivity.getInstasnce().getResources().getColor(R.color.bk_color_pink_heavy));
+				btnStartToBicycle.setBackground(MainActivity.getInstasnce().getResources().getDrawable(R.drawable.start_bicycle_btn_bg_pink));
+				ivLocationIcon.setBackground(MainActivity.getInstasnce().getResources().getDrawable(R.drawable.location_icon_pink));
+			}else if(theme_color.equals("green")){
+				lyBackground.setBackgroundColor(MainActivity.getInstasnce().getResources().getColor(R.color.bk_color_green_heavy));
+				btnStartToBicycle.setBackground(MainActivity.getInstasnce().getResources().getDrawable(R.drawable.start_bicycle_btn_bg_green));
+				ivLocationIcon.setBackground(MainActivity.getInstasnce().getResources().getDrawable(R.drawable.location_icon_green));
+			}else if(theme_color.equals("gray")){
+				lyBackground.setBackgroundColor(MainActivity.getInstasnce().getResources().getColor(R.color.bk_color_gray_heavy));
+				btnStartToBicycle.setBackground(MainActivity.getInstasnce().getResources().getDrawable(R.drawable.start_bicycle_btn_bg_gray));
+				ivLocationIcon.setBackground(MainActivity.getInstasnce().getResources().getDrawable(R.drawable.location_icon_gray));
+			}
+		}
+	 
+	 public String getTheme_color() {
+		 return theme_color;
+	 }
+
+	 public void setTheme_color(String theme_color) {
+			this.theme_color = theme_color;
 	 }
 }

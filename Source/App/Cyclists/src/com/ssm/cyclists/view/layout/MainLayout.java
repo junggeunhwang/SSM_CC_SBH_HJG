@@ -27,6 +27,8 @@ public class MainLayout{
 	
 	static String TAG = MainLayout.class.getSimpleName();
 	
+	private String theme_color;
+	
 	static private HomeFragment 			  mFragmentHome  	= new HomeFragment();
 	static private CruiseFragment			  mFragmentCruise = new CruiseFragment();
 	static private CycleMateFragment 		  mFragmentCycleMate = new CycleMateFragment();
@@ -58,6 +60,7 @@ public class MainLayout{
 		
 	public MainLayout(MainActivity instance) {
 		activity = instance;
+		theme_color = "gray";
 	}
 	
 	public void init(){
@@ -137,6 +140,7 @@ public class MainLayout{
 				transaction.hide(activated_fragment);
 			activated_fragment = mFragmentHome;
 			mFragmentHome.updateHomeInfo();
+			mFragmentHome.getLayout().updateColor();
 			transaction.commit();
 			break;
 		case R.layout.fragment_cruise:
@@ -145,7 +149,9 @@ public class MainLayout{
 			if(!newFragment.equals(activated_fragment)) transaction.hide(activated_fragment);
 			activated_fragment = mFragmentCruise;
 			transaction.commit();
+			mFragmentCruise.getLayout().updateColor();
 			mFragmentCruise.updateCruiseInfo();
+			mFragmentCruise.getLayout().updateColor();
 			break;
 		case R.layout.fragment_cycle_tracker:
 			newFragment = mFragmentCycleTracker;
@@ -153,6 +159,7 @@ public class MainLayout{
 			if(!newFragment.equals(activated_fragment)) transaction.hide(activated_fragment);
 			activated_fragment = mFragmentCycleTracker;
 			transaction.commit();
+			mFragmentCycleTracker.getLayout().updateColor();
 			break;
 		case R.layout.fragment_cycle_mate:
 			newFragment = mFragmentCycleMate;
@@ -160,6 +167,7 @@ public class MainLayout{
 			if(!newFragment.equals(activated_fragment)) transaction.hide(activated_fragment);
 			activated_fragment = mFragmentCycleMate;
 			transaction.commit();
+			mFragmentCycleMate.getLayout().updateColor();
 			break;
 		case R.layout.fragment_map:
 			newFragment = mMapViewFragment;
@@ -168,6 +176,7 @@ public class MainLayout{
 			activated_fragment = mMapViewFragment;
 			mMapViewFragment.updateMapViewInfo();
 			transaction.commit();
+			mMapViewFragment.getLayout().updateColor();
 			break;
 		case R.layout.fragment_settings:
 			newFragment = mSettingsFragment;
@@ -175,6 +184,7 @@ public class MainLayout{
 			if(!newFragment.equals(activated_fragment)) transaction.hide(activated_fragment);
 			activated_fragment = mSettingsFragment;
 			transaction.commit();
+			mSettingsFragment.getLayout().updateColor();
 			break;
 		}
 
@@ -271,6 +281,14 @@ public class MainLayout{
 
 	public MenuDrawer getmMenuDrawer() {
 		return mMenuDrawer;
+	}
+
+	public String getTheme_color() {
+		return theme_color;
+	}
+
+	public void setTheme_color(String theme_color) {
+		this.theme_color = theme_color;
 	}
 
 	public void setActivated_fragment(Fragment activated_fragment) {

@@ -1,5 +1,7 @@
 package com.ssm.cyclists.controller;
 
+import java.sql.SQLException;
+
 import com.ssm.cyclists.controller.activity.MainActivity;
 import com.ssm.cyclists.model.CruiseDataManager;
 
@@ -15,6 +17,8 @@ import android.util.Log;
 
 public class DataBaseManager extends SQLiteOpenHelper {
 
+	static String TAG = DataBaseManager.class.getSimpleName();
+	
 	static DataBaseManager manager;
 	SQLiteDatabase db;
 	Context context;
@@ -33,11 +37,18 @@ public class DataBaseManager extends SQLiteOpenHelper {
 				"latitude TEXT,"+
 				"longitude TEXT);";
 		db.execSQL(sql);
+		
+		String sql2 = "CREATE TABLE settings("+
+				"num INTEGER PRIMARY KEY AUTOINCREMENT,"+
+				"color TEXT);";
+		db.execSQL(sql2);
 	}
 
 	@Override
 	public void onUpgrade(SQLiteDatabase db, int arg1, int arg2) {
 		db.execSQL("DROP TABLE IF EXSITS last_location");
+		onCreate(db);
+		db.execSQL("DROP TABLE IF EXSITS settings");
 		onCreate(db);
 	}
 	
@@ -72,6 +83,37 @@ public class DataBaseManager extends SQLiteOpenHelper {
 		GeoLocation loc = new GeoLocation(Double.valueOf(c.getString(1)),Double.valueOf(c.getString(2)));
 		
 		return loc;
+	}
+	
+	public void updateSettingInfo(){
+
+		ContentValues row = new ContentValues();
+		row.put("color",MainActivity.getInstasnce().getLayout().getmSettingsFragment().getLayout().getTheme_color());
+		
+		db = manager.getWritableDatabase();
+		
+		Cursor c = db.query("settings", null,null,null,null,null,null);
+		
+		int count = c.getCount();
+		c.moveToNext();
+		if(c.getCount()==0){
+			db.insert("settings",null,row);
+		}
+		else{
+			int ret = db.update("settings",row,"num="+c.getInt(0),null);
+			Log.d(TAG, "Database affected row : "+String.valueOf(ret));
+		}
+	}
+	
+	public String selectSettingInfo(){
+		
+		db = manager.getReadableDatabase();
+		
+		Cursor c = db.query("settings", null,null,null,null,null,null);
+
+		c.moveToNext();
+		if(c.getCount()==0) return null;
+		return c.getString(1);
 	}
 	
 	public void close(){

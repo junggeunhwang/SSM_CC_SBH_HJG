@@ -13,6 +13,7 @@ import android.util.Log;
 public class WeatherUpdateAsyncTask extends AsyncTask<Location, Integer, Long> {
 
 	public static String TAG = WeatherUpdateAsyncTask.class.getSimpleName();
+	// src : http://www.openweathermap.org/weather-conditions
 	
 	@Override
 	protected Long doInBackground(Location... loc) {

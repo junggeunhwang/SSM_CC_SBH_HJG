@@ -13,7 +13,7 @@ import android.view.ViewGroup;
 
 public class CycleTrackerDetailFragment extends Fragment {
 
-	CycleTrackerDetailLayout layout;
+	private CycleTrackerDetailLayout layout;
 	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -31,6 +31,12 @@ public class CycleTrackerDetailFragment extends Fragment {
 		return layout;
 	}
 
+	@Override
+	public void onStart() {
+		layout.setTheme_color(MainActivity.getInstasnce().getLayout().getmSettingsFragment().getLayout().getTheme_color());
+		layout.updateColor();
+		super.onStart();
+	}
 	
 	@Override
 	public void onDestroy() {

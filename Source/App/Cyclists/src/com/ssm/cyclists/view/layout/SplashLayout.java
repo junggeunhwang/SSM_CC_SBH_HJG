@@ -8,11 +8,16 @@ import android.widget.TextView;
 
 public class SplashLayout {
 
+	static String TAG = SplashLayout.class.getSimpleName();
+	
+	private String theme_color;
+	
 	private SplashActivity activity;
 	private int view = R.layout.activity_splash;
 	
 	public SplashLayout(SplashActivity instance) {
 		activity = instance;
+		theme_color = "gray";
 	}
 	
 	public void init(){
@@ -23,5 +28,13 @@ public class SplashLayout {
 	
 	public int getView(){
 		return view;
+	}
+
+	public String getTheme_color() {
+		return theme_color;
+	}
+
+	public void setTheme_color(String theme_color) {
+		this.theme_color = theme_color;
 	}
 }

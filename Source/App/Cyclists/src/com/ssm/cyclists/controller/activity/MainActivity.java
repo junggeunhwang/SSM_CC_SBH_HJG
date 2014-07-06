@@ -1,43 +1,51 @@
 package com.ssm.cyclists.controller.activity;
 
 
-import twitter4j.GeoLocation;
+import java.io.File;
+import java.security.KeyStore;
+
+import org.apache.http.HttpVersion;
+import org.apache.http.client.HttpClient;
+import org.apache.http.conn.ClientConnectionManager;
+import org.apache.http.conn.scheme.PlainSocketFactory;
+import org.apache.http.conn.scheme.Scheme;
+import org.apache.http.conn.scheme.SchemeRegistry;
+import org.apache.http.conn.ssl.SSLSocketFactory;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.impl.conn.tsccm.ThreadSafeClientConnManager;
+import org.apache.http.params.BasicHttpParams;
+import org.apache.http.params.HttpParams;
+import org.apache.http.params.HttpProtocolParams;
+import org.apache.http.protocol.HTTP;
+
 import net.simonvt.menudrawer.MenuDrawer;
 
-import com.facebook.LoggingBehavior;
-import com.facebook.Session;
-import com.facebook.SessionState;
-import com.facebook.Settings;
-import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.GooglePlayServicesUtil;
-import com.sapInterface.total.SAPProviderService;
-import com.sapInterface.total.StringAction;
-import com.sapInterface.total.FileAction;
-import com.sapInterface.total.SAPProviderService.LocalBinder;
 import com.ssm.cyclists.R;
 import com.ssm.cyclists.controller.DataBaseManager;
 import com.ssm.cyclists.controller.FacebookManager;
 import com.ssm.cyclists.controller.TwitterManager;
+import com.ssm.cyclists.controller.communication.https.HttpsCommunication;
+import com.ssm.cyclists.controller.communication.https.HttpsCommunicationCallback;
+import com.ssm.cyclists.controller.communication.https.SFSSLSocketFactory;
+import com.ssm.cyclists.controller.communication.sapinterface.FileAction;
+import com.ssm.cyclists.controller.communication.sapinterface.SAPProviderService;
+import com.ssm.cyclists.controller.communication.sapinterface.StringAction;
+import com.ssm.cyclists.controller.communication.sapinterface.SAPProviderService.LocalBinder;
 import com.ssm.cyclists.controller.fragment.CycleTrackerDetailFragment;
 import com.ssm.cyclists.model.CruiseDataManager;
 import com.ssm.cyclists.model.GoogleLocationManager;
 import com.ssm.cyclists.model.TwitterBasicInfo;
-
 import com.ssm.cyclists.view.layout.MainLayout;
 
 import android.support.v4.app.FragmentActivity;
+import android.telephony.TelephonyManager;
 import android.app.AlertDialog;
-import android.app.Dialog;
 import android.content.ComponentName;
 import android.content.Context; 
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.ServiceConnection;
 import android.content.pm.ActivityInfo;
-import android.location.Criteria;
-import android.location.Location;
-import android.location.LocationListener;
-import android.location.LocationManager;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.util.Log;
@@ -48,12 +56,14 @@ import android.widget.Toast;
 
 public class MainActivity extends FragmentActivity {
 
+	//my instance
 	private static MainActivity instance;
 	
 	private static final String TAG = "SAPProvider";
 	private static final String DEST_PATH  = "/storage/emulated/legacy/test.amr";
 	private static final String TARGET_PATH = "/storage/emulated/legacy/testfromhost.amr";
 	
+	//gps
 	private GoogleLocationManager googleLocationManager;
 	
 	private Context mCtxt;
@@ -64,8 +74,19 @@ public class MainActivity extends FragmentActivity {
 	 
 	public int mTransId;
 	
+	//전화번호
+	TelephonyManager mTelephonyManager;
+	String myNumber;
+	
+	//https
+	HttpsCommunication httpsCommunication;
+	HttpsCommunicationCallback httpsCallback;
+	
+	//layout
 	private MainLayout layout;
 	
+	//테마
+	String theme_color;
 	
 	public MainActivity() {
 		this.instance = this;
@@ -78,14 +99,24 @@ public class MainActivity extends FragmentActivity {
     	
     	this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
     	
+    	//테마 설정 저장
+    	theme_color = DataBaseManager.getInstance().selectSettingInfo();
+    	if(theme_color==null)theme_color="gray";
     	Intent intent = new Intent(this,SplashActivity.class);
+    	intent.putExtra("color", theme_color);
+    	
     	startActivity(intent);
+    	//전화번호
+    	
+    	mTelephonyManager = (TelephonyManager)getSystemService(Context.TELEPHONY_SERVICE);
+    	myNumber = mTelephonyManager.getLine1Number();
+    	myNumber = "01099100626";
+    	Log.d(TAG,"my number : "+myNumber);
+    	
+    	//위치 서비스
     	googleLocationManager = new GoogleLocationManager();
     	googleLocationManager.init(this);
-    	//위치 서비스
 
-//    	googleLocationManager.resume();
-    	
     	CruiseDataManager.getInstance().updateCruiseData();
     	
     	super.onCreate(savedInstanceState);
@@ -101,12 +132,58 @@ public class MainActivity extends FragmentActivity {
         mCtxt = getApplicationContext();
         mCtxt.bindService(new Intent(getApplicationContext(), SAPProviderService.class), 
                 this.mSAPConnection, Context.BIND_AUTO_CREATE);
+        
+        //https
+        httpsCallback = new HttpsCommunicationCallback() {
+			
+			@Override
+			public void onResponseSuccess(HttpsCommunication hcn) {
+				Log.d(TAG,"https : response success");
+				if(hcn.getResponseType().equals("string")){
+					/* 서버  -> 안드로이드 문자열 수신
+					 * 멀티캐스트 받은 데이터 
+					 */
+					
+					
+				}else if(hcn.getResponseType().equals("file")){
+					hcn.getByteResponseData();
+					/* 서버  -> 안드로이드 파일 수신
+					 * 안드로이드 -> 기어 구현해야함 
+					 */
+					
+				}else if(hcn.getResponseType().equals("text")){
+					/* 서버  -> 안드로이드 응답 수신 */
+				}
+			
+			}
+			
+			@Override
+			public void onResponseFailure(String errMsg) {
+				Log.e(TAG,"https : response failure");
+			}
+		};
+		
+        httpsCommunication = new HttpsCommunication(httpsCallback);
+        
+        httpsCommunication.setType(HttpsCommunication.TYPE_STRING);
+        httpsCommunication.setUniqueNumber(myNumber);
+        httpsCommunication.setStringData("test");
+        boolean ret = httpsCommunication.ExecuteRequest();
+        
+        if(ret==true){
+        	Log.d(TAG,"client to server test success.");
+        }
+        else{
+        	Log.e(TAG,"client to server test fail.");
+        }
     }
        
     @Override
     protected void onStart() {
     	this.instance = this;
    	 	layout.getmFragmentHome().updateHomeInfo();
+   	 	change_color(theme_color);
+   	 	layout.getmFragmentHome().getLayout().updateColor();
     	super.onStart();
     	FacebookManager.getInstance().start();
     	googleLocationManager.resume();
@@ -196,7 +273,7 @@ public class MainActivity extends FragmentActivity {
 					
 				}
 				@Override
-				public void onTransferComplete(String path) 
+				public void onTransferComplete(final String path) 
 				{
 					// TODO Auto-generated method stub
 					runOnUiThread(new Runnable() {
@@ -207,6 +284,9 @@ public class MainActivity extends FragmentActivity {
 	                    		mAlert.dismiss();
 	                    	}
 	                        Toast.makeText(getBaseContext(), "receive Completed!", Toast.LENGTH_SHORT).show();
+	                        httpsCommunication.setType(HttpsCommunication.TYPE_FILE);
+	                        httpsCommunication.setUniqueNumber(myNumber);
+	                        httpsCommunication.setFileData(new File(path));//이렇게 하면 되려나?
 	                    }
 	                });
 				}
@@ -263,11 +343,7 @@ public class MainActivity extends FragmentActivity {
             });
         }
     };
-    
-    public void open_button(View v){
-    	layout.open_button(v);
-    }
-
+      
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main, menu);
@@ -320,6 +396,38 @@ public class MainActivity extends FragmentActivity {
         	super.onBackPressed();
         else
         	layout.replaceFragment(R.layout.fragment_home);
+    }
+    
+    public void open_button(View v){
+    	layout.open_button(v);
+    }
+    
+    public void change_color(String color){
+    	
+    	if(color.equals("pink")){
+    		layout.getmFragmentHome().getLayout().setTheme_color("pink");
+    		layout.getmFragmentCruise().getLayout().setTheme_color("pink");
+    		layout.getmFragmentCycleMate().getLayout().setTheme_color("pink");
+    		layout.getmFragmentCycleTracker().getLayout().setTheme_color("pink");
+    		layout.getmMapViewFragment().getLayout().setTheme_color("pink");
+    		layout.getmSettingsFragment().getLayout().setTheme_color("pink");
+    	}
+    	else if(color.equals("green")){
+    		layout.getmFragmentHome().getLayout().setTheme_color("green");
+    		layout.getmFragmentCruise().getLayout().setTheme_color("green");
+    		layout.getmFragmentCycleMate().getLayout().setTheme_color("green");
+    		layout.getmFragmentCycleTracker().getLayout().setTheme_color("green");
+    		layout.getmMapViewFragment().getLayout().setTheme_color("green");
+    		layout.getmSettingsFragment().getLayout().setTheme_color("green");
+    	}else if(color.equals("gray")){
+    		layout.getmFragmentHome().getLayout().setTheme_color("gray");
+    		layout.getmFragmentCruise().getLayout().setTheme_color("gray");
+    		layout.getmFragmentCycleMate().getLayout().setTheme_color("gray");
+    		layout.getmFragmentCycleTracker().getLayout().setTheme_color("gray");
+    		layout.getmMapViewFragment().getLayout().setTheme_color("gray");
+    		layout.getmSettingsFragment().getLayout().setTheme_color("gray");
+    	}
+    	
     }
     
     public MainLayout getLayout(){

@@ -3,6 +3,7 @@ package com.ssm.cyclists.model;
 import java.util.ArrayList;
 
 import com.ssm.cyclists.R;
+import com.ssm.cyclists.controller.activity.MainActivity;
 import com.ssm.cyclists.view.ImageViewRounded;
 
 import android.content.Context;
@@ -17,10 +18,11 @@ import android.widget.TextView;
 
 public class CycleMateListViewAdapter extends BaseAdapter {
 	
-	Context context;
-	LayoutInflater Inflater;
-	ArrayList<UserData> arSrc;
-	int layout;
+	private Context context;
+	private LayoutInflater Inflater;
+	private ArrayList<UserData> arSrc;
+	private int layout;
+	private String theme_color;
 	
 	public void insert(UserData data,int position){
 		arSrc.add(position,data);
@@ -36,6 +38,7 @@ public class CycleMateListViewAdapter extends BaseAdapter {
 		Inflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		arSrc = aarSrc;
 		layout = alayout;
+		theme_color = "pink";
 	}
 	
 	@Override
@@ -69,10 +72,26 @@ public class CycleMateListViewAdapter extends BaseAdapter {
 		}
 		
 		
-		TextView txt = (TextView)convertView.findViewById(R.id.cycle_mate_id_listview_row);
-		txt.setText(arSrc.get(position).getUserName());
+		TextView name = (TextView)convertView.findViewById(R.id.cycle_mate_id_listview_row);
+		name.setText(arSrc.get(position).getUserName());
+		if(theme_color.equals("pink")){
+			name.setTextColor(MainActivity.getInstasnce().getResources().getColor(R.color.text_pink));
+		}else if(theme_color.equals("green")){
+			name.setTextColor(MainActivity.getInstasnce().getResources().getColor(R.color.text_green));
+		}else if(theme_color.equals("gray")){
+			name.setTextColor(MainActivity.getInstasnce().getResources().getColor(R.color.text_gray));
+		}
 		
 		return convertView;
+	}
+
+	public String getTheme_color() {
+		return theme_color;
+	}
+
+	public void setTheme_color(String theme_color) {
+		this.theme_color = theme_color;
+		notifyDataSetChanged();
 	}
 
 }

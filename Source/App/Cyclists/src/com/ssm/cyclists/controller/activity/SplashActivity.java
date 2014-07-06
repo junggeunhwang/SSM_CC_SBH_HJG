@@ -22,11 +22,12 @@ import android.os.Handler;
 import android.os.Message;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.LinearLayout;
 
 public class SplashActivity extends Activity {
 
 	private SplashLayout layout;
-	
+	private String theme_color; 
 	public SplashActivity() {
 	}
 	
@@ -34,21 +35,33 @@ public class SplashActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		
+		
+		
+		
 		layout = new SplashLayout(this);
 		setContentView(layout.getView());
+		theme_color = getIntent().getStringExtra("color");
+		
+		LinearLayout lyBackground = (LinearLayout)findViewById(R.id.background_splash);
+		
+		if(theme_color.equals("pink")){
+			lyBackground.setBackground(MainActivity.getInstasnce().getResources().getDrawable(R.drawable.splash_pink));
+		}else if(theme_color.equals("green")){
+			lyBackground.setBackground(MainActivity.getInstasnce().getResources().getDrawable(R.drawable.splash_green));
+		}else if(theme_color.equals("gray")){
+			lyBackground.setBackground(MainActivity.getInstasnce().getResources().getDrawable(R.drawable.splash_gray));
+		}
+		
 		layout.init();
 		
 		ResourceManager.getInstance().setAssetManager(getAssets());
 
-//    	init_map_service();
 		
 		GeoLocation location = DataBaseManager.getInstance().selectLastLocation();
 		if(location != null){
 			CruiseDataManager.getInstance().setCurrent_loc(location.getLatitude(),location.getLongitude());
 		}
 	
-//		CruiseDataManager.getInstance().updateCruiseData();
-    	
 		Handler handler = new Handler(){
 			@Override
 			public void handleMessage(Message msg) {

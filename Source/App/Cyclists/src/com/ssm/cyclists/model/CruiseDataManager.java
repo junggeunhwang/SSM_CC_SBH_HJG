@@ -201,7 +201,7 @@ public class CruiseDataManager {
 			loc.setLatitude(latitude);
 			loc.setLongitude(longitude);
 			
-			Toast.makeText(MainActivity.getInstasnce(),"distance : "+ current_loc.distanceTo(loc)+"m",Toast.LENGTH_SHORT).show();
+//			Toast.makeText(MainActivity.getInstasnce(),"distance : "+ current_loc.distanceTo(loc)+"m",Toast.LENGTH_SHORT).show();
 			
 			this.current_speed = Double.valueOf(String.format("%.2f",(current_loc.distanceTo(loc)/dif)*3.6));
 			if(this.maximum_speed < this.current_speed)

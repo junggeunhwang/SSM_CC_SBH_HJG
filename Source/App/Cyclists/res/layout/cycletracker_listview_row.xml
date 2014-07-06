@@ -12,10 +12,11 @@
         android:layout_height="match_parent"
         android:layout_weight="0.04"/>
     <ImageView
+        android:id="@+id/bicycle_cycletracker_listview_row"
         android:layout_width="0dip"
         android:layout_height="wrap_content"
         android:layout_weight="0.1"
-        android:src="@drawable/bicycle_icon"/>
+        android:src="@drawable/bicycle_icon_pink"/>
     <TextView
         android:id="@+id/date_cycletracker_listview_row"
         android:layout_width="0dip"

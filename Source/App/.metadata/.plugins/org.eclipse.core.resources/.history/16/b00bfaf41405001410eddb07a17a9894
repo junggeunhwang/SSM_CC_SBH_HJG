@@ -1,0 +1,239 @@
+package com.ssm.cyclists.view.layout;
+
+
+import java.util.Calendar;
+
+import com.ssm.cyclists.R;
+import com.ssm.cyclists.controller.activity.MainActivity;
+import com.ssm.cyclists.controller.fragment.HomeFragment;
+import com.ssm.cyclists.model.CruiseDataManager;
+import com.ssm.cyclists.model.ResourceManager;
+import com.ssm.cyclists.view.ImageViewRounded;
+
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.Path;
+import android.graphics.Rect;
+import android.graphics.RectF;
+import android.view.LayoutInflater;
+import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
+
+public class HomeLayout extends BaseFragmentLayout {
+	
+	static String TAG = HomeLayout.class.getSimpleName();
+	
+	private String theme_color;
+	
+	private Button btnStartToBicycle;
+	
+	private TextView tvUserID;
+	private TextView tvLocation;
+	private TextView tvWeekDay;
+	private TextView tvTemperature;
+	private TextView tvHumidity;
+	
+	private ImageViewRounded ivProfileImage;
+	private ImageView ivWeatherIcon;
+
+	private LinearLayout lyBackground;
+	
+	public HomeLayout(HomeFragment instance) {
+		super(instance);
+		theme_color = "pink";
+	}
+	
+	public void init(){
+		
+		btnStartToBicycle = (Button)getView().findViewById(R.id.start_to_bicycle_home);
+		
+		tvUserID = (TextView)getView().findViewById(R.id.user_id_home);
+		tvLocation = (TextView)getView().findViewById(R.id.location_home);
+		tvWeekDay = (TextView)getView().findViewById(R.id.weekday_home);
+		tvTemperature = (TextView)getView().findViewById(R.id.temperature_home);
+		tvHumidity = (TextView)getView().findViewById(R.id.humidity_home);
+		ivProfileImage = (ImageViewRounded)getView().findViewById(R.id.profile_image);
+		ivWeatherIcon = (ImageView)getView().findViewById(R.id.weather_icon_image);
+		
+		lyBackground = (LinearLayout)getView().findViewById(R.id.home_background_home);
+		
+		ivProfileImage.setImageResource(R.drawable.profile_sample);
+		
+		double centerX = (ivProfileImage.getX()+ivProfileImage.getWidth())/2;
+		double centerY = (ivProfileImage.getY()+ivProfileImage.getHeight())/2;
+		
+		Paint paint = new Paint();
+		paint.setStyle(Paint.Style.STROKE);
+		paint.setStrokeWidth(2);
+		paint.setColor(Color.argb(255,255,255,255));
+		
+//		getView().
+		
+		
+		tvUserID.setTypeface(ResourceManager.getInstance().getFont("helvetica"));
+		tvLocation.setTypeface(ResourceManager.getInstance().getFont("helvetica"));
+		tvWeekDay.setTypeface(ResourceManager.getInstance().getFont("helvetica"));
+		
+		tvTemperature.setTypeface(ResourceManager.getInstance().getFont("helvetica"));
+		tvHumidity.setTypeface(ResourceManager.getInstance().getFont("nanum_gothic"));
+		
+	
+		Calendar today = Calendar.getInstance();
+		
+		switch(today.get(Calendar.DAY_OF_WEEK))
+		{
+		case Calendar.SUNDAY:
+			tvWeekDay.setText("Sunday");
+			break;
+		case Calendar.MONDAY:
+			tvWeekDay.setText("Monday");
+			break;
+		case Calendar.TUESDAY:
+			tvWeekDay.setText("Tuesday");
+			break;
+		case Calendar.WEDNESDAY:
+			tvWeekDay.setText("Wednesday");
+			break;
+		case Calendar.THURSDAY:
+			tvWeekDay.setText("Thursday");
+			break;
+		case Calendar.FRIDAY:
+			tvWeekDay.setText("Friday");
+			break;
+		case Calendar.SATURDAY:
+			tvWeekDay.setText("Saturday");
+			break;
+		}
+	}
+	@Override
+	public void createView(LayoutInflater inflater, ViewGroup container){
+		view = inflater.inflate(R.layout.fragment_home, container, false);
+	}
+	
+
+	
+	/*
+	  * Making image in circular shape
+	  */
+	 public Bitmap getRoundedShape(Bitmap scaleBitmapImage) {
+
+	  int targetWidth = 50;
+	  int targetHeight = 50;
+
+	
+	  Bitmap targetBitmap = Bitmap.createBitmap(targetWidth, targetHeight,Bitmap.Config.ARGB_8888);
+	  Canvas canvas = new Canvas(targetBitmap);
+	  Path path = new Path();
+	  path.addCircle(((float) targetWidth) / 2,((float) targetHeight) / 2,(Math.min(((float) targetWidth),
+			  ((float) targetHeight)) / 2),Path.Direction.CW);
+	  Paint paint = new Paint(); 
+	  paint.setColor(Color.GRAY); 
+
+	  paint.setStyle(Paint.Style.FILL);
+	  paint.setAntiAlias(true);
+	  paint.setDither(true);
+	  paint.setFilterBitmap(true);
+	  canvas.drawOval(new RectF(0, 0, targetWidth, targetHeight), paint) ;
+ 
+	  canvas.clipPath(path);
+	  Bitmap sourceBitmap = scaleBitmapImage;
+	  canvas.drawBitmap(sourceBitmap, new Rect(0, 0, sourceBitmap.getWidth(),
+			  sourceBitmap.getHeight()), new RectF(0, 0, targetWidth,
+			  targetHeight), paint);
+	  
+	  
+	  canvas.drawBitmap(sourceBitmap,new Rect(0, 0, sourceBitmap.getWidth(),
+	    sourceBitmap.getHeight()),new Rect(0, 0, targetWidth,
+	    targetHeight), null);
+	  
+	  return targetBitmap;
+	 }
+
+
+	 public void updateHomeInfo(){
+		 setTemperature(String.valueOf(CruiseDataManager.getInstance().getTemperature()));
+		 setHumidityText(String.valueOf(CruiseDataManager.getInstance().getHumidity()));
+		 setWeatherIcon(CruiseDataManager.getInstance().getWeather());
+		 setAddress(CruiseDataManager.getInstance().getAddress());
+	 }
+
+	 
+	 public void setAddress(final String address){
+ 		 if(tvLocation!=null)
+		 {
+			 tvLocation.post(new Runnable() {
+				
+				@Override
+				public void run() {
+					tvLocation.setText(address);
+				}
+			});
+		 }
+	 }
+	 
+	 public void setTemperature(final String temperature){
+		 if(ivWeatherIcon!=null)
+		 {
+			 tvTemperature.post(new Runnable() {
+					
+					@Override
+					public void run() {
+						tvTemperature.setText(temperature);
+					}
+				});
+		 }
+	 }
+	 
+	 public void setHumidityText(final String humidity){
+		 if(ivWeatherIcon!=null)
+		 {
+			 tvHumidity.post(new Runnable() {
+					
+					@Override
+					public void run() {
+						tvHumidity.setText(humidity);
+					}
+				});
+		 }
+	 }
+
+	 public void setWeatherIcon(final int resID){
+		 if(ivWeatherIcon!=null)
+		 {
+			 ivWeatherIcon.post(new Runnable() {
+					
+					@Override
+					public void run() {
+						ivWeatherIcon.setImageResource(resID);
+					}
+				});
+		 }
+	 }
+	 
+		public void updateColor(){
+			
+			if(theme_color.equals("pink")){
+				lyBackground.setBackgroundColor(MainActivity.getInstasnce().getResources().getColor(R.color.bk_color_pink_heavy));
+				btnStartToBicycle.setBackground(MainActivity.getInstasnce().getResources().getDrawable(R.drawable.start_bicycle_btn_bg_pink));
+			}else if(theme_color.equals("green")){
+				lyBackground.setBackgroundColor(MainActivity.getInstasnce().getResources().getColor(R.color.bk_color_green_heavy));
+				btnStartToBicycle.setBackground(MainActivity.getInstasnce().getResources().getDrawable(R.drawable.start_bicycle_btn_bg_green));
+			}else if(theme_color.equals("gray")){
+				lyBackground.setBackgroundColor(MainActivity.getInstasnce().getResources().getColor(R.color.bk_color_gray_heavy));
+				btnStartToBicycle.setBackground(MainActivity.getInstasnce().getResources().getDrawable(R.drawable.start_bicycle_btn_bg_gray));
+			}
+		}
+	 
+	 public String getTheme_color() {
+		 return theme_color;
+	 }
+
+	 public void setTheme_color(String theme_color) {
+			this.theme_color = theme_color;
+	 }
+}

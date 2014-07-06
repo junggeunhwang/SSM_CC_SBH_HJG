@@ -8,6 +8,7 @@ import com.jjoe64.graphview.GraphViewSeries.GraphViewSeriesStyle;
 import com.jjoe64.graphview.LineGraphView;
 import com.ssm.cyclists.R;
 import com.ssm.cyclists.controller.activity.MainActivity;
+import com.ssm.cyclists.model.ResourceManager;
 
 import android.app.Fragment;
 import android.app.FragmentTransaction;
@@ -19,14 +20,30 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.RadioButton;
+import android.widget.TextView;
 
 public class CycleTrackerDetailLayout extends BaseFragmentLayout {
 
-	Button btnBack;
+	static String TAG = CycleTrackerDetailLayout.class.getSimpleName();
 	
+	private String theme_color;
+	
+	private Button btnBack;
+	
+	private RadioButton radioSpeed;
+	private RadioButton radioAltitude;
+	private LinearLayout lyTopBar;
+	private GraphView graphView;
+	
+	private TextView tvFragmentName;
+	private TextView tvAppName;
+	private TextView tvDistanceUnit;
+	private TextView tvVelocityUnit;
 	
 	public CycleTrackerDetailLayout(Fragment instance) {
 		super(instance);
+		theme_color = "gray";
 	}
 
 	@Override
@@ -44,6 +61,24 @@ public class CycleTrackerDetailLayout extends BaseFragmentLayout {
 				backScreen();
 			}
 		});
+		
+		lyTopBar = (LinearLayout)getView().findViewById(R.id.top_bar_cycle_tracker_detail);
+		radioSpeed = (RadioButton)getView().findViewById(R.id.radio_speed_cycletrackerdetail);
+		radioAltitude = (RadioButton)getView().findViewById(R.id.radio_altitude_cycletrackerdetail);
+		
+		radioSpeed.setTypeface(ResourceManager.getInstance().getFont("helvetica"));
+		radioAltitude.setTypeface(ResourceManager.getInstance().getFont("helvetica"));
+		
+		tvFragmentName = (TextView)getView().findViewById(R.id.fragment_name_cycletracker_detail);
+		tvFragmentName.setTypeface(ResourceManager.getInstance().getFont("nanum_gothic"));
+		
+		tvAppName = (TextView)getView().findViewById(R.id.app_name_cycletrackerdetail);
+		tvAppName.setTypeface(ResourceManager.getInstance().getFont("helvetica"));
+		
+		tvVelocityUnit = (TextView)getView().findViewById(R.id.velocity_unit_cycletracker_detail);
+		tvVelocityUnit.setTypeface(ResourceManager.getInstance().getFont("helvetica"));
+		tvDistanceUnit = (TextView)getView().findViewById(R.id.distance_unit_cycletracker_detail);
+		tvDistanceUnit.setTypeface(ResourceManager.getInstance().getFont("helvetica"));
 		
 		// draw sin curve
 		int num = 150;
@@ -68,7 +103,7 @@ public class CycleTrackerDetailLayout extends BaseFragmentLayout {
 		
 		
 		
-		GraphView graphView = new LineGraphView(
+		graphView = new LineGraphView(
 		    getView().getContext()
 		    , ""
 		);
@@ -117,5 +152,45 @@ public class CycleTrackerDetailLayout extends BaseFragmentLayout {
 		transaction.commit();
 		
 		MainActivity.getInstasnce().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+	}
+	
+	public void updateColor(){
+		
+		if(theme_color.equals("pink")){
+			lyTopBar.setBackgroundColor(MainActivity.getInstasnce().getResources().getColor(R.color.bk_color_pink_heavy));
+			radioSpeed.setButtonDrawable(MainActivity.getInstasnce().getResources().getDrawable(R.drawable.custom_drawable_radiobox_pink));
+			radioSpeed.setTextColor(MainActivity.getInstasnce().getResources().getColor(R.color.text_pink));
+			radioAltitude.setButtonDrawable(MainActivity.getInstasnce().getResources().getDrawable(R.drawable.custom_drawable_radiobox_pink));
+			radioAltitude.setTextColor(MainActivity.getInstasnce().getResources().getColor(R.color.text_pink));
+			
+			((LineGraphView)graphView).setBackgroundColor(MainActivity.getInstasnce().getResources().getColor(R.color.graph_opacity_pink));
+			
+			tvAppName.setTextColor(MainActivity.getInstasnce().getResources().getColor(R.color.text_pink));
+//			graphView.(new GraphViewSeriesStyle(MainActivity.getInstasnce().getResources().getColor(R.color.graph_line_pink),3));
+		}else if(theme_color.equals("green")){
+			lyTopBar.setBackgroundColor(MainActivity.getInstasnce().getResources().getColor(R.color.bk_color_green_heavy));
+			radioSpeed.setButtonDrawable(MainActivity.getInstasnce().getResources().getDrawable(R.drawable.custom_drawable_radiobox_green));
+			radioSpeed.setTextColor(MainActivity.getInstasnce().getResources().getColor(R.color.text_green));
+			radioAltitude.setButtonDrawable(MainActivity.getInstasnce().getResources().getDrawable(R.drawable.custom_drawable_radiobox_green));
+			radioAltitude.setTextColor(MainActivity.getInstasnce().getResources().getColor(R.color.text_green));
+			((LineGraphView)graphView).setBackgroundColor(MainActivity.getInstasnce().getResources().getColor(R.color.graph_opacity_pink));
+			tvAppName.setTextColor(MainActivity.getInstasnce().getResources().getColor(R.color.text_green));
+		}else if(theme_color.equals("gray")){
+			lyTopBar.setBackgroundColor(MainActivity.getInstasnce().getResources().getColor(R.color.bk_color_green_heavy));
+			radioSpeed.setButtonDrawable(MainActivity.getInstasnce().getResources().getDrawable(R.drawable.custom_drawable_radiobox_gray));
+			radioSpeed.setTextColor(MainActivity.getInstasnce().getResources().getColor(R.color.text_gray));
+			radioAltitude.setButtonDrawable(MainActivity.getInstasnce().getResources().getDrawable(R.drawable.custom_drawable_radiobox_gray));
+			radioAltitude.setTextColor(MainActivity.getInstasnce().getResources().getColor(R.color.text_gray));
+			((LineGraphView)graphView).setBackgroundColor(MainActivity.getInstasnce().getResources().getColor(R.color.graph_opacity_pink));
+			tvAppName.setTextColor(MainActivity.getInstasnce().getResources().getColor(R.color.text_gray));
+		}
+	}
+	
+	public String getTheme_color() {
+		 return theme_color;
+	 }
+
+	public void setTheme_color(String theme_color) {
+			this.theme_color = theme_color;
 	}
 }

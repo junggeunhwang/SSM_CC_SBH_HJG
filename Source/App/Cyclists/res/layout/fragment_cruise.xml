@@ -6,11 +6,12 @@
     android:orientation="vertical">
 
 	<LinearLayout
-	        android:layout_width="match_parent"
-	        android:layout_height="45dp"
-	        android:background="@color/bk_color_heavy"
-	        android:gravity="center_vertical"
-	        android:weightSum="1" >
+	    android:id="@+id/top_bar_cruise"
+	    android:layout_width="match_parent"
+	    android:layout_height="45dp"
+	    android:background="@color/bk_color_pink_heavy"
+	    android:gravity="center_vertical"
+	    android:weightSum="1" >
 
 
         <View
@@ -65,12 +66,12 @@
 			<View
 			    android:layout_width="match_parent"
 			    android:layout_height="0dip"
-			    android:layout_weight="0.23" />
+			    android:layout_weight="0.27" />
             
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="0dip"
-                android:layout_weight="0.51"
+                android:layout_weight="0.46"
                 android:gravity="center_vertical|center_horizontal"
                 android:orientation="horizontal"
                 android:weightSum="1" >
@@ -78,13 +79,14 @@
 		        <View
 		            android:layout_width="0dip"
 		            android:layout_height="match_parent"
-		            android:layout_weight="0.25" />
+		            android:layout_weight="0.265" />
 		
 				<LinearLayout
+				    android:id="@+id/outer_circle_cruise"
 				    android:layout_width="0dip"
 				    android:layout_height="match_parent"
-				    android:layout_weight="0.50"
-				    android:background="@drawable/outer_cycle_cruise"
+				    android:layout_weight="0.48"
+				    android:background="@drawable/outer_circle_pink"
 				    android:gravity="center_vertical|center_horizontal"
 				    android:orientation="vertical"
 				    android:weightSum="1" >
@@ -92,12 +94,12 @@
 		            	<View
 		            	    android:layout_width="match_parent"
 		            	    android:layout_height="0dip"
-		            	    android:layout_weight="0.15" />
+		            	    android:layout_weight="0.1" />
 
 		                <LinearLayout
 		                    android:layout_width="match_parent"
 		                    android:layout_height="0dip"
-		                    android:layout_weight="0.905"
+		                    android:layout_weight="0.85"
 		                    android:gravity="center_vertical|center_horizontal"
 		                    android:orientation="horizontal"
 		                    android:weightSum="1" >
@@ -105,14 +107,14 @@
 			                <View
 			                    android:layout_width="0dip"
 			                    android:layout_height="match_parent"
-			                    android:layout_weight="0.005" />
+			                    android:layout_weight="0.05" />
 		            		
 			                <LinearLayout
 			                    android:id="@+id/inner_circle_cruise"
 			                    android:layout_width="0dip"
 			                    android:layout_height="match_parent"
-			                    android:layout_weight="0.99"
-			                    android:background="@drawable/inner_cycle_cruise"
+			                    android:layout_weight="0.90"
+			                    android:background="@drawable/inner_circle_pink"
 			                    android:gravity="center_vertical|center_horizontal"
 			                    android:orientation="vertical" >
 			                    
@@ -171,40 +173,48 @@
 			                    
 			                </LinearLayout>
 			                
+			                <View
+			                    android:layout_width="0dip"
+			                    android:layout_height="match_parent"
+			                    android:layout_weight="0.05" />
 
 						</LinearLayout>
 		                
 		                <View
 		                    android:layout_width="match_parent"
 		                    android:layout_height="0dip"
-		                    android:layout_weight="0.1"/>
+		                    android:layout_weight="0.05" />
 		                
 		            </LinearLayout>
 		            
 				<View
 				    android:layout_width="0dip"
 				    android:layout_height="match_parent"
-				    android:layout_weight="0.25" />
+				    android:layout_weight="0.265" />
 		       
         	</LinearLayout>
 
            <View
                android:layout_width="match_parent"
                android:layout_height="0dip"
-               android:layout_weight="0.23" />
+               android:layout_weight="0.27" />
 
         </LinearLayout>
+
         <LinearLayout
+            android:id="@+id/mid_bar_cruise"
             android:layout_width="match_parent"
-        	android:layout_height="0dip"
-        	android:layout_weight="0.1465"
-        	android:weightSum="1"
-        	android:orientation="horizontal"
-        	android:background="@color/bk_color_mid">
+            android:layout_height="0dip"
+            android:layout_weight="0.1465"
+            android:background="@color/bk_color_pink_mid"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:weightSum="1" >
+
         	<LinearLayout 
         	    android:layout_width="0dip"
         	    android:layout_height="match_parent"
-        	    android:layout_weight="0.32"
+        	    android:layout_weight="0.33"
         	    android:orientation="vertical"
         	    android:gravity="center_vertical|center_horizontal">
         	    <TextView
@@ -238,16 +248,19 @@
         	            	    
         	</LinearLayout>
         	
-        	<ImageView 
+        	<View 
+        	    android:id="@+id/left_bar_cruise"
         	    android:layout_width="0dip"
-        	    android:layout_height="match_parent"
-        	    android:layout_weight="0.02"
-        	    android:background="@drawable/bar"/>
+        	    android:layout_height="wrap_content"
+        	    android:layout_weight="0.005"
+        	    android:background="@color/bk_color_pink_heavy"
+        	    android:layout_marginTop="7dp"
+        	    android:layout_marginBottom="7dp"/>
         	
         	<LinearLayout 
         	    android:layout_width="0dip"
         	    android:layout_height="match_parent"
-        	    android:layout_weight="0.32"
+        	    android:layout_weight="0.33"
         	    android:orientation="vertical"
         	    android:gravity="center_vertical|center_horizontal">
 
@@ -280,16 +293,19 @@
         	    
         	</LinearLayout>
         	
-        	<ImageView 
+        	<View 
+        	    android:id="@+id/right_bar_cruise"
         	    android:layout_width="0dip"
-        	    android:layout_height="match_parent"
-        	    android:layout_weight="0.02"
-        	    android:background="@drawable/bar"/>
+        	    android:layout_height="wrap_content"
+        	    android:layout_weight="0.005"
+        	    android:background="@color/bk_color_pink_heavy"
+        	    android:layout_marginTop="7dp"
+        	    android:layout_marginBottom="7dp"/>
         	
         	<LinearLayout 
         	    android:layout_width="0dip"
         	    android:layout_height="match_parent"
-        	    android:layout_weight="0.32"
+        	    android:layout_weight="0.33"
         	    android:orientation="vertical"
 				android:gravity="center_vertical|center_horizontal">
         	    <TextView

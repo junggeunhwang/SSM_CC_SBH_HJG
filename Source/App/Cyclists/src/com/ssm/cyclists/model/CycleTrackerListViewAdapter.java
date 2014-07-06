@@ -4,20 +4,23 @@ import java.util.ArrayList;
 import java.util.Calendar;
 
 import com.ssm.cyclists.R;
+import com.ssm.cyclists.controller.activity.MainActivity;
 
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 public class CycleTrackerListViewAdapter extends BaseAdapter {
 	
-	Context context;
-	LayoutInflater Inflater;
-	ArrayList<CycleData> arSrc;
-	int layout;
+	private Context context;
+	private LayoutInflater Inflater;
+	private ArrayList<CycleData> arSrc;
+	private int layout;
+	private String theme_color;
 	
 	public void insert(CycleData data,int position){
 		arSrc.add(position,data);
@@ -33,6 +36,7 @@ public class CycleTrackerListViewAdapter extends BaseAdapter {
 		Inflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		arSrc = aarSrc;
 		layout = alayout;
+		theme_color = "pink";
 	}
 	
 	@Override
@@ -57,8 +61,13 @@ public class CycleTrackerListViewAdapter extends BaseAdapter {
 			convertView = Inflater.inflate(layout,parent,false);
 		}
 		TextView date = (TextView)convertView.findViewById(R.id.date_cycletracker_listview_row);
+		
 		TextView cal = (TextView)convertView.findViewById(R.id.kcal_data_cycletracker_listview_row);
+		TextView cal_unit = (TextView)convertView.findViewById(R.id.kcal_cycletracker_listview_row);
+		
 		TextView distane = (TextView)convertView.findViewById(R.id.distance_cycletracker_listview_row);
+		TextView distance_unit = (TextView)convertView.findViewById(R.id.km_cycletracker_listview_row);
+		
 		
 		date.setText(arSrc.get(position).getDate().toString());
 		
@@ -71,7 +80,44 @@ public class CycleTrackerListViewAdapter extends BaseAdapter {
 	
 		cal.setText(String.valueOf(arSrc.get(position).getConsume_calrories()));
 		
+		ImageView bicycle = (ImageView)convertView.findViewById(R.id.bicycle_cycletracker_listview_row);
+		
+		if(theme_color.equals("pink")){
+			date.setTextColor(MainActivity.getInstasnce().getResources().getColor(R.color.text_pink));
+			cal.setTextColor(MainActivity.getInstasnce().getResources().getColor(R.color.text_pink));
+			cal_unit.setTextColor(MainActivity.getInstasnce().getResources().getColor(R.color.text_pink));
+			distane.setTextColor(MainActivity.getInstasnce().getResources().getColor(R.color.text_pink));
+			distance_unit.setTextColor(MainActivity.getInstasnce().getResources().getColor(R.color.text_pink));
+			
+			bicycle.setImageDrawable(MainActivity.getInstasnce().getResources().getDrawable(R.drawable.bicycle_icon_pink));
+		}else if(theme_color.equals("green")){
+			date.setTextColor(MainActivity.getInstasnce().getResources().getColor(R.color.text_green));
+			cal.setTextColor(MainActivity.getInstasnce().getResources().getColor(R.color.text_green));
+			cal_unit.setTextColor(MainActivity.getInstasnce().getResources().getColor(R.color.text_green));
+			distane.setTextColor(MainActivity.getInstasnce().getResources().getColor(R.color.text_green));
+			distance_unit.setTextColor(MainActivity.getInstasnce().getResources().getColor(R.color.text_green));
+			
+			bicycle.setImageDrawable(MainActivity.getInstasnce().getResources().getDrawable(R.drawable.bicycle_icon_green));
+		}else if(theme_color.equals("gray")){
+			date.setTextColor(MainActivity.getInstasnce().getResources().getColor(R.color.text_gray));
+			cal.setTextColor(MainActivity.getInstasnce().getResources().getColor(R.color.text_gray));
+			cal_unit.setTextColor(MainActivity.getInstasnce().getResources().getColor(R.color.text_gray));
+			distane.setTextColor(MainActivity.getInstasnce().getResources().getColor(R.color.text_gray));
+			distance_unit.setTextColor(MainActivity.getInstasnce().getResources().getColor(R.color.text_gray));
+			
+			bicycle.setImageDrawable(MainActivity.getInstasnce().getResources().getDrawable(R.drawable.bicycle_icon_gray));
+		}
+		
 		return convertView;
+	}
+
+	public String getTheme_color() {
+		return theme_color;
+	}
+
+	public void setTheme_color(String theme_color) {
+		this.theme_color = theme_color;
+		notifyDataSetChanged();
 	}
 
 }

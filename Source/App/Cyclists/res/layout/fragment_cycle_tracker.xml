@@ -7,11 +7,12 @@
     android:background="@color/white">
 
 	<LinearLayout
-	        android:layout_width="match_parent"
-	        android:layout_height="45dp"
-	        android:background="@color/bk_color_heavy"
-	        android:gravity="center_vertical"
-	        android:weightSum="1" >
+	    android:id="@+id/top_bar_cycle_tracker"
+		android:layout_width="match_parent"
+	    android:layout_height="45dp"
+	    android:background="@color/bk_color_pink_heavy"
+	    android:gravity="center_vertical"
+	    android:weightSum="1" >
 
 
         <View

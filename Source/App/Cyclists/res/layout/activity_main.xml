@@ -5,8 +5,7 @@
     android:layout_height="match_parent"
     tools:context="com.example.menuprototype.MainActivity"
     tools:ignore="MergeRootFrame"
-    android:orientation="vertical"
-    android:background="@color/bk_color_heavy">
+    android:orientation="vertical">
     
     <LinearLayout
         android:id="@+id/fragment"
