@@ -13,27 +13,48 @@
         android:id="@+id/sendstring"
         android:text="Send String to peerDevice"
         android:layout_width="match_parent" 
-        android:layout_height="60dp"/>
+        android:layout_height="50dp"/>
     <Button
         android:id="@+id/sendfile"
         android:text="Send File to peerDevice"
         android:layout_width="match_parent" 
-        android:layout_height="60dp"/>
-    <Button
+        android:layout_height="50dp"/>
+    <TextView 
+        android:text = "Set Phone Number"
+        android:layout_width="match_parent"
+        android:layout_height="20dp"/>
+    <Spinner 
+        android:id="@+id/phonenumberspinner"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"/>
+    <Button        
         android:id="@+id/sendstringtoserver"
         android:text="Send String to server"
         android:layout_width="match_parent" 
-        android:layout_height="60dp"/>
+        android:layout_height="50dp"/>
     <Button
         android:id="@+id/sendfiletoserver"
         android:text="Send File to server"
         android:layout_width="match_parent" 
-        android:layout_height="60dp"/>
+        android:layout_height="50dp"/>
     <Button
         android:id="@+id/requestget"
-        android:text="Request for getting from server"
+        android:text="Send 'Request-get' request to server "
         android:layout_width="match_parent" 
-        android:layout_height="60dp"/>
+        android:layout_height="50dp"/>
+    <TextView 
+        android:text = "Other Request"
+        android:layout_width="match_parent"
+        android:layout_height="20dp"/>
+    <Spinner 
+        android:id="@+id/requestspinner"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"/>
+    <Button 
+        android:id="@+id/sendtargetorder"
+        android:layout_width="match_parent"
+        android:text="Send Target Request to Server"
+        android:layout_height="50dp"/>    
 </LinearLayout>
 </FrameLayout>
 

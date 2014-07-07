@@ -1,6 +1,7 @@
 package com.example.sapinterface;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.URI;
@@ -44,8 +45,14 @@ import android.os.Bundle;
 import android.os.IBinder;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemSelectedListener;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.Spinner;
+import android.widget.SpinnerAdapter;
 import android.widget.Toast;
+import android.widget.AdapterView.OnItemClickListener;
 
 public class MainActivity extends Activity 
 {
@@ -53,22 +60,26 @@ public class MainActivity extends Activity
 	 private static final String DEST_PATH  = "/storage/emulated/legacy/test.amr";
 	 private static final String SAVE_PATH  = "/storage/emulated/legacy/sample.amr";
 	 private static final String TARGET_PATH = "/storage/emulated/legacy/testfromhost.amr";
-	 private final String urlString = "https://moonlightchaser.mooo.com";
 	 private Context mCtxt;
 	 private AlertDialog mAlert;
-	 private HttpClient httpClient;
 	 // 서비스 접근
 	 private SAPProviderService mSAPService;
 	 private String mFilePath;
-	 
 	 public int mTransId;
 	 
 	 // UI
 	 private Button SendStringButton;
 	 private Button SendFileButton;
+	 private Spinner phonenumberSetSpinner;
 	 private Button SendStringToServerButton;
 	 private Button SendFileToServerButton;
 	 private Button RequestForGettingFromServerButton;
+	 private Spinner RequestSetSpinner;
+	 private Button SendTargetRequestButton;
+	 
+	 // To Server
+	 String uniqueId;
+	 String request;
 
 	 private ServiceConnection mSAPConnection = new ServiceConnection() {
         @Override
@@ -99,7 +110,14 @@ public class MainActivity extends Activity
 					 {
 		                    @Override
 		                    public void run() {
-		                        Toast.makeText(getApplicationContext(), message, Toast.LENGTH_LONG).show();
+		                    	if(message.equals("KEEPALIVE"))
+		                    	{
+		                    		
+		                    	}
+		                    	else
+		                    	{
+		                    		Toast.makeText(getApplicationContext(), message, Toast.LENGTH_LONG).show();
+		                    	}
 		                    }
 		             });
 					 
@@ -206,21 +224,44 @@ public class MainActivity extends Activity
         // button event binding
         SendStringButton = (Button)findViewById(R.id.sendstring);
         SendFileButton = (Button)findViewById(R.id.sendfile);
+        phonenumberSetSpinner = (Spinner)findViewById(R.id.phonenumberspinner);
         SendFileToServerButton = (Button)findViewById(R.id.sendfiletoserver);
         SendStringToServerButton = (Button)findViewById(R.id.sendstringtoserver);
         RequestForGettingFromServerButton = (Button)findViewById(R.id.requestget);
-        
+        RequestSetSpinner = (Spinner)findViewById(R.id.requestspinner);
+        SendTargetRequestButton = (Button)findViewById(R.id.sendtargetorder);
         
         mylistener a = new mylistener();
+        myspinnerlistener b =  new myspinnerlistener();
         
         SendStringButton.setOnClickListener(a);
         SendFileButton.setOnClickListener(a);
         SendFileToServerButton.setOnClickListener(a);
         SendStringToServerButton.setOnClickListener(a);
         RequestForGettingFromServerButton.setOnClickListener(a);
+        SendTargetRequestButton.setOnClickListener(a);
         
-        // set http client
-        httpClient = getHttpClient();
+        // set Spinner
+        
+        ArrayAdapter<CharSequence> requestadapter = ArrayAdapter.createFromResource(this, R.array.request_array, android.R.layout.simple_spinner_dropdown_item);
+        
+        requestadapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        
+        RequestSetSpinner.setAdapter(requestadapter);
+        RequestSetSpinner.setOnItemSelectedListener(b);
+        
+        request = (String)requestadapter.getItem(0);
+        
+        // set spinner
+        
+        ArrayAdapter<CharSequence> phonenumberadapter = ArrayAdapter.createFromResource(this, R.array.phonenumber_array, android.R.layout.simple_spinner_dropdown_item);
+        
+        phonenumberadapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        
+        phonenumberSetSpinner.setAdapter(phonenumberadapter);
+        phonenumberSetSpinner.setOnItemSelectedListener(b);
+        
+        uniqueId = (String)phonenumberadapter.getItem(0);
     }
     protected void onDestory()
     {
@@ -228,30 +269,34 @@ public class MainActivity extends Activity
     	Log.d(TAG, "onDestory called");
     	mSAPService.stopSelf();
     }
-    private HttpClient getHttpClient() 
+    private class myspinnerlistener implements OnItemSelectedListener
     {
-        try 
-        {
-            KeyStore trustStore = KeyStore.getInstance(KeyStore.getDefaultType());
-            trustStore.load(null, null);
 
-            SSLSocketFactory sf = new SFSSLSocketFactory(trustStore);
-            sf.setHostnameVerifier(SSLSocketFactory.ALLOW_ALL_HOSTNAME_VERIFIER);
+		@Override
+		public void onItemSelected(AdapterView<?> arg0, View arg1, int arg2,
+				long arg3) {
+			// TODO Auto-generated method stub
+			switch(arg0.getId())
+			{
+			case R.id.requestspinner:
+				String a = (String) arg0.getItemAtPosition(arg2);
+				Log.d(TAG,a);
+				request = a;
+				break;
+			case R.id.phonenumberspinner:
+				String b = (String) arg0.getItemAtPosition(arg2);
+				Log.d(TAG,b);
+				uniqueId = b;
+				break;				
+			}
+		}
 
-            HttpParams params = new BasicHttpParams();
-            HttpProtocolParams.setVersion(params, HttpVersion.HTTP_1_1);
-            HttpProtocolParams.setContentCharset(params, HTTP.UTF_8);
-
-            SchemeRegistry registry = new SchemeRegistry();
-            registry.register(new Scheme("http", PlainSocketFactory.getSocketFactory(), SFSSLSocketFactory.HTTP_PORT));
-            registry.register(new Scheme("https", sf, SFSSLSocketFactory.HTTPS_PORT));
-
-            ClientConnectionManager ccm = new ThreadSafeClientConnManager(params, registry);
-
-            return new DefaultHttpClient(ccm, params);
-        } catch (Exception e) {
-            return new DefaultHttpClient();
-        }
+		@Override
+		public void onNothingSelected(AdapterView<?> arg0) {
+			// TODO Auto-generated method stub
+			
+		}
+    	
     }
     private class mylistener implements Button.OnClickListener
     {
@@ -275,106 +320,21 @@ public class MainActivity extends Activity
 				break;
 			case R.id.sendfiletoserver:
 				{
-					Thread thread = new Thread() {
-	                    @Override
-	                    public void run() {
-	                        try 
-	                        {
-	                            URI url = new URI(urlString);
-	                            HttpPost httpPost = new HttpPost();
-	                            httpPost.setURI(url);
-
-	                            MultipartEntityBuilder builder = MultipartEntityBuilder.create();
-	                            builder.setMode(HttpMultipartMode.BROWSER_COMPATIBLE);
-	                            builder.addTextBody("uniqueNumber", "01012345678");
-	                            // file, string, request - (mkroom,delroom,joinroom,exitroom,login,logout,get)
-	                            builder.addTextBody("type","file");
-	                            builder.addBinaryBody("data", new File(TARGET_PATH));
-	                            
-	                            httpPost.setEntity(builder.build());	                            
-
-	                            HttpResponse response = httpClient.execute(httpPost);
-	                            
-	                            String responseString = EntityUtils.toString(response.getEntity(), HTTP.UTF_8);
-
-	                            Log.d(TAG, responseString);
-
-	                        } catch (URISyntaxException e) {
-	                            Log.e(TAG, e.getLocalizedMessage());
-	                            e.printStackTrace();
-	                        } catch (ClientProtocolException e) {
-	                            Log.e(TAG, e.getLocalizedMessage());
-	                            e.printStackTrace();
-	                        } catch (IOException e) {
-	                            Log.e(TAG, e.getLocalizedMessage());
-	                            e.printStackTrace();
-	                        }
-
-	                    }
-	                };
-
-	                thread.start();
-				}
-				break;
-			case R.id.sendstringtoserver:
-				{
-					/*Thread thread = new Thread() {
-	                    @Override
-	                    public void run() {
-	                        
-	                    	try 
-	                        {
-	                            URI url = new URI(urlString);
-
-	                            HttpPost httpPost = new HttpPost();
-	                            httpPost.setURI(url);
-
-	                            MultipartEntityBuilder builder = MultipartEntityBuilder.create();
-	                            builder.setMode(HttpMultipartMode.BROWSER_COMPATIBLE);
-	                            builder.addTextBody("uniqueNumber", "01012345678");
-	                            // file, string, request - (mkroom,delroom,joinroom,exitroom,login,logout,get)
-	                            builder.addTextBody("type","string");
-	                            builder.addTextBody("data", "asdjhjkhfkjshdkjg");
-	                            
-	                            httpPost.setEntity(builder.build());
-	                            
-
-	                            HttpResponse response = httpClient.execute(httpPost);
-	                          
-	                            Header type,src;
-	                            type = response.getFirstHeader("type");
-	                            src = response.getFirstHeader("src");
-	                          
-	                            Log.d(TAG,type.getValue());
-	                            Log.d(TAG,src.getValue());
-	                            
-	                                                                     
-	                            String responseString = EntityUtils.toString(response.getEntity(), HTTP.UTF_8);
-
-	                            Log.d(TAG, responseString);
-
-	                        } catch (URISyntaxException e) {
-	                            Log.e(TAG, e.getLocalizedMessage());
-	                            e.printStackTrace();
-	                        } catch (ClientProtocolException e) {
-	                            Log.e(TAG, e.getLocalizedMessage());
-	                            e.printStackTrace();
-	                        } catch (IOException e) {
-	                            Log.e(TAG, e.getLocalizedMessage());
-	                            e.printStackTrace();
-	                        }
-
-	                    }
-	                };
-	                
-	               	thread.start();*/
-					
-					HttpsCommunicationCallback callback = new HttpsCommunicationCallback() {
+					HttpsCommunicationCallback callback = new HttpsCommunicationCallback()
+					{
 						
 						@Override
 						public void onResponseSuccess(HttpsCommunication hcn) {
 							// TODO Auto-generated method stub
-							Log.d(TAG,hcn.getStringResponseData());
+							final String resStr = "src unique Id : "+hcn.getResponseUniqueNumber()+"\r\n" +	"order : " + hcn.getResponseOrder() + "\r\n"+
+									"Response : " + hcn.getStringResponseData();
+									
+									runOnUiThread(new Runnable() {
+					                    @Override
+					                    public void run() {
+					                    	Toast.makeText(mCtxt, resStr, Toast.LENGTH_SHORT).show();
+					                    }
+					                });
 						}
 						
 						@Override
@@ -382,79 +342,171 @@ public class MainActivity extends Activity
 							// TODO Auto-generated method stub
 							
 						}
-					};
-					
+					};					
 					HttpsCommunication hcn = new HttpsCommunication(callback);
 					
-					hcn.setUniqueNumber("01012345678");
+					hcn.setUniqueNumber(uniqueId);
+					hcn.setType(HttpsCommunication.TYPE_FILE);
+					hcn.setFileData(new File(TARGET_PATH));
+					if(hcn.ExecuteRequest() == true)
+					{
+						Log.d(TAG,"Sucess to File Request to server");
+					}
+				}
+				break;
+			case R.id.sendstringtoserver:
+				{					
+					HttpsCommunicationCallback callback = new HttpsCommunicationCallback()
+					{
+						
+						@Override
+						public void onResponseSuccess(HttpsCommunication hcn) {
+							// TODO Auto-generated method stub
+							final String resStr = "src unique Id : "+hcn.getResponseUniqueNumber()+"\r\n" + "order : " + hcn.getResponseOrder() + "\r\n"+
+									"Response : " + hcn.getStringResponseData();
+									
+									runOnUiThread(new Runnable() {
+					                    @Override
+					                    public void run() {
+					                    	Toast.makeText(mCtxt, resStr, Toast.LENGTH_SHORT).show();
+					                    }
+					                });
+						}
+						
+						@Override
+						public void onResponseFailure(String errMsg) {
+							// TODO Auto-generated method stub
+							
+						}
+					};					
+					HttpsCommunication hcn = new HttpsCommunication(callback);
+					
+					hcn.setUniqueNumber(uniqueId);
 					hcn.setType(HttpsCommunication.TYPE_STRING);
 					hcn.setStringData("askjdhkjqhwdkjhqkfjh");
-					hcn.ExecuteRequest();
+					if(hcn.ExecuteRequest() == true)
+					{
+						Log.d(TAG,"Sucess to String Request to server");
+					}
 				}
 				break;
 			case R.id.requestget:
 				{
-					Thread thread = new Thread() {
-	                    @Override
-	                    public void run() {
-	                        
-	                    	try 
-	                        {
-	                            URI url = new URI(urlString);
-
-	                            HttpPost httpPost = new HttpPost();
-	                            httpPost.setURI(url);
-
-	                            MultipartEntityBuilder builder = MultipartEntityBuilder.create();
-	                            builder.setMode(HttpMultipartMode.BROWSER_COMPATIBLE);
-	                            
-	                            builder.addTextBody("uniqueNumber", "01012345678");
-	                            // file, string, request - (mkroom,joinroom,exitroom,login,logout,get)
-	                            builder.addTextBody("type","request");
-	                            builder.addTextBody("data", "get");
-	                            
-	                            httpPost.setEntity(builder.build());
-	                            
-
-	                            HttpResponse response = httpClient.execute(httpPost);
-	                          
-	                            Header type,src;
-	                            type = response.getFirstHeader("type");
-	                            src = response.getFirstHeader("src");
-	                          
-	                            Log.d(TAG,type.getValue());
-	                            Log.d(TAG,src.getValue());
-	                            
-	                            
-	                                                                     
-	                            byte[] filedata = EntityUtils.toByteArray(response.getEntity());
-	                            
-	                            File targetfile = new File(SAVE_PATH);
-	                            Boolean flag = targetfile.createNewFile();
-	                            
-	                            Log.d(TAG,flag.toString());
-	                            
-	                            FileOutputStream ws = new FileOutputStream(targetfile);
-	                            
-	                            ws.write(filedata);
-	                            
-	                            ws.close();        
-	                        } catch (URISyntaxException e) {
-	                            Log.e(TAG, e.getLocalizedMessage());
-	                            e.printStackTrace();
-	                        } catch (ClientProtocolException e) {
-	                            Log.e(TAG, e.getLocalizedMessage());
-	                            e.printStackTrace();
-	                        } catch (IOException e) {
-	                            Log.e(TAG, e.getLocalizedMessage());
-	                            e.printStackTrace();
-	                        }
-
-	                    }
-	                };
-
-
-	                thread.start();
+					HttpsCommunicationCallback callback = new HttpsCommunicationCallback()
+					{
+						
+						@Override
+						public void onResponseSuccess(HttpsCommunication hcn) {
+							// TODO Auto-generated method stub
+							final String resStr = "src unique Id : "+hcn.getResponseUniqueNumber()+"\r\n" + "order : " + hcn.getResponseOrder() + "\r\n"+
+									"src type : " + hcn.getResponseType() + "\r\n"; 
+									
+							if(hcn.getResponseType().equals("file"))
+							{
+								File downloadedfile = new File(SAVE_PATH);
+								if(downloadedfile.exists() == true)
+								{
+									downloadedfile.delete();
+								}
+								
+								try {
+									downloadedfile.createNewFile();
+									FileOutputStream wc = new FileOutputStream(downloadedfile);
+									
+									wc.write(hcn.getByteResponseData());
+									wc.close();
+									
+								} catch (FileNotFoundException e) {
+									// TODO Auto-generated catch block
+									e.printStackTrace();
+								} catch (IOException e) {
+									// TODO Auto-generated catch block
+									e.printStackTrace();
+								}
+								
+								
+								final String textResponse = resStr + "file download complete";
+								
+								runOnUiThread(new Runnable() {
+					                   @Override
+					                   public void run() {
+					                   	Toast.makeText(mCtxt, textResponse, Toast.LENGTH_SHORT).show();
+					                   }
+					             });
+							}
+							else
+							{
+								final String textResponse = resStr + "Response : " + hcn.getStringResponseData();
+								
+								runOnUiThread(new Runnable() {
+					                   @Override
+					                   public void run() {
+					                   	Toast.makeText(mCtxt, textResponse, Toast.LENGTH_SHORT).show();
+					                   }
+					             });
+							}
+						}
+						
+						@Override
+						public void onResponseFailure(String errMsg) {
+							// TODO Auto-generated method stub
+							
+						}
+					};					
+					HttpsCommunication hcn = new HttpsCommunication(callback);
+					
+					hcn.setUniqueNumber(uniqueId);
+					hcn.setType(HttpsCommunication.TYPE_REQUEST);
+					hcn.setStringData("get");
+					if(hcn.ExecuteRequest() == true)
+					{
+						Log.d(TAG,"Sucess to get Request to server");
+					}
+				}
+				break;
+			case R.id.sendtargetorder:
+				{
+					HttpsCommunicationCallback callback = new HttpsCommunicationCallback()
+					{
+						
+						@Override
+						public void onResponseSuccess(HttpsCommunication hcn) {
+							// TODO Auto-generated method stub
+							
+							Log.d(TAG,hcn.getStringResponseData());
+							
+							final String resStr = "src unique Id : "+hcn.getResponseUniqueNumber()+"\r\n" + "order : " + hcn.getResponseOrder() + "\r\n"+
+							"Response : " + hcn.getStringResponseData();
+							
+							runOnUiThread(new Runnable() {
+			                    @Override
+			                    public void run() {
+			                    	Toast.makeText(mCtxt, resStr, Toast.LENGTH_SHORT).show();
+			                    }
+			                });
+							
+						}
+						
+						@Override
+						public void onResponseFailure(String errMsg) {
+							// TODO Auto-generated method stub
+							
+						}
+					};					
+					HttpsCommunication hcn = new HttpsCommunication(callback);
+					
+					hcn.setUniqueNumber(uniqueId);
+					hcn.setType(HttpsCommunication.TYPE_REQUEST);
+					request = request.substring(request.indexOf('-')+1);
+					if(request.equals("joinroom"))
+					{
+						hcn.setExtraData("01012345678");
+					}
+					hcn.setStringData(request);
+					if(hcn.ExecuteRequest() == true)
+					{
+						Log.d(TAG,"Sucess to "+request + "Request to server");
+					}
 				}
 				break;
 			}

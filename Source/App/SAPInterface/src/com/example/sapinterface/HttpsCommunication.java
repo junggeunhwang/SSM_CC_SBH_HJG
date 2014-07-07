@@ -35,7 +35,7 @@ public class HttpsCommunication
 	public static final String TYPE_STRING = "string";
 	public static final String TYPE_FILE = "file";
 	public static final String TYPE_REQUEST = "request";
-	private final String urlString = "https://moonlightchaser.mooo.com";
+	private final String urlString = "https://221.146.188.179";
 	
 	private boolean isUniqueNumberSet = false;
 	private boolean isTypeSet = false;
@@ -50,6 +50,7 @@ public class HttpsCommunication
 	//response
 	private String responseType;
 	private String responseUniqueNumber;
+	private String responseOrder;
 	private byte[] responseByteData;
 	private String responseStringData;
 	
@@ -79,6 +80,7 @@ public class HttpsCommunication
                   
                     responseType = response.getFirstHeader("type").getValue();
                     responseUniqueNumber = response.getFirstHeader("src").getValue();
+                    responseOrder = response.getFirstHeader("order").getValue();
                   
                     Log.d(TAG,"type : " +responseType);
                     Log.d(TAG,"src number : "+responseUniqueNumber);
@@ -89,9 +91,7 @@ public class HttpsCommunication
            		 	responseByteData = EntityUtils.toByteArray(a);
            		 	
            		 	responseStringData = new String(responseByteData,"UTF-8");
-
-                    Log.d(TAG, responseStringData);
-                    
+           
                     callback.onResponseSuccess(thispointer);
 
                 } catch (URISyntaxException e) 
@@ -121,7 +121,10 @@ public class HttpsCommunication
 	}
 	
 	// method
-	
+	/**
+	 * getHttpClient 
+	 * @return HttpClient Object
+	 */
 	private HttpClient getHttpClient() 
     {
         try 
@@ -147,7 +150,10 @@ public class HttpsCommunication
             return new DefaultHttpClient();
         }
     }
-	
+	/**
+	 * setUniqueNumber
+	 * @param uniqueNumber - phone number(String)
+	 */
 	public void setUniqueNumber(String uniqueNumber)
 	{
 		if(uniqueNumber != null)
@@ -183,7 +189,13 @@ public class HttpsCommunication
 			isDataSet = true;
 		}
 	}
-	
+	public void setExtraData(String extradata)
+	{
+		if(extradata != null)
+		{
+			builder.addTextBody("extradata", extradata);
+		}
+	}	
 	public boolean ExecuteRequest()
 	{
 		if(isDataSet && isTypeSet && isUniqueNumberSet)
@@ -220,5 +232,9 @@ public class HttpsCommunication
 	public String getResponseUniqueNumber()
 	{
 		return responseUniqueNumber;
-	}	
+	}
+	public String getResponseOrder()
+	{
+		return responseOrder;
+	}
 }
