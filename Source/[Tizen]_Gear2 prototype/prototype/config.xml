@@ -4,6 +4,7 @@
     <content src="index.html"/>
     <feature name="http://tizen.org/feature/screen.size.normal.320.320"/>
     <icon src="icon.png"/>
+    <tizen:metadata key="AccessoryServicesLocation" value="res/xml/SAPServiceProfile.xml"/>
     <name>prototype</name>
     <tizen:privilege name="http://tizen.org/feature/sensor.accelerometer"/>
     <tizen:privilege name="http://tizen.org/privilege/filesystem.read"/>
@@ -11,5 +12,8 @@
     <tizen:privilege name="http://tizen.org/privilege/camera"/>
     <tizen:privilege name="http://tizen.org/privilege/mediacapture"/>
     <tizen:privilege name="http://tizen.org/privilege/power"/>
+    <tizen:privilege name="http://developer.samsung.com/privilege/accessoryprotocol"/>
+    <tizen:privilege name="http://tizen.org/privilege/content.read"/>
+    <tizen:privilege name="http://tizen.org/privilege/content.write"/>
     <tizen:setting background-support="enable" encryption="disable" hwkey-event="enable"/>
 </widget>

@@ -1,9 +1,9 @@
-function togglemain()
+function toggleInit()
 {
 	var is_background = false;
 	var imagetag = document.getElementById("toggleimg");
-	var left = document.getElementById("left");
-	var right = document.getElementById("right");
+	var left = document.getElementById("leftToggle");
+	var right = document.getElementById("rightToggle");
 	var timerevent;
 	
 	function onLefttoggle()
@@ -54,8 +54,6 @@ function togglemain()
 		{
 			imagetag.src = "/images/background.PNG";
 			timerevent.stop();
-			left.removeEventListener("click", onLeftClicked);
-			right.removeEventListener("click", onRightClicked);
 			delete timerevent;
 		}
 	}

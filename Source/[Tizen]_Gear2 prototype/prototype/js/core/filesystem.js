@@ -150,7 +150,7 @@ var filesystem = function coreFilesystem() {
 
             path.fileName = splittedPath.pop();
             path.dirName = splittedPath.join('/') || '/';
-
+            path.dirName = path.dirName.toLowerCase();
             return path;
         }
 
@@ -265,7 +265,7 @@ var filesystem = function coreFilesystem() {
                 });
             }
 
-            openDir(pathData.dirName, onOpenDirSuccess, function error(e) {
+            openDir('downloads', onOpenDirSuccess, function error(e) {
                 console.error('Filesystem_openDir error:' + e.message);
             });
         }

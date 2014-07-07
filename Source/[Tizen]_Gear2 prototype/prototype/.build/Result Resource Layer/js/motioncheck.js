@@ -1,36 +1,64 @@
 function MotionCheckStart()
 {
 	var motionqueue = [];
-	var avg_motion_count = 65;
-	/*var timerevent = new mytimer.Timer(50,onSimulatedACallback);
-	
-	timerevent.run();*/
+	var avg_motion_count = 60;
 	
 	window.addEventListener("devicemotion",onAccelerationCallback,true);
 	
+	function MotionSuccess(i)
+	{
+		window.removeEventListener("devicemotion",onAccelerationCallback,true);
+		alert("YES Motion detected "+ i);
+		motionqueue = [];
+		window.addEventListener("devicemotion",onAccelerationCallback,true);
+	}
 	
 	function MotionCheck(va_avg,va_SD,hq_avg,hq_SD)
 	{
-		console.log(va_avg+" "+va_SD+" "+hq_avg + " " + hq_SD);
-		if(hq_SD > 0.43)
+		//console.log(va_avg+" "+va_SD+" "+hq_avg + " " + hq_SD);
+		if(hq_SD > 0.69)
 		{
-			if(va_avg <=0.19)
+			if(va_avg <= 0.16)
 			{
-				/*console.log("YES MOTION DETECTED");
-				motionqueue = [];*/
+				if(hq_SD <= 1.59)
+				{
+					if(va_SD > 1.81)
+					{
+						if(hq_avg <= 2.02)
+						{
+							//MotionSuccess(1);
+						}
+					}
+				}
+				else
+				{
+					if(va_SD <= 2.3)
+					{
+						//MotionSuccess(2);
+					}
+				}
 			}
 			else
 			{
-				if(hq_avg <= 1.61)
+				if(hq_avg<1.23)
 				{
-					if(hq_SD <= 1.2)
+					if(hq_avg>1)
 					{
-						if(va_SD > 1.35)
+						if(va_SD <=1.86)
 						{
-							console.log("YES MOTION DETECTED");
-							motionqueue = [];
+							if(va_avg <= 0.32)
+							{
+								if(va_avg > 0.21)
+								{
+									//MotionSuccess(3);
+								}
+							}
 						}
-					}					
+						else
+						{
+							MotionSuccess(4);
+						}
+					}
 				}
 			}
 		}
@@ -47,22 +75,7 @@ function MotionCheckStart()
 		
 		if(count == avg_motion_count)
 		{
-			console.log("extract");
-			extract();
-			motionqueue.shift();
-		}
-	}
-	function onSimulatedACallback()
-	{
-		var ax = Math.floor((Math.random() * 10));
-		var ay = Math.floor((Math.random() * 10));
-		var az = Math.floor((Math.random() * 10));
-		
-		var count = motionqueue.push({x:ax,y:ay,z:az});
-		
-		if(count == avg_motion_count)
-		{
-			console.log("extract");
+			//console.log("extract");
 			extract();
 			motionqueue.shift();
 		}

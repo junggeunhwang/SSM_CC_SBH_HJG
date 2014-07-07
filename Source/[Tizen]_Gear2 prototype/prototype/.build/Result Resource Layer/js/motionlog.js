@@ -1,4 +1,4 @@
-function motionlogInit()
+(function motionlogInit()
 {
 	var firElem, secElem, thirElem;
 	var LogStartStopButton, DeleteLogButton, AccelLogOpenButton;
@@ -80,7 +80,7 @@ function motionlogInit()
 		}
 		else
 		{
-			alert("File Init Operation Success");
+			//alert("File Init Operation Success");
 		}
 	}
 	//error handlings
@@ -177,4 +177,4 @@ function motionlogInit()
 	NormalLogStartButton.addEventListener("click",onNormalLogOperation);
 	
 	logfileinit();	
-}
+})();

@@ -4,11 +4,11 @@
 <SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha256"></SignatureMethod>
 <Reference URI="author-signature.xml">
 <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
-<DigestValue>aMNNzZACposEg6Pk6CpdugbgYr3KbMenO0f01fDjnjU=</DigestValue>
+<DigestValue>B+1YBDusromXWoSWKmbUpp1mHHEcnHHILw/l/rDLosk=</DigestValue>
 </Reference>
 <Reference URI="config.xml">
 <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
-<DigestValue>WhM37og5b6CMLGUq3haNJfDAPbf7fiPcQG2Bp3mIXUk=</DigestValue>
+<DigestValue>JsDE+jdMdyiHJWSeS8NzB5dYpDri3mVahUrVFkEzkMU=</DigestValue>
 </Reference>
 <Reference URI="css/style.css">
 <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
@@ -26,13 +26,41 @@
 <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
 <DigestValue>dXJbsdQgxq8Z8eHCJIoYZc97OYFY26uDxh9ll2cl1Vg=</DigestValue>
 </Reference>
+<Reference URI="images/leftToggle.PNG">
+<DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
+<DigestValue>uojEUzcpXLXe7Btp54HKdTOHR8QQosC8vzKNj6SYZ7U=</DigestValue>
+</Reference>
 <Reference URI="images/right.PNG">
 <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
 <DigestValue>gCmPtz4aCh4q+0JSAswYFvI6T9/9LCpGII1t5wi4XwY=</DigestValue>
 </Reference>
+<Reference URI="images/rightToggle.PNG">
+<DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
+<DigestValue>0iUsmL70sa2GitDhV5c8XLzlyDp6mxyyZdj1Fk2vl8c=</DigestValue>
+</Reference>
+<Reference URI="images/startrecord.PNG">
+<DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
+<DigestValue>CWps1JVbifOXTA+k88h5nddterJIDEw4KjjUK31kLaw=</DigestValue>
+</Reference>
+<Reference URI="images/stoprecord.PNG">
+<DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
+<DigestValue>Pv1R5v2L3q4ExGnB5wwHAbPbaa6LnghKPm1XObeqUdE=</DigestValue>
+</Reference>
 <Reference URI="index.html">
 <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
-<DigestValue>cYtcUXwdJhzk0ifeTB5xOdUVd2WoGCTF4ln4K0YUbwA=</DigestValue>
+<DigestValue>GKS8ndJmivpglprcUmW+4cEtv9jundrJ/aHJS+vMn6I=</DigestValue>
+</Reference>
+<Reference URI="js/core/SAPFile.js">
+<DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
+<DigestValue>KJhkWkMGErgHPlcLBKjSQEGPhS6uSu7J1G5ZmLglWCY=</DigestValue>
+</Reference>
+<Reference URI="js/core/SAPInit.js">
+<DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
+<DigestValue>uOBc8k4C4GU5n3uT+amBtUgiDoX3frR9Qd7UDKtO/1M=</DigestValue>
+</Reference>
+<Reference URI="js/core/SAPString.js">
+<DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
+<DigestValue>9+N9oNButP/cssCtCdCXA+4FVHYYzCju5iN2LU5Zim4=</DigestValue>
 </Reference>
 <Reference URI="js/core/audioplay.js">
 <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
@@ -40,7 +68,11 @@
 </Reference>
 <Reference URI="js/core/audiorecord.js">
 <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
-<DigestValue>K8oVPJ6vpWC0RI1i+D/QrFIXgudoveaSFTes4v1GOj8=</DigestValue>
+<DigestValue>tbfu6ccTCxD6GHJ0Joui6Q9vq7O2TVeCMfFzrOPV96w=</DigestValue>
+</Reference>
+<Reference URI="js/core/displayvariable.js">
+<DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
+<DigestValue>s7zJXwudTwVxOAlER8Y8R/MiZxruMhZtHdAB4lqfqSQ=</DigestValue>
 </Reference>
 <Reference URI="js/core/event.js">
 <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
@@ -48,7 +80,7 @@
 </Reference>
 <Reference URI="js/core/filesystem.js">
 <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
-<DigestValue>ZxaoBf/5WVnSfcUDaHG9E8w7cvPq0jR6Zj0VYXTl/X4=</DigestValue>
+<DigestValue>jSs+to05YNHFdTqAOF0B8PjskS10G5GR0wqpnfC72vo=</DigestValue>
 </Reference>
 <Reference URI="js/core/stream.js">
 <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
@@ -64,19 +96,27 @@
 </Reference>
 <Reference URI="js/main.js">
 <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
-<DigestValue>UP63Acn6t5UN9g5XgvHpaxfzzt/QSXmsMSJnGWQ8kYE=</DigestValue>
+<DigestValue>EXd2O+T4/chd2G5B9147kAT6ahX45bu6pKrmK4xP1Ac=</DigestValue>
 </Reference>
 <Reference URI="js/motioncheck.js">
 <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
-<DigestValue>1VOFPWmTGOCIen9FAqf/v4kt/pjTLGk17c/H3VFjy74=</DigestValue>
+<DigestValue>1Qp622HD0sulAnw8hw47Vh9/jpV2EFNvt7a7Jr7/9do=</DigestValue>
 </Reference>
 <Reference URI="js/motionlog.js">
 <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
-<DigestValue>JS1ULCbxP+Xxs/cp7noZ5GUNzdTJfw66tcmRyVr8c1M=</DigestValue>
+<DigestValue>EX1bZY73XRENEwa/v9TFMJRQbAcp08IBSC0X4j3sTNU=</DigestValue>
+</Reference>
+<Reference URI="js/option.js">
+<DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
+<DigestValue>FjtvisQCUIb+2dv2l+akGsTyxoLlg/NkBKDc0EffDtY=</DigestValue>
 </Reference>
 <Reference URI="js/toggle.js">
 <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
-<DigestValue>WThqzILKMirthh/qu/TLLvlBbdwANTFWdGmurqBkCe8=</DigestValue>
+<DigestValue>1FqGVLvH7Sd2h6lR/9wC/YaI3S5YLnT5Rk2qG8vGJ2A=</DigestValue>
+</Reference>
+<Reference URI="js/transfertest.js">
+<DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
+<DigestValue>ru30s93z6Nqv9cFUgmk+prN/O6PZf4PB3FUENx01IU8=</DigestValue>
 </Reference>
 <Reference URI="lib/tau/LICENSE.Flora">
 <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
@@ -294,6 +334,18 @@
 <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
 <DigestValue>51XzLOyJf24UixHBfCKKbLStrCw+6PrsBBNU4ejsHgo=</DigestValue>
 </Reference>
+<Reference URI="res/sound/jd.mp3">
+<DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
+<DigestValue>Oa4b4gQ/vRI/wnu0AWtXqDvefS76z9LmruRHAe7F3DY=</DigestValue>
+</Reference>
+<Reference URI="res/sound/recordstart.mp3">
+<DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
+<DigestValue>6O+OePCKw0GTQjMZuGVmpEJEDsZj0J8mkR6foQxMnbc=</DigestValue>
+</Reference>
+<Reference URI="res/xml/SAPServiceProfile.xml">
+<DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
+<DigestValue>zpOppFrwydzzZzXw1j8jm5paRCV1tHyBv6YKwNVdsNY=</DigestValue>
+</Reference>
 <Reference URI="#prop">
 <Transforms>
 <Transform Algorithm="http://www.w3.org/2006/12/xml-c14n11"></Transform>
@@ -303,11 +355,11 @@
 </Reference>
 </SignedInfo>
 <SignatureValue>
-WVsl9jtlJAIgVctBF3Uyi5sAYnLumlj8v67GlabixH+dFCQtNjNCTb0czfRxto0JSWmPNvsWGmVY
-hj++8yyJxeQ1oTvv/LvDpoNhC2rCB4Hbyu3cAuCKypQAxQVs0GrZYM2/2lTq0V/z1d8YLhfEQr2T
-4weusr+wXvsSMQWtjO2oFQPtycHoomuQrq9fTTcMFK1+GJuggWDwLz2tdOk5TscRbtXSSbXrHxpI
-FAsBTTCTeyQXq9DOTWDOhCEGSTsd2mnJCXqEq4NV5AUws4lrivjrMBd8dOXeNTonbFaTtOgEwIQV
-yf4ShhLhnadaZeOFzofnf2XE3kHXekxYS86RaA==
+S7jOyH2NAaAjsbuFSFT12hHUwYWoVWsJZJvA30rbCsg0A2MkXdBlyeUEM6XYzjmF3K83URo1fh4W
+XBLGedFa0fYdT56af833xnVUGfogyQHBRpoG0aw/wr512NQTLgNo/iYljlL/jU26qSLZmtC2NIsm
++AUnXZy/LxYipsotB26mzE1FA7nROPQBu4A7X8stMXsrcmctCykhEKCGELyP+s1p+Hm2v1uhkF1u
+QGtsKwdrmIG5CIwsNrQA/smqIkBx35WTnYfXWa6A1V9WZG4kr3il+6FzcK1ABQhKpm+/pahhy96m
+5EzaCY7Gd/cxPCIfmymbfJr6tDqxQ2jLMqTeZQ==
 </SignatureValue>
 <KeyInfo>
 <X509Data>

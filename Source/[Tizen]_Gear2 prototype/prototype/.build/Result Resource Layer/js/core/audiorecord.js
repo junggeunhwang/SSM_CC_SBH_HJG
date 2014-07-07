@@ -5,6 +5,20 @@
  * Audio model module
  */
 
+var AudioStream = null; // 오디오 저장 시 사용하는 스트림
+var AudioRecordingFlag = false; // 오디오 녹음 중인지 여부 
+var AudioRecordingLock = false; // 오디오 녹음 시작, 완료 전 락 여부
+var RecordedAudioPath; // 녹음된 오디오 파일 위치
+
+function toggleRecording(forceValue) 
+{
+    if (forceValue !== undefined) {
+        AudioRecordingFlag = !!forceValue;
+    } else {
+        AudioRecordingFlag = !AudioRecordingFlag;
+    }
+}
+
 var audiorecord = (function modelsAudio() {
         /*jshint maxstatements:42*/
 
@@ -135,11 +149,13 @@ var audiorecord = (function modelsAudio() {
          * @return {string}
          */
         function createAudioFileName() {
-            var currentDate = new Date(),
+            var date = new Date(),
                 extension = getRecordingFormat(),
                 fileName = '';
+            
+            var prefix = "voice" + date.getHours().toString()+"_" + date.getMinutes().toString()+"_" + date.getSeconds().toString()+"_"+date.getMilliseconds();
 
-            fileName = "test" +
+            fileName = prefix +
                 '.' + extension;
 
             return fileName;
@@ -263,3 +279,17 @@ var audiorecord = (function modelsAudio() {
             getRecordingTime: getRecordingTime
         };
     })();
+
+// 녹음 관련
+function startRecording() 
+{
+	AudioRecordingLock = true;
+	audiorecord.startRecording();
+}
+
+// 음성 녹음 종료
+function stopRecording() 
+{
+	AudioRecordingLock = true;
+	audiorecord.stopRecording();
+}

@@ -14,28 +14,51 @@
     </style>
 </head>
 <body>
-	<!-- MainUI -->
-    <div id = "mainpage" class="ui-page ui-page-active">
+	<!-- First Page - Device information and Main Operation -->
+	<div id = "mainpage" class="ui-page  ui-page-active">
+		<a href="#" id="hoption" style="font-size:20px" ><header class="ui-header">Gear Fitness Widget</header></a>
+			<div style="height:40%;width:100%;font-size:30px">
+				<p><span id="peerstatus">안녕하세요 반갑습니다.</span></p>
+				<p><span id="extrastatus">추가 정보.</span></p>
+			</div>
+		<a href = "#" id="leftToggle"><img src = "./images/leftToggle.PNG" style="width:33%"></a>
+		<a href = "#" id="recordOperation"><img src = "./images/startrecord.PNG" style="width:33%" id = "recordOperationImg"></a>
+		<a href = "#" id="rightToggle"><img src = "./images/rightToggle.PNG" style="width:32%"></a>
+	</div>
+	<!-- Second Page - Alert proper information (fitness information, etc -->
+	<div id = "secondpage" class="ui-page">
+		<header class="ui-header" style="font-size:20px">Fitness Information</header>
+		<div style="width:100%;font-size:30px">
+			<p><span style="float:left">속력</span><span id ="fi1" style="float:right">12km</span></p><br>
+			<p><span style="float:left">운동 거리</span><span id ="fi2" style="float:right">6km</span></p><br>
+			<p><span style="float:left">운동 시간</span><span id ="fi3" style="float:right">30분</span></p><br>
+			<p><span style="float:left">현위치</span><span id ="fi4" style="float:right">강서구</span></p>
+		</div>
+	</div>
+	<!-- Third Page - Multicasted Information Visualization - group audio information group string information -->
+	<div id = "thirdpage" class="ui-page">
+		<header class="ui-header" style="font-size:20px">Group Information</header>
+		<div style="width:100%;font-size:30px">
+			<p id="information1" style="float:centor">음성이 수신되었습니다.</p><br>
+			<p><span style="float:left">송신자</span><span id ="filesender" style="float:right">01050501010</span></p><br>
+		</div>
+	</div>
+	<!-- option ui -->
+    <div id = "optionpage" class="ui-page">
     <h1>Prototype</h1>
-        <footer class="maincontrol">
            	<button type="button" style="width:98%;height:45px" id = "accellog">accel log</button><br>
             <button type="button" style="width:98%;height:45px" id = "delete_log">delete log</button><br>
             <button type="button" style="width:98%;height:45px" id = "start_record">start record</button><br>
             <button type="button" style="width:98%;height:45px" id = "play_record">play record</button><br>
-            <button type="button" style="width:98%;height:45px" id = "toggle">toggle</button><br>
+            <button type="button" style="width:98%;height:45px" id = "test">test</button><br>
             <button type="button" style="width:98%;height:45px" id = "send_to_host">send to host</button>
-    	</footer>
     </div>
     <!-- Togglepage for directiontictok -->
-    <div id = "togglepage" class="ui-page">
-    	<ul class="ui-listview">
-    		<li><a href="#" id = "left">left</a></li>
-			<li><a href="#" id = "right">right</a></li>
-		</ul>
-    </div>
     <div id = "directiontictok" class="ui-page">
     	<img src = "/images/background.PNG" id = "toggleimg">
     </div>
+    
+    <!-- Accel logging page -->
     <div id = "accellogpage" class="ui-page">
     	<p id="firElem">
        	 	Acceleration value x : 0.0 y : 0.0 z : 9.8<br>
@@ -46,18 +69,33 @@
     	<button type="button" style="width:98%;height:60%" id = "log_operation">start accel log</button><br>
     	<button type="button" style="width:98%;height:20%" id = "normal_operation">start normal log</button>
     </div>
+    
+    <!-- SAP Transfer test page -->
+    <div id = "sappage" class="ui-page">
+    	<ul class="ui-listview">
+    		<li><a href="#" id = "string">string</a></li>
+			<li><a href="#" id = "amrfile">amr file</a></li>
+		</ul>
+    </div>
 </body>
 <script type="text/javascript" src="/lib/tau/js/tau.min.js"></script>
 <!-- load javascript file for your application -->
 <script src="./js/core/filesystem.js"></script>
 <script src="./js/core/event.js"></script>
 <script src="./js/core/timer.js"></script>
+<script src="./js/core/displayvariable.js"></script>
 <script src="./js/core/stream.js"></script>
 <script src="./js/core/audioplay.js"></script>
 <script src="./js/core/audiorecord.js"></script>
 <script src="./js/toggle.js"></script>
+<script src="./js/core/SAPString.js"></script>
+<script src="./js/core/SAPFile.js"></script>
+<script src="./js/core/SAPInit.js"></script>
 <script src="./js/motioncheck.js"></script>
-<script src="./js/motionlog.js"></script>
+<script src="./js/option.js"></script>
 <script src="./js/main.js"></script>
 <script src="./js/lowBatteryCheck.js"></script>
+<!-- Just for prototype script -->
+<script src="./js/motionlog.js"></script>
+<script src="./js/transfertest.js"></script>
 </html>
