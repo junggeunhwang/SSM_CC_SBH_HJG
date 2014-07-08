@@ -1,0 +1,76 @@
+package com.ssm.cyclists.controller.communication.https;
+
+import android.util.Log;
+
+public class Protocol {
+	
+	private static Protocol instance;
+	
+	static String TAG = Protocol.class.getSimpleName();
+	
+	private Protocol() {
+		// TODO Auto-generated constructor stub
+	}
+	
+	public Protocol getInstance(){
+		if(instance==null)instance = new Protocol();
+		return instance;
+	}
+	
+
+    public boolean Login(String myNumber){
+    	HttpsCommunication httpsCommunication = new HttpsCommunication(httpsCallback);
+    	httpsCommunication.setType(HttpsCommunication.TYPE_REQUEST);
+    	httpsCommunication.setStringData("login");
+    	httpsCommunication.setUniqueNumber(myNumber);
+    	
+		if(!httpsCommunication.ExecuteRequest()){
+			Log.e(TAG, "login requeset failed");
+			return false;
+		}
+		Log.d(TAG, "login success");
+		return true;
+    }
+    
+    public boolean Logout(String myNumber){
+    	HttpsCommunication httpsCommunication = new HttpsCommunication(httpsCallback);
+    	httpsCommunication.setType(HttpsCommunication.TYPE_REQUEST);
+    	httpsCommunication.setStringData("logout");
+    	httpsCommunication.setUniqueNumber(myNumber);
+    	
+		if(!httpsCommunication.ExecuteRequest()){
+			Log.e(TAG, "logout requeset failed");
+			return false;
+		}
+		Log.d(TAG, "logut success");
+		return true;
+    }
+    
+    public boolean MakeRoom(String myNumber){
+		HttpsCommunication httpsCommunication = new HttpsCommunication(httpsCallback);
+		httpsCommunication.setType(HttpsCommunication.TYPE_REQUEST);
+		httpsCommunication.setStringData("mkroom");
+		httpsCommunication.setUniqueNumber(myNumber);
+		if(!httpsCommunication.ExecuteRequest()){
+			Log.e(TAG, "mkroom requeset failed");
+			return false;
+		}
+		Log.d(TAG, "mkroom success");
+		return true;
+    }
+    
+    public boolean JoinRoom(String targetNumber){
+       	HttpsCommunication httpsCommunication = new HttpsCommunication(httpsCallback);
+    	httpsCommunication.setType(HttpsCommunication.TYPE_REQUEST);
+    	httpsCommunication.setStringData("joinroom");
+    	httpsCommunication.setUniqueNumber(myNumber);
+    	httpsCommunication.setExtraData(targetNumber);
+    	
+    	if(!httpsCommunication.ExecuteRequest()){
+			Log.e(TAG, "JoinRoom requeset failed");
+			return false;
+		}
+    	Log.d(TAG, "JoinRoom success");
+    	return true;
+    }
+}

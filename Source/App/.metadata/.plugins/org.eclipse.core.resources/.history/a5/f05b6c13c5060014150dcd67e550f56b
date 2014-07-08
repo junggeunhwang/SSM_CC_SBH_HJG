@@ -1,0 +1,250 @@
+package com.ssm.cyclists.view.layout;
+
+import com.jjoe64.graphview.GraphView;
+import com.jjoe64.graphview.GraphView.GraphViewData;
+import com.jjoe64.graphview.CustomLabelFormatter;
+import com.jjoe64.graphview.GraphViewSeries;
+import com.jjoe64.graphview.GraphViewSeries.GraphViewSeriesStyle;
+import com.jjoe64.graphview.GraphViewStyle;
+import com.jjoe64.graphview.LineGraphView;
+import com.ssm.cyclists.R;
+import com.ssm.cyclists.controller.activity.MainActivity;
+import com.ssm.cyclists.model.ResourceManager;
+
+import android.app.Fragment;
+import android.app.FragmentTransaction;
+import android.content.pm.ActivityInfo;
+import android.graphics.Color;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.CompoundButton;
+import android.widget.CompoundButton.OnCheckedChangeListener;
+import android.widget.LinearLayout;
+import android.widget.RadioButton;
+import android.widget.TextView;
+
+public class CycleTrackerDetailLayout extends BaseFragmentLayout {
+
+	static String TAG = CycleTrackerDetailLayout.class.getSimpleName();
+	
+	private String theme_color;
+	
+	private Button btnBack;
+	
+	private RadioButton radioSpeed;
+	private RadioButton radioAltitude;
+	private LinearLayout lyTopBar;
+	private GraphView graphView;
+	
+	private TextView tvFragmentName;
+	private TextView tvAppName;
+	private TextView tvDistanceUnit;
+	private TextView tvVelocityUnit;
+	private GraphViewData[] SpeedData;
+	private GraphViewData[] AltitudeData;
+	
+	public CycleTrackerDetailLayout(Fragment instance) {
+		super(instance);
+		theme_color = MainActivity.getInstasnce().getLayout().getTheme_color();
+	}
+
+	@Override
+	public void createView(LayoutInflater inflater, ViewGroup container) {
+		view = inflater.inflate(R.layout.fragment_cycle_tracker_detail, container, false);		
+	}
+	public void init(){
+		btnBack = (Button)getView().findViewById(R.id.back_button_cycletracker_detail);
+		
+		btnBack.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				//뒤로가기
+				backScreen();
+			}
+		});
+		
+		lyTopBar = (LinearLayout)getView().findViewById(R.id.top_bar_cycle_tracker_detail);
+		radioSpeed = (RadioButton)getView().findViewById(R.id.radio_speed_cycletrackerdetail);
+		radioAltitude = (RadioButton)getView().findViewById(R.id.radio_altitude_cycletrackerdetail);
+		
+		radioSpeed.setTypeface(ResourceManager.getInstance().getFont("helvetica"));
+		radioAltitude.setTypeface(ResourceManager.getInstance().getFont("helvetica"));
+		
+		tvFragmentName = (TextView)getView().findViewById(R.id.fragment_name_cycletracker_detail);
+		tvFragmentName.setTypeface(ResourceManager.getInstance().getFont("nanum_gothic"));
+		
+		tvAppName = (TextView)getView().findViewById(R.id.app_name_cycletrackerdetail);
+		tvAppName.setTypeface(ResourceManager.getInstance().getFont("helvetica"));
+		
+		tvVelocityUnit = (TextView)getView().findViewById(R.id.velocity_unit_cycletracker_detail);
+		tvVelocityUnit.setTypeface(ResourceManager.getInstance().getFont("helvetica"));
+		tvDistanceUnit = (TextView)getView().findViewById(R.id.distance_unit_cycletracker_detail);
+		tvDistanceUnit.setTypeface(ResourceManager.getInstance().getFont("helvetica"));
+		
+	
+		SpeedData = new GraphViewData[10];
+		SpeedData[0] = new GraphViewData(0,0);
+		SpeedData[1] = new GraphViewData(1,13);
+		SpeedData[2] = new GraphViewData(2,15);
+		SpeedData[3] = new GraphViewData(3,20);
+		SpeedData[4] = new GraphViewData(4,23);
+		SpeedData[5] = new GraphViewData(5,17);
+		SpeedData[6] = new GraphViewData(6,17);
+		SpeedData[7] = new GraphViewData(7,20);
+		SpeedData[8] = new GraphViewData(8,15);
+		SpeedData[9] = new GraphViewData(9,5);
+		
+		AltitudeData = new GraphViewData[10];
+		AltitudeData[0] = new GraphViewData(0,0);
+		AltitudeData[1] = new GraphViewData(1,13);
+		AltitudeData[2] = new GraphViewData(2,15);
+		AltitudeData[3] = new GraphViewData(3,20);
+		AltitudeData[4] = new GraphViewData(4,23);
+		AltitudeData[5] = new GraphViewData(5,17);
+		AltitudeData[6] = new GraphViewData(6,17);
+		AltitudeData[7] = new GraphViewData(7,20);
+		AltitudeData[8] = new GraphViewData(8,15);
+		AltitudeData[9] = new GraphViewData(9,5);
+		
+		graphView = new LineGraphView(
+		    getView().getContext()
+		    , ""
+		);
+		
+		
+		((LineGraphView)graphView).setDrawBackground(true);
+		((LineGraphView)graphView).setBackgroundColor(Color.argb(66,252,156,151));
+		
+		graphView.setCustomLabelFormatter(new CustomLabelFormatter() {
+			
+			@Override
+			public String formatLabel(double value, boolean isValueX) {
+				if(isValueX){
+					if(value%2==0){
+						return String.valueOf(value);
+					}
+				}
+				return null;
+			}
+		});
+		
+		graphView.getGraphViewStyle().setTextSize(20);
+		graphView.setManualMaxY(true);
+		graphView.setManualMinY(true);
+		graphView.setManualYAxisBounds(30, 0);
+		
+		// add data
+		graphView.addSeries(new GraphViewSeries("test_data",new GraphViewSeriesStyle(Color.rgb(252, 156, 151),3),SpeedData));
+		// set view port, start=0, size=5
+		graphView.setViewPort(0, 5);
+		graphView.setScrollable(true);
+		// optional - activate scaling / zooming
+		graphView.setScalable(true);
+		 
+		LinearLayout layout = (LinearLayout) getView().findViewById(R.id.graph_cycle_tracker_detail);
+		layout.addView(graphView);
+
+		radioSpeed.setOnCheckedChangeListener(new OnCheckedChangeListener(){
+
+			@Override
+			public void onCheckedChanged(CompoundButton buttonView,
+					boolean isChecked) {
+				if(isChecked){
+					graphView.removeAllSeries();
+					graphView.addSeries(new GraphViewSeries("speed_data",new GraphViewSeriesStyle(MainActivity.getInstasnce().getResources().getColor(R.color.bk_color_gray_opacity),3),SpeedData));
+				}
+			}
+		});
+
+		radioAltitude.setOnCheckedChangeListener(new OnCheckedChangeListener(){
+
+			@Override
+			public void onCheckedChanged(CompoundButton buttonView,
+					boolean isChecked) {
+				if(isChecked){
+					graphView.removeAllSeries();
+					graphView.addSeries(new GraphViewSeries("altitude_data",new GraphViewSeriesStyle(MainActivity.getInstasnce().getResources().getColor(R.color.bk_color_gray_opacity),3),AltitudeData));
+				}
+			}
+		});
+		updateColor();
+		
+	}
+
+	public void backScreen(){
+		FragmentTransaction transaction = MainActivity.getInstasnce().getFragmentManager().beginTransaction();
+		transaction.hide(fragment);
+		transaction.show(MainActivity.getInstasnce().getLayout().getmFragmentCycleTracker());
+		MainActivity.getInstasnce().getLayout().setActivated_fragment(MainActivity.getInstasnce().getLayout().getmFragmentCycleTracker());
+		transaction.commit();
+		
+		MainActivity.getInstasnce().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+	}
+	
+	public void updateColor(){
+		
+		if(theme_color.equals("pink")){
+			lyTopBar.setBackgroundColor(MainActivity.getInstasnce().getResources().getColor(R.color.bk_color_pink_heavy));
+			radioSpeed.setButtonDrawable(MainActivity.getInstasnce().getResources().getDrawable(R.drawable.custom_drawable_radiobox_pink));
+			radioSpeed.setTextColor(MainActivity.getInstasnce().getResources().getColor(R.color.text_pink));
+			radioAltitude.setButtonDrawable(MainActivity.getInstasnce().getResources().getDrawable(R.drawable.custom_drawable_radiobox_pink));
+			radioAltitude.setTextColor(MainActivity.getInstasnce().getResources().getColor(R.color.text_pink));
+			
+			((LineGraphView)graphView).setBackgroundColor(MainActivity.getInstasnce().getResources().getColor(R.color.graph_opacity_pink));
+			
+			tvAppName.setTextColor(MainActivity.getInstasnce().getResources().getColor(R.color.text_pink));
+			graphView.removeAllSeries();
+			graphView.addSeries(new GraphViewSeries("test_data",new GraphViewSeriesStyle(MainActivity.getInstasnce().getResources().getColor(R.color.bk_color_pink_heavy),3),SpeedData));
+			((LineGraphView)graphView).setBackgroundColor(MainActivity.getInstasnce().getResources().getColor(R.color.bk_color_pink_opacity));
+			
+		}else if(theme_color.equals("green")){
+			lyTopBar.setBackgroundColor(MainActivity.getInstasnce().getResources().getColor(R.color.bk_color_green_heavy));
+			radioSpeed.setButtonDrawable(MainActivity.getInstasnce().getResources().getDrawable(R.drawable.custom_drawable_radiobox_green));
+			radioSpeed.setTextColor(MainActivity.getInstasnce().getResources().getColor(R.color.text_green));
+			radioAltitude.setButtonDrawable(MainActivity.getInstasnce().getResources().getDrawable(R.drawable.custom_drawable_radiobox_green));
+			radioAltitude.setTextColor(MainActivity.getInstasnce().getResources().getColor(R.color.text_green));
+			((LineGraphView)graphView).setBackgroundColor(MainActivity.getInstasnce().getResources().getColor(R.color.bk_color_green_opacity));
+			tvAppName.setTextColor(MainActivity.getInstasnce().getResources().getColor(R.color.text_green));
+			
+			graphView.addSeries(new GraphViewSeries("test_data",new GraphViewSeriesStyle(MainActivity.getInstasnce().getResources().getColor(R.color.bk_color_green_heavy),3),SpeedData));
+		}else if(theme_color.equals("gray")){
+			lyTopBar.setBackgroundColor(MainActivity.getInstasnce().getResources().getColor(R.color.bk_color_gray_heavy));
+			radioSpeed.setButtonDrawable(MainActivity.getInstasnce().getResources().getDrawable(R.drawable.custom_drawable_radiobox_gray));
+			radioSpeed.setTextColor(MainActivity.getInstasnce().getResources().getColor(R.color.text_gray));
+			radioAltitude.setButtonDrawable(MainActivity.getInstasnce().getResources().getDrawable(R.drawable.custom_drawable_radiobox_gray));
+			radioAltitude.setTextColor(MainActivity.getInstasnce().getResources().getColor(R.color.text_gray));
+			((LineGraphView)graphView).setBackgroundColor(MainActivity.getInstasnce().getResources().getColor(R.color.bk_color_gray_opacity));
+			tvAppName.setTextColor(MainActivity.getInstasnce().getResources().getColor(R.color.text_gray));
+			
+			graphView.addSeries(new GraphViewSeries("test_data",new GraphViewSeriesStyle(MainActivity.getInstasnce().getResources().getColor(R.color.bk_color_gray_heavy),3),SpeedData));
+		}
+	}
+	
+	public String getTheme_color() {
+		 return theme_color;
+	 }
+
+	public void setTheme_color(String theme_color) {
+			this.theme_color = theme_color;
+	}
+
+	public GraphViewData[] getSpeedData() {
+		return SpeedData;
+	}
+
+	public GraphViewData[] getAltitudeData() {
+		return AltitudeData;
+	}
+
+	public void setSpeedData(GraphViewData[] speedData) {
+		SpeedData = speedData;
+	}
+
+	public void setAltitudeData(GraphViewData[] altitudeData) {
+		AltitudeData = altitudeData;
+	}
+}

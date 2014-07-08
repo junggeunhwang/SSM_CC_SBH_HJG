@@ -2,6 +2,7 @@ package com.ssm.cyclists;
 
 import com.ssm.cyclists.controller.activity.MainActivity;
 import com.ssm.cyclists.controller.communication.https.HttpsCommunication;
+import com.ssm.cyclists.controller.communication.https.Protocol;
 
 import android.app.Activity;
 import android.app.ActionBar;
@@ -77,16 +78,15 @@ public class TestActivity extends Activity {
 				
 				@Override
 				public void onClick(View arg0) {
-					MainActivity.getInstasnce().MakeRoom();
-					
-				}
+					Protocol.getInstance().MakeRoom(MainActivity.getInstasnce().getMyNumber());
+								}
 			});
 			
 			rootView.findViewById(R.id.exitroom).setOnClickListener(new OnClickListener() {
 				
 				@Override
 				public void onClick(View arg0) {
-					MainActivity.getInstasnce().ExitRoom();
+					Protocol.getInstance().ExitRoom(MainActivity.getInstasnce().getMyNumber());
 					
 				}
 			});
@@ -95,7 +95,7 @@ public class TestActivity extends Activity {
 				
 				@Override
 				public void onClick(View arg0) {
-					MainActivity.getInstasnce().JoinRoom(etTargetNumber.getText().toString());				
+					Protocol.getInstance().JoinRoom(MainActivity.getInstasnce().getMyNumber(),etTargetNumber.getText().toString());				
 				}
 			});
 			

@@ -1,9 +1,12 @@
 package com.ssm.cyclists.controller;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 
+import com.jjoe64.graphview.GraphView.GraphViewData;
 import com.ssm.cyclists.controller.activity.MainActivity;
 import com.ssm.cyclists.model.CruiseDataManager;
+import com.ssm.cyclists.model.CycleData;
 
 import twitter4j.GeoLocation;
 import android.content.ContentValues;
@@ -18,6 +21,19 @@ import android.util.Log;
 public class DataBaseManager extends SQLiteOpenHelper {
 
 	static String TAG = DataBaseManager.class.getSimpleName();
+	final int NUM 		= 0;
+	final int LATITUDE 	= 1;
+	final int LONGITUDE = 2;
+
+	final int COLOR 	= 1;
+	
+	final int DATE 		= 1;
+	final int VELOCITY 	= 2;
+	final int ALTITUDE 	= 3;
+	final int DISTANCE 	= 4;
+	final int CALORY	= 5;
+	final int LATITUDE_CRUISEDATA = 6;
+	final int LONGITUDE_CRUISEDATA = 7;
 	
 	static DataBaseManager manager;
 	SQLiteDatabase db;
@@ -42,6 +58,17 @@ public class DataBaseManager extends SQLiteOpenHelper {
 				"num INTEGER PRIMARY KEY AUTOINCREMENT,"+
 				"color TEXT);";
 		db.execSQL(sql2);
+		
+		String sql3 = "CREATE TABLE cruise_data("+
+				"num INTEGER PRIMARY KEY AUTOINCREMENT,"+
+				"date TEXT," +
+				"velocity TEXT," +
+				"altitude TEXT," +
+				"distance TEXT," +
+				"calory TEXT," +
+				"lattitude TEXT," +
+				"longitude TEXT);";
+		db.execSQL(sql3);
 	}
 
 	@Override
@@ -49,6 +76,8 @@ public class DataBaseManager extends SQLiteOpenHelper {
 		db.execSQL("DROP TABLE IF EXSITS last_location");
 		onCreate(db);
 		db.execSQL("DROP TABLE IF EXSITS settings");
+		onCreate(db);
+		db.execSQL("DROP TABLE IF EXSITS cruise_data");
 		onCreate(db);
 	}
 	
@@ -68,7 +97,7 @@ public class DataBaseManager extends SQLiteOpenHelper {
 			db.insert("last_location",null,row);
 		}
 		else{
-			db.update("last_location",row,"num="+c.getInt(0),null);
+			db.update("last_location",row,"num="+c.getInt(NUM),null);
 		}
 	}
 	
@@ -80,7 +109,7 @@ public class DataBaseManager extends SQLiteOpenHelper {
 
 		c.moveToNext();
 		if(c.getCount()==0) return null;
-		GeoLocation loc = new GeoLocation(Double.valueOf(c.getString(1)),Double.valueOf(c.getString(2)));
+		GeoLocation loc = new GeoLocation(Double.valueOf(c.getString(LATITUDE)),Double.valueOf(c.getString(LONGITUDE)));
 		
 		return loc;
 	}
@@ -100,7 +129,7 @@ public class DataBaseManager extends SQLiteOpenHelper {
 			db.insert("settings",null,row);
 		}
 		else{
-			int ret = db.update("settings",row,"num="+c.getInt(0),null);
+			int ret = db.update("settings",row,"num="+c.getInt(NUM),null);
 			Log.d(TAG, "Database affected row : "+String.valueOf(ret));
 		}
 	}
@@ -113,7 +142,50 @@ public class DataBaseManager extends SQLiteOpenHelper {
 
 		c.moveToNext();
 		if(c.getCount()==0) return null;
-		return c.getString(1);
+		return c.getString(COLOR);
+	}
+	
+	public void insertCruiseData(String date,String velocity,String altitude,String distance,String calory){
+		ContentValues row = new ContentValues();
+		row.put("date",date);
+		row.put("velocity",velocity);
+		row.put("altitude",altitude);
+		row.put("distance",distance);
+		row.put("calory",calory);
+		
+		db = manager.getWritableDatabase();
+		db.insert("settings",null,row);
+		
+	}
+	
+	public void selectCruiseData(String date){
+		db = manager.getReadableDatabase();
+		
+		Cursor c = db.query("cruise_data", null,null,null,null,null,null);
+		db.execSQL("select * from cruise_data where date="+date+";");
+
+		if(c.getCount()!=0)
+		{
+			ArrayList<Double> distance = new ArrayList<Double>();
+			ArrayList<String> speed = new ArrayList<String>();
+			ArrayList<String> altitude = new ArrayList<String>();
+			ArrayList<String> calory = new ArrayList<String>();
+			ArrayList<Location> location = new ArrayList<Location>();
+		
+			
+			while(c.moveToNext()){
+				distance.add(Double.valueOf(c.getString(DISTANCE)));
+				speed.add(c.getString(VELOCITY));
+				altitude.add(c.getString(ALTITUDE));
+				calory.add(c.getString(CALORY));
+				Location loc = new Location("gps");
+				loc.setLatitude(Double.valueOf(c.getString(LATITUDE_CRUISEDATA)));
+				loc.setLongitude(Double.valueOf(c.getString(LONGITUDE_CRUISEDATA)));
+				location.add(loc);
+			}
+			
+			CruiseDataManager.getInstance().insertCycleData(date, speed, altitude, calory, distance, location);
+		}
 	}
 	
 	public void close(){

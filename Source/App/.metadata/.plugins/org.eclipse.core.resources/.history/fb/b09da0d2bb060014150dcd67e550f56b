@@ -1,0 +1,5 @@
+package com.ssm.cyclists.controller.communication.https;
+
+public class Protocol {
+
+}

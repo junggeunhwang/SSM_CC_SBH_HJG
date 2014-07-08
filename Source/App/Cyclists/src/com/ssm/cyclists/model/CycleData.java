@@ -1,11 +1,22 @@
 package com.ssm.cyclists.model;
 
+import java.util.ArrayList;
+
+import android.location.Location;
+
+import com.jjoe64.graphview.GraphView.GraphViewData;
+
 
 
 public class CycleData {
 
 	private String date;
-	private int  consume_calrories;
+	private ArrayList<Double> arDistance;
+	
+	private ArrayList<String> arSpeed;
+	private ArrayList<String> arAltitude;
+	private ArrayList<String> arConsumeCalrories;
+	private ArrayList<Location> arLocation;
 	
 	public CycleData() {
 		// TODO Auto-generated constructor stub
@@ -15,18 +26,58 @@ public class CycleData {
 		return date;
 	}
 
+	public ArrayList<String> getSpeed() {
+		return arSpeed;
+	}
+
+	public ArrayList<String> getAltitude() {
+		return arAltitude;
+	}
+
+	public ArrayList<String> getConsumeCalrories() {
+		return arConsumeCalrories;
+	}
+	
+	public Double getTotalConsumeCalrories(){
+		
+		double totalCalory = 0;
+		
+		for(int i = 0;i < arConsumeCalrories.size() ; i++){
+			totalCalory += Double.valueOf(arConsumeCalrories.get(i));
+		}
+		return totalCalory;
+	}
+
+	public ArrayList<Location> getLocation() {
+		return arLocation;
+	}
+
+	public ArrayList<Double> getDistance() {
+		return arDistance;
+	}
+
+	public void setDistance(ArrayList<Double> arDistance) {
+		this.arDistance = arDistance;
+	}
+
 	public void setDate(String cycle_date) {
 		this.date = cycle_date;
 	}
-
-	public int getConsume_calrories() {
-		return consume_calrories;
+	
+	public void setSpeed(ArrayList<String> arSpeed) {
+		this.arSpeed = arSpeed;
 	}
 
-	public void setConsume_calrories(int consume_calrories) {
-		this.consume_calrories = consume_calrories;
+	public void setAltitude(ArrayList<String> arAltitude) {
+		this.arAltitude = arAltitude;
 	}
-	
-	
-	
+
+	public void setConsumeCalrories(ArrayList<String> arConsumeCalrories) {
+		this.arConsumeCalrories = arConsumeCalrories;
+	}
+
+	public void setLocation(ArrayList<Location> arLocation) {
+		this.arLocation = arLocation;
+	}
+
 }

@@ -7,14 +7,17 @@
     <color name="bk_color_pink_heavy">#f69c97</color>
     <color name="bk_color_pink_mid">#ffdede</color>
     <color name="bk_color_pink_light">#fde8e8</color>
+    <color name="bk_color_pink_opacity">#42f69c97</color>
 
 	<color name="bk_color_green_heavy">#50b29f</color>
     <color name="bk_color_green_mid">#bbe2dd</color>
-    <color name="bk_color_green_light">#fde8e8</color>
+    <color name="bk_color_green_light">#dcf0ee</color>
+    <color name="bk_color_green_opacity">#2550b29f</color>
     
     <color name="bk_color_gray_heavy">#94a5a5</color>
     <color name="bk_color_gray_mid">#bbc8c6</color>
     <color name="bk_color_gray_light">#dee0df</color>
+    <color name="bk_color_gray_opacity">#3394a5a5</color>
     
     <color name="text_pink">#ea5964</color>
     <color name="text_green">#1da186</color>

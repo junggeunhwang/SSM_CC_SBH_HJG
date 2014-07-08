@@ -83,9 +83,6 @@ public class HttpsCommunication
                     responseOrder = response.getFirstHeader("order").getValue();
                   
 
-//                    Log.d(TAG,"type : " +responseType);
-//                    Log.d(TAG,"src number : "+responseUniqueNumber);
-//                    Log.d(TAG,"order : "+responseOrder);
                     HttpEntity a = response.getEntity();
                                                                                 
                     

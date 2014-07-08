@@ -2,20 +2,20 @@
 <section name="Workbench">
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
 		<item value="false" key="isRegEx"/>
-		<item value="Start" key="selection"/>
+		<item value="last_location_update_time" key="selection"/>
 		<item value="false" key="casesensitive"/>
 		<item value="false" key="incremental"/>
 		<item value="true" key="wrap"/>
 		<item value="false" key="wholeword"/>
 		<list key="findhistory">
-			<item value="start"/>
-			<item value="onResponseFailure"/>
-			<item value="destr"/>
-			<item value="login"/>
-			<item value="mSAPService"/>
-			<item value="mSap"/>
-			<item value="DEST_DIR"/>
-			<item value="extra"/>
+			<item value="last_location_update_time"/>
+			<item value="DESTroy"/>
+			<item value="dest"/>
+			<item value="KEEPALIVE"/>
+			<item value="setBackgroundColor"/>
+			<item value="GraphViewSeriesStyle"/>
+			<item value="row"/>
+			<item value="Cycl"/>
 		</list>
 		<list key="replacehistory">
 		</list>

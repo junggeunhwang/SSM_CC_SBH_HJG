@@ -6,6 +6,7 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -38,12 +39,23 @@ public class CruiseDataManager {
 	private double elevation;
 	private double current_speed;
 	private String curarent_address;
+	
+	//운동 시작 시간
+	private Date cycle_start_time;
+	//마지막 지도 업데이트 시간
 	private long last_location_update_time;
 	
+	//사용자 정보
+	private int user_weight;
+	private long last_calory_update_time; 
+	
+	//flag
 	private int update_count;
 	private boolean firstLocationUpdateFlag; 
 	
 	private Geocoder geoCoder;
+	
+	private ArrayList<CycleData> cycle_data_list;
 	
 	private CruiseDataManager(){
 		geoCoder 	  = new Geocoder(MainActivity.getInstasnce(),Locale.ENGLISH);
@@ -58,6 +70,7 @@ public class CruiseDataManager {
 		curarent_address = "";
 		firstLocationUpdateFlag = false;
 		
+		cycle_data_list = new ArrayList<CycleData>();
 		
 		// Creating a criteria object to retrieve provider
         Criteria criteria = new Criteria();
@@ -118,6 +131,41 @@ public class CruiseDataManager {
 		return html.toString();
 	}
 	
+	public Double calcCalory(double velocity){
+		long current_time = System.currentTimeMillis();
+		long diff = (current_time - last_calory_update_time)/1000;
+		last_calory_update_time = current_time;
+		
+		double unitCalory = 0.01033333333333;
+		return unitCalory*user_weight*velocity*diff;
+	}
+	
+	public void insertCycleData(String date,
+			ArrayList<String> arSpeed,ArrayList<String> arAltitude,
+			ArrayList<String> arCalory,ArrayList<Double> arDistance,ArrayList<Location> arLocation){
+		CycleData data = new CycleData();
+		data.setDate(date);
+		data.setSpeed(arSpeed);
+		data.setAltitude(arAltitude);
+		data.setConsumeCalrories(arCalory);
+		data.setDistance(arDistance);
+		data.setLocation(arLocation);
+		
+		cycle_data_list.add(data);
+	}
+	
+	public CycleData getCycleData(String date){
+
+		for(int i = 0 ; i < cycle_data_list.size() ; i++){
+			if(cycle_data_list.get(i).getDate().equals(date)){
+				return cycle_data_list.get(i);
+			}
+		}
+		
+		return null;
+		
+	}
+	
 	public int getWeather() {
 		return weather_resID;
 	}
@@ -160,6 +208,14 @@ public class CruiseDataManager {
 
 	public double getMaximum_speed() {
 		return maximum_speed;
+	}
+
+	public Date getCycle_start_time() {
+		return cycle_start_time;
+	}
+
+	public void setCycle_start_time(Date cycle_start_time) {
+		this.cycle_start_time = cycle_start_time;
 	}
 
 	public void setDistnace(int distnace) {

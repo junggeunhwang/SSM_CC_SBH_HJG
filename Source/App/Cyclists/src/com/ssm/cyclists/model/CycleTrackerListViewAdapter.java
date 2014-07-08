@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 public class CycleTrackerListViewAdapter extends BaseAdapter {
@@ -36,7 +37,7 @@ public class CycleTrackerListViewAdapter extends BaseAdapter {
 		Inflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		arSrc = aarSrc;
 		layout = alayout;
-		theme_color = "pink";
+		theme_color = "gray";
 	}
 	
 	@Override
@@ -56,6 +57,8 @@ public class CycleTrackerListViewAdapter extends BaseAdapter {
 
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
+		
+		
 		
 		if(convertView == null){
 			convertView = Inflater.inflate(layout,parent,false);
@@ -78,11 +81,13 @@ public class CycleTrackerListViewAdapter extends BaseAdapter {
 		((TextView)convertView.findViewById(R.id.kcal_cycletracker_listview_row)).setTypeface(ResourceManager.getInstance().getFont("helvetica"));
 		((TextView)convertView.findViewById(R.id.km_cycletracker_listview_row)).setTypeface(ResourceManager.getInstance().getFont("helvetica"));
 	
-		cal.setText(String.valueOf(arSrc.get(position).getConsume_calrories()));
+		cal.setText(String.valueOf(arSrc.get(position).getTotalConsumeCalrories()));
 		
 		ImageView bicycle = (ImageView)convertView.findViewById(R.id.bicycle_cycletracker_listview_row);
+		LinearLayout background = (LinearLayout)convertView.findViewById(R.id.background_cycletracker_listview_row);
 		
 		if(theme_color.equals("pink")){
+			background.setBackground(MainActivity.getInstasnce().getResources().getDrawable(R.drawable.md__list_selector_holo_pink));
 			date.setTextColor(MainActivity.getInstasnce().getResources().getColor(R.color.text_pink));
 			cal.setTextColor(MainActivity.getInstasnce().getResources().getColor(R.color.text_pink));
 			cal_unit.setTextColor(MainActivity.getInstasnce().getResources().getColor(R.color.text_pink));
@@ -91,6 +96,7 @@ public class CycleTrackerListViewAdapter extends BaseAdapter {
 			
 			bicycle.setImageDrawable(MainActivity.getInstasnce().getResources().getDrawable(R.drawable.bicycle_icon_pink));
 		}else if(theme_color.equals("green")){
+			background.setBackground(MainActivity.getInstasnce().getResources().getDrawable(R.drawable.md__list_selector_holo_green));
 			date.setTextColor(MainActivity.getInstasnce().getResources().getColor(R.color.text_green));
 			cal.setTextColor(MainActivity.getInstasnce().getResources().getColor(R.color.text_green));
 			cal_unit.setTextColor(MainActivity.getInstasnce().getResources().getColor(R.color.text_green));
@@ -99,6 +105,7 @@ public class CycleTrackerListViewAdapter extends BaseAdapter {
 			
 			bicycle.setImageDrawable(MainActivity.getInstasnce().getResources().getDrawable(R.drawable.bicycle_icon_green));
 		}else if(theme_color.equals("gray")){
+			background.setBackground(MainActivity.getInstasnce().getResources().getDrawable(R.drawable.md__list_selector_holo_gray));
 			date.setTextColor(MainActivity.getInstasnce().getResources().getColor(R.color.text_gray));
 			cal.setTextColor(MainActivity.getInstasnce().getResources().getColor(R.color.text_gray));
 			cal_unit.setTextColor(MainActivity.getInstasnce().getResources().getColor(R.color.text_gray));

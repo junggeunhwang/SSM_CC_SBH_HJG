@@ -23,6 +23,7 @@ public class CycleTrackerDetailFragment extends Fragment {
 		layout.createView(inflater, container);
 		layout.init();
 		
+		
 		return layout.getView();
 	}
 

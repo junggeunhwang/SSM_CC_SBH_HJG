@@ -35,6 +35,8 @@ public class CycleTrackerLayout extends BaseFragmentLayout {
 	
 	private String theme_color;
 	
+	private CycleTrackerDetailFragment detailFragment;
+	
 	private Button btnMenu;
 	private EnhancedListView lvCycleList;
 	
@@ -66,7 +68,7 @@ public class CycleTrackerLayout extends BaseFragmentLayout {
 		String tmpDate = dayTime.format(new Date(time));
 
 		data.setDate(tmpDate);
-		data.setConsume_calrories(127);
+//		data.setConsume_calrories(127);
 		arGeneral.add(data);
 		arGeneral.add(data);
 
@@ -82,15 +84,13 @@ public class CycleTrackerLayout extends BaseFragmentLayout {
 			@Override
 			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
 					long arg3) {
-				CycleTrackerDetailFragment detailFragment = new CycleTrackerDetailFragment();
-				
+				detailFragment = new CycleTrackerDetailFragment();
 				FragmentTransaction transaction = MainActivity.getInstasnce().getFragmentManager().beginTransaction();
 				transaction.add(R.id.fragment,detailFragment);
 				transaction.hide(MainActivity.getInstasnce().getLayout().getActivated_fragment());
 				transaction.show(detailFragment);
 				MainActivity.getInstasnce().getLayout().setActivated_fragment(detailFragment);
 				transaction.commit();
-				
 			}
 		});
 		
