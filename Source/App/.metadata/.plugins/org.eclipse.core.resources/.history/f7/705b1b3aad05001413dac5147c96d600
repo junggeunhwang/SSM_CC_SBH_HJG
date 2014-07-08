@@ -1,0 +1,17 @@
+package com.ssm.cyclists.controller;
+
+import java.util.Timer;
+import java.util.TimerTask;
+
+import android.util.Log;
+
+import com.ssm.cyclists.controller.activity.MainActivity;
+import com.ssm.cyclists.controller.communication.https.HttpsCommunication;
+
+public class GetTimer extends Timer {
+
+	static String TAG = GetTimer.class.getSimpleName();
+
+	
+
+}

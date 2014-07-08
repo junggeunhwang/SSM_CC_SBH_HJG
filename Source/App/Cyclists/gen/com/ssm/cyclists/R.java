@@ -1897,7 +1897,7 @@ containing a value of this type.
         public static final int action_menu_divider=0x7f080030;
         public static final int action_menu_presenter=0x7f080031;
         public static final int action_mode_close_button=0x7f08003e;
-        public static final int action_settings=0x7f0800dd;
+        public static final int action_settings=0x7f0800e1;
         public static final int activity_chooser_view_content=0x7f08003f;
         public static final int always=0x7f080026;
         public static final int app_name_cruise=0x7f080095;
@@ -1947,10 +1947,10 @@ containing a value of this type.
         public static final int com_facebook_usersettingsfragment_profile_name=0x7f080073;
         public static final int contact_sns_bar_settings=0x7f0800ce;
         public static final int container=0x7f080056;
-        public static final int cruise_menu=0x7f0800d8;
+        public static final int cruise_menu=0x7f0800dc;
         public static final int cycle_mate_id_listview_row=0x7f080076;
-        public static final int cycle_mate_menu=0x7f0800da;
-        public static final int cycle_tracker_menu=0x7f0800d9;
+        public static final int cycle_mate_menu=0x7f0800de;
+        public static final int cycle_tracker_menu=0x7f0800dd;
         public static final int date_cycletracker_listview_row=0x7f080078;
         public static final int default_activity_button=0x7f080042;
         public static final int dialog=0x7f080029;
@@ -1961,6 +1961,7 @@ containing a value of this type.
         public static final int edit_query=0x7f08004a;
         public static final int end=0x7f08002d;
         public static final int et_search_data_cyclemate=0x7f08009a;
+        public static final int exitroom=0x7f0800d7;
         public static final int expand_activities_button=0x7f080040;
         public static final int expanded_menu=0x7f080046;
         public static final int fragment=0x7f080057;
@@ -1977,13 +1978,14 @@ containing a value of this type.
         public static final int home=0x7f08002e;
         public static final int homeAsUp=0x7f080020;
         public static final int home_background_home=0x7f0800ab;
-        public static final int home_menu=0x7f0800d7;
+        public static final int home_menu=0x7f0800db;
         public static final int humidity_home=0x7f0800b3;
         public static final int hybrid=0x7f080004;
         public static final int icon=0x7f080044;
         public static final int ifRoom=0x7f080025;
         public static final int image=0x7f080041;
         public static final int inner_circle_cruise=0x7f080083;
+        public static final int joinroom=0x7f0800d8;
         public static final int kcal_cycletracker_listview_row=0x7f08007c;
         public static final int kcal_data_cycletracker_listview_row=0x7f08007b;
         public static final int km_cycletracker_listview_row=0x7f08007a;
@@ -1999,8 +2001,9 @@ containing a value of this type.
         public static final int location_icon_map=0x7f0800b9;
         public static final int lv_cyclemate=0x7f08009d;
         public static final int lv_cycletracker=0x7f0800a1;
+        public static final int makeroom=0x7f0800d6;
         public static final int map_map=0x7f0800ba;
-        public static final int map_menu=0x7f0800db;
+        public static final int map_menu=0x7f0800df;
         public static final int match_parent=0x7f08000c;
         /**  Used with View#setTag(int) to specify a position for the active view. 
          */
@@ -2048,7 +2051,7 @@ containing a value of this type.
         public static final int right_bar_cruise=0x7f080091;
         public static final int sandbox=0x7f080008;
         public static final int satellite=0x7f080002;
-        public static final int scrollView=0x7f0800d6;
+        public static final int scrollView=0x7f0800da;
         public static final int search_badge=0x7f08004c;
         public static final int search_bar=0x7f08004b;
         public static final int search_button=0x7f08004d;
@@ -2060,7 +2063,7 @@ containing a value of this type.
         public static final int search_src_text=0x7f080051;
         public static final int search_voice_btn=0x7f080055;
         public static final int selectionDetails=0x7f08000b;
-        public static final int settings_menu=0x7f0800dc;
+        public static final int settings_menu=0x7f0800e0;
         public static final int shortcut=0x7f080048;
         public static final int showCustom=0x7f080022;
         public static final int showHome=0x7f08001f;
@@ -2071,6 +2074,7 @@ containing a value of this type.
         public static final int strict_sandbox=0x7f080009;
         public static final int submit_area=0x7f080053;
         public static final int tabMode=0x7f08001d;
+        public static final int target_number=0x7f0800d9;
         public static final int temperature_home=0x7f0800b2;
         public static final int terrain=0x7f080003;
         public static final int text=0x7f08007d;
@@ -2174,39 +2178,42 @@ containing a value of this type.
         public static final int abc_simple_decor=0x7f030017;
         public static final int activity_main=0x7f030018;
         public static final int activity_splash=0x7f030019;
-        public static final int activity_twit_login=0x7f03001a;
-        public static final int com_facebook_friendpickerfragment=0x7f03001b;
-        public static final int com_facebook_login_activity_layout=0x7f03001c;
-        public static final int com_facebook_picker_activity_circle_row=0x7f03001d;
-        public static final int com_facebook_picker_checkbox=0x7f03001e;
-        public static final int com_facebook_picker_image=0x7f03001f;
-        public static final int com_facebook_picker_list_row=0x7f030020;
-        public static final int com_facebook_picker_list_section_header=0x7f030021;
-        public static final int com_facebook_picker_search_box=0x7f030022;
-        public static final int com_facebook_picker_title_bar=0x7f030023;
-        public static final int com_facebook_picker_title_bar_stub=0x7f030024;
-        public static final int com_facebook_placepickerfragment=0x7f030025;
-        public static final int com_facebook_placepickerfragment_list_row=0x7f030026;
-        public static final int com_facebook_search_bar_layout=0x7f030027;
-        public static final int com_facebook_tooltip_bubble=0x7f030028;
-        public static final int com_facebook_usersettingsfragment=0x7f030029;
-        public static final int cyclemate_listview_row=0x7f03002a;
-        public static final int cycletracker_listview_row=0x7f03002b;
-        public static final int elv_undo_popup=0x7f03002c;
-        public static final int fragment_cruise=0x7f03002d;
-        public static final int fragment_cycle_mate=0x7f03002e;
-        public static final int fragment_cycle_tracker=0x7f03002f;
-        public static final int fragment_cycle_tracker_detail=0x7f030030;
-        public static final int fragment_home=0x7f030031;
-        public static final int fragment_map=0x7f030032;
-        public static final int fragment_settings=0x7f030033;
-        public static final int menu_scrollview=0x7f030034;
-        public static final int support_simple_spinner_dropdown_item=0x7f030035;
+        public static final int activity_test=0x7f03001a;
+        public static final int activity_twit_login=0x7f03001b;
+        public static final int com_facebook_friendpickerfragment=0x7f03001c;
+        public static final int com_facebook_login_activity_layout=0x7f03001d;
+        public static final int com_facebook_picker_activity_circle_row=0x7f03001e;
+        public static final int com_facebook_picker_checkbox=0x7f03001f;
+        public static final int com_facebook_picker_image=0x7f030020;
+        public static final int com_facebook_picker_list_row=0x7f030021;
+        public static final int com_facebook_picker_list_section_header=0x7f030022;
+        public static final int com_facebook_picker_search_box=0x7f030023;
+        public static final int com_facebook_picker_title_bar=0x7f030024;
+        public static final int com_facebook_picker_title_bar_stub=0x7f030025;
+        public static final int com_facebook_placepickerfragment=0x7f030026;
+        public static final int com_facebook_placepickerfragment_list_row=0x7f030027;
+        public static final int com_facebook_search_bar_layout=0x7f030028;
+        public static final int com_facebook_tooltip_bubble=0x7f030029;
+        public static final int com_facebook_usersettingsfragment=0x7f03002a;
+        public static final int cyclemate_listview_row=0x7f03002b;
+        public static final int cycletracker_listview_row=0x7f03002c;
+        public static final int elv_undo_popup=0x7f03002d;
+        public static final int fragment_cruise=0x7f03002e;
+        public static final int fragment_cycle_mate=0x7f03002f;
+        public static final int fragment_cycle_tracker=0x7f030030;
+        public static final int fragment_cycle_tracker_detail=0x7f030031;
+        public static final int fragment_home=0x7f030032;
+        public static final int fragment_map=0x7f030033;
+        public static final int fragment_settings=0x7f030034;
+        public static final int fragment_test=0x7f030035;
+        public static final int menu_scrollview=0x7f030036;
+        public static final int support_simple_spinner_dropdown_item=0x7f030037;
     }
     public static final class menu {
         public static final int main=0x7f0d0000;
         public static final int splash=0x7f0d0001;
-        public static final int twit_login=0x7f0d0002;
+        public static final int test=0x7f0d0002;
+        public static final int twit_login=0x7f0d0003;
     }
     public static final class string {
         /**  Content description for the action bar "home" affordance. [CHAR LIMIT=NONE] 
@@ -2377,7 +2384,9 @@ containing a value of this type.
         public static final int elv_n_items_deleted=0x7f06004d;
         public static final int elv_undo=0x7f06004a;
         public static final int elv_undo_all=0x7f06004b;
+        public static final int hello_world=0x7f060051;
         public static final int title_activity_splash=0x7f060049;
+        public static final int title_activity_test=0x7f060050;
         public static final int title_activity_twit_login=0x7f06004e;
         /**  Text on a placeholder buy button when Google Play services is not
          available or up-to-date 

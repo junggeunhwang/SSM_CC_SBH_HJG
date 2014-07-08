@@ -1,0 +1,15 @@
+package com.ssm.cyclists.controller;
+
+import java.util.Timer;
+
+public class GetTimer extends Timer {
+
+	static String TAG = GetTimer.class.getSimpleName();
+
+	public GetTimer() {
+		// TODO Auto-generated constructor stub
+	}
+	
+	
+
+}

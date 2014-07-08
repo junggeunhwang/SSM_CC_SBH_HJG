@@ -1,0 +1,13 @@
+package com.ssm.cyclists.controller;
+
+import java.util.TimerTask;
+
+public class GetTimer extends TimerTask {
+
+	@Override
+	public void run() {
+		
+
+	}
+
+}

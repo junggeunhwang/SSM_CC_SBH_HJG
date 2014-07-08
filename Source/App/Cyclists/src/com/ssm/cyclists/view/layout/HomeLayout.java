@@ -4,12 +4,14 @@ package com.ssm.cyclists.view.layout;
 import java.util.Calendar;
 
 import com.ssm.cyclists.R;
+import com.ssm.cyclists.TestActivity;
 import com.ssm.cyclists.controller.activity.MainActivity;
 import com.ssm.cyclists.controller.fragment.HomeFragment;
 import com.ssm.cyclists.model.CruiseDataManager;
 import com.ssm.cyclists.model.ResourceManager;
 import com.ssm.cyclists.view.ImageViewRounded;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -17,7 +19,10 @@ import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.Rect;
 import android.graphics.RectF;
+import android.sax.StartElementListener;
 import android.view.LayoutInflater;
+import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -73,6 +78,14 @@ public class HomeLayout extends BaseFragmentLayout {
 		tvTemperature.setTypeface(ResourceManager.getInstance().getFont("helvetica"));
 		tvHumidity.setTypeface(ResourceManager.getInstance().getFont("nanum_gothic"));
 		
+		btnStartToBicycle.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				Intent intent = new Intent(getView().getContext(),TestActivity.class);
+				MainActivity.getInstasnce().startActivity(intent);
+			}
+		});
 	
 		Calendar today = Calendar.getInstance();
 		

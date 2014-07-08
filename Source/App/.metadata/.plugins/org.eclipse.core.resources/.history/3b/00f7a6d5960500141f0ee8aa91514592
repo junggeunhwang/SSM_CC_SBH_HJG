@@ -1,0 +1,17 @@
+package com.ssm.cyclists.controller;
+
+import java.util.TimerTask;
+
+import com.ssm.cyclists.controller.activity.MainActivity;
+import com.ssm.cyclists.controller.communication.https.HttpsCommunication;
+
+public class GetTimer extends TimerTask {
+
+	@Override
+	public void run() {
+		MainActivity.getInstasnce().getHttpsCommunication().setType(HttpsCommunication.TYPE_REQUEST);
+		MainActivity.getInstasnce().getHttpsCommunication().setStringData(data);
+
+	}
+
+}

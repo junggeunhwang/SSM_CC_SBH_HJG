@@ -2,7 +2,11 @@ package com.ssm.cyclists.controller.activity;
 
 
 import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.security.KeyStore;
+import java.util.Date;
+import java.util.Timer;
 
 import org.apache.http.HttpVersion;
 import org.apache.http.client.HttpClient;
@@ -23,6 +27,7 @@ import net.simonvt.menudrawer.MenuDrawer;
 import com.ssm.cyclists.R;
 import com.ssm.cyclists.controller.DataBaseManager;
 import com.ssm.cyclists.controller.FacebookManager;
+import com.ssm.cyclists.controller.GetTimer;
 import com.ssm.cyclists.controller.TwitterManager;
 import com.ssm.cyclists.controller.communication.https.HttpsCommunication;
 import com.ssm.cyclists.controller.communication.https.HttpsCommunicationCallback;
@@ -60,8 +65,10 @@ public class MainActivity extends FragmentActivity {
 	private static MainActivity instance;
 	
 	private static final String TAG = "SAPProvider";
-	private static final String DEST_PATH  = "/storage/emulated/legacy/test.amr";
-	private static final String TARGET_PATH = "/storage/emulated/legacy/testfromhost.amr";
+	private static final String DEST_DIR  = "/storage/emulated/legacy/Cyclists";
+	private static final String DEST_DIR_RECEIVE  = DEST_DIR+"/Receive";
+	private static final String DEST_DIR_SEND  = DEST_DIR+ "/Send" ;
+			
 	
 	//gps
 	private GoogleLocationManager googleLocationManager;
@@ -74,12 +81,14 @@ public class MainActivity extends FragmentActivity {
 	 
 	public int mTransId;
 	
+	private Timer timer;
+	
 	//전화번호
 	TelephonyManager mTelephonyManager;
 	String myNumber;
 	
 	//https
-	HttpsCommunication httpsCommunication;
+
 	HttpsCommunicationCallback httpsCallback;
 	
 	//layout
@@ -99,6 +108,22 @@ public class MainActivity extends FragmentActivity {
     	
     	this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
     	
+    	File RootDir = new File(DEST_DIR);
+    	if(!RootDir.exists()){
+    		RootDir.mkdir();
+    	}
+    	
+    	File SendDir = new File(DEST_DIR_SEND);
+    	if(!SendDir.exists()){
+    		SendDir.mkdir();
+    	}
+    	
+    	File ReceiveDir = new File(DEST_DIR_RECEIVE);
+    	if(!ReceiveDir.exists()){
+    		ReceiveDir.mkdir();
+    	}
+    	
+    	
     	//테마 설정 저장
     	theme_color = DataBaseManager.getInstance().selectSettingInfo();
     	if(theme_color==null)theme_color="gray";
@@ -106,13 +131,25 @@ public class MainActivity extends FragmentActivity {
     	intent.putExtra("color", theme_color);
     	
     	startActivity(intent);
-    	//전화번호
     	
+    	//전화번호
     	mTelephonyManager = (TelephonyManager)getSystemService(Context.TELEPHONY_SERVICE);
     	myNumber = mTelephonyManager.getLine1Number();
-    	myNumber = "01099100626";
+//    	myNumber = "01098765432";l
+    	myNumber = "01012345678";
+    	
     	Log.d(TAG,"my number : "+myNumber);
     	
+    	
+    	GetTimer getTimer = new GetTimer();
+    	
+    	timer = new Timer();
+    	timer.scheduleAtFixedRate(getTimer, new Date(),1000);
+    	
+    	
+    	login();
+    	
+		
     	//위치 서비스
     	googleLocationManager = new GoogleLocationManager();
     	googleLocationManager.init(this);
@@ -138,23 +175,59 @@ public class MainActivity extends FragmentActivity {
 			
 			@Override
 			public void onResponseSuccess(HttpsCommunication hcn) {
-				Log.d(TAG,"https : response success");
-				if(hcn.getResponseType().equals("string")){
-					/* 서버  -> 안드로이드 문자열 수신
-					 * 멀티캐스트 받은 데이터 
-					 */
+				
+				if(hcn.getResponseOrder().equals("get")){
+				
+					//multicast data
 					
-					
-				}else if(hcn.getResponseType().equals("file")){
-					hcn.getByteResponseData();
-					/* 서버  -> 안드로이드 파일 수신
-					 * 안드로이드 -> 기어 구현해야함 
-					 */
-					
-				}else if(hcn.getResponseType().equals("text")){
-					/* 서버  -> 안드로이드 응답 수신 */
+					if(hcn.getResponseType().equals("string")){
+						/* 서버  -> 안드로이드 문자열 수신
+						 * 멀티캐스트 받은 데이터 
+						 */
+						
+						
+					}else if(hcn.getResponseType().equals("file")){
+						
+						/* 서버  -> 안드로이드 파일 수신*/
+						
+						
+						String fileName = hcn.getResponseUniqueNumber()+System.currentTimeMillis()+".amr";
+						File file = new File(DEST_DIR_RECEIVE + "/" + fileName);
+						
+						try {
+							FileOutputStream fileOutputStream = new FileOutputStream(file);
+							fileOutputStream.write(hcn.getByteResponseData());
+							fileOutputStream.close();
+						} catch (IOException e) {
+							e.printStackTrace();
+							return;
+						}
+						
+						mSAPService.sendFile(file.getAbsolutePath());
+						Toast.makeText(getApplicationContext(), "receive file", Toast.LENGTH_SHORT);
+						
+					}else if(hcn.getResponseType().equals("text")){
+						/* 서버  -> 안드로이드 응답 수신 */
+					}
+				}else if(hcn.getResponseOrder().equals("login")){
+					if(hcn.getStringResponseData().equals("SUCCESS")) Log.d(TAG,"Login Success");
+					else if(hcn.getStringResponseData().equals("EALREADYLOGIN")) Log.e(TAG,"Login Fail : EALREADYLOGIN");
+				}else if(hcn.getResponseOrder().equals("logout")){
+					if(hcn.getStringResponseData().equals("SUCCESS")) Log.d(TAG,"Logout Success");
+					else if(hcn.getStringResponseData().equals("ENOTLOGIN")) Log.e(TAG,"Login Fail : ENOTLOGIN");
+				}else if(hcn.getResponseOrder().equals("mkroom")){
+					if(hcn.getStringResponseData().equals("SUCCESS")) Log.d(TAG,"MakeRoom Success");
+					else if(hcn.getStringResponseData().equals("ENOTLOGIN")) Log.e(TAG,"MakeRoom Fail : ENOTLOGIN");
+				}else if(hcn.getResponseOrder().equals("joinroom")){
+					if(hcn.getStringResponseData().equals("SUCCESS")) Log.d(TAG,"JoinRoom Success");
+					else if(hcn.getStringResponseData().equals("ENOTLOGIN")) Log.e(TAG,"JoinRoom Fail : ENOTLOGIN");
+					else if(hcn.getStringResponseData().equals("EALREADYJOINROOM")) Log.e(TAG,"JoinRoom Fail : EALREADYJOINROOM");
+					else if(hcn.getStringResponseData().equals("ENOTARGET")) Log.e(TAG,"JoinRoom Fail : ENOTARGET");
+				}else if(hcn.getResponseOrder().equals("exitroom")){
+					if(hcn.getStringResponseData().equals("SUCCESS")) Log.d(TAG,"ExitRoom Success");
+					else if(hcn.getStringResponseData().equals("ENOTLOGIN")) Log.e(TAG,"ExitRoom Fail : ENOTLOGIN");
+					else if(hcn.getStringResponseData().equals("ENOTJOINROOM")) Log.e(TAG,"ExitRoom Fail : ENOTJOINROOM");	
 				}
-			
 			}
 			
 			@Override
@@ -163,21 +236,10 @@ public class MainActivity extends FragmentActivity {
 			}
 		};
 		
-        httpsCommunication = new HttpsCommunication(httpsCallback);
-        
-        httpsCommunication.setType(HttpsCommunication.TYPE_STRING);
-        httpsCommunication.setUniqueNumber(myNumber);
-        httpsCommunication.setStringData("test");
-        boolean ret = httpsCommunication.ExecuteRequest();
-        
-        if(ret==true){
-        	Log.d(TAG,"client to server test success.");
-        }
-        else{
-        	Log.e(TAG,"client to server test fail.");
-        }
     }
        
+    
+    
     @Override
     protected void onStart() {
     	this.instance = this;
@@ -208,7 +270,7 @@ public class MainActivity extends FragmentActivity {
     	super.onResume();
     }
     
-   
+    
     private ServiceConnection mSAPConnection = new ServiceConnection() {
         @Override
         public void onServiceDisconnected(ComponentName arg0) {
@@ -275,69 +337,15 @@ public class MainActivity extends FragmentActivity {
 				@Override
 				public void onTransferComplete(final String path) 
 				{
-					// TODO Auto-generated method stub
-					runOnUiThread(new Runnable() {
-	                    @Override
-	                    public void run() {
-	                    	if(mAlert != null)
-	                    	{
-	                    		mAlert.dismiss();
-	                    	}
-	                        Toast.makeText(getBaseContext(), "receive Completed!", Toast.LENGTH_SHORT).show();
-	                        httpsCommunication.setType(HttpsCommunication.TYPE_FILE);
-	                        httpsCommunication.setUniqueNumber(myNumber);
-	                        httpsCommunication.setFileData(new File(path));//이렇게 하면 되려나?
-	                    }
-	                });
+					if(path.contains(DEST_DIR_SEND))
+						SendFile(path);
 				}
 
 				@Override
 				public void onTransferRequested(int id, String path) 
 				{
-					// TODO Auto-generated method stub
-					mFilePath = path;
-					mTransId = id;
-
-					runOnUiThread(new Runnable() {
-						@Override
-						public void run() {
-							AlertDialog.Builder alertbox = new AlertDialog.Builder(MainActivity.this);
-							alertbox.setMessage("receive request: " + mFilePath);
-							alertbox.setPositiveButton("Accept",
-									new DialogInterface.OnClickListener() {
-								public void onClick(DialogInterface arg0, int arg1) {
-									mAlert.dismiss();
-									try {
-										mSAPService.receiveFile(mTransId, DEST_PATH, true);
-										Log.i(TAG, "sending accepted");
-									} catch (Exception e) {
-										e.printStackTrace();
-										Toast.makeText(mCtxt, "IllegalArgumentException", Toast.LENGTH_SHORT).show();
-									}
-								}
-							});
-
-							alertbox.setNegativeButton("Reject",
-									new DialogInterface.OnClickListener() {
-								public void onClick(DialogInterface arg0, int arg1) 
-								{
-									mAlert.dismiss();
-
-									try {
-										mSAPService.receiveFile(mTransId, DEST_PATH, false);
-										Log.i(TAG, "sending rejected");
-									} catch (Exception e) {
-										e.printStackTrace();
-										Toast.makeText(mCtxt, "IllegalArgumentException", Toast.LENGTH_SHORT).show();
-									}
-								}
-							});
-
-							alertbox.setCancelable(false);
-							mAlert = alertbox.create();
-							mAlert.show();
-						}
-					});
+					String receiveDir = DEST_DIR_SEND+"/" + myNumber + System.currentTimeMillis()+".amr";
+					mSAPService.receiveFile(id, receiveDir, true);
 				}
 
             });
@@ -398,6 +406,95 @@ public class MainActivity extends FragmentActivity {
         	layout.replaceFragment(R.layout.fragment_home);
     }
     
+    public boolean login(){
+    	HttpsCommunication httpsCommunication = new HttpsCommunication(httpsCallback);
+    	httpsCommunication.setType(HttpsCommunication.TYPE_REQUEST);
+    	httpsCommunication.setStringData("login");
+    	httpsCommunication.setUniqueNumber(myNumber);
+		if(!httpsCommunication.ExecuteRequest()){
+			Log.e(TAG, "login requeset failed");
+			return false;
+		}
+		return true;
+    }
+    
+    public boolean logout(){
+    	HttpsCommunication httpsCommunication = new HttpsCommunication(httpsCallback);
+    	httpsCommunication.setType(HttpsCommunication.TYPE_REQUEST);
+    	httpsCommunication.setStringData("logout");
+    	httpsCommunication.setUniqueNumber(myNumber);
+		if(!httpsCommunication.ExecuteRequest()){
+			Log.e(TAG, "logout requeset failed");
+			return false;
+		}
+		return true;
+    }
+    
+    public boolean MakeRoom(){
+		HttpsCommunication httpsCommunication = new HttpsCommunication(httpsCallback);
+		httpsCommunication.setType(HttpsCommunication.TYPE_REQUEST);
+		httpsCommunication.setStringData("mkroom");
+		httpsCommunication.setUniqueNumber(myNumber);
+		if(!httpsCommunication.ExecuteRequest()){
+			Log.e(TAG, "mkroom requeset failed");
+			return false;
+		}
+		return true;
+    }
+    
+    public boolean JoinRoom(String targetNumber){
+       	HttpsCommunication httpsCommunication = new HttpsCommunication(httpsCallback);
+    	httpsCommunication.setType(HttpsCommunication.TYPE_REQUEST);
+    	httpsCommunication.setStringData("joinroom");
+    	httpsCommunication.setUniqueNumber(myNumber);
+    	httpsCommunication.setExtraData(targetNumber);
+    	
+    	if(!httpsCommunication.ExecuteRequest()){
+			Log.e(TAG, "JoinRoom requeset failed");
+			return false;
+		}
+    	return true;
+    }
+    
+    public boolean ExitRoom(){
+       	HttpsCommunication httpsCommunication = new HttpsCommunication(httpsCallback);
+    	httpsCommunication.setType(HttpsCommunication.TYPE_REQUEST);
+    	httpsCommunication.setStringData("exitroom");
+    	httpsCommunication.setUniqueNumber(myNumber);
+    	
+    	if(!httpsCommunication.ExecuteRequest()){
+			Log.e(TAG, "ExitRoom requeset failed");
+			return false;
+		}
+    	return true;
+    }
+    
+    public boolean SendFile(String path){
+        HttpsCommunication httpsCommunication = new HttpsCommunication(httpsCallback);
+        httpsCommunication.setType(HttpsCommunication.TYPE_FILE);
+        httpsCommunication.setUniqueNumber(myNumber);
+        httpsCommunication.setFileData(new File(path));
+    	
+    	if(!httpsCommunication.ExecuteRequest()){
+			Log.e(TAG, "SendFile requeset failed");
+			return false;
+		}
+    	return true;
+    }
+    
+    public boolean SendString(String data){
+        HttpsCommunication httpsCommunication = new HttpsCommunication(httpsCallback);
+        httpsCommunication.setType(HttpsCommunication.TYPE_STRING);
+        httpsCommunication.setUniqueNumber(myNumber);
+        httpsCommunication.setStringData(data);
+    	
+    	if(!httpsCommunication.ExecuteRequest()){
+			Log.e(TAG, "SendString requeset failed");
+			return false;
+		}
+    	return true;
+    }
+    
     public void open_button(View v){
     	layout.open_button(v);
     }
@@ -438,5 +535,18 @@ public class MainActivity extends FragmentActivity {
     public static MainActivity getInstasnce(){
     	return instance;
     }
+
+	public HttpsCommunicationCallback getHttpsCallback() {
+		return httpsCallback;
+	}
+
+	public String getMyNumber() {
+		return myNumber;
+	}
+
+	public void setMyNumber(String myNumber) {
+		this.myNumber = myNumber;
+	}
+
 
 }
