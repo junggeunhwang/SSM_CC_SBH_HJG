@@ -66,6 +66,7 @@
 	{
 		if(RecordedAudioPath !== undefined && isSAPValidate === true)
 		{
+			console.log("RecordedAudioPath = "+RecordedAudioPath);
 			g_filetransfer.sendFile(g_peerAgent,'file://'+RecordedAudioPath);
 		}
 		else
@@ -102,7 +103,10 @@
     	{
     		// 이 시점에서 페이지 변경 타이머 중지
     		pagetimer.pause();
-    		preSoundBeforeRecording();
+    		// 첫번째 페이지로 변경
+    		onChangetoMainpage();
+    		startRecording();
+    		//preSoundBeforeRecording();
     	}
     	else 
     	{
@@ -116,29 +120,26 @@
     }
     
     // 재생 전 호출
-    function preSoundBeforeRecording()
+    function preSoundPlay(filename)
     {
     	var params = {};
-    	var endevent = {};
+    	
     	params.volume = 15;
     	params.loop = false;
-    	params.file = './res/sound/recordstart.mp3';
+    	params.file = './res/sound/'+filename;
     	
-    	endevent.event = 'ended';
+    	//var endevent = {};
+    	/*endevent.event = 'ended';
     	endevent.callback = function(){
     		// 녹음 시작
-    		startRecording();
+    		
     		// 진동
-    		// 이미지 변경
-    		recordOperationImg.src = "./images/stoprecord.PNG";
-    		// 알림
-    		mainExtrastatus.innerHTML = msg_audiorecording;
+    		
     		// 콜백 제거
     		audioplay.removeAudioCallback(endevent);
-    	};
+    	};*/
     	
-    	audioplay.addAudioCallback(endevent);
-    	
+    	//audioplay.addAudioCallback(endevent);
     	audioplay.play(params);
     }
 
@@ -160,13 +161,19 @@
     {
     	toggleRecording(true);
     	AudioRecordingLock = false;
+    	preSoundPlay("recordstart.mp3");
     	navigator.vibrate(250);
+    	// 이미지 변경
+		recordOperationImg.src = "./images/stoprecord.PNG";
+		// 알림
+		mainExtrastatus.innerHTML = msg_audiorecording;
     }
 
     // 오디오 레코딩 종료
     function onRecordingDone(ev) 
     {
     	RecordedAudioPath = ev.detail.path;
+    	preSoundPlay("recordend.mp3");
     	AudioRecordingLock = false;
     	toggleRecording(false);
 		onFileTransfer();
@@ -196,7 +203,8 @@
     	'audio.recording.start': onRecordingStart,
     	'audio.recording.done': onRecordingDone,
     	'audio.recording.error': onRecordingError,
-    	'audio.onAudioRecordingOperation' : onAudioRecordingOperation
+    	'audio.onAudioRecordingOperation' : onAudioRecordingOperation,
+    	'audio.onPreSoundPlay' : preSoundPlay
     });
     
     // 오디오 버튼 이벤트 등록
@@ -205,12 +213,12 @@
     tizen.power.request("SCREEN", "SCREEN_NORMAL");
     tizen.power.request("CPU", "CPU_AWAKE");
 
+    // 모션 체크 시작
+    MotionCheckStart();
     // 오디오 스트림 초기화
     audiostream.getStream();
     // SAP 초기화
     SAPInit();
-	// 모션 체크 시작
-    //MotionCheckStart();
     // 옵션 페이지 활성화
     optionInit();
     // leftrightToggle 기능 활성화

@@ -55,6 +55,23 @@ function onChangePageByTimer()
 	else if(pageid === "secondpage")
 	{
 		myevent.fire('page.mainpage');
+		var currentpagepath = document.getElementById("secondpage_part").style.background;
+		currentpagepath = currentpagepath.toString();
+		var filename = currentpagepath.slice(currentpagepath.lastIndexOf('/')+1);
+		filename = filesystem.getFileNameWithoutExtension(filename);
+		console.log(filename);
+		if(filename === "secondpage_1")
+		{
+			currentpagepath = currentpagepath.replace(filename,"secondpage_2");
+		}
+		else
+		{
+			currentpagepath = currentpagepath.replace(filename,"secondpage_1");
+		}
+		
+		document.getElementById("secondpage_part").style.background = currentpagepath;
+		
+		console.log(document.getElementById("secondpage_part").style.background);
 	}else if(pageid === "thirdpage")
 	{
 		// 세번째 페이지는 사용자가 돌리기 전 까지 작업 하지 않음
@@ -92,10 +109,12 @@ function onVoiceFilePlay(data)
 		});
 		// 타이머 재개
 		queueprocessingtimer.run();
+		// 모션 처리 재개
+		myevent.fire('motionsensor.start');
 	};
 	audioplay.addAudioCallback(endevent);
 	
-	navigator.vibrate([750,250,500]);
+	navigator.vibrate([500,250,500]);
 	
 	
 	audioplay.play(params);
@@ -103,7 +122,7 @@ function onVoiceFilePlay(data)
 
 function onQueueprocessingtimer()
 {
-	if(multicastedfilequeue.length !== 0)
+	if(audiorecord.isRecording() !== true && multicastedfilequeue.length !== 0)
 	{
 		var data = multicastedfilequeue.shift();
 		
@@ -113,6 +132,8 @@ function onQueueprocessingtimer()
 		// 처리 타이머 중지
 		queueprocessingtimer.pause();
 		myevent.fire('page.thirdpage');
+		// 모션 처리 중지
+		myevent.fire('motionsensor.stop');
 		onVoiceFilePlay(data);
 	}
 }

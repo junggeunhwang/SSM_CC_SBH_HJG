@@ -264,8 +264,11 @@ var filesystem = function coreFilesystem() {
                     name: pathData.fileName
                 });
             }
+            console.log(pathData.dirName);
+            
+            pathData.dirName = pathData.dirName.replace('/opt/usr/media/','');
 
-            openDir('downloads', onOpenDirSuccess, function error(e) {
+            openDir(pathData.dirName, onOpenDirSuccess, function error(e) {
                 console.error('Filesystem_openDir error:' + e.message);
             });
         }
