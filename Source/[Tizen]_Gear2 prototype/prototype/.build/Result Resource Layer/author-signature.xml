@@ -34,6 +34,14 @@
 <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
 <DigestValue>0iUsmL70sa2GitDhV5c8XLzlyDp6mxyyZdj1Fk2vl8c=</DigestValue>
 </Reference>
+<Reference URI="images/secondpage_1.PNG">
+<DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
+<DigestValue>SQr+k2NhS+mlQr7yPGNHKarYpru0BJGvdKB3VRaEIgQ=</DigestValue>
+</Reference>
+<Reference URI="images/secondpage_2.PNG">
+<DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
+<DigestValue>ZSVeAFsVkYv9i0GZH61+sEvtD0nPuivFH3BepH64tp0=</DigestValue>
+</Reference>
 <Reference URI="images/startrecord.PNG">
 <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
 <DigestValue>CWps1JVbifOXTA+k88h5nddterJIDEw4KjjUK31kLaw=</DigestValue>
@@ -44,7 +52,7 @@
 </Reference>
 <Reference URI="index.html">
 <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
-<DigestValue>GKS8ndJmivpglprcUmW+4cEtv9jundrJ/aHJS+vMn6I=</DigestValue>
+<DigestValue>Ipf81qHuttxIvz6bEppypTfV9/Jm8q/9c34LILjQe48=</DigestValue>
 </Reference>
 <Reference URI="js/core/SAPFile.js">
 <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
@@ -52,7 +60,7 @@
 </Reference>
 <Reference URI="js/core/SAPInit.js">
 <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
-<DigestValue>uOBc8k4C4GU5n3uT+amBtUgiDoX3frR9Qd7UDKtO/1M=</DigestValue>
+<DigestValue>LQIi17XhYS49gJuunQOQW2LKel+NvmzOHOCOX/2e934=</DigestValue>
 </Reference>
 <Reference URI="js/core/SAPString.js">
 <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
@@ -64,11 +72,11 @@
 </Reference>
 <Reference URI="js/core/audiorecord.js">
 <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
-<DigestValue>tbfu6ccTCxD6GHJ0Joui6Q9vq7O2TVeCMfFzrOPV96w=</DigestValue>
+<DigestValue>wEZ4QtStC4tPbeheobtxkOjdO0J/uVNyqvmJJ0Soe+c=</DigestValue>
 </Reference>
 <Reference URI="js/core/displayvariable.js">
 <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
-<DigestValue>s7zJXwudTwVxOAlER8Y8R/MiZxruMhZtHdAB4lqfqSQ=</DigestValue>
+<DigestValue>2mC52Xc5mnFVSiLFqw3tcOtChh3UbRhCEcHm9CeuPP0=</DigestValue>
 </Reference>
 <Reference URI="js/core/event.js">
 <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
@@ -76,7 +84,7 @@
 </Reference>
 <Reference URI="js/core/filesystem.js">
 <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
-<DigestValue>jSs+to05YNHFdTqAOF0B8PjskS10G5GR0wqpnfC72vo=</DigestValue>
+<DigestValue>URla66LcBCTqekEv135L027eT6gN/ZOlircjcZXhoJM=</DigestValue>
 </Reference>
 <Reference URI="js/core/stream.js">
 <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
@@ -92,15 +100,15 @@
 </Reference>
 <Reference URI="js/main.js">
 <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
-<DigestValue>EXd2O+T4/chd2G5B9147kAT6ahX45bu6pKrmK4xP1Ac=</DigestValue>
+<DigestValue>qVhF4lO/frS0vG3w/Ys0mp+CQKXA986ZnhbDj3MAFME=</DigestValue>
 </Reference>
 <Reference URI="js/motioncheck.js">
 <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
-<DigestValue>1Qp622HD0sulAnw8hw47Vh9/jpV2EFNvt7a7Jr7/9do=</DigestValue>
+<DigestValue>V361yCIELRDK6qtiZxFaUWQaQffbmK8d/8zRupuDKiA=</DigestValue>
 </Reference>
 <Reference URI="js/motionlog.js">
 <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
-<DigestValue>EX1bZY73XRENEwa/v9TFMJRQbAcp08IBSC0X4j3sTNU=</DigestValue>
+<DigestValue>ubU+5HsrZ4JSJfWglXjhJMk49ZADED41qS7+d/XTJGw=</DigestValue>
 </Reference>
 <Reference URI="js/option.js">
 <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
@@ -330,13 +338,13 @@
 <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
 <DigestValue>51XzLOyJf24UixHBfCKKbLStrCw+6PrsBBNU4ejsHgo=</DigestValue>
 </Reference>
-<Reference URI="res/sound/jd.mp3">
+<Reference URI="res/sound/recordend.mp3">
 <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
-<DigestValue>Oa4b4gQ/vRI/wnu0AWtXqDvefS76z9LmruRHAe7F3DY=</DigestValue>
+<DigestValue>9EtEQkqagS7AEOKjNf7wJEpQtFVsBqcWcRqBCqYZlyw=</DigestValue>
 </Reference>
 <Reference URI="res/sound/recordstart.mp3">
 <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
-<DigestValue>6O+OePCKw0GTQjMZuGVmpEJEDsZj0J8mkR6foQxMnbc=</DigestValue>
+<DigestValue>JABKgt1SdLhS3nZu8rKsA1yi1rKu/HIIaACWi0qY530=</DigestValue>
 </Reference>
 <Reference URI="res/xml/SAPServiceProfile.xml">
 <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
@@ -351,11 +359,11 @@
 </Reference>
 </SignedInfo>
 <SignatureValue>
-WyXMD5DC0mOmGenMU5IaDTUCbS7ndOhG4X3eGHSHgfyAupLdZClH1A5i7PBfZZAya3Z650nV+V7Z
-utIQdzN6Xf++aamxbHMZGruyCgl2NARS6HLg7too1jJqiDWR7QAlEk8O7tVBOfDNKyly9NUFwIcp
-Kbf/oQGJWMX9hKhc145t7RdWhanrn8DRXIiNHmQdJaQVTMD/pJ+cfUcqtwf+/60sLE2nCDTRGgmB
-o9Jng3G5Sb3b8QKfPIRA1y4o2AI8Qp0r+enCLY8QXu72p6fwIxiZHZFycL7Zb4AtdmUOZ5FmSCK6
-F7z4c+jdIYY7p4TNMbtXFzis/hjss83efQdqlg==
+mg95rsarAgP5zsTLJ0yr8FutMSinwrCFJDcPSua2NLIX1T3FUqnwNc6ncN5kpXkmtpnMEXWR3SS7
+mJqND9aqczw0BKV2mUaFpXWf3JHKr/UZfLSAXKwjmzGYxSjQAVJXqr6jlh8o38JfCRC+lan32tYe
+st3v61rr1DcLJkCE+E9+6cyMNFavfoVqC9McP2Uk6kS0EQRuqKKYQWtdEbDvhZDHnYl0mTLG9b1D
+faRlVdzOnI56Y+C+Xdum5YwFhVNQ3HOzY0L3vp5FGGCaS8kSa3mW1pY5JeA16lB/gmJGL3djoLIJ
+E7ehiV2838mEVLEJDd1mccHpe4IJUQF4iCwSQg==
 </SignatureValue>
 <KeyInfo>
 <X509Data>

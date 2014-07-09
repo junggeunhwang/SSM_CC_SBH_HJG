@@ -119,7 +119,7 @@ function SAPInit()
 		else
 		{ 
 			//console.log("Uninstalled application package of peerAgent on remote device.");
-			alert('어플리케이션의 상태가 변경되었습니다.\r\n'+status);
+			// alert('어플리케이션의 상태가 변경되었습니다.\r\n'+status);
 		} 
 	} 
 

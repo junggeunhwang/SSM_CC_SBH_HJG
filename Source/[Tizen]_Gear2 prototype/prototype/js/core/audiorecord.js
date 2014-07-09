@@ -74,7 +74,7 @@ var audiorecord = (function modelsAudio() {
 
             audioRecordingTime = currentTime - audioRecordingStartTime;
             if (audioRecordingTime > MAX_RECORDING_TIME) {
-                stopRecording();
+                e.fire('audio.onAudioRecordingOperation');
             }
         }
 

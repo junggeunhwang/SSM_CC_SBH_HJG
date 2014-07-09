@@ -1,22 +1,32 @@
 function MotionCheckStart()
 {
 	var motionqueue = [];
-	var avg_motion_count = 60;
+	var avg_motion_count = 45;
 	
 	window.addEventListener("devicemotion",onAccelerationCallback,true);
 	
 	function MotionSuccess(i)
 	{
+		MotionSensorStop();		
+		console.log("YES Motion detected "+ i);		
+		setTimeout(MotionSensorStart,250);
+	}
+	
+	function MotionSensorStop()
+	{
 		window.removeEventListener("devicemotion",onAccelerationCallback,true);
-		alert("YES Motion detected "+ i);
 		motionqueue = [];
+	}
+	
+	function MotionSensorStart()
+	{
 		window.addEventListener("devicemotion",onAccelerationCallback,true);
 	}
 	
 	function MotionCheck(va_avg,va_SD,hq_avg,hq_SD)
 	{
 		//console.log(va_avg+" "+va_SD+" "+hq_avg + " " + hq_SD);
-		if(hq_SD > 0.69)
+		/*if(hq_SD > 0.69)
 		{
 			if(va_avg <= 0.16)
 			{
@@ -56,10 +66,68 @@ function MotionCheckStart()
 						}
 						else
 						{
-							MotionSuccess(4);
+							console.log("up motion detected!");
+							//MotionSuccess(4);
 						}
 					}
 				}
+			}
+		}*/
+		//console.log(va_avg+ ","+hq_SD);
+		/*if(va_avg>0.79)
+		{
+			if(hq_SD <= 0.87)
+			{
+				MotionSuccess("up");
+				//myevent.fire('audio.onAudioRecordingOperation');
+			}
+		}*/
+		
+		/*if(va_avg > 0.79)
+		{
+			if(hq_SD <=0.64)
+			{
+				if(hq_SD <=0.56)
+				{
+					MotionSuccess("up");
+				}
+			}
+			else
+			{
+				if(hq_avg<=1.41)
+				{
+					if(va_avg<=1.22)
+					{
+						if(hq_avg <= 0.96)
+						{
+							if(va_SD > 1.47)
+							{
+								//MotionSuccess("up-8");
+							}
+						}
+					}
+					else
+					{
+						MotionSuccess("down");
+					}
+				}
+			}
+		}*/
+		/*if(va_avg>1.12)
+		{
+			if(hq_avg<=1.41)
+			{
+				MotionSuccess("down");
+			}
+		}*/
+		
+		if(va_avg >0.77)
+		{
+			if(hq_SD <=0.99)
+			{
+				MotionSuccess("up");
+				//myevent.fire('audio.onAudioRecordingOperation');
+				//return;
 			}
 		}
 	}
@@ -82,7 +150,7 @@ function MotionCheckStart()
 	}
 	function extract()
 	{
-		var len = motionqueue.length;
+		var len = avg_motion_count;
 		var i = 0;
 		var avg_vector = {x:0,y:0,z:0};
 		var norm_vector = {x:0,y:0,z:0};
@@ -136,6 +204,8 @@ function MotionCheckStart()
 		
 		va_avg/= len;
 		hq_avg/= len;
+		va_SD/=len;
+		hq_SD/=len;
 		
 		va_SD -= Math.pow(va_avg,2);
 		hq_SD -= Math.pow(hq_avg,2);
@@ -145,4 +215,8 @@ function MotionCheckStart()
 	
 		MotionCheck(va_avg,va_SD,hq_avg,hq_SD);
 	}
+	myevent.listeners({
+	    	'motionsensor.start':MotionSensorStart,
+	    	'motionsensor.stop':MotionSensorStop
+	});
 }

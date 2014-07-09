@@ -7,7 +7,7 @@
 	var NormallogFileName = "accel_normal_log.txt";
 	// 가속도 값 저장되는 디렉터리, 유효 가속도 값 저장되는 위치, 비유효 가속도 값 저장되는 위치
 	var accelLogDir,accelLogPath,accelNormalLogPath;
-	var writePeriod = 65;
+	var writePeriod = 47;
 	var isAccelLogStart = false;
 	var isNormalLogStart = false;
 	
@@ -34,7 +34,7 @@
 		{
 			if(writePeriod === 0)
 			{
-				writePeriod = 65;
+				writePeriod = 47;
 				filesystem.writeFile(accelNormalLogPath,"#stop#\r\n#start#-no\r\n",onErrortoWriteFile,'a');
 			}
 			writePeriod--;
