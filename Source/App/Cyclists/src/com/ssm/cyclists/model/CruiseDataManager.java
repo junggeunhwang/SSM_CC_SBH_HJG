@@ -271,12 +271,6 @@ public class CruiseDataManager {
 		this.current_loc.setLatitude(latitude);
 		this.current_loc.setLongitude(longitude);
 		
-		MainActivity.getInstasnce().getLayout().getmFragmentHome().updateHomeInfo();
-		Intent intent = new Intent();
-		intent.setAction("UPDATE_CRUISE_INFO");
-		intent.putExtra("type", "UPDATE_CRUISE_INFO");
-		MainActivity.getInstasnce().sendBroadcast(intent);
-		
 //		MainActivity.getInstasnce().getLayout().getmFragmentCruise().updateCruiseInfo();
 	}
 

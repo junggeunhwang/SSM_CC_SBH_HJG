@@ -1,24 +1,15 @@
 package com.ssm.cyclists.controller.fragment;
 
-import net.simonvt.menudrawer.MenuDrawer;
 
 import com.ssm.cyclists.R;
-import com.ssm.cyclists.controller.activity.MainActivity;
 
-import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
-import android.content.BroadcastReceiver;
-import android.content.Context;
-import android.content.Intent;
-import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.v13.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -27,8 +18,10 @@ public class CruiseContainerFragment extends Fragment {
 
 	static String TAG = CruiseContainerFragment.class.getSimpleName();
 	
+	private static HomeFragment	  mHomeFragment = new HomeFragment();
 	private static CruiseFragment mCruiseFragment = new CruiseFragment();
-	private static CruiseTwoFragment mCruiseTwoFragment = new CruiseTwoFragment();
+	private static CycleRoomFragment mCruiseTwoFragment = new CycleRoomFragment();
+	private static MapViewFragment	mMapViewFragment = new MapViewFragment();
 
 	
 	private ViewPager mPager;
@@ -45,8 +38,6 @@ public class CruiseContainerFragment extends Fragment {
 		mPager.setAdapter(mAdapter);
 		mPager.setCurrentItem(0);
 		
-		
-		 
 		return root;
 	}
 
@@ -58,34 +49,74 @@ public class CruiseContainerFragment extends Fragment {
 
 		@Override
 		public Fragment getItem(int position) {
-			if(position == 0)
+			Log.d(TAG,"getItem : "+String.valueOf(position));
+			switch (position)
 			{
-				Log.d(TAG,"getItem : "+String.valueOf(position));
+			case 0:
+				
+				return mHomeFragment;
+			case 1:
 				return mCruiseFragment;
-			}
-			else if(position == 1){
-				Log.d(TAG,"getItem : "+String.valueOf(position));
+			case 2:
 				return mCruiseTwoFragment;
+			case 3:
+				return mMapViewFragment;
 			}
-			
 			return null;
 		}
 
 		@Override
 		public int getCount() {
-			return 2;
+			return 4;
 		}
 
 	}
 	
-	
+	public void updateColor(){
+		int current_item = mPager.getCurrentItem();
+		
+		switch(current_item)
+		{
+		case 0:
+			mHomeFragment.getLayout().updateColor();
+			mCruiseFragment.getLayout().updateColor();
+			break;
+		case 1:
+			mHomeFragment.getLayout().updateColor();
+			mCruiseFragment.getLayout().updateColor();
+			mCruiseTwoFragment.getLayout().updateColor();
+			break;
+		case 2:
+			mCruiseFragment.getLayout().updateColor();
+			mCruiseTwoFragment.getLayout().updateColor();
+			mMapViewFragment.getLayout().updateColor();
+			break;
+		case 3:
+			mCruiseTwoFragment.getLayout().updateColor();
+			mMapViewFragment.getLayout().updateColor();
+			break;
+			
+		}
+	}
 	
 	public static CruiseFragment getmCruiseFragment() {
 		return mCruiseFragment;
 	}
 	
 
-	public static CruiseTwoFragment getmCruiseTwoFragment() {
+	public static CycleRoomFragment getmCruiseTwoFragment() {
 		return mCruiseTwoFragment;
 	}
+
+
+	public static HomeFragment getmHomeFragment() {
+		return mHomeFragment;
+	}
+
+
+	public static MapViewFragment getmMapViewFragment() {
+		return mMapViewFragment;
+	}
+
+
 }

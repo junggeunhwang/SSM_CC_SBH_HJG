@@ -52,25 +52,22 @@ public class GoogleLocationManager implements LocationListener ,ConnectionCallba
     }
 	@Override
 	public void onLocationChanged(Location location) {
-		if(location.hasSpeed()) Log.d(TAG,"hasSpeed : true");
-		else Log.d(TAG,"hasSpeed : false");
-		
 		
 		CruiseDataManager.getInstance().setCurrent_loc(location.getLatitude(),location.getLongitude());
 		CruiseDataManager.getInstance().updateCruiseData();
 		
 		DataBaseManager.getInstance().updateLastLocation(location);				
-		if(MainActivity.getInstasnce().getLayout().getmMapViewFragment().isVisible()){
-			MainActivity.getInstasnce().getLayout().getmMapViewFragment().moveMapCamenra(location);
+		if(MainActivity.getInstasnce().getLayout().getmCruiseContainerFragment().getmMapViewFragment().isVisible()){
+			MainActivity.getInstasnce().getLayout().getmCruiseContainerFragment().getmMapViewFragment().moveMapCamenra(location);
 		}
 		
-		if(MainActivity.getInstasnce().getLayout().getActivated_fragment().equals(MainActivity.getInstasnce().getLayout().getCruiseContainerFragment()))
-			MainActivity.getInstasnce().getLayout().getCruiseContainerFragment().getmCruiseFragment().updateCruiseInfo();
+		if(MainActivity.getInstasnce().getLayout().getActivated_fragment().equals(MainActivity.getInstasnce().getLayout().getmCruiseContainerFragment()))
+			MainActivity.getInstasnce().getLayout().getmCruiseContainerFragment().getmCruiseFragment().updateCruiseInfo();
 	}
 
 	@Override
 	public void onConnectionFailed(ConnectionResult arg0) {
-		Toast.makeText(mContext, "Connection Failed", Toast.LENGTH_LONG).show();
+		Log.e(TAG, "Connection Failed");
 	}
 	 
 	@Override
@@ -83,7 +80,7 @@ public class GoogleLocationManager implements LocationListener ,ConnectionCallba
 	     req.setSmallestDisplacement(0);
 	     req.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
 	     locationClient.requestLocationUpdates(req, this);
-	     Toast.makeText(mContext, "Connection Success", Toast.LENGTH_LONG).show();
+	     Log.e(TAG, "Connection Success");
 	}
 
 	@Override

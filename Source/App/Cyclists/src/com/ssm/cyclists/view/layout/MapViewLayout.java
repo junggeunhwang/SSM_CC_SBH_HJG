@@ -1,23 +1,16 @@
 package com.ssm.cyclists.view.layout;
 
 import com.ssm.cyclists.R;
-import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.GooglePlayServicesUtil;
+
 import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.GoogleMap.OnMyLocationButtonClickListener;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.MapFragment;
-import com.google.android.gms.maps.MapView;
-import com.google.android.gms.maps.SupportMapFragment;
-import com.ssm.cyclists.controller.DataBaseManager;
 import com.ssm.cyclists.controller.activity.MainActivity;
-import com.ssm.cyclists.controller.fragment.MapViewFragment;
 import com.ssm.cyclists.model.CruiseDataManager;
 import com.ssm.cyclists.model.ResourceManager;
 import com.ssm.cyclists.model.SettingsData;
 
-import android.app.Dialog;
 import android.app.Fragment;
 import android.content.Context;
 import android.location.Criteria;
@@ -32,7 +25,6 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 public class MapViewLayout extends BaseFragmentLayout {
 
@@ -71,7 +63,8 @@ public class MapViewLayout extends BaseFragmentLayout {
 	@Override
 	public void createView(LayoutInflater inflater, ViewGroup container) {
 		Log.d(TAG,"onCreateView");
-		view = inflater.inflate(R.layout.fragment_map, container, false);
+		if(view==null)
+			view = inflater.inflate(R.layout.fragment_map, container, false);
 	}
 	
 	public void init(){
@@ -106,8 +99,9 @@ public class MapViewLayout extends BaseFragmentLayout {
 		tvValueBottomRight.setTypeface(ResourceManager.getInstance().getFont("helvetica"));
 		tvAppName.setTypeface(ResourceManager.getInstance().getFont("helvetica"));
 			
-		mGoogleMap = ((MapFragment)fragment.getFragmentManager().findFragmentById(R.id.map_map)).getMap();
+		MapFragment mf =(MapFragment)MainActivity.getInstasnce().getFragmentManager().findFragmentById(R.id.map_map); 
 		
+ 		mGoogleMap = mf.getMap();
 		mGoogleMap.setMyLocationEnabled(true);
 		
 		Location lo = mGoogleMap.getMyLocation();
@@ -131,8 +125,11 @@ public class MapViewLayout extends BaseFragmentLayout {
 			final Location loc = lo;
 			CruiseDataManager.getInstance().setCurrent_loc(loc.getLatitude(),loc.getLongitude());
 		}
+		updateMapViewInfo();
+		updateColor();
 	}
 
+	
 	
 	public void moveMapCamenra(Location location){
 			
@@ -227,4 +224,6 @@ public class MapViewLayout extends BaseFragmentLayout {
 			ivLocationIcon.setImageDrawable(MainActivity.getInstasnce().getResources().getDrawable(R.drawable.location_icon_gray));
 		}
 	}
+	
+	
 }

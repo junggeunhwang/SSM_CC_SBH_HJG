@@ -1,8 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <qualifiedTypeNameHistroy>
-<fullyQualifiedTypeName name="android.widget.CompoundButton.OnCheckedChangeListener"/>
-<fullyQualifiedTypeName name="com.ssm.cyclists.model.CheckableCycleMateListViewAdapter"/>
-<fullyQualifiedTypeName name="com.ssm.cyclists.R.color"/>
 <fullyQualifiedTypeName name="com.ssm.cyclists.R"/>
 <fullyQualifiedTypeName name="android.widget.EditText"/>
 <fullyQualifiedTypeName name="android.widget.TextView"/>
@@ -27,7 +24,6 @@
 <fullyQualifiedTypeName name="android.app.AlertDialog"/>
 <fullyQualifiedTypeName name="android.app.Dialog"/>
 <fullyQualifiedTypeName name="android.content.DialogInterface"/>
-<fullyQualifiedTypeName name="android.widget.ListView"/>
 <fullyQualifiedTypeName name="com.ssm.cyclists.view.layout.CruiseTwoLayout"/>
 <fullyQualifiedTypeName name="com.ssm.cyclists.CruiseContainerActivity"/>
 <fullyQualifiedTypeName name="java.util.Timer"/>
@@ -37,7 +33,6 @@
 <fullyQualifiedTypeName name="android.view.View"/>
 <fullyQualifiedTypeName name="android.support.v4.app.FragmentActivity"/>
 <fullyQualifiedTypeName name="android.support.v4.view.PagerAdapter"/>
-<fullyQualifiedTypeName name="com.ssm.cyclists.controller.fragment.CruiseTwoFragment"/>
 <fullyQualifiedTypeName name="android.content.Context"/>
 <fullyQualifiedTypeName name="android.app.Fragment"/>
 <fullyQualifiedTypeName name="android.support.v4.app.Fragment"/>
@@ -54,10 +49,15 @@
 <fullyQualifiedTypeName name="com.ssm.cyclists.model.SettingsData"/>
 <fullyQualifiedTypeName name="android.util.Log"/>
 <fullyQualifiedTypeName name="com.ssm.cyclists.controller.activity.CruiseContainerActivity"/>
+<fullyQualifiedTypeName name="com.ssm.cyclists.controller.fragment.CheckableCycleMateFragment"/>
 <fullyQualifiedTypeName name="com.ssm.cyclists.controller.fragment.CruiseContainerFragment"/>
 <fullyQualifiedTypeName name="com.ssm.cyclists.R.layout"/>
-<fullyQualifiedTypeName name="com.ssm.cyclists.controller.fragment.CruiseFragment"/>
-<fullyQualifiedTypeName name="com.ssm.cyclists.controller.fragment.CheckableCycleMateFragment"/>
-<fullyQualifiedTypeName name="com.ssm.cyclists.R.id"/>
 <fullyQualifiedTypeName name="com.ssm.cyclists.controller.activity.MainActivity"/>
+<fullyQualifiedTypeName name="com.ssm.cyclists.controller.fragment.HomeFragment"/>
+<fullyQualifiedTypeName name="com.ssm.cyclists.controller.fragment.CruiseFragment"/>
+<fullyQualifiedTypeName name="com.ssm.cyclists.controller.fragment.CruiseTwoFragment"/>
+<fullyQualifiedTypeName name="com.ssm.cyclists.controller.fragment.MapViewFragment"/>
+<fullyQualifiedTypeName name="android.widget.ListView"/>
+<fullyQualifiedTypeName name="com.ssm.cyclists.R.id"/>
+<fullyQualifiedTypeName name="com.ssm.cyclists.model.CycleRoomListViewAdapter"/>
 </qualifiedTypeNameHistroy>

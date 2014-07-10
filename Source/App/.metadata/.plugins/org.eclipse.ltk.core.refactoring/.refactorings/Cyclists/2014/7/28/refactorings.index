@@ -62,3 +62,8 @@
 1404932262631	Rename type 'CruiseContainerActivity'
 1404932274523	Move compilation unit
 1404932304968	Rename resource 'activity_cruise_container.xml'
+1404967764391	Rename type 'CruiseTwoFragment'
+1404967785616	Rename resource 'fragment_cruise_two.xml'
+1404967881605	Copy file
+1404967910748	Copy compilation unit
+1404967966422	Rename type 'CruiseTwoLayout'

@@ -29,6 +29,7 @@ public class CruiseLayout extends BaseFragmentLayout {
 
 	static String TAG = CruiseLayout.class.getSimpleName();
 	
+	private Button btnMenu;
 	
 	private TextView tvAppName;
 	private TextView tvFragmentName;
@@ -52,16 +53,16 @@ public class CruiseLayout extends BaseFragmentLayout {
 	private TextView tvMaxSpeedUnit;
 	private TextView tvMaxSpeedData;
 	
-	LinearLayout lyInnerCircle;
+	private LinearLayout lyInnerCircle;
 	
-	LinearLayout lyTopBar;
-	LinearLayout lyMidBar;
+	private LinearLayout lyTopBar;
+	private LinearLayout lyMidBar;
 	
-	LinearLayout lyInnerCycle;
-	LinearLayout lyOuterCycle;	
+	private LinearLayout lyInnerCycle;
+	private LinearLayout lyOuterCycle;	
 	
-	View	vLeftBar;
-	View	vRightBar;
+	private View	vLeftBar;
+	private View	vRightBar;
 	
 	public CruiseLayout(Fragment instance) {
 		super(instance);
@@ -69,6 +70,8 @@ public class CruiseLayout extends BaseFragmentLayout {
 	
 	public void init(){
 		
+		btnMenu = (Button)getView().findViewById(R.id.menu_button_cruise);
+		btnMenu.setOnClickListener(buildMenuButtonListener());
 		
 		tvAppName 				= (TextView)getView().findViewById(R.id.app_name_cruise);
 		tvFragmentName			= (TextView)getView().findViewById(R.id.fragment_name_cruise);
@@ -130,6 +133,7 @@ public class CruiseLayout extends BaseFragmentLayout {
 		
 //		lyInnerCircle.setBackground(rotateResource(R.drawable.inner_cycle_cruise,45,(int)(inner_circle.getMinimumWidth()*1.1),(int)(inner_circle.getMinimumHeight()*1.2)));
 		
+		updateCruiseInfo();
 		updateColor();
 	}
 	
@@ -139,6 +143,16 @@ public class CruiseLayout extends BaseFragmentLayout {
 		view = inflater.inflate(R.layout.fragment_cruise, container, false);
 	}
 
+	private OnClickListener buildMenuButtonListener(){
+		
+		return new OnClickListener(){
+
+			@Override
+			public void onClick(View v) {
+				((MainActivity)fragment.getActivity()).open_button(v);
+			}
+		};
+	}
 	
 	public void updateCruiseInfo(){
 		tvAltitudeData.post(new Runnable() {

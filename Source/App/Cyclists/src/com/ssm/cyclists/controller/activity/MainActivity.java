@@ -2,25 +2,9 @@ package com.ssm.cyclists.controller.activity;
 
 
 import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.security.KeyStore;
 import java.util.Date;
 import java.util.Timer;
 
-import org.apache.http.HttpVersion;
-import org.apache.http.client.HttpClient;
-import org.apache.http.conn.ClientConnectionManager;
-import org.apache.http.conn.scheme.PlainSocketFactory;
-import org.apache.http.conn.scheme.Scheme;
-import org.apache.http.conn.scheme.SchemeRegistry;
-import org.apache.http.conn.ssl.SSLSocketFactory;
-import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.impl.conn.tsccm.ThreadSafeClientConnManager;
-import org.apache.http.params.BasicHttpParams;
-import org.apache.http.params.HttpParams;
-import org.apache.http.params.HttpProtocolParams;
-import org.apache.http.protocol.HTTP;
 
 import net.simonvt.menudrawer.MenuDrawer;
 
@@ -29,10 +13,7 @@ import com.ssm.cyclists.controller.DataBaseManager;
 import com.ssm.cyclists.controller.FacebookManager;
 import com.ssm.cyclists.controller.GetTask;
 import com.ssm.cyclists.controller.TwitterManager;
-import com.ssm.cyclists.controller.communication.https.HttpsCommunication;
-import com.ssm.cyclists.controller.communication.https.HttpsCommunicationCallback;
 import com.ssm.cyclists.controller.communication.https.Protocol;
-import com.ssm.cyclists.controller.communication.https.SFSSLSocketFactory;
 import com.ssm.cyclists.controller.communication.sapinterface.FileAction;
 import com.ssm.cyclists.controller.communication.sapinterface.SAPProviderService;
 import com.ssm.cyclists.controller.communication.sapinterface.StringAction;
@@ -44,12 +25,12 @@ import com.ssm.cyclists.model.SettingsData;
 import com.ssm.cyclists.model.TwitterBasicInfo;
 import com.ssm.cyclists.view.layout.MainLayout;
 
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.telephony.TelephonyManager;
 import android.app.AlertDialog;
 import android.content.ComponentName;
 import android.content.Context; 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.ServiceConnection;
 import android.content.pm.ActivityInfo;
@@ -59,7 +40,6 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Toast;
 
 public class MainActivity extends FragmentActivity {
 
@@ -161,18 +141,13 @@ public class MainActivity extends FragmentActivity {
                 this.mSAPConnection, Context.BIND_AUTO_CREATE);
         
         //https
-        
-		
 		startGetRequest();
     }
-       
-    
+
     
     @Override
     protected void onStart() {
     	this.instance = this;
-   	 	layout.getmFragmentHome().updateHomeInfo();
-   	 	layout.getmFragmentHome().getLayout().updateColor();
     	super.onStart();
     	FacebookManager.getInstance().start();
     	googleLocationManager.resume();
@@ -243,9 +218,11 @@ public class MainActivity extends FragmentActivity {
         
         if(layout.getActivated_fragment().getClass().equals(CycleTrackerDetailFragment.class))
         	((CycleTrackerDetailFragment)layout.getActivated_fragment()).getLayout().backScreen();
-        else if(layout.getActivated_fragment().equals(layout.getmFragmentHome()))
+        else if(layout.getActivated_fragment().equals(layout.getmCruiseContainerFragment()))
         	super.onBackPressed();
-        else if(layout.getActivated_fragment().equals(layout.getCruiseContainerFragment()));
+//        else if(layout.getActivated_fragment().equals(layout.getmFragmentHome()))
+//        	super.onBackPressed();
+//        else if(layout.getActivated_fragment().equals(layout.getCruiseContainerFragment()));
         	
         else
         	layout.replaceFragment(R.layout.fragment_home);

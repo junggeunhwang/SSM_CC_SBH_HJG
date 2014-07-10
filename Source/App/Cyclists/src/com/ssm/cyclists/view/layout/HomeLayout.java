@@ -124,6 +124,7 @@ public class HomeLayout extends BaseFragmentLayout {
 			break;
 		}
 		
+		updateHomeInfo();
 		updateColor();
 	}
 	@Override

@@ -140,17 +140,17 @@ public class SettingsLayout extends BaseFragmentLayout {
 			
 			@Override
 			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-				if(buttonView == radioPink && isChecked){
+				if(buttonView.equals(radioPink) && isChecked){
 					Log.d(TAG,"color change : pink");
 					SettingsData.getInstance().setThemeColor("pink");
 					updateColor();
 					DataBaseManager.getInstance().updateSettingInfo();
-				}else if(buttonView == radioGreen && isChecked){
+				}else if(buttonView.equals(radioGreen) && isChecked){
 					Log.d(TAG,"color change : green");
 					SettingsData.getInstance().setThemeColor("green");
 					updateColor();
 					DataBaseManager.getInstance().updateSettingInfo();
-				}else if(buttonView == radioGray && isChecked){
+				}else if(buttonView.equals(radioGray) && isChecked){
 					Log.d(TAG,"color change : gray");
 					SettingsData.getInstance().setThemeColor("gray");
 					updateColor();

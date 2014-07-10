@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/background_cyclemate_listview_row"
     android:layout_width="match_parent"
     android:layout_height="50dip"
     android:background="@drawable/md__list_selector_holo_pink"
     android:gravity="center_vertical"
     android:orientation="horizontal" >
-    
-
     
     <com.ssm.cyclists.view.ImageViewRounded
             android:id="@+id/profile_listview_row"
@@ -45,6 +44,4 @@
         android:layout_marginLeft="100dp"
         android:background="@drawable/delete_pink"/>
     
-
-
 </LinearLayout>

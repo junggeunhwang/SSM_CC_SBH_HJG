@@ -2,12 +2,13 @@
 <section name="Workbench">
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
 		<item value="false" key="isRegEx"/>
-		<item value="Back" key="selection"/>
+		<item value="updateMapViewInfo" key="selection"/>
 		<item value="false" key="casesensitive"/>
 		<item value="true" key="incremental"/>
 		<item value="true" key="wrap"/>
 		<item value="false" key="wholeword"/>
 		<list key="findhistory">
+			<item value="updateMapViewInfo"/>
 			<item value="back"/>
 			<item value="rep"/>
 			<item value="replace"/>
@@ -15,7 +16,6 @@
 			<item value="googleLocationManager"/>
 			<item value="GoogleLocationManager"/>
 			<item value="setTheme_color"/>
-			<item value="theme"/>
 		</list>
 		<list key="replacehistory">
 			<item value="import android.app.Fragment;"/>

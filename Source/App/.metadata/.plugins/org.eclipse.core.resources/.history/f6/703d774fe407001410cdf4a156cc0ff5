@@ -1,0 +1,43 @@
+package com.ssm.cyclists.view.layout;
+
+import com.ssm.cyclists.R;
+import com.ssm.cyclists.controller.activity.MainActivity;
+import com.ssm.cyclists.model.SettingsData;
+
+import android.app.Fragment;
+import android.view.LayoutInflater;
+import android.view.ViewGroup;
+import android.widget.LinearLayout;
+
+public class CruiseTwoLayout extends BaseFragmentLayout {
+	
+	static String TAG = CruiseTwoLayout.class.getSimpleName();
+	
+	private LinearLayout lyTopBar; 
+	
+	public CruiseTwoLayout(Fragment instance) {
+		super(instance);
+	}
+
+	@Override
+	public void createView(LayoutInflater inflater, ViewGroup container) {
+		view = inflater.inflate(R.layout.fragment_cruise_two, container, false);
+		
+	}
+	
+	public void init(){
+		lyTopBar		= (LinearLayout)getView().findViewById(R.id.top_bar_cruise);
+	}
+	
+	public void updateColor(){
+		if(SettingsData.getInstance().getThemeColor().equals("pink")){
+			lyTopBar.setBackgroundColor(MainActivity.getInstasnce().getResources().getColor(R.color.bk_color_pink_heavy));
+			
+		}else if(SettingsData.getInstance().getThemeColor().equals("green")){
+			lyTopBar.setBackgroundColor(MainActivity.getInstasnce().getResources().getColor(R.color.bk_color_green_heavy));
+			
+		}else if(SettingsData.getInstance().getThemeColor().equals("gray")){
+			lyTopBar.setBackgroundColor(MainActivity.getInstasnce().getResources().getColor(R.color.bk_color_grayheavy));
+		}
+	}
+}

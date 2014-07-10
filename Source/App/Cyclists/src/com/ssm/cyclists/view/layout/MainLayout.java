@@ -1,24 +1,17 @@
 package com.ssm.cyclists.view.layout;
 
-import com.google.android.gms.maps.CameraUpdateFactory;
 import com.ssm.cyclists.R;
 import com.ssm.cyclists.controller.activity.MainActivity;
 import com.ssm.cyclists.controller.fragment.CruiseContainerFragment;
-import com.ssm.cyclists.controller.fragment.CruiseFragment;
 import com.ssm.cyclists.controller.fragment.CycleMateFragment;
-import com.ssm.cyclists.controller.fragment.CycleTrackerDetailFragment;
 import com.ssm.cyclists.controller.fragment.CycleTrackerFragment;
-import com.ssm.cyclists.controller.fragment.HomeFragment;
-import com.ssm.cyclists.controller.fragment.MapViewFragment;
 import com.ssm.cyclists.controller.fragment.SettingsFragment;
 import com.ssm.cyclists.model.ResourceManager;
 
 import android.app.Fragment;
 import android.app.FragmentTransaction;
-import android.content.pm.ActivityInfo;
 import android.location.Location;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.TextView;
@@ -28,16 +21,12 @@ public class MainLayout{
 	
 	static String TAG = MainLayout.class.getSimpleName();
 	
-	static private HomeFragment 			  mFragmentHome  	= new HomeFragment();
+	static private CruiseContainerFragment    mCruiseContainerFragment = new CruiseContainerFragment();
 	static private CycleMateFragment 		  mFragmentCycleMate = new CycleMateFragment();
 	static private CycleTrackerFragment 	  mFragmentCycleTracker = new CycleTrackerFragment();
-	static private MapViewFragment 			  mMapViewFragment = new MapViewFragment();
 	static private SettingsFragment 		  mSettingsFragment = new SettingsFragment();
-	static private CruiseContainerFragment    cruiseContainerFragment = new CruiseContainerFragment();
 	
-	public interface Listener{
-	}
-	
+
 	public static final String STATE_MENUDRAWER = "com.ssm.view.menuDrawer";
 	public static final String STATE_ACTIVE_VIEW_ID = "com.ssm.view.activeViewId";
 	  
@@ -46,10 +35,8 @@ public class MainLayout{
 	private int view = R.layout.activity_main;
 	
 	private TextView tvHomeMenu;
-//	private TextView tvCruiseMenu;
 	private TextView tvCycleTrackerMenu;
 	private TextView tvCycleMateMenu;
-	private TextView tvMapMenu;
 	private TextView tvSettingsMenu;
 	
 	MainActivity activity;
@@ -71,20 +58,16 @@ public class MainLayout{
 	     tvHomeMenu = (TextView)activity.findViewById(R.id.home_menu);
 	     tvCycleTrackerMenu = (TextView)activity.findViewById(R.id.cycle_tracker_menu);
 	     tvCycleMateMenu = (TextView)activity.findViewById(R.id.cycle_mate_menu);
-	     tvMapMenu = (TextView)activity.findViewById(R.id.map_menu);
 	     tvSettingsMenu = (TextView)activity.findViewById(R.id.settings_menu);
 	     
 	     tvHomeMenu.setOnClickListener(buildClickListenr());
 	     tvCycleTrackerMenu.setOnClickListener(buildClickListenr());
 	     tvCycleMateMenu.setOnClickListener(buildClickListenr());
-	     tvMapMenu.setOnClickListener(buildClickListenr());
 	     tvSettingsMenu.setOnClickListener(buildClickListenr());
 	     
 	     tvHomeMenu.setTypeface(ResourceManager.getInstance().getFont("helvetica"));
-//	     tvCruiseMenu.setTypeface(ResourceManager.getInstance().getFont("helvetica"));
 	     tvCycleTrackerMenu.setTypeface(ResourceManager.getInstance().getFont("helvetica"));
 	     tvCycleMateMenu.setTypeface(ResourceManager.getInstance().getFont("helvetica"));
-	     tvMapMenu.setTypeface(ResourceManager.getInstance().getFont("helvetica"));
 	     tvSettingsMenu.setTypeface(ResourceManager.getInstance().getFont("helvetica"));
 
 	     TextView activeView = (TextView)activity.findViewById(mActiveViewId);
@@ -95,28 +78,19 @@ public class MainLayout{
 		 FragmentTransaction transaction = activity.getFragmentManager().beginTransaction();
 
 		 
-		 transaction.add(R.id.fragment, mMapViewFragment);
-		 transaction.add(R.id.fragment, mFragmentHome);
+		 transaction.add(R.id.fragment,mCruiseContainerFragment);
 		 transaction.add(R.id.fragment, mFragmentCycleMate);
 		 transaction.add(R.id.fragment, mFragmentCycleTracker);
 		 transaction.add(R.id.fragment, mSettingsFragment);
-		 transaction.add(R.id.fragment,cruiseContainerFragment);
-//		 transaction.add(R.id.fragment, mFragmentCycleTrackerDetail);
 		 
-		 transaction.show(mFragmentHome);
+		 transaction.show(mCruiseContainerFragment);
 		 transaction.hide(mFragmentCycleMate);
 		 transaction.hide(mFragmentCycleTracker);
-		 transaction.hide(mMapViewFragment);
 		 transaction.hide(mSettingsFragment);
-		 transaction.hide(cruiseContainerFragment);
-//		 transaction.hide(mFragmentCycleTrackerDetail);
 		 
 		 transaction.commit();
 
-	
-		 activated_fragment = mFragmentHome;
-		 
-		 
+		 activated_fragment = mCruiseContainerFragment;
 	}
 	
 	
@@ -129,60 +103,54 @@ public class MainLayout{
 		
 		switch(resID)
 		{
-		case R.layout.fragment_home:
-			newFragment = mFragmentHome;
-			transaction.show(newFragment);
-			if(!newFragment.equals(activated_fragment)) 
+		case R.layout.fragment_cruise_container:
+			newFragment = mCruiseContainerFragment;
+			
+			if(!newFragment.equals(activated_fragment)){
+				transaction.show(newFragment);
 				transaction.hide(activated_fragment);
-			activated_fragment = mFragmentHome;
-			mFragmentHome.updateHomeInfo();
-			mFragmentHome.getLayout().updateColor();
+			}
+				
+			activated_fragment = mCruiseContainerFragment;
+			
 			transaction.commit();
-			break;
-		
+			mCruiseContainerFragment.updateColor();
+			break;	
 		case R.layout.fragment_cycle_tracker:
 			newFragment = mFragmentCycleTracker;
-			transaction.show(newFragment);
-			if(!newFragment.equals(activated_fragment)) transaction.hide(activated_fragment);
+			
+			if(!newFragment.equals(activated_fragment)){
+				transaction.show(newFragment);
+				transaction.hide(activated_fragment);
+			}
+			
 			activated_fragment = mFragmentCycleTracker;
 			transaction.commit();
 			mFragmentCycleTracker.getLayout().updateColor();
 			break;
 		case R.layout.fragment_cycle_mate:
 			newFragment = mFragmentCycleMate;
-			transaction.show(newFragment);
-			if(!newFragment.equals(activated_fragment)) transaction.hide(activated_fragment);
+			
+			if(!newFragment.equals(activated_fragment)){
+				transaction.show(newFragment);
+				transaction.hide(activated_fragment);
+			}
 			activated_fragment = mFragmentCycleMate;
 			transaction.commit();
 			mFragmentCycleMate.getLayout().updateColor();
 			break;
-		case R.layout.fragment_map:
-			newFragment = mMapViewFragment;
-			transaction.show(newFragment);
-			if(!newFragment.equals(activated_fragment)) transaction.hide(activated_fragment);
-			activated_fragment = mMapViewFragment;
-			mMapViewFragment.updateMapViewInfo();
-			transaction.commit();
-			mMapViewFragment.getLayout().updateColor();
-			break;
 		case R.layout.fragment_settings:
 			newFragment = mSettingsFragment;
-			transaction.show(newFragment);
-			if(!newFragment.equals(activated_fragment)) transaction.hide(activated_fragment);
+			
+			if(!newFragment.equals(activated_fragment)){
+				transaction.show(newFragment);
+				transaction.hide(activated_fragment);
+			}
 			activated_fragment = mSettingsFragment;
 			transaction.commit();
 			mSettingsFragment.getLayout().updateColor();
 			break;
-		case R.layout.fragment_cruise_container:
-			newFragment = cruiseContainerFragment;
-			transaction.show(newFragment);
-			if(!newFragment.equals(activated_fragment)) transaction.hide(activated_fragment);
-			activated_fragment = cruiseContainerFragment;
-			transaction.commit();
-			break;
 		}
-
-		
 	}
 	
 	private OnClickListener buildClickListenr(){
@@ -195,16 +163,13 @@ public class MainLayout{
 			     mActiveViewId = v.getId();
 			     switch(mActiveViewId){
 			     case R.id.home_menu:
-			    	 replaceFragment(R.layout.fragment_home);
+			    	 replaceFragment(R.layout.fragment_cruise_container);
 			    	 break;
 			     case R.id.cycle_tracker_menu:
 			    	 replaceFragment(R.layout.fragment_cycle_tracker);
 			    	 break;
 			     case R.id.cycle_mate_menu:
 			    	 replaceFragment(R.layout.fragment_cycle_mate);
-			    	 break;
-			     case R.id.map_menu:
-			    	 replaceFragment(R.layout.fragment_map);
 			    	 break;
 			     case R.id.settings_menu:
 			    	 replaceFragment(R.layout.fragment_settings);
@@ -236,11 +201,6 @@ public class MainLayout{
 		return view;
 	}
 
-	public HomeFragment getmFragmentHome() {
-		assert(mFragmentHome!=null);
- 		return mFragmentHome;
-	}
-
 	public CycleMateFragment getmFragmentCycleMate() {
 		assert(mFragmentCycleMate!=null);
 		return mFragmentCycleMate;
@@ -249,11 +209,6 @@ public class MainLayout{
 	public CycleTrackerFragment getmFragmentCycleTracker() {
 		assert(mFragmentCycleTracker!=null);
 		return mFragmentCycleTracker;
-	}
-
-	public MapViewFragment getmMapViewFragment() {
-		assert(mMapViewFragment!=null);
-		return mMapViewFragment;
 	}
 
 	public SettingsFragment getmSettingsFragment() {
@@ -268,9 +223,9 @@ public class MainLayout{
 	public MenuDrawer getmMenuDrawer() {
 		return mMenuDrawer;
 	}
-
-	public static CruiseContainerFragment getCruiseContainerFragment() {
-		return cruiseContainerFragment;
+	
+	public static CruiseContainerFragment getmCruiseContainerFragment() {
+		return mCruiseContainerFragment;
 	}
 
 	

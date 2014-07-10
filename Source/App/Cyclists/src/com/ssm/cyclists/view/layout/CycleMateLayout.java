@@ -139,6 +139,7 @@ public class CycleMateLayout extends BaseFragmentLayout{
 			btnSearch.setBackground(MainActivity.getInstasnce().getResources().getDrawable(R.drawable.search_big_pink));
 			btnRefresh.setBackground(MainActivity.getInstasnce().getResources().getDrawable(R.drawable.refresh_pink));
 			bar.setBackgroundColor(MainActivity.getInstasnce().getResources().getColor(R.color.bk_color_pink_heavy));
+			Adapter.notifyDataSetChanged();
 //			tvAppName.setTextColor(MainActivity.getInstasnce().getResources().getColor(R.color.text_pink));
 		}else if(SettingsData.getInstance().getThemeColor().equals("green")){
 			lyTopBar.setBackgroundColor(MainActivity.getInstasnce().getResources().getColor(R.color.bk_color_green_heavy));
@@ -148,6 +149,7 @@ public class CycleMateLayout extends BaseFragmentLayout{
 			btnRefresh.setBackground(MainActivity.getInstasnce().getResources().getDrawable(R.drawable.refresh_green));
 			bar.setBackgroundColor(MainActivity.getInstasnce().getResources().getColor(R.color.bk_color_green_heavy));
 //			tvAppName.setTextColor(MainActivity.getInstasnce().getResources().getColor(R.color.text_green));
+			Adapter.notifyDataSetChanged();
 
 		}else if(SettingsData.getInstance().getThemeColor().equals("gray")){
 			lyTopBar.setBackgroundColor(MainActivity.getInstasnce().getResources().getColor(R.color.bk_color_gray_heavy));
@@ -156,6 +158,7 @@ public class CycleMateLayout extends BaseFragmentLayout{
 			btnSearch.setBackground(MainActivity.getInstasnce().getResources().getDrawable(R.drawable.search_big_gray));
 			btnRefresh.setBackground(MainActivity.getInstasnce().getResources().getDrawable(R.drawable.refresh_gray));
 			bar.setBackgroundColor(MainActivity.getInstasnce().getResources().getColor(R.color.bk_color_gray_heavy));
+			Adapter.notifyDataSetChanged();
 //			tvAppName.setTextColor(MainActivity.getInstasnce().getResources().getColor(R.color.text_gray));
 			
 			

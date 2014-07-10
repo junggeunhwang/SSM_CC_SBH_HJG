@@ -20,6 +20,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 public class CycleMateListViewAdapter extends BaseAdapter {
@@ -109,15 +110,20 @@ public class CycleMateListViewAdapter extends BaseAdapter {
 		name.setText(arSrc.get(position).getUserName());
 		
 		TextView company = (TextView)convertView.findViewById(R.id.cycle_mate_company_listview_row);
+		LinearLayout background = (LinearLayout)convertView.findViewById(R.id.background_cyclemate_listview_row);
+		
 		if(SettingsData.getInstance().getThemeColor().equals("pink")){
+			background.setBackground(MainActivity.getInstasnce().getResources().getDrawable(R.drawable.md__list_selector_holo_pink));
 			name.setTextColor(MainActivity.getInstasnce().getResources().getColor(R.color.text_pink));
 			company.setTextColor(MainActivity.getInstasnce().getResources().getColor(R.color.text_pink));
 			btnDelete.setBackground(MainActivity.getInstasnce().getResources().getDrawable(R.drawable.delete_pink));
 		}else if(SettingsData.getInstance().getThemeColor().equals("green")){
+			background.setBackground(MainActivity.getInstasnce().getResources().getDrawable(R.drawable.md__list_selector_holo_green));
 			name.setTextColor(MainActivity.getInstasnce().getResources().getColor(R.color.text_green));
 			company.setTextColor(MainActivity.getInstasnce().getResources().getColor(R.color.text_green));
 			btnDelete.setBackground(MainActivity.getInstasnce().getResources().getDrawable(R.drawable.delete_green));
 		}else if(SettingsData.getInstance().getThemeColor().equals("gray")){
+			background.setBackground(MainActivity.getInstasnce().getResources().getDrawable(R.drawable.md__list_selector_holo_gray));
 			name.setTextColor(MainActivity.getInstasnce().getResources().getColor(R.color.text_gray));
 			company.setTextColor(MainActivity.getInstasnce().getResources().getColor(R.color.text_gray));
 			btnDelete.setBackground(MainActivity.getInstasnce().getResources().getDrawable(R.drawable.delete_gray));

@@ -5,10 +5,6 @@ import java.util.ArrayList;
 import net.simonvt.menudrawer.MenuDrawer;
 
 
-
-
-
-
 import com.nhaarman.listviewanimations.itemmanipulation.OnDismissCallback;
 import com.ssm.cyclists.R;
 import com.ssm.cyclists.controller.activity.MainActivity;
@@ -19,8 +15,6 @@ import com.ssm.cyclists.model.CycleMateListViewAdapter;
 import com.ssm.cyclists.model.ResourceManager;
 import com.ssm.cyclists.model.SettingsData;
 import com.ssm.cyclists.model.UserData;
-import com.ssm.cyclists.view.EnhancedListView;
-import com.ssm.cyclists.view.EnhancedListView.Undoable;
 
 import android.app.FragmentTransaction;
 import android.content.Context;
@@ -118,13 +112,7 @@ public class CheckableCycleMateLayout extends BaseFragmentLayout{
 
 
 	public void backScreen(){
-		FragmentTransaction transaction = MainActivity.getInstasnce().getFragmentManager().beginTransaction();
-		transaction.hide(fragment);
-		transaction.show(MainActivity.getInstasnce().getLayout().getmFragmentHome());
-		MainActivity.getInstasnce().getLayout().setActivated_fragment(MainActivity.getInstasnce().getLayout().getmFragmentHome());
-		transaction.commit();
-		
-		MainActivity.getInstasnce().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+		MainActivity.getInstasnce().getLayout().replaceFragment(R.layout.fragment_cruise_container);
 	}
 	
 	public void updateColor(){

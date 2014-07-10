@@ -107,16 +107,16 @@ public class CycleTrackerLayout extends BaseFragmentLayout {
 	public void updateColor(){
 		if(SettingsData.getInstance().getThemeColor().equals("pink")){
 			lyTopBar.setBackgroundColor(MainActivity.getInstasnce().getResources().getColor(R.color.bk_color_pink_heavy));
-			Adapter.setTheme_color("pink");
+			Adapter.notifyDataSetChanged();
 //			tvAppName.setTextColor(MainActivity.getInstasnce().getResources().getColor(R.color.text_pink));
 		}else if(SettingsData.getInstance().getThemeColor().equals("green")){
 			lyTopBar.setBackgroundColor(MainActivity.getInstasnce().getResources().getColor(R.color.bk_color_green_heavy));
-			Adapter.setTheme_color("green");
+			Adapter.notifyDataSetChanged();
 //			tvAppName.setTextColor(MainActivity.getInstasnce().getResources().getColor(R.color.text_green));
 
 		}else if(SettingsData.getInstance().getThemeColor().equals("gray")){
 			lyTopBar.setBackgroundColor(MainActivity.getInstasnce().getResources().getColor(R.color.bk_color_gray_heavy));
-			Adapter.setTheme_color("gray");
+			Adapter.notifyDataSetChanged();
 //			tvAppName.setTextColor(MainActivity.getInstasnce().getResources().getColor(R.color.text_gray));
 		}
 	}

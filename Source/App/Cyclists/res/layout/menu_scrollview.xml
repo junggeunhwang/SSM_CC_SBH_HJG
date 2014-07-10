@@ -44,14 +44,7 @@
             android:layout_height="wrap_content"
             android:text="Cat 2"
             style="@style/MenuDrawer.Widget.Category" />
-        
-        <TextView
-            android:id="@+id/map_menu"
-            android:layout_width="match_parent" 
-            android:layout_height="wrap_content"
-            android:drawableLeft="@drawable/maps_menu_icon"
-            android:text="Map"
-            style="@style/MenuDrawer.Widget.Title" />
+
         
         <TextView
             android:id="@+id/settings_menu"
