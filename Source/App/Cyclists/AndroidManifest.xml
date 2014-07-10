@@ -98,6 +98,14 @@
             android:name="com.ssm.cyclists.TestActivity"
             android:label="@string/title_activity_test" >
         </activity>
+        <activity
+            android:name="com.ssm.cyclists.controller.fragment.CruiseContainerFragment"
+            android:label="@string/title_activity_cruise_container" >
+ 			<intent-filter>
+                <action android:name="UPDATE_CRUISE_INFO"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>

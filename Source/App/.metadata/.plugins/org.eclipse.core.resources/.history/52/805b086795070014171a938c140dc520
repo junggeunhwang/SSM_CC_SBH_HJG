@@ -1,0 +1,24 @@
+package com.ssm.cyclists.model;
+
+public class SettingsData {
+	private static SettingsData instance;
+	
+	private String themeColor;
+	
+	private boolean FacebookConnectd;
+	private boolean TwitterConnectd;
+	private boolean InstagramConnectd;
+	
+	private String Unit;
+	
+	
+	private SettingsData() {
+		// TODO Auto-generated constructor stub
+	}
+	
+	
+	public static SettingsData getInstance(){
+		if(instance==null) instance = new SettingsData();
+		return instance;
+	}
+}

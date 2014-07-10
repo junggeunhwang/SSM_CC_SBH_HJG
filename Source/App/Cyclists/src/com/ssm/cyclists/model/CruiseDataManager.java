@@ -17,6 +17,7 @@ import com.ssm.cyclists.controller.asynctask.LocationInfoUpdateAsyncTask;
 import com.ssm.cyclists.controller.asynctask.WeatherUpdateAsyncTask;
 
 import android.content.Context;
+import android.content.Intent;
 import android.location.Criteria;
 import android.location.Geocoder;
 import android.location.Location;
@@ -271,7 +272,12 @@ public class CruiseDataManager {
 		this.current_loc.setLongitude(longitude);
 		
 		MainActivity.getInstasnce().getLayout().getmFragmentHome().updateHomeInfo();
-		MainActivity.getInstasnce().getLayout().getmFragmentCruise().updateCruiseInfo();
+		Intent intent = new Intent();
+		intent.setAction("UPDATE_CRUISE_INFO");
+		intent.putExtra("type", "UPDATE_CRUISE_INFO");
+		MainActivity.getInstasnce().sendBroadcast(intent);
+		
+//		MainActivity.getInstasnce().getLayout().getmFragmentCruise().updateCruiseInfo();
 	}
 
 	public void setElevation(double elevation) {

@@ -40,12 +40,27 @@
             android:text="Cycle Mate"
             android:textColor="@color/white"
             android:textSize="15sp" />
+        <View
+	        android:layout_width="0dip"
+	        android:layout_height="match_parent"
+	        android:layout_weight="0.35"/>
+        <Button
+            android:id="@+id/btn_add_cyclemate"
+            android:layout_width="0dip"
+            android:layout_height="match_parent"
+            android:background="@color/md__transparent"
+            android:gravity="center_vertical|center_horizontal"
+            android:layout_weight="0.2"
+            android:textColor="@color/white"
+            android:text="Add"
+            android:textSize="10dp"/>
 
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/mid_bar_cyclemate"
         android:layout_width="match_parent"
-        android:layout_height="0dip"
+        android:layout_height="40dp"
         android:weightSum="1"
         android:gravity="center_vertical"
         android:orientation="vertical"
@@ -54,12 +69,12 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="0dip"
-            android:layout_weight="0.3247"/>
+            android:layout_weight="0.3"/>
         
         <LinearLayout
             android:layout_width="match_parent"
 	        android:layout_height="0dip"
-	        android:layout_weight="0.4026"
+	        android:layout_weight="0.45"
 	        android:weightSum="1"
 	        android:gravity="center_vertical"
 	        android:orientation="horizontal">
@@ -87,8 +102,8 @@
 	            android:id="@+id/et_search_data_cyclemate"
 	            android:layout_width="0dip"
 	            android:layout_height="match_parent"
-	            android:layout_weight="0.5898"
-	            android:background="@color/white"
+	            android:layout_weight="0.6298"
+	            android:background="@drawable/rounded_edittext"
 	            android:textSize="10sp"
 	            android:ems="10"
 	            android:textColorLink="@color/white" >
@@ -114,11 +129,11 @@
 		        android:layout_height="match_parent"
 		        android:layout_weight="0.0085"/>
 	        
-	        <ImageView 
-	            android:layout_width="0dip"
-	            android:layout_height="wrap_content"
-	            android:layout_weight="0.0258"
-	            android:background="@drawable/bar"/>
+	        <View
+	            android:id="@+id/bar_cyclemate"
+	            android:layout_width="2dp"
+	            android:layout_height="15dp"
+	            android:background="@color/bk_color_pink_heavy"/>
 	        
 	        <View
 		        android:layout_width="0dip"
@@ -135,20 +150,20 @@
 	        <View
 		        android:layout_width="0dip"
 		        android:layout_height="match_parent"
-		        android:layout_weight="0.0506"/>
+		        android:layout_weight="0.0356"/>
         </LinearLayout>
         
 		<View
             android:layout_width="match_parent"
             android:layout_height="0dip"
-            android:layout_weight="0.2727"/>
+            android:layout_weight="0.25"/>
 
     </LinearLayout>
 
-    <com.ssm.cyclists.view.EnhancedListView 
+    <ListView
         android:id="@+id/lv_cyclemate"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-    </com.ssm.cyclists.view.EnhancedListView>
+    </ListView>
 
 </LinearLayout>

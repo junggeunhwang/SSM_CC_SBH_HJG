@@ -12,5 +12,6 @@
     <string name="app_id">678397032215565</string>
     <string name="title_activity_test">TestActivity</string>
     <string name="hello_world">Hello world!</string>
+    <string name="title_activity_cruise_container">CruiseContainerActivity</string>
 
 </resources>

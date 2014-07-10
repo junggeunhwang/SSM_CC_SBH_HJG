@@ -6,23 +6,30 @@ import com.ssm.cyclists.R;
 import com.ssm.cyclists.controller.activity.MainActivity;
 import com.ssm.cyclists.view.ImageViewRounded;
 
+import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 public class CycleMateListViewAdapter extends BaseAdapter {
 	
+	static String TAG = CycleMateListViewAdapter.class.getSimpleName();
+	
 	private Context context;
 	private LayoutInflater Inflater;
 	private ArrayList<UserData> arSrc;
 	private int layout;
-	private String theme_color;
 	
 	public void insert(UserData data,int position){
 		arSrc.add(position,data);
@@ -38,7 +45,6 @@ public class CycleMateListViewAdapter extends BaseAdapter {
 		Inflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		arSrc = aarSrc;
 		layout = alayout;
-		theme_color = "pink";
 	}
 	
 	@Override
@@ -57,7 +63,7 @@ public class CycleMateListViewAdapter extends BaseAdapter {
 	}
 
 	@Override
-	public View getView(int position, View convertView, ViewGroup parent) {
+	public View getView(final int position, View convertView, ViewGroup parent) {
 		
 		if(convertView == null){
 			convertView = Inflater.inflate(layout,parent,false);
@@ -71,27 +77,52 @@ public class CycleMateListViewAdapter extends BaseAdapter {
 			img.setImageBitmap(arSrc.get(position).getProfileImg());	
 		}
 		
+		Button btnDelete = (Button)convertView.findViewById(R.id.delete_cyclemate_listview_row);
+		btnDelete.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				Log.d(TAG,"delete "+arSrc.get(position).getUserName());
+				AlertDialog.Builder alt_bld = new AlertDialog.Builder(MainActivity.getInstasnce());
+			    alt_bld.setMessage("Do you want to delete "+arSrc.get(position).getUserName()+"?").setCancelable(false)
+			    .setPositiveButton("Yes",new DialogInterface.OnClickListener() {
+			        public void onClick(DialogInterface dialog, int id) {
+			        	remove(position);
+			        	notifyDataSetChanged();
+			        }}).setNegativeButton("No", new DialogInterface.OnClickListener() {
+				        public void onClick(DialogInterface dialog, int id) {
+				            // Action for 'NO' Button
+				            dialog.cancel();
+				        }
+			        });
+			    AlertDialog alert = alt_bld.create();
+			    // Title for AlertDialog
+			    alert.setTitle("Deleate");
+			    // Icon for AlertDialog
+			    alert.setIcon(R.drawable.ic_launcher);
+			    alert.show();
+				
+			}
+		});
 		
 		TextView name = (TextView)convertView.findViewById(R.id.cycle_mate_id_listview_row);
 		name.setText(arSrc.get(position).getUserName());
-		if(theme_color.equals("pink")){
-			name.setTextColor(MainActivity.getInstasnce().getResources().getColor(R.color.text_pink));
-		}else if(theme_color.equals("green")){
-			name.setTextColor(MainActivity.getInstasnce().getResources().getColor(R.color.text_green));
-		}else if(theme_color.equals("gray")){
-			name.setTextColor(MainActivity.getInstasnce().getResources().getColor(R.color.text_gray));
-		}
 		
+		TextView company = (TextView)convertView.findViewById(R.id.cycle_mate_company_listview_row);
+		if(SettingsData.getInstance().getThemeColor().equals("pink")){
+			name.setTextColor(MainActivity.getInstasnce().getResources().getColor(R.color.text_pink));
+			company.setTextColor(MainActivity.getInstasnce().getResources().getColor(R.color.text_pink));
+			btnDelete.setBackground(MainActivity.getInstasnce().getResources().getDrawable(R.drawable.delete_pink));
+		}else if(SettingsData.getInstance().getThemeColor().equals("green")){
+			name.setTextColor(MainActivity.getInstasnce().getResources().getColor(R.color.text_green));
+			company.setTextColor(MainActivity.getInstasnce().getResources().getColor(R.color.text_green));
+			btnDelete.setBackground(MainActivity.getInstasnce().getResources().getDrawable(R.drawable.delete_green));
+		}else if(SettingsData.getInstance().getThemeColor().equals("gray")){
+			name.setTextColor(MainActivity.getInstasnce().getResources().getColor(R.color.text_gray));
+			company.setTextColor(MainActivity.getInstasnce().getResources().getColor(R.color.text_gray));
+			btnDelete.setBackground(MainActivity.getInstasnce().getResources().getDrawable(R.drawable.delete_gray));
+		}
+
 		return convertView;
 	}
-
-	public String getTheme_color() {
-		return theme_color;
-	}
-
-	public void setTheme_color(String theme_color) {
-		this.theme_color = theme_color;
-		notifyDataSetChanged();
-	}
-
 }

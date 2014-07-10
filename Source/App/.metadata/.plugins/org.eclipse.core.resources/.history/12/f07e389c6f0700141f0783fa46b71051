@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+	<LinearLayout
+	    android:id="@+id/top_bar_cruise"
+	    android:layout_width="match_parent"
+	    android:layout_height="45dp"
+	    android:background="@color/bk_color_pink_heavy"
+	    android:gravity="center_vertical"
+	    android:weightSum="1" >
+
+
+        <View
+	        android:layout_width="0dip"
+	        android:layout_height="match_parent"
+	        android:layout_weight="0.05"/>
+                
+		<Button
+			android:id="@+id/menu_button_cruise"
+	    	android:layout_width="35dp"
+	        android:layout_height="30dp"
+	        android:background="@drawable/menu_btn"/>
+
+        <View
+            android:layout_width="0dip"
+            android:layout_height="match_parent"
+            android:layout_weight="0.33" />
+
+        <TextView
+            android:id="@+id/fragment_name_cruise"
+            android:layout_width="0dip"
+            android:layout_height="match_parent"
+            android:layout_weight="0.1594"
+            android:gravity="center_vertical|center_horizontal"
+            android:text="Cruise"
+            android:textColor="@color/white"
+            android:textSize="15sp" />
+        
+        <View
+            android:layout_width="0dip"
+            android:layout_height="match_parent"
+            android:layout_weight="0.46" />
+
+    </LinearLayout>
+
+</LinearLayout>

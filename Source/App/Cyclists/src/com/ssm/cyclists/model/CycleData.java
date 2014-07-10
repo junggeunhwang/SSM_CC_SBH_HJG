@@ -19,7 +19,7 @@ public class CycleData {
 	private ArrayList<Location> arLocation;
 	
 	public CycleData() {
-		// TODO Auto-generated constructor stub
+		arConsumeCalrories = new ArrayList<String>();
 	}
 
 	public String getDate() {

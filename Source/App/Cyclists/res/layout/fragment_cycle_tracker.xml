@@ -42,11 +42,11 @@
 
     </LinearLayout>
 
- 	 <com.ssm.cyclists.view.EnhancedListView
+ 	 <ListView
  	     android:id="@+id/lv_cycletracker"
  	     android:layout_width="match_parent"
  	     android:layout_height="match_parent"
  		 android:background="@color/white">
- 	 </com.ssm.cyclists.view.EnhancedListView>
+ 	 </ListView>
 
 </LinearLayout>

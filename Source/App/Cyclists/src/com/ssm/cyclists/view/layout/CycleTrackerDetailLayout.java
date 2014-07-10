@@ -1,21 +1,14 @@
 package com.ssm.cyclists.view.layout;
 
-import com.jjoe64.graphview.GraphView;
-import com.jjoe64.graphview.GraphView.GraphViewData;
-import com.jjoe64.graphview.CustomLabelFormatter;
-import com.jjoe64.graphview.GraphViewSeries;
-import com.jjoe64.graphview.GraphViewSeries.GraphViewSeriesStyle;
-import com.jjoe64.graphview.GraphViewStyle;
-import com.jjoe64.graphview.LineGraphView;
-import com.ssm.cyclists.R;
-import com.ssm.cyclists.controller.activity.MainActivity;
-import com.ssm.cyclists.model.ResourceManager;
-
 import android.app.Fragment;
 import android.app.FragmentTransaction;
 import android.content.pm.ActivityInfo;
-import android.graphics.Color;
+import android.content.res.Configuration;
+import android.os.SystemClock;
+import android.util.Log;
+import android.view.DragEvent;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
@@ -26,11 +19,20 @@ import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.TextView;
 
+import com.jjoe64.graphview.CustomLabelFormatter;
+import com.jjoe64.graphview.GraphView;
+import com.jjoe64.graphview.GraphView.GraphViewData;
+import com.jjoe64.graphview.GraphViewSeries;
+import com.jjoe64.graphview.GraphViewSeries.GraphViewSeriesStyle;
+import com.jjoe64.graphview.LineGraphView;
+import com.ssm.cyclists.R;
+import com.ssm.cyclists.controller.activity.MainActivity;
+import com.ssm.cyclists.model.ResourceManager;
+import com.ssm.cyclists.model.SettingsData;
+
 public class CycleTrackerDetailLayout extends BaseFragmentLayout {
 
 	static String TAG = CycleTrackerDetailLayout.class.getSimpleName();
-	
-	private String theme_color;
 	
 	private Button btnBack;
 	
@@ -46,16 +48,19 @@ public class CycleTrackerDetailLayout extends BaseFragmentLayout {
 	private GraphViewData[] SpeedData;
 	private GraphViewData[] AltitudeData;
 	
+	private LinearLayout graphLayout;
 	public CycleTrackerDetailLayout(Fragment instance) {
 		super(instance);
-		theme_color = MainActivity.getInstasnce().getLayout().getTheme_color();
 	}
 
 	@Override
 	public void createView(LayoutInflater inflater, ViewGroup container) {
 		view = inflater.inflate(R.layout.fragment_cycle_tracker_detail, container, false);		
+		Log.i(TAG, "creatView 호출");
 	}
 	public void init(){
+		
+		Log.i(TAG, "test init() 호출");
 		btnBack = (Button)getView().findViewById(R.id.back_button_cycletracker_detail);
 		
 		btnBack.setOnClickListener(new OnClickListener() {
@@ -110,43 +115,7 @@ public class CycleTrackerDetailLayout extends BaseFragmentLayout {
 		AltitudeData[8] = new GraphViewData(8,15);
 		AltitudeData[9] = new GraphViewData(9,5);
 		
-		graphView = new LineGraphView(
-		    getView().getContext()
-		    , ""
-		);
-		
-		
-		((LineGraphView)graphView).setDrawBackground(true);
-		((LineGraphView)graphView).setBackgroundColor(MainActivity.getInstasnce().getResources().getColor(R.color.bk_color_gray_opacity));
-		
-		graphView.setCustomLabelFormatter(new CustomLabelFormatter() {
-			
-			@Override
-			public String formatLabel(double value, boolean isValueX) {
-				if(isValueX){
-					if(value%2==0){
-						return String.valueOf(value);
-					}
-				}
-				return null;
-			}
-		});
-		
-		graphView.getGraphViewStyle().setTextSize(20);
-		graphView.setManualMaxY(true);
-		graphView.setManualMinY(true);
-		graphView.setManualYAxisBounds(30, 0);
-		
-		// add data
-		graphView.addSeries(new GraphViewSeries("speed_data",new GraphViewSeriesStyle(MainActivity.getInstasnce().getResources().getColor(R.color.bk_color_pink_heavy),3),SpeedData));
-		// set view port, start=0, size=5
-		graphView.setViewPort(0, 5);
-		graphView.setScrollable(true);
-		// optional - activate scaling / zooming
-		graphView.setScalable(true);
-		 
-		LinearLayout layout = (LinearLayout) getView().findViewById(R.id.graph_cycle_tracker_detail);
-		layout.addView(graphView);
+		generateGraph();
 
 		radioSpeed.setOnCheckedChangeListener(new OnCheckedChangeListener(){
 
@@ -155,16 +124,16 @@ public class CycleTrackerDetailLayout extends BaseFragmentLayout {
 					boolean isChecked) {
 				if(isChecked){
 					graphView.removeAllSeries();
-					if(theme_color.equals("pink")){
+					if(SettingsData.getInstance().getThemeColor().equals("pink")){
 						graphView.addSeries(new GraphViewSeries("speed_data",new GraphViewSeriesStyle(MainActivity.getInstasnce().getResources().getColor(R.color.bk_color_pink_heavy),3),SpeedData));
 						((LineGraphView)graphView).setBackgroundColor(MainActivity.getInstasnce().getResources().getColor(R.color.bk_color_pink_opacity));
-					}else if(theme_color.equals("green")){
+					}else if(SettingsData.getInstance().getThemeColor().equals("green")){
 						graphView.addSeries(new GraphViewSeries("speed_data",new GraphViewSeriesStyle(MainActivity.getInstasnce().getResources().getColor(R.color.bk_color_green_heavy),3),SpeedData));
 						((LineGraphView)graphView).setBackgroundColor(MainActivity.getInstasnce().getResources().getColor(R.color.bk_color_green_opacity));
-					}else if(theme_color.equals("gray")){
-						graphView.addSeries(new GraphViewSeries("speed_data",new GraphViewSeriesStyle(MainActivity.getInstasnce().getResources().getColor(R.color.bk_color_gray_opacity),3),SpeedData));
+					}else if(SettingsData.getInstance().getThemeColor().equals("gray")){
+						graphView.addSeries(new GraphViewSeries("speed_data",new GraphViewSeriesStyle(MainActivity.getInstasnce().getResources().getColor(R.color.bk_color_gray_heavy),3),SpeedData));
 					}
-					tvVelocityUnit.setText("km/h");
+					tvVelocityUnit.setText("(km/h)");
 				}
 			}
 		});
@@ -177,20 +146,60 @@ public class CycleTrackerDetailLayout extends BaseFragmentLayout {
 				if(isChecked){
 					graphView.removeAllSeries();
 					
-					if(theme_color.equals("pink")){
+					if(SettingsData.getInstance().getThemeColor().equals("pink")){
 						graphView.addSeries(new GraphViewSeries("altitude_data",new GraphViewSeriesStyle(MainActivity.getInstasnce().getResources().getColor(R.color.bk_color_pink_heavy),3),AltitudeData));
-					}else if(theme_color.equals("green")){
+					}else if(SettingsData.getInstance().getThemeColor().equals("green")){
 						graphView.addSeries(new GraphViewSeries("altitude_data",new GraphViewSeriesStyle(MainActivity.getInstasnce().getResources().getColor(R.color.bk_color_green_heavy),3),AltitudeData));
-					}else if(theme_color.equals("gray")){
+					}else if(SettingsData.getInstance().getThemeColor().equals("gray")){
 						graphView.addSeries(new GraphViewSeries("altitude_data",new GraphViewSeriesStyle(MainActivity.getInstasnce().getResources().getColor(R.color.bk_color_gray_heavy),3),AltitudeData));
 					}
 					
-					tvVelocityUnit.setText("m");
+					tvVelocityUnit.setText("(m)");
 				}
 			}
 		});
 		updateColor();
 		
+	}
+	
+	public void generateGraph(){
+		graphView = new LineGraphView(
+			    getView().getContext()
+			    , ""
+			);
+			
+			
+			((LineGraphView)graphView).setDrawBackground(true);
+			((LineGraphView)graphView).setBackgroundColor(MainActivity.getInstasnce().getResources().getColor(R.color.bk_color_gray_opacity));
+			
+			graphView.setCustomLabelFormatter(new CustomLabelFormatter() {
+				
+				@Override
+				public String formatLabel(double value, boolean isValueX) {
+					if(isValueX){
+						if(value%2==0){
+							return String.valueOf(value);
+						}
+					}
+					return null;
+				}
+			});
+			
+			graphView.getGraphViewStyle().setTextSize(20);
+			graphView.setManualMaxY(true);
+			graphView.setManualMinY(true);
+			graphView.setManualYAxisBounds(30, 0);
+			
+			// add data
+			graphView.addSeries(new GraphViewSeries("test_data",new GraphViewSeriesStyle(MainActivity.getInstasnce().getResources().getColor(R.color.bk_color_gray_heavy),3),SpeedData));
+			// set view port, start=0, size=5
+			graphView.setViewPort(0, 5);
+			graphView.setScrollable(true);
+			// optional - activate scaling / zooming
+			graphView.setScalable(true);
+			 
+			graphLayout = (LinearLayout) getView().findViewById(R.id.graph_cycle_tracker_detail);
+			graphLayout.addView(graphView);
 	}
 
 	public void backScreen(){
@@ -205,49 +214,42 @@ public class CycleTrackerDetailLayout extends BaseFragmentLayout {
 	
 	public void updateColor(){
 		
-		if(theme_color.equals("pink")){
+		if(SettingsData.getInstance().getThemeColor().equals("pink")){
 			lyTopBar.setBackgroundColor(MainActivity.getInstasnce().getResources().getColor(R.color.bk_color_pink_heavy));
 			radioSpeed.setButtonDrawable(MainActivity.getInstasnce().getResources().getDrawable(R.drawable.custom_drawable_radiobox_pink));
 			radioSpeed.setTextColor(MainActivity.getInstasnce().getResources().getColor(R.color.text_pink));
 			radioAltitude.setButtonDrawable(MainActivity.getInstasnce().getResources().getDrawable(R.drawable.custom_drawable_radiobox_pink));
 			radioAltitude.setTextColor(MainActivity.getInstasnce().getResources().getColor(R.color.text_pink));
 			
-			((LineGraphView)graphView).setBackgroundColor(MainActivity.getInstasnce().getResources().getColor(R.color.bk_color_pink_opacity));
-			
 			tvAppName.setTextColor(MainActivity.getInstasnce().getResources().getColor(R.color.text_pink));
 			graphView.removeAllSeries();
 			graphView.addSeries(new GraphViewSeries("test_data",new GraphViewSeriesStyle(MainActivity.getInstasnce().getResources().getColor(R.color.bk_color_pink_heavy),3),SpeedData));
 			((LineGraphView)graphView).setBackgroundColor(MainActivity.getInstasnce().getResources().getColor(R.color.bk_color_pink_opacity));
 			
-		}else if(theme_color.equals("green")){
+		}else if(SettingsData.getInstance().getThemeColor().equals("green")){
 			lyTopBar.setBackgroundColor(MainActivity.getInstasnce().getResources().getColor(R.color.bk_color_green_heavy));
 			radioSpeed.setButtonDrawable(MainActivity.getInstasnce().getResources().getDrawable(R.drawable.custom_drawable_radiobox_green));
 			radioSpeed.setTextColor(MainActivity.getInstasnce().getResources().getColor(R.color.text_green));
 			radioAltitude.setButtonDrawable(MainActivity.getInstasnce().getResources().getDrawable(R.drawable.custom_drawable_radiobox_green));
 			radioAltitude.setTextColor(MainActivity.getInstasnce().getResources().getColor(R.color.text_green));
-			((LineGraphView)graphView).setBackgroundColor(MainActivity.getInstasnce().getResources().getColor(R.color.bk_color_green_opacity));
+
 			tvAppName.setTextColor(MainActivity.getInstasnce().getResources().getColor(R.color.text_green));
-			
+			graphView.removeAllSeries();
 			graphView.addSeries(new GraphViewSeries("test_data",new GraphViewSeriesStyle(MainActivity.getInstasnce().getResources().getColor(R.color.bk_color_green_heavy),3),SpeedData));
-		}else if(theme_color.equals("gray")){
+			((LineGraphView)graphView).setBackgroundColor(MainActivity.getInstasnce().getResources().getColor(R.color.bk_color_green_opacity));
+			
+		}else if(SettingsData.getInstance().getThemeColor().equals("gray")){
 			lyTopBar.setBackgroundColor(MainActivity.getInstasnce().getResources().getColor(R.color.bk_color_gray_heavy));
 			radioSpeed.setButtonDrawable(MainActivity.getInstasnce().getResources().getDrawable(R.drawable.custom_drawable_radiobox_gray));
 			radioSpeed.setTextColor(MainActivity.getInstasnce().getResources().getColor(R.color.text_gray));
 			radioAltitude.setButtonDrawable(MainActivity.getInstasnce().getResources().getDrawable(R.drawable.custom_drawable_radiobox_gray));
 			radioAltitude.setTextColor(MainActivity.getInstasnce().getResources().getColor(R.color.text_gray));
-			((LineGraphView)graphView).setBackgroundColor(MainActivity.getInstasnce().getResources().getColor(R.color.bk_color_gray_opacity));
-			tvAppName.setTextColor(MainActivity.getInstasnce().getResources().getColor(R.color.text_gray));
-			
-			graphView.addSeries(new GraphViewSeries("test_data",new GraphViewSeriesStyle(MainActivity.getInstasnce().getResources().getColor(R.color.bk_color_gray_opacity),3),SpeedData));
-		}
-	}
-	
-	public String getTheme_color() {
-		 return theme_color;
-	 }
 
-	public void setTheme_color(String theme_color) {
-			this.theme_color = theme_color;
+			tvAppName.setTextColor(MainActivity.getInstasnce().getResources().getColor(R.color.text_gray));
+			graphView.removeAllSeries();
+			graphView.addSeries(new GraphViewSeries("test_data",new GraphViewSeriesStyle(MainActivity.getInstasnce().getResources().getColor(R.color.bk_color_gray_heavy),3),SpeedData));
+			((LineGraphView)graphView).setBackgroundColor(MainActivity.getInstasnce().getResources().getColor(R.color.bk_color_gray_opacity));
+		}
 	}
 
 	public GraphViewData[] getSpeedData() {

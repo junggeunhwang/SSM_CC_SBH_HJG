@@ -6,11 +6,16 @@ import java.util.Calendar;
 import com.ssm.cyclists.R;
 import com.ssm.cyclists.TestActivity;
 import com.ssm.cyclists.controller.activity.MainActivity;
+import com.ssm.cyclists.controller.fragment.CheckableCycleMateFragment;
+import com.ssm.cyclists.controller.fragment.CruiseContainerFragment;
+import com.ssm.cyclists.controller.fragment.CycleTrackerDetailFragment;
 import com.ssm.cyclists.controller.fragment.HomeFragment;
 import com.ssm.cyclists.model.CruiseDataManager;
 import com.ssm.cyclists.model.ResourceManager;
+import com.ssm.cyclists.model.SettingsData;
 import com.ssm.cyclists.view.ImageViewRounded;
 
+import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
@@ -33,8 +38,6 @@ public class HomeLayout extends BaseFragmentLayout {
 	
 	static String TAG = HomeLayout.class.getSimpleName();
 	
-	private String theme_color;
-	
 	private Button btnStartToBicycle;
 	
 	private TextView tvUserID;
@@ -51,7 +54,6 @@ public class HomeLayout extends BaseFragmentLayout {
 	
 	public HomeLayout(HomeFragment instance) {
 		super(instance);
-		theme_color = "gray";
 	}
 	
 	public void init(){
@@ -82,8 +84,16 @@ public class HomeLayout extends BaseFragmentLayout {
 			
 			@Override
 			public void onClick(View v) {
-				Intent intent = new Intent(getView().getContext(),TestActivity.class);
-				MainActivity.getInstasnce().startActivity(intent);
+		
+//				MainActivity.getInstasnce().getLayout().replaceFragment(R.layout.fragment_cruise_container);
+				CheckableCycleMateFragment checkableCycleMateFragment = new CheckableCycleMateFragment();
+				FragmentTransaction transaction = MainActivity.getInstasnce().getFragmentManager().beginTransaction();
+				transaction.add(R.id.fragment,checkableCycleMateFragment);
+				transaction.hide(MainActivity.getInstasnce().getLayout().getActivated_fragment());
+				transaction.show(checkableCycleMateFragment);
+				MainActivity.getInstasnce().getLayout().setActivated_fragment(checkableCycleMateFragment);
+				transaction.commit();
+				
 			}
 		});
 	
@@ -223,26 +233,18 @@ public class HomeLayout extends BaseFragmentLayout {
 	 
 		public void updateColor(){
 			
-			if(theme_color.equals("pink")){
+			if(SettingsData.getInstance().getThemeColor().equals("pink")){
 				lyBackground.setBackgroundColor(MainActivity.getInstasnce().getResources().getColor(R.color.bk_color_pink_heavy));
 				btnStartToBicycle.setBackground(MainActivity.getInstasnce().getResources().getDrawable(R.drawable.start_bicycle_btn_bg_pink));
 				ivLocationIcon.setBackground(MainActivity.getInstasnce().getResources().getDrawable(R.drawable.location_icon_pink));
-			}else if(theme_color.equals("green")){
+			}else if(SettingsData.getInstance().getThemeColor().equals("green")){
 				lyBackground.setBackgroundColor(MainActivity.getInstasnce().getResources().getColor(R.color.bk_color_green_heavy));
 				btnStartToBicycle.setBackground(MainActivity.getInstasnce().getResources().getDrawable(R.drawable.start_bicycle_btn_bg_green));
 				ivLocationIcon.setBackground(MainActivity.getInstasnce().getResources().getDrawable(R.drawable.location_icon_green));
-			}else if(theme_color.equals("gray")){
+			}else if(SettingsData.getInstance().getThemeColor().equals("gray")){
 				lyBackground.setBackgroundColor(MainActivity.getInstasnce().getResources().getColor(R.color.bk_color_gray_heavy));
 				btnStartToBicycle.setBackground(MainActivity.getInstasnce().getResources().getDrawable(R.drawable.start_bicycle_btn_bg_gray));
 				ivLocationIcon.setBackground(MainActivity.getInstasnce().getResources().getDrawable(R.drawable.location_icon_gray));
 			}
 		}
-	 
-	 public String getTheme_color() {
-		 return theme_color;
-	 }
-
-	 public void setTheme_color(String theme_color) {
-			this.theme_color = theme_color;
-	 }
 }

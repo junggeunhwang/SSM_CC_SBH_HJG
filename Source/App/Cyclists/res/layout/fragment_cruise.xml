@@ -19,11 +19,9 @@
 	        android:layout_height="match_parent"
 	        android:layout_weight="0.05"/>
                 
-		<Button
-			android:id="@+id/menu_button_cruise"
+		<View
 	    	android:layout_width="35dp"
-	        android:layout_height="30dp"
-	        android:background="@drawable/menu_btn"/>
+	        android:layout_height="30dp"/>
 
         <View
             android:layout_width="0dip"

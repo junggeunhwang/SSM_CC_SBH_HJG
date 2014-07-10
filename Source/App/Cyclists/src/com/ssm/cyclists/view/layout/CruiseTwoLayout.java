@@ -1,0 +1,39 @@
+package com.ssm.cyclists.view.layout;
+
+import com.ssm.cyclists.R;
+import com.ssm.cyclists.controller.activity.MainActivity;
+import com.ssm.cyclists.model.SettingsData;
+
+import android.app.Fragment;
+import android.view.LayoutInflater;
+import android.view.ViewGroup;
+
+public class CruiseTwoLayout extends BaseFragmentLayout {
+	
+	static String TAG = CruiseTwoLayout.class.getSimpleName();
+	
+	public CruiseTwoLayout(Fragment instance) {
+		super(instance);
+	}
+
+	@Override
+	public void createView(LayoutInflater inflater, ViewGroup container) {
+		view = inflater.inflate(R.layout.fragment_cruise_two, container, false);
+	}
+	
+	public void init(){
+		
+	}
+	
+	public void updateColor(){
+		if(SettingsData.getInstance().getThemeColor().equals("pink")){
+
+			
+		}else if(SettingsData.getInstance().getThemeColor().equals("green")){
+
+			
+		}else if(SettingsData.getInstance().getThemeColor().equals("gray")){
+
+		}
+	}
+}

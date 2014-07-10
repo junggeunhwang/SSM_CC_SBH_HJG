@@ -1,5 +1,7 @@
 package com.ssm.cyclists.controller.asynctask;
 
+import java.util.Calendar;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -30,11 +32,14 @@ public class WeatherUpdateAsyncTask extends AsyncTask<Location, Integer, Long> {
 			
 			if(weather_id >=200 && weather_id < 300)		//Thunderstorm
 			{
-				CruiseDataManager.getInstance().setWeather(R.drawable.thunder);
+				if(weather_id == 202 || weather_id == 212 ||weather_id == 221 || weather_id == 232 )
+					CruiseDataManager.getInstance().setWeather(R.drawable.thunder_night);
+				else
+					CruiseDataManager.getInstance().setWeather(R.drawable.thunder);
 			}
 			else if(weather_id >=300 && weather_id < 400)	//Drizzle
 			{
-				CruiseDataManager.getInstance().setWeather(R.drawable.rainy);
+				CruiseDataManager.getInstance().setWeather(R.drawable.drizzle);
 			}
 			else if(weather_id >=400 && weather_id < 500)	//empty
 			{
@@ -42,28 +47,72 @@ public class WeatherUpdateAsyncTask extends AsyncTask<Location, Integer, Long> {
 			}
 			else if(weather_id >=500 && weather_id < 600)	//Rain
 			{
-				CruiseDataManager.getInstance().setWeather(R.drawable.rainy);
+				if(weather_id == 502 || weather_id == 503 ||weather_id == 504 || weather_id == 522 || weather_id == 531)
+					CruiseDataManager.getInstance().setWeather(R.drawable.rainy);
+				else{
+					int hour = Calendar.getInstance().get(Calendar.HOUR_OF_DAY);
+					if(hour > 7 && hour < 18)
+						CruiseDataManager.getInstance().setWeather(R.drawable.rainy_noon);
+					else
+						CruiseDataManager.getInstance().setWeather(R.drawable.rainy_night);
+				}
 			}
 			else if(weather_id >=600 && weather_id < 700)	//Snow
 			{
-				CruiseDataManager.getInstance().setWeather(R.drawable.rainy);
+				int hour = Calendar.getInstance().get(Calendar.HOUR_OF_DAY);
+				if(hour > 7 && hour < 18)
+					CruiseDataManager.getInstance().setWeather(R.drawable.snow_noon);
+				else
+					CruiseDataManager.getInstance().setWeather(R.drawable.snow_night);
+				
 			}
 			else if(weather_id >=700 && weather_id < 800)	//Atmosphere
 			{
-				CruiseDataManager.getInstance().setWeather(R.drawable.cloudy);
+				int hour = Calendar.getInstance().get(Calendar.HOUR_OF_DAY);
+				if(hour > 7 && hour < 18)
+					CruiseDataManager.getInstance().setWeather(R.drawable.cloudy);
+				else
+					CruiseDataManager.getInstance().setWeather(R.drawable.cloudy_night);
+
 			}
 			else if(weather_id >=800 && weather_id < 900)	//Clouds
 			{
+				int hour = Calendar.getInstance().get(Calendar.HOUR_OF_DAY);
+				
 				if(weather_id == 800){
-					CruiseDataManager.getInstance().setWeather(R.drawable.sunny);
+					if(hour > 7 && hour < 18)
+						CruiseDataManager.getInstance().setWeather(R.drawable.sunny);
+					else
+						CruiseDataManager.getInstance().setWeather(R.drawable.clear_moon);
+				}
+				else if(weather_id == 801 || weather_id == 802){
+					CruiseDataManager.getInstance().setWeather(R.drawable.cloudy);
+				}
+				else if(weather_id == 804){
+					CruiseDataManager.getInstance().setWeather(R.drawable.heavy_cloudy);
 				}
 				else{
-					CruiseDataManager.getInstance().setWeather(R.drawable.cloudy);
+					if(hour > 7 && hour < 18)
+						CruiseDataManager.getInstance().setWeather(R.drawable.cloudy);
+					else
+						CruiseDataManager.getInstance().setWeather(R.drawable.cloudy_night);	
 				}
 			}
 			else
 			{
-				CruiseDataManager.getInstance().setWeather(R.drawable.sunny);
+				int hour = Calendar.getInstance().get(Calendar.HOUR_OF_DAY);
+				
+				if(weather_id == 901)CruiseDataManager.getInstance().setWeather(R.drawable.rainy);
+				else if(weather_id == 902)CruiseDataManager.getInstance().setWeather(R.drawable.heavy_cloudy);
+				else if(weather_id == 904)CruiseDataManager.getInstance().setWeather(R.drawable.sunny);
+				else if(weather_id == 905)CruiseDataManager.getInstance().setWeather(R.drawable.heavy_cloudy);
+				else if(weather_id == 902)CruiseDataManager.getInstance().setWeather(R.drawable.rainy);
+				else {
+					if(hour > 7 && hour < 18)
+						CruiseDataManager.getInstance().setWeather(R.drawable.cloudy);
+					else
+						CruiseDataManager.getInstance().setWeather(R.drawable.cloudy_night);	
+				}
 			}
 			CruiseDataManager.getInstance().setHumidity(main.getInt("humidity"));
 			CruiseDataManager.getInstance().setTemperature(((int)Math.round((main.getDouble("temp")-276.15))));

@@ -12,6 +12,7 @@ import com.ssm.cyclists.controller.fragment.CycleTrackerFragment;
 import com.ssm.cyclists.model.CycleData;
 import com.ssm.cyclists.model.CycleMateListViewAdapter;
 import com.ssm.cyclists.model.CycleTrackerListViewAdapter;
+import com.ssm.cyclists.model.SettingsData;
 import com.ssm.cyclists.model.UserData;
 import com.ssm.cyclists.view.EnhancedListView;
 
@@ -26,6 +27,7 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 
 
 
@@ -33,19 +35,16 @@ public class CycleTrackerLayout extends BaseFragmentLayout {
 	
 	static String TAG = CycleTrackerLayout.class.getSimpleName();
 	
-	private String theme_color;
-	
 	private CycleTrackerDetailFragment detailFragment;
 	
 	private Button btnMenu;
-	private EnhancedListView lvCycleList;
+	private ListView lvCycleList;
 	
 	private LinearLayout lyTopBar;
 	CycleTrackerListViewAdapter Adapter;
 	
 	public CycleTrackerLayout(CycleTrackerFragment instance) {
 		super(instance);
-		theme_color = "gray";
 	}
 	
 	@Override
@@ -57,7 +56,7 @@ public class CycleTrackerLayout extends BaseFragmentLayout {
 		btnMenu 		= (Button)getView().findViewById(R.id.menu_button_cycletracker);
 		btnMenu.setOnClickListener(buildMenuButtonListener());
 		
-		lvCycleList		= (EnhancedListView)getView().findViewById(R.id.lv_cycletracker);
+		lvCycleList		= (ListView)getView().findViewById(R.id.lv_cycletracker);
 		lyTopBar		= (LinearLayout)getView().findViewById(R.id.top_bar_cycle_tracker);
 		
 		ArrayList<CycleData> arGeneral = new ArrayList<CycleData>();
@@ -75,9 +74,6 @@ public class CycleTrackerLayout extends BaseFragmentLayout {
 		Adapter = new CycleTrackerListViewAdapter(getView().getContext(),R.layout.cycletracker_listview_row,arGeneral);
 		
 		lvCycleList.setAdapter(Adapter);
-		lvCycleList.setDismissCallback(buildOnDismissCallback());
-				
-		lvCycleList.enableSwipeToDismiss();
 		
 		lvCycleList.setOnItemClickListener(new OnItemClickListener() {
 
@@ -96,25 +92,6 @@ public class CycleTrackerLayout extends BaseFragmentLayout {
 		
 	}
 	
-	private EnhancedListView.OnDismissCallback buildOnDismissCallback(){
-		return new EnhancedListView.OnDismissCallback() {
-			
-			@Override
-			public EnhancedListView.Undoable onDismiss(EnhancedListView listView, final int position) {
-				
-				
-				final CycleData item = (CycleData) Adapter.getItem(position);
-				Adapter.remove(position);
-                
-				return new EnhancedListView.Undoable() {
-                    @Override
-                    public void undo() {
-                    	Adapter.insert(item, position);
-                    }
-                };
-			}
-		};
-	}
 	
 	private OnClickListener buildMenuButtonListener(){
 		
@@ -128,27 +105,19 @@ public class CycleTrackerLayout extends BaseFragmentLayout {
 	}
 	
 	public void updateColor(){
-		if(theme_color.equals("pink")){
+		if(SettingsData.getInstance().getThemeColor().equals("pink")){
 			lyTopBar.setBackgroundColor(MainActivity.getInstasnce().getResources().getColor(R.color.bk_color_pink_heavy));
 			Adapter.setTheme_color("pink");
 //			tvAppName.setTextColor(MainActivity.getInstasnce().getResources().getColor(R.color.text_pink));
-		}else if(theme_color.equals("green")){
+		}else if(SettingsData.getInstance().getThemeColor().equals("green")){
 			lyTopBar.setBackgroundColor(MainActivity.getInstasnce().getResources().getColor(R.color.bk_color_green_heavy));
 			Adapter.setTheme_color("green");
 //			tvAppName.setTextColor(MainActivity.getInstasnce().getResources().getColor(R.color.text_green));
 
-		}else if(theme_color.equals("gray")){
+		}else if(SettingsData.getInstance().getThemeColor().equals("gray")){
 			lyTopBar.setBackgroundColor(MainActivity.getInstasnce().getResources().getColor(R.color.bk_color_gray_heavy));
 			Adapter.setTheme_color("gray");
 //			tvAppName.setTextColor(MainActivity.getInstasnce().getResources().getColor(R.color.text_gray));
 		}
-	}
-	
-	public String getTheme_color() {
-		 return theme_color;
-	 }
-
-	public void setTheme_color(String theme_color) {
-			this.theme_color = theme_color;
 	}
 }

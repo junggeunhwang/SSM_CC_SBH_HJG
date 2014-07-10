@@ -1,0 +1,7 @@
+package com.ssm.cyclists.view;
+
+import android.widget.EditText;
+
+public class MyEditText extends EditText {
+
+}

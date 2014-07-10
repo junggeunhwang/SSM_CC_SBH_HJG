@@ -1,0 +1,8 @@
+package com.ssm.cyclists.model;
+
+public class SettingsData {
+	private static SettingsData instance;
+	
+	
+	
+}

@@ -54,9 +54,9 @@ public class Protocol {
 						
 						MainActivity.getInstasnce().getmSAPService().sendFile(file.getAbsolutePath());
 						
-						if(!file.delete()){
-							Log.e(TAG,"temporary voice file is not deleted");
-						}
+//						if(!file.delete()){
+//							Log.e(TAG,"temporary voice file is not deleted");
+//						}
 					}else if(hcn.getResponseType().equals("text")){
 						/* 서버  -> 안드로이드 응답 수신 */
 					}

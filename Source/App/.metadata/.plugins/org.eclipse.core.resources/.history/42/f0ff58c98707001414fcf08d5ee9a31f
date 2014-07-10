@@ -1,0 +1,160 @@
+package com.ssm.cyclists.view.layout;
+
+import java.util.ArrayList;
+
+
+
+
+
+
+import com.nhaarman.listviewanimations.itemmanipulation.OnDismissCallback;
+import com.ssm.cyclists.R;
+import com.ssm.cyclists.controller.activity.MainActivity;
+import com.ssm.cyclists.controller.fragment.CheckableCycleMateFragment;
+import com.ssm.cyclists.controller.fragment.CycleMateFragment;
+import com.ssm.cyclists.model.CheckableCycleMateListViewAdapter;
+import com.ssm.cyclists.model.CycleMateListViewAdapter;
+import com.ssm.cyclists.model.ResourceManager;
+import com.ssm.cyclists.model.UserData;
+import com.ssm.cyclists.view.EnhancedListView;
+import com.ssm.cyclists.view.EnhancedListView.Undoable;
+
+import android.app.FragmentTransaction;
+import android.content.Context;
+import android.content.pm.ActivityInfo;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.view.inputmethod.InputMethodManager;
+import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.ListView;
+import android.widget.TextView;
+import android.widget.Toast;
+
+
+public class CheckableCycleMateLayout extends BaseFragmentLayout{
+
+	static String TAG = CheckableCycleMateLayout.class.getSimpleName();
+	
+	private String theme_color;
+	
+	private Button btnCancel;
+	private Button btnStart;
+		
+	private TextView tvFragmentName;
+	
+	LinearLayout lyTopBar;
+	LinearLayout lyMidBar;
+	
+	private EditText etSearchData;
+
+	private ListView lvCycleMate;
+	
+	CheckableCycleMateListViewAdapter Adapter;
+	
+	public CheckableCycleMateLayout(CheckableCycleMateFragment checkableCycleMateFragment) {
+		super(checkableCycleMateFragment);
+		theme_color = MainActivity.getInstasnce().getLayout().getmSettingsFragment().getLayout().getTheme_color();
+	}
+	
+	public void init(){
+		
+		btnCancel = (Button)getView().findViewById(R.id.cancel_button_checkable_cyclemate);
+		btnCancel.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View arg0) {
+				InputMethodManager imm = (InputMethodManager)MainActivity.getInstasnce().getSystemService(
+					      Context.INPUT_METHOD_SERVICE);
+					imm.hideSoftInputFromWindow(etSearchData.getWindowToken(), 0);
+				backScreen();
+			}
+		});
+		
+		
+		btnStart 		= (Button)getView().findViewById(R.id.start_button_checkable_cyclemate);
+		btnStart.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View arg0) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
+		
+		tvFragmentName 	= (TextView)getView().findViewById(R.id.fragment_name_checkable_cyclemate);
+		etSearchData 	= (EditText)getView().findViewById(R.id.et_search_data_checkable_cyclemate);
+		lvCycleMate		= (ListView)getView().findViewById(R.id.lv_checkable_cyclemate);
+		
+		lyTopBar		= (LinearLayout)getView().findViewById(R.id.top_bar_checkable_cyclemate);
+		lyMidBar		= (LinearLayout)getView().findViewById(R.id.mid_bar_checkable_cyclemate);
+		
+		tvFragmentName.setTypeface(ResourceManager.getInstance().getFont("helveitica"));
+		etSearchData.setTypeface(ResourceManager.getInstance().getFont("helveitica"));		
+		
+		ArrayList<UserData> arGeneral = new ArrayList<UserData>();
+		UserData data = new UserData();
+		data.setUserName("È²Á¤±Ù");
+		arGeneral.add(data);
+
+		Adapter = new CheckableCycleMateListViewAdapter(getView().getContext(),R.layout.checkable_cyclemate_listview_row,arGeneral);
+		
+		lvCycleMate.setAdapter(Adapter);
+
+		updateColor();
+	}
+	
+	@Override
+	public void createView(LayoutInflater inflater, ViewGroup container) {
+		view = inflater.inflate(R.layout.fragment_checkable_cycle_mate, container, false);
+	}
+	
+
+
+	public void backScreen(){
+		FragmentTransaction transaction = MainActivity.getInstasnce().getFragmentManager().beginTransaction();
+		transaction.hide(fragment);
+		transaction.show(MainActivity.getInstasnce().getLayout().getmFragmentHome());
+		MainActivity.getInstasnce().getLayout().setActivated_fragment(MainActivity.getInstasnce().getLayout().getmFragmentHome());
+		transaction.commit();
+		
+		MainActivity.getInstasnce().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+	}
+	
+	public void updateColor(){
+		if(theme_color.equals("pink")){
+			lyTopBar.setBackgroundColor(MainActivity.getInstasnce().getResources().getColor(R.color.bk_color_pink_heavy));
+			lyMidBar.setBackgroundColor(MainActivity.getInstasnce().getResources().getColor(R.color.bk_color_pink_mid));
+			Adapter.setTheme_color("pink");
+			etSearchData.setCompoundDrawables(MainActivity.getInstasnce().getResources().getDrawable(R.drawable.search_small_pink),null,null,null);
+//			tvAppName.setTextColor(MainActivity.getInstasnce().getResources().getColor(R.color.text_pink));
+		}else if(theme_color.equals("green")){
+			lyTopBar.setBackgroundColor(MainActivity.getInstasnce().getResources().getColor(R.color.bk_color_green_heavy));
+			lyMidBar.setBackgroundColor(MainActivity.getInstasnce().getResources().getColor(R.color.bk_color_green_mid));
+			Adapter.setTheme_color("green");
+			etSearchData.setCompoundDrawables(MainActivity.getInstasnce().getResources().getDrawable(R.drawable.search_small_green),null,null,null);
+//			tvAppName.setTextColor(MainActivity.getInstasnce().getResources().getColor(R.color.text_green));
+
+		}else if(theme_color.equals("gray")){
+			lyTopBar.setBackgroundColor(MainActivity.getInstasnce().getResources().getColor(R.color.bk_color_gray_heavy));
+			lyMidBar.setBackgroundColor(MainActivity.getInstasnce().getResources().getColor(R.color.bk_color_gray_mid));
+			Adapter.setTheme_color("gray");
+			etSearchData.setCompoundDrawables(MainActivity.getInstasnce().getResources().getDrawable(R.drawable.search_small_gray),null,null,null);
+//			tvAppName.setTextColor(MainActivity.getInstasnce().getResources().getColor(R.color.text_gray));
+			
+			
+		}
+	}
+	
+	public String getTheme_color() {
+		 return theme_color;
+	 }
+
+	public void setTheme_color(String theme_color) {
+			this.theme_color = theme_color;
+	}
+}

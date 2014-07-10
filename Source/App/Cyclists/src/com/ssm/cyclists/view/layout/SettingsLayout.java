@@ -7,7 +7,9 @@ import com.ssm.cyclists.controller.TwitterManager;
 import com.ssm.cyclists.controller.activity.MainActivity;
 import com.ssm.cyclists.controller.fragment.SettingsFragment;
 import com.ssm.cyclists.model.ResourceManager;
+import com.ssm.cyclists.model.SettingsData;
 
+import android.media.audiofx.BassBoost.Settings;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,7 +26,6 @@ public class SettingsLayout extends BaseFragmentLayout {
 
 	static String TAG = SettingsLayout.class.getSimpleName();
 	
-	private String theme_color;
 	
 	private Button btnMenu;
 	
@@ -50,7 +51,6 @@ public class SettingsLayout extends BaseFragmentLayout {
 	
 	public SettingsLayout(SettingsFragment instance) {
 		super(instance);
-		theme_color = "gray";
 	}
 	
 	@Override
@@ -142,17 +142,17 @@ public class SettingsLayout extends BaseFragmentLayout {
 			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
 				if(buttonView == radioPink && isChecked){
 					Log.d(TAG,"color change : pink");
-					MainActivity.getInstasnce().change_color("pink");
+					SettingsData.getInstance().setThemeColor("pink");
 					updateColor();
 					DataBaseManager.getInstance().updateSettingInfo();
 				}else if(buttonView == radioGreen && isChecked){
 					Log.d(TAG,"color change : green");
-					MainActivity.getInstasnce().change_color("green");
+					SettingsData.getInstance().setThemeColor("green");
 					updateColor();
 					DataBaseManager.getInstance().updateSettingInfo();
 				}else if(buttonView == radioGray && isChecked){
 					Log.d(TAG,"color change : gray");
-					MainActivity.getInstasnce().change_color("gray");
+					SettingsData.getInstance().setThemeColor("gray");
 					updateColor();
 					DataBaseManager.getInstance().updateSettingInfo();
 				}
@@ -163,7 +163,7 @@ public class SettingsLayout extends BaseFragmentLayout {
 	
 	public void updateColor(){
 		
-		if(theme_color.equals("pink")){
+		if(SettingsData.getInstance().getThemeColor().equals("pink")){
 			lyTopBar.setBackgroundColor(MainActivity.getInstasnce().getResources().getColor(R.color.bk_color_pink_heavy));
 			vColorBar.setBackgroundColor(MainActivity.getInstasnce().getResources().getColor(R.color.bk_color_pink_heavy));
 			vContactSnsBar.setBackgroundColor(MainActivity.getInstasnce().getResources().getColor(R.color.bk_color_pink_heavy));
@@ -177,7 +177,7 @@ public class SettingsLayout extends BaseFragmentLayout {
 			radioPink.setChecked(true);
 			radioGreen.setChecked(false);
 			radioGray.setChecked(false);
-		}else if(theme_color.equals("green")){
+		}else if(SettingsData.getInstance().getThemeColor().equals("green")){
 			lyTopBar.setBackgroundColor(MainActivity.getInstasnce().getResources().getColor(R.color.bk_color_green_heavy));
 			vColorBar.setBackgroundColor(MainActivity.getInstasnce().getResources().getColor(R.color.bk_color_green_heavy));
 			vContactSnsBar.setBackgroundColor(MainActivity.getInstasnce().getResources().getColor(R.color.bk_color_green_heavy));
@@ -194,7 +194,7 @@ public class SettingsLayout extends BaseFragmentLayout {
 			radioGreen.setChecked(true);
 			radioGray.setChecked(false);
 			
-		}else if(theme_color.equals("gray")){
+		}else if(SettingsData.getInstance().getThemeColor().equals("gray")){
 			lyTopBar.setBackgroundColor(MainActivity.getInstasnce().getResources().getColor(R.color.bk_color_gray_heavy));
 			vColorBar.setBackgroundColor(MainActivity.getInstasnce().getResources().getColor(R.color.bk_color_gray_heavy));
 			vContactSnsBar.setBackgroundColor(MainActivity.getInstasnce().getResources().getColor(R.color.bk_color_gray_heavy));
@@ -211,13 +211,5 @@ public class SettingsLayout extends BaseFragmentLayout {
 			radioGreen.setChecked(false);
 			radioGray.setChecked(true);
 		}
-	}
-	
-	public String getTheme_color() {
-		return theme_color;
-	}
-
-	public void setTheme_color(String theme_color) {
-		this.theme_color = theme_color;
 	}
 }

@@ -15,6 +15,7 @@ import com.ssm.cyclists.controller.activity.MainActivity;
 import com.ssm.cyclists.controller.fragment.MapViewFragment;
 import com.ssm.cyclists.model.CruiseDataManager;
 import com.ssm.cyclists.model.ResourceManager;
+import com.ssm.cyclists.model.SettingsData;
 
 import android.app.Dialog;
 import android.app.Fragment;
@@ -36,8 +37,6 @@ import android.widget.Toast;
 public class MapViewLayout extends BaseFragmentLayout {
 
 	static String TAG = MapViewLayout.class.getSimpleName();
-	
-	private String theme_color;
 	
 	private Button btnMenu;
 	private TextView tvFragmentName;
@@ -62,7 +61,6 @@ public class MapViewLayout extends BaseFragmentLayout {
 	
 	public MapViewLayout(Fragment instance) {
 		super(instance);
-		theme_color = "gray";
 		Log.d(TAG,"MapViewLayout");
 	}
 	
@@ -182,7 +180,7 @@ public class MapViewLayout extends BaseFragmentLayout {
 	}
 	
 	public void updateColor(){
-		if(theme_color.equals("pink")){
+		if(SettingsData.getInstance().getThemeColor().equals("pink")){
 			lyTopBar.setBackgroundColor(MainActivity.getInstasnce().getResources().getColor(R.color.bk_color_pink_heavy));
 			lyMidBar.setBackgroundColor(MainActivity.getInstasnce().getResources().getColor(R.color.bk_color_pink_mid));
 			
@@ -197,7 +195,7 @@ public class MapViewLayout extends BaseFragmentLayout {
 			tvValueTopRight.setBackgroundColor(MainActivity.getInstasnce().getResources().getColor(R.color.bk_color_pink_heavy));
 			tvValueBottomRight.setBackgroundColor(MainActivity.getInstasnce().getResources().getColor(R.color.bk_color_pink_heavy));
 			ivLocationIcon.setImageDrawable(MainActivity.getInstasnce().getResources().getDrawable(R.drawable.location_icon_pink));
-		}else if(theme_color.equals("green")){
+		}else if(SettingsData.getInstance().getThemeColor().equals("green")){
 			lyTopBar.setBackgroundColor(MainActivity.getInstasnce().getResources().getColor(R.color.bk_color_green_heavy));
 			lyMidBar.setBackgroundColor(MainActivity.getInstasnce().getResources().getColor(R.color.bk_color_green_mid));
 			
@@ -212,7 +210,7 @@ public class MapViewLayout extends BaseFragmentLayout {
 			tvValueTopRight.setBackgroundColor(MainActivity.getInstasnce().getResources().getColor(R.color.bk_color_green_heavy));
 			tvValueBottomRight.setBackgroundColor(MainActivity.getInstasnce().getResources().getColor(R.color.bk_color_green_heavy));
 			ivLocationIcon.setImageDrawable(MainActivity.getInstasnce().getResources().getDrawable(R.drawable.location_icon_green));
-		}else if(theme_color.equals("gray")){
+		}else if(SettingsData.getInstance().getThemeColor().equals("gray")){
 			lyTopBar.setBackgroundColor(MainActivity.getInstasnce().getResources().getColor(R.color.bk_color_gray_heavy));
 			lyMidBar.setBackgroundColor(MainActivity.getInstasnce().getResources().getColor(R.color.bk_color_gray_mid));
 			
@@ -228,13 +226,5 @@ public class MapViewLayout extends BaseFragmentLayout {
 			tvValueBottomRight.setBackgroundColor(MainActivity.getInstasnce().getResources().getColor(R.color.bk_color_gray_heavy));
 			ivLocationIcon.setImageDrawable(MainActivity.getInstasnce().getResources().getDrawable(R.drawable.location_icon_gray));
 		}
-	}
-	
-	public String getTheme_color() {
-		return theme_color;
-	}
-
-	public void setTheme_color(String theme_color) {
-		this.theme_color = theme_color;
 	}
 }

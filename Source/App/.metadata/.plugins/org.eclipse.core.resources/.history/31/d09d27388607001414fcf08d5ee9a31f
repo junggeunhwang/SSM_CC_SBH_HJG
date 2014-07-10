@@ -1,0 +1,7 @@
+package com.ssm.cyclists.view;
+
+import ViewPager.PageTransformer;
+
+public class ZoomOutPageTransformer extends PageTransformer {
+
+}

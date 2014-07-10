@@ -1,6 +1,7 @@
 package com.ssm.cyclists.model;
 
 import android.content.Context;
+import android.content.Intent;
 import android.location.Location;
 import android.os.Bundle;
 import android.util.Log;
@@ -57,17 +58,14 @@ public class GoogleLocationManager implements LocationListener ,ConnectionCallba
 		
 		CruiseDataManager.getInstance().setCurrent_loc(location.getLatitude(),location.getLongitude());
 		CruiseDataManager.getInstance().updateCruiseData();
-//		Toast.makeText(mContext, String.format("getLatitude,Longitude :%s",
-//				 CruiseDataManager.getInstance().getCurrent_loc().getLatitude()+","+CruiseDataManager.getInstance().getCurrent_loc().getLongitude()+"(Speed : "+CruiseDataManager.getInstance().getCurrent_speed()+")"), 
-//				Toast.LENGTH_SHORT).show();
 		
 		DataBaseManager.getInstance().updateLastLocation(location);				
 		if(MainActivity.getInstasnce().getLayout().getmMapViewFragment().isVisible()){
 			MainActivity.getInstasnce().getLayout().getmMapViewFragment().moveMapCamenra(location);
 		}
-		if(MainActivity.getInstasnce().getLayout().getmFragmentCruise().isVisible()){
-			MainActivity.getInstasnce().getLayout().getmFragmentCruise().updateCruiseInfo();
-		}
+		
+		if(MainActivity.getInstasnce().getLayout().getActivated_fragment().equals(MainActivity.getInstasnce().getLayout().getCruiseContainerFragment()))
+			MainActivity.getInstasnce().getLayout().getCruiseContainerFragment().getmCruiseFragment().updateCruiseInfo();
 	}
 
 	@Override

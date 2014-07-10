@@ -1,9 +1,12 @@
 package com.ssm.cyclists.view.layout;
 
+import net.simonvt.menudrawer.MenuDrawer;
+
 import com.ssm.cyclists.R;
 import com.ssm.cyclists.controller.activity.MainActivity;
 import com.ssm.cyclists.model.CruiseDataManager;
 import com.ssm.cyclists.model.ResourceManager;
+import com.ssm.cyclists.model.SettingsData;
 
 import android.app.Fragment;
 import android.graphics.Bitmap;
@@ -26,9 +29,7 @@ public class CruiseLayout extends BaseFragmentLayout {
 
 	static String TAG = CruiseLayout.class.getSimpleName();
 	
-	private String theme_color;
 	
-	private Button btnMenu;
 	private TextView tvAppName;
 	private TextView tvFragmentName;
 	
@@ -64,7 +65,6 @@ public class CruiseLayout extends BaseFragmentLayout {
 	
 	public CruiseLayout(Fragment instance) {
 		super(instance);
-		theme_color = "gray";
 	}
 	
 	public void init(){
@@ -103,9 +103,6 @@ public class CruiseLayout extends BaseFragmentLayout {
 		lyOuterCycle = (LinearLayout)getView().findViewById(R.id.outer_circle_cruise);
 		lyInnerCycle = (LinearLayout)getView().findViewById(R.id.inner_circle_cruise);
 		
-		btnMenu 		= (Button)getView().findViewById(R.id.menu_button_cruise);
-		btnMenu.setOnClickListener(buildMenuButtonListener());
-		
 		tvAppName.setTypeface(ResourceManager.getInstance().getFont("helveitica"));
 		tvFragmentName.setTypeface(ResourceManager.getInstance().getFont("helveitica"));
 		
@@ -142,16 +139,6 @@ public class CruiseLayout extends BaseFragmentLayout {
 		view = inflater.inflate(R.layout.fragment_cruise, container, false);
 	}
 
-	private OnClickListener buildMenuButtonListener(){
-		
-		return new OnClickListener(){
-
-			@Override
-			public void onClick(View v) {
-				((MainActivity)fragment.getActivity()).open_button(v);
-			}
-		};
-	}
 	
 	public void updateCruiseInfo(){
 		tvAltitudeData.post(new Runnable() {
@@ -204,7 +191,7 @@ public class CruiseLayout extends BaseFragmentLayout {
 	}
 	
 	public void updateColor(){
-		if(theme_color.equals("pink")){
+		if(SettingsData.getInstance().getThemeColor().equals("pink")){
 			lyTopBar.setBackgroundColor(MainActivity.getInstasnce().getResources().getColor(R.color.bk_color_pink_heavy));
 			lyMidBar.setBackgroundColor(MainActivity.getInstasnce().getResources().getColor(R.color.bk_color_pink_mid));
 			
@@ -235,7 +222,7 @@ public class CruiseLayout extends BaseFragmentLayout {
 			lyInnerCycle.setBackground(MainActivity.getInstasnce().getResources().getDrawable(R.drawable.inner_circle_pink));
 			lyOuterCycle.setBackground(MainActivity.getInstasnce().getResources().getDrawable(R.drawable.outer_circle_pink));
 			
-		}else if(theme_color.equals("green")){
+		}else if(SettingsData.getInstance().getThemeColor().equals("green")){
 			lyTopBar.setBackgroundColor(MainActivity.getInstasnce().getResources().getColor(R.color.bk_color_green_heavy));
 			lyMidBar.setBackgroundColor(MainActivity.getInstasnce().getResources().getColor(R.color.bk_color_green_mid));
 			
@@ -266,7 +253,7 @@ public class CruiseLayout extends BaseFragmentLayout {
 			lyInnerCycle.setBackground(MainActivity.getInstasnce().getResources().getDrawable(R.drawable.inner_circle_green));
 			lyOuterCycle.setBackground(MainActivity.getInstasnce().getResources().getDrawable(R.drawable.outer_circle_green));
 			
-		}else if(theme_color.equals("gray")){
+		}else if(SettingsData.getInstance().getThemeColor().equals("gray")){
 			lyTopBar.setBackgroundColor(MainActivity.getInstasnce().getResources().getColor(R.color.bk_color_gray_heavy));
 			lyMidBar.setBackgroundColor(MainActivity.getInstasnce().getResources().getColor(R.color.bk_color_gray_mid));
 			
@@ -298,12 +285,5 @@ public class CruiseLayout extends BaseFragmentLayout {
 			lyOuterCycle.setBackground(MainActivity.getInstasnce().getResources().getDrawable(R.drawable.outer_circle_gray));
 		}
 	}
-	
-	public String getTheme_color() {
-		 return theme_color;
-	 }
 
-	public void setTheme_color(String theme_color) {
-			this.theme_color = theme_color;
-	}
 }

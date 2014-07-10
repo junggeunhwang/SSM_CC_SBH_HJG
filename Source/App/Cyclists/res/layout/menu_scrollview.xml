@@ -24,14 +24,6 @@
             style="@style/MenuDrawer.Widget.Category" />
         
         <TextView
-            android:id="@+id/cruise_menu"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:drawableLeft="@drawable/cruise_icon"
-            android:text="Cruise"
-            style="@style/MenuDrawer.Widget.Title" />
-        
-        <TextView
             android:id="@+id/cycle_tracker_menu"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

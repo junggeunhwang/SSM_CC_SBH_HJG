@@ -7,6 +7,7 @@ import com.jjoe64.graphview.GraphView.GraphViewData;
 import com.ssm.cyclists.controller.activity.MainActivity;
 import com.ssm.cyclists.model.CruiseDataManager;
 import com.ssm.cyclists.model.CycleData;
+import com.ssm.cyclists.model.SettingsData;
 
 import twitter4j.GeoLocation;
 import android.content.ContentValues;
@@ -117,7 +118,7 @@ public class DataBaseManager extends SQLiteOpenHelper {
 	public void updateSettingInfo(){
 
 		ContentValues row = new ContentValues();
-		row.put("color",MainActivity.getInstasnce().getLayout().getmSettingsFragment().getLayout().getTheme_color());
+		row.put("color",SettingsData.getInstance().getThemeColor());
 		
 		db = manager.getWritableDatabase();
 		

@@ -4,17 +4,21 @@ import com.ssm.cyclists.view.layout.CruiseLayout;
 
 import android.app.Fragment;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 public class CruiseFragment extends Fragment {
 	
+	static String TAG = CruiseFragment.class.getSimpleName();
+	
 	private CruiseLayout layout;
 	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
+		Log.d(TAG,"onCreateView");
 		layout = new CruiseLayout(this);
 		layout.createView(inflater, container);
 		layout.init();

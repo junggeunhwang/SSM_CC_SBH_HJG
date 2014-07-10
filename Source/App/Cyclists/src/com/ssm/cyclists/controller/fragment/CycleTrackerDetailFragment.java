@@ -6,22 +6,27 @@ import com.ssm.cyclists.view.layout.CycleTrackerDetailLayout;
 import android.app.Fragment;
 import android.app.FragmentTransaction;
 import android.content.pm.ActivityInfo;
+import android.content.res.Configuration;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 public class CycleTrackerDetailFragment extends Fragment {
 
+	static String TAG = CycleTrackerDetailFragment.class.getSimpleName();
+	
 	private CycleTrackerDetailLayout layout;
 	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-		MainActivity.getInstasnce().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED);
+//		MainActivity.getInstasnce().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED);
 		layout = new CycleTrackerDetailLayout(this);
 		layout.createView(inflater, container);
 		layout.init();
+		Log.d(TAG, "onCreateView");
 		
 		
 		return layout.getView();
@@ -34,7 +39,6 @@ public class CycleTrackerDetailFragment extends Fragment {
 
 	@Override
 	public void onStart() {
-		layout.setTheme_color(MainActivity.getInstasnce().getLayout().getmSettingsFragment().getLayout().getTheme_color());
 		layout.updateColor();
 		super.onStart();
 	}
@@ -50,6 +54,4 @@ public class CycleTrackerDetailFragment extends Fragment {
 
 		super.onDestroy();
 	}
-	
-	
 }

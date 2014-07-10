@@ -3,6 +3,7 @@ package com.ssm.cyclists.view.layout;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.ssm.cyclists.R;
 import com.ssm.cyclists.controller.activity.MainActivity;
+import com.ssm.cyclists.controller.fragment.CruiseContainerFragment;
 import com.ssm.cyclists.controller.fragment.CruiseFragment;
 import com.ssm.cyclists.controller.fragment.CycleMateFragment;
 import com.ssm.cyclists.controller.fragment.CycleTrackerDetailFragment;
@@ -27,15 +28,12 @@ public class MainLayout{
 	
 	static String TAG = MainLayout.class.getSimpleName();
 	
-	private String theme_color;
-	
 	static private HomeFragment 			  mFragmentHome  	= new HomeFragment();
-	static private CruiseFragment			  mFragmentCruise = new CruiseFragment();
 	static private CycleMateFragment 		  mFragmentCycleMate = new CycleMateFragment();
 	static private CycleTrackerFragment 	  mFragmentCycleTracker = new CycleTrackerFragment();
 	static private MapViewFragment 			  mMapViewFragment = new MapViewFragment();
 	static private SettingsFragment 		  mSettingsFragment = new SettingsFragment();
-//	static private CycleTrackerDetailFragment mFragmentCycleTrackerDetail = new CycleTrackerDetailFragment();
+	static private CruiseContainerFragment    cruiseContainerFragment = new CruiseContainerFragment();
 	
 	public interface Listener{
 	}
@@ -48,7 +46,7 @@ public class MainLayout{
 	private int view = R.layout.activity_main;
 	
 	private TextView tvHomeMenu;
-	private TextView tvCruiseMenu;
+//	private TextView tvCruiseMenu;
 	private TextView tvCycleTrackerMenu;
 	private TextView tvCycleMateMenu;
 	private TextView tvMapMenu;
@@ -60,7 +58,6 @@ public class MainLayout{
 		
 	public MainLayout(MainActivity instance) {
 		activity = instance;
-		theme_color = "gray";
 	}
 	
 	public void init(){
@@ -70,22 +67,21 @@ public class MainLayout{
 	     mMenuDrawer.setContentView(R.layout.activity_main);
 	     mMenuDrawer.setMenuView(R.layout.menu_scrollview);
 
+	     
 	     tvHomeMenu = (TextView)activity.findViewById(R.id.home_menu);
-	     tvCruiseMenu = (TextView)activity.findViewById(R.id.cruise_menu);
 	     tvCycleTrackerMenu = (TextView)activity.findViewById(R.id.cycle_tracker_menu);
 	     tvCycleMateMenu = (TextView)activity.findViewById(R.id.cycle_mate_menu);
 	     tvMapMenu = (TextView)activity.findViewById(R.id.map_menu);
 	     tvSettingsMenu = (TextView)activity.findViewById(R.id.settings_menu);
 	     
 	     tvHomeMenu.setOnClickListener(buildClickListenr());
-	     tvCruiseMenu.setOnClickListener(buildClickListenr());
 	     tvCycleTrackerMenu.setOnClickListener(buildClickListenr());
 	     tvCycleMateMenu.setOnClickListener(buildClickListenr());
 	     tvMapMenu.setOnClickListener(buildClickListenr());
 	     tvSettingsMenu.setOnClickListener(buildClickListenr());
 	     
 	     tvHomeMenu.setTypeface(ResourceManager.getInstance().getFont("helvetica"));
-	     tvCruiseMenu.setTypeface(ResourceManager.getInstance().getFont("helvetica"));
+//	     tvCruiseMenu.setTypeface(ResourceManager.getInstance().getFont("helvetica"));
 	     tvCycleTrackerMenu.setTypeface(ResourceManager.getInstance().getFont("helvetica"));
 	     tvCycleMateMenu.setTypeface(ResourceManager.getInstance().getFont("helvetica"));
 	     tvMapMenu.setTypeface(ResourceManager.getInstance().getFont("helvetica"));
@@ -101,18 +97,18 @@ public class MainLayout{
 		 
 		 transaction.add(R.id.fragment, mMapViewFragment);
 		 transaction.add(R.id.fragment, mFragmentHome);
-		 transaction.add(R.id.fragment, mFragmentCruise);
 		 transaction.add(R.id.fragment, mFragmentCycleMate);
 		 transaction.add(R.id.fragment, mFragmentCycleTracker);
 		 transaction.add(R.id.fragment, mSettingsFragment);
+		 transaction.add(R.id.fragment,cruiseContainerFragment);
 //		 transaction.add(R.id.fragment, mFragmentCycleTrackerDetail);
 		 
 		 transaction.show(mFragmentHome);
-		 transaction.hide(mFragmentCruise);
 		 transaction.hide(mFragmentCycleMate);
 		 transaction.hide(mFragmentCycleTracker);
 		 transaction.hide(mMapViewFragment);
 		 transaction.hide(mSettingsFragment);
+		 transaction.hide(cruiseContainerFragment);
 //		 transaction.hide(mFragmentCycleTrackerDetail);
 		 
 		 transaction.commit();
@@ -143,16 +139,7 @@ public class MainLayout{
 			mFragmentHome.getLayout().updateColor();
 			transaction.commit();
 			break;
-		case R.layout.fragment_cruise:
-			newFragment = mFragmentCruise;
-			transaction.show(newFragment);
-			if(!newFragment.equals(activated_fragment)) transaction.hide(activated_fragment);
-			activated_fragment = mFragmentCruise;
-			transaction.commit();
-			mFragmentCruise.getLayout().updateColor();
-			mFragmentCruise.updateCruiseInfo();
-			mFragmentCruise.getLayout().updateColor();
-			break;
+		
 		case R.layout.fragment_cycle_tracker:
 			newFragment = mFragmentCycleTracker;
 			transaction.show(newFragment);
@@ -186,6 +173,13 @@ public class MainLayout{
 			transaction.commit();
 			mSettingsFragment.getLayout().updateColor();
 			break;
+		case R.layout.fragment_cruise_container:
+			newFragment = cruiseContainerFragment;
+			transaction.show(newFragment);
+			if(!newFragment.equals(activated_fragment)) transaction.hide(activated_fragment);
+			activated_fragment = cruiseContainerFragment;
+			transaction.commit();
+			break;
 		}
 
 		
@@ -202,9 +196,6 @@ public class MainLayout{
 			     switch(mActiveViewId){
 			     case R.id.home_menu:
 			    	 replaceFragment(R.layout.fragment_home);
-			    	 break;
-			     case R.id.cruise_menu:
-			    	 replaceFragment(R.layout.fragment_cruise);
 			    	 break;
 			     case R.id.cycle_tracker_menu:
 			    	 replaceFragment(R.layout.fragment_cycle_tracker);
@@ -250,11 +241,6 @@ public class MainLayout{
  		return mFragmentHome;
 	}
 
-	public CruiseFragment getmFragmentCruise() {
-		assert(mFragmentCruise!=null);
-		return mFragmentCruise;
-	}
-
 	public CycleMateFragment getmFragmentCycleMate() {
 		assert(mFragmentCycleMate!=null);
 		return mFragmentCycleMate;
@@ -283,14 +269,11 @@ public class MainLayout{
 		return mMenuDrawer;
 	}
 
-	public String getTheme_color() {
-		return theme_color;
+	public static CruiseContainerFragment getCruiseContainerFragment() {
+		return cruiseContainerFragment;
 	}
 
-	public void setTheme_color(String theme_color) {
-		this.theme_color = theme_color;
-	}
-
+	
 	public void setActivated_fragment(Fragment activated_fragment) {
 		this.activated_fragment = activated_fragment;
 	}
