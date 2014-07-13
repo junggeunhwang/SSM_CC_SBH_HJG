@@ -54,13 +54,15 @@ function SAPFileInit()
 				var queuedata={};
 				var filename;
 				
+				queuedata.type = "file";
+				
 				try
 				{
 					queuedata.path = filesystem.getSystemPath(localPath);
 				
 					filename = filesystem.getFileNameWithoutExtension(localPath);
 					
-					queuedata.name = filename.slice(filename.indexOf("kqpq")+4);
+					queuedata.sender = filename.slice(filename.indexOf("kqpq")+4);
 				}catch(e)
 				{
 					console.log("Error Exception, error name : " + e.name + ", error message : " + e.message); 
@@ -68,7 +70,7 @@ function SAPFileInit()
 				
 				console.log(queuedata.name);
 				
-				multicastedfilequeue.push(queuedata);
+				multicastedqueue.push(queuedata);
 				
 			}, 
 			onerror : function(errorCode, transferId){ 

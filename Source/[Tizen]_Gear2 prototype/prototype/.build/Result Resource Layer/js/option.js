@@ -2,7 +2,7 @@
 
 function optionInit(){
 	// 옵션 버튼들
-	var TestButton,AudioRecordButton,AudioPlayButton,SendToHostDeviceButton;
+	var TestButton,AudioRecordButton,AudioPlayButton;
 	var OptionButton;
 	var togglepageReleaseFunc;
 
@@ -76,14 +76,6 @@ function optionInit(){
     	audioplay.play(params);
     }
     
-    // send to host
-    
-    function onSendToHost()
-    {
-    	//g_SAPStringSock.sendData(g_SAAgent.channelIds[0],"Hello I'm gear 2");
-    	tau.changePage("#sappage");
-    	transferinit();
-    }
     //option
     function onOptionPage()
     {
@@ -98,12 +90,10 @@ function optionInit(){
     TestButton = document.getElementById("test");
     AudioRecordButton = document.getElementById("start_record");
     AudioPlayButton = document.getElementById("play_record");
-    SendToHostDeviceButton = document.getElementById("send_to_host");
-    OptionButton = document.getElementById("hoption");
+    OptionButton = document.getElementById("peerstatus");
 
     TestButton.addEventListener("click",onTestPage);
     AudioRecordButton.addEventListener("click",onAudioRecordingOperation);
     AudioPlayButton.addEventListener("click",onAudioPlayingOperation);
-    SendToHostDeviceButton.addEventListener("click", onSendToHost);
     OptionButton.addEventListener("click", onOptionPage);
 }

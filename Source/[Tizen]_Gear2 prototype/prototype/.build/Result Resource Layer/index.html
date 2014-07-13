@@ -14,35 +14,44 @@
     </style>
 </head>
 <body>
-	<!-- First Page - Device information and Main Operation -->
-	<div id = "mainpage" class="ui-page  ui-page-active">
-		<a href="#" id="hoption" style="font-size:20px" ><header class="ui-header">Gear Fitness Widget</header></a>
-			<div style="height:40%;width:100%;font-size:30px">
-				<p><span id="peerstatus">안녕하세요 반갑습니다.</span></p>
-				<p><span id="extrastatus">추가 정보.</span></p>
-			</div>
-		<a href = "#" id="leftToggle"><img src = "./images/leftToggle.PNG" style="width:33%"></a>
-		<a href = "#" id="recordOperation"><img src = "./images/startrecord.PNG" style="width:33%" id = "recordOperationImg"></a>
-		<a href = "#" id="rightToggle"><img src = "./images/rightToggle.PNG" style="width:32%"></a>
-	</div>
-	<!-- Second Page - Alert proper information (fitness information, etc -->
-	<div id = "secondpage" class="ui-page">
-		<!--<header class="ui-header" style="font-size:20px">Fitness Information</header>-->
-		<div id="secondpage_part" style="background: url(./images/secondpage_1.PNG);height:320px;widgh:320px">
-			<!-- <p><span style="float:left">속력</span><span id ="fi1" style="float:right">12km</span></p><br>
-			<p><span style="float:left">운동 거리</span><span id ="fi2" style="float:right">6km</span></p><br>
-			<p><span style="float:left">운동 시간</span><span id ="fi3" style="float:right">30분</span></p><br>
-			<p><span style="float:left">현위치</span><span id ="fi4" style="float:right">강서구</span></p> -->
+	<!-- First Page - Kcal , recording button, directiontictok buttons, motioncheck button -->
+	<!-- main Page -->
+	<div class="ui-page ui-page-active" id="mainpage">
+		<div id="mainbackground">
+			<span id="altitude" class="fitnessinfo" style="text-align:center;margin-top:50px;width:320px">0.0 m</span>
+			<span id="distance" class="fitnessinfo" style="text-align:center;margin-top:160px;width:320px">0.0 km</span>
+			<span id="avgspeed" class="fitnessinfo" style="text-align:center;margin-top:285px;width:150px">0.0 km/h</span>
+			<span id="maxspeed" class="fitnessinfo" style="text-align:center;margin-left:170px;margin-top:285px;width:150px">0.0 km/h</span>
+			<div id="ironmanheart">
+			</div>		
 		</div>
 	</div>
-	<!-- Third Page - Multicasted Information Visualization - group audio information group string information -->
-	<div id = "thirdpage" class="ui-page">
-		<header class="ui-header" style="font-size:20px">Group Information</header>
-		<div style="width:100%;font-size:30px">
-			<p id="information1" style="float:centor">음성이 수신되었습니다.</p><br>
-			<p><span style="float:left">송신자</span><span id ="filesender" style="float:right">01050501010</span></p><br>
+	<!-- Second Page - speed information(avg,max,distance,altitude) (fitness information, etc -->
+	<div class="ui-page" id="secondpage">
+		<div id="secondbackground">
+			<span id="deviceinfo" class="fitnessinfo" style="font-size:25px;margin-top:25px;margin-left:10px"></span>
+			<img id="recordbutton" src="./image/secondpage/recording.png" style="position:absolute;height:25%;width:25%;margin-left:75%">
+			<img id="leftToggle" src="./image/secondpage/leftToggle.png" style="position:absolute;margin-top:38%;margin-left:7px">
+			<img id="rightToggle" src="./image/secondpage/rightToggle.png" style="position:absolute;margin-top:38%;margin-left:79%">
+			<span id="kcalinfo" class="fitnessinfo" style="text-align:center;margin-top:180px;width:320px;font-size:30px">0 kcal</span>
+			<input type="checkbox" id="motioncheckbox" style="margin-top:260px;">
+			<label for="motioncheckbox" style="font-size:20px;position:absolute;margin-top:275px">Enable Motion Recognition</label>
 		</div>
 	</div>
+	<!-- alert page -->
+	<div id = "alertpage" class="ui-page">
+		<img id="alertimage" src="./image/alertpage/background.png" style="height:40%;width:40%;margin-left:95px">
+		<p id="alertmsg" style="font-family:나눔고딕;font-size:30px"></p>
+		<p><span style="float:left;font-family:나눔고딕;font-size:30px">Sender : </span><span id ="sender" style="float:right;font-family:나눔고딕;font-size:30px"></span></p><br>
+	</div>
+	<!-- voice recordpage -->
+	<div id = "voicerecordpage" class="ui-page">
+		<img id="recordView" src="./image/voicerecordpage/recording.png" style="position:absolute;height:50%;width:50%;opacity:0.9;margin-left:80px">
+		<span id="recordinfo" class="fitnessinfo" style="text-align:center;font-size:30px;width:320px;margin-top:160px"></span>
+		<img id="recordOperation" src="./image/voicerecordpage/startrecord.PNG" style="position:absolute;margin-left:105px;margin-top:205px">
+	</div>
+	
+	
 	<!-- option ui -->
     <div id = "optionpage" class="ui-page">
     <h1>Prototype</h1>
@@ -55,7 +64,7 @@
     </div>
     <!-- Togglepage for directiontictok -->
     <div id = "directiontictok" class="ui-page">
-    	<img src = "/images/background.PNG" id = "toggleimg">
+    	<img src = "/image/background.png" id = "toggleimg" class="tictokstyle">
     </div>
     
     <!-- Accel logging page -->
@@ -68,14 +77,6 @@
         </p>
     	<button type="button" style="width:98%;height:60%" id = "log_operation">start accel log</button><br>
     	<button type="button" style="width:98%;height:20%" id = "normal_operation">start normal log</button>
-    </div>
-    
-    <!-- SAP Transfer test page -->
-    <div id = "sappage" class="ui-page">
-    	<ul class="ui-listview">
-    		<li><a href="#" id = "string">string</a></li>
-			<li><a href="#" id = "amrfile">amr file</a></li>
-		</ul>
     </div>
 </body>
 <script type="text/javascript" src="/lib/tau/js/tau.min.js"></script>

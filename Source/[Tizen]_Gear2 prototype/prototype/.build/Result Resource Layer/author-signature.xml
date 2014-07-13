@@ -8,55 +8,79 @@
 </Reference>
 <Reference URI="css/style.css">
 <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
-<DigestValue>hh2SknqtdLScRgyXuQYEUi5haESolIC2w7NZognlif8=</DigestValue>
+<DigestValue>9QIEQwozxIil4FVC2PsWBzrh6mRZiqFyBnsXWQA7/Q0=</DigestValue>
 </Reference>
 <Reference URI="icon.png">
 <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
 <DigestValue>vPjxjOppORd6hn9Bw4sh06gqtDoJzoFbV/8e9FyIdvk=</DigestValue>
 </Reference>
-<Reference URI="images/background.PNG">
+<Reference URI="image/alertpage/background.png">
 <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
-<DigestValue>5yz6XVZXDiA2Z2AopLTy14w1Av6MqhgepnLL4x8Ee8k=</DigestValue>
+<DigestValue>d01oO0yh/lErbtS8/LVwrcHkEPn5tdS6jMrQF1PZAKk=</DigestValue>
 </Reference>
-<Reference URI="images/left.PNG">
+<Reference URI="image/background.png">
 <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
-<DigestValue>dXJbsdQgxq8Z8eHCJIoYZc97OYFY26uDxh9ll2cl1Vg=</DigestValue>
+<DigestValue>snhV6pQZ7TDdx/PTSuzUrkWyZlipSvXv6FkkCFLWof4=</DigestValue>
 </Reference>
-<Reference URI="images/leftToggle.PNG">
+<Reference URI="image/left.png">
+<DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
+<DigestValue>rhhMXl46X2zJCffyLC78gs4HTQkEmV4Lb6sgj+18Rg8=</DigestValue>
+</Reference>
+<Reference URI="image/mainpage/ironmanheart-transparent.png">
+<DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
+<DigestValue>x9zR/usIaF9ZZdGmM5xhr2MQoRHpP7cbgzXPc9O58rw=</DigestValue>
+</Reference>
+<Reference URI="image/mainpage/speedbackground.png">
+<DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
+<DigestValue>Zyr6cr/KBVsx29Uqe9O4iUElMfprFVKOFmRwiegZuCQ=</DigestValue>
+</Reference>
+<Reference URI="image/right.png">
+<DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
+<DigestValue>6alwmW1MwkeAHiwZDGmJf3pii68a20967ScO35BfRcg=</DigestValue>
+</Reference>
+<Reference URI="image/secondpage/background.png">
+<DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
+<DigestValue>RwxHlLzYt7xEKHlKPNjOQs/rmo2ktDxhzo5N25+fSkQ=</DigestValue>
+</Reference>
+<Reference URI="image/secondpage/leftToggle.png">
+<DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
+<DigestValue>2pc/sJ3y2WLITimACmuGlhRLcxggUgBzIigrY7ZeMGQ=</DigestValue>
+</Reference>
+<Reference URI="image/secondpage/leftToggle1.png">
 <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
 <DigestValue>uojEUzcpXLXe7Btp54HKdTOHR8QQosC8vzKNj6SYZ7U=</DigestValue>
 </Reference>
-<Reference URI="images/right.PNG">
+<Reference URI="image/secondpage/recording.png">
 <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
-<DigestValue>gCmPtz4aCh4q+0JSAswYFvI6T9/9LCpGII1t5wi4XwY=</DigestValue>
+<DigestValue>csWSO5Xp3NNv2Y5Z5Fm9umGPN7N3uvdlkYCrNJCqpQk=</DigestValue>
 </Reference>
-<Reference URI="images/rightToggle.PNG">
+<Reference URI="image/secondpage/rightToggle.png">
+<DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
+<DigestValue>Qd/mREbPRy9234RxG9bOOgFr5fVNRfP09hnE6DIZmfw=</DigestValue>
+</Reference>
+<Reference URI="image/secondpage/rightToggle1.PNG">
 <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
 <DigestValue>0iUsmL70sa2GitDhV5c8XLzlyDp6mxyyZdj1Fk2vl8c=</DigestValue>
 </Reference>
-<Reference URI="images/secondpage_1.PNG">
+<Reference URI="image/voicerecordpage/recording.png">
 <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
-<DigestValue>SQr+k2NhS+mlQr7yPGNHKarYpru0BJGvdKB3VRaEIgQ=</DigestValue>
+<DigestValue>csWSO5Xp3NNv2Y5Z5Fm9umGPN7N3uvdlkYCrNJCqpQk=</DigestValue>
 </Reference>
-<Reference URI="images/secondpage_2.PNG">
-<DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
-<DigestValue>ZSVeAFsVkYv9i0GZH61+sEvtD0nPuivFH3BepH64tp0=</DigestValue>
-</Reference>
-<Reference URI="images/startrecord.PNG">
+<Reference URI="image/voicerecordpage/startrecord.PNG">
 <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
 <DigestValue>CWps1JVbifOXTA+k88h5nddterJIDEw4KjjUK31kLaw=</DigestValue>
 </Reference>
-<Reference URI="images/stoprecord.PNG">
+<Reference URI="image/voicerecordpage/stoprecord.PNG">
 <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
 <DigestValue>Pv1R5v2L3q4ExGnB5wwHAbPbaa6LnghKPm1XObeqUdE=</DigestValue>
 </Reference>
 <Reference URI="index.html">
 <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
-<DigestValue>Ipf81qHuttxIvz6bEppypTfV9/Jm8q/9c34LILjQe48=</DigestValue>
+<DigestValue>5Q/S1k/lAh8quZpUunpKHzmgHVHRNEb6tmJdFAIjbhc=</DigestValue>
 </Reference>
 <Reference URI="js/core/SAPFile.js">
 <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
-<DigestValue>KJhkWkMGErgHPlcLBKjSQEGPhS6uSu7J1G5ZmLglWCY=</DigestValue>
+<DigestValue>cVnRAx//Igw1cjvWF54F2AHVSmRNxFciOHv1luqY2kM=</DigestValue>
 </Reference>
 <Reference URI="js/core/SAPInit.js">
 <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
@@ -64,7 +88,7 @@
 </Reference>
 <Reference URI="js/core/SAPString.js">
 <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
-<DigestValue>9+N9oNButP/cssCtCdCXA+4FVHYYzCju5iN2LU5Zim4=</DigestValue>
+<DigestValue>iKYZvub3LWx5OSu2CFb+U+HGhcgF9gYcsNDLJ2XrH3Q=</DigestValue>
 </Reference>
 <Reference URI="js/core/audioplay.js">
 <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
@@ -76,7 +100,7 @@
 </Reference>
 <Reference URI="js/core/displayvariable.js">
 <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
-<DigestValue>2mC52Xc5mnFVSiLFqw3tcOtChh3UbRhCEcHm9CeuPP0=</DigestValue>
+<DigestValue>llD+FS/JgX52sB2HFWFcG7V2iJkFNnElqzeIOTk35ZA=</DigestValue>
 </Reference>
 <Reference URI="js/core/event.js">
 <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
@@ -100,11 +124,11 @@
 </Reference>
 <Reference URI="js/main.js">
 <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
-<DigestValue>qVhF4lO/frS0vG3w/Ys0mp+CQKXA986ZnhbDj3MAFME=</DigestValue>
+<DigestValue>NrSQO5yYbBID8Lvi8Sg7DcgKfoTFwuMU0LZBjGgwRE0=</DigestValue>
 </Reference>
 <Reference URI="js/motioncheck.js">
 <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
-<DigestValue>V361yCIELRDK6qtiZxFaUWQaQffbmK8d/8zRupuDKiA=</DigestValue>
+<DigestValue>jHegHeXliEN0D0OJPF7XYTtjQuxwxSN8jNHxdsovt7U=</DigestValue>
 </Reference>
 <Reference URI="js/motionlog.js">
 <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
@@ -112,11 +136,11 @@
 </Reference>
 <Reference URI="js/option.js">
 <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
-<DigestValue>FjtvisQCUIb+2dv2l+akGsTyxoLlg/NkBKDc0EffDtY=</DigestValue>
+<DigestValue>NCgqVzabblHfdMP6LZp2f6iPeogQlwvKHK8svgFa0J4=</DigestValue>
 </Reference>
 <Reference URI="js/toggle.js">
 <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
-<DigestValue>1FqGVLvH7Sd2h6lR/9wC/YaI3S5YLnT5Rk2qG8vGJ2A=</DigestValue>
+<DigestValue>4CKdcVrDfwxr2RqWpj9YrN9MXZPOMmNCO6p6KKxpYmM=</DigestValue>
 </Reference>
 <Reference URI="js/transfertest.js">
 <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
@@ -359,11 +383,11 @@
 </Reference>
 </SignedInfo>
 <SignatureValue>
-mg95rsarAgP5zsTLJ0yr8FutMSinwrCFJDcPSua2NLIX1T3FUqnwNc6ncN5kpXkmtpnMEXWR3SS7
-mJqND9aqczw0BKV2mUaFpXWf3JHKr/UZfLSAXKwjmzGYxSjQAVJXqr6jlh8o38JfCRC+lan32tYe
-st3v61rr1DcLJkCE+E9+6cyMNFavfoVqC9McP2Uk6kS0EQRuqKKYQWtdEbDvhZDHnYl0mTLG9b1D
-faRlVdzOnI56Y+C+Xdum5YwFhVNQ3HOzY0L3vp5FGGCaS8kSa3mW1pY5JeA16lB/gmJGL3djoLIJ
-E7ehiV2838mEVLEJDd1mccHpe4IJUQF4iCwSQg==
+ESHTpqzoDEa94j8yqUgUO8B4Qntb/WSptGai3FSTglJq16v0ELWZlNZN0IbiTdfpls3Oa8qt1qcQ
+0woUM2rRbGM3jE+wNboW4JIK+Fy8jZS2eJWA+Q2Q7B+RGyF9KFFkfS+KXsai96lJJ+Mg1kpJiKxK
+1adi4dqsPPhzVdOP3imKV1me3HGgrNEikBRpydGLp7nWYKMYxklFGgtH5qplMWPnLpAToKA26TYV
+22aRMzR8xUuzGFf1unNZgbBRB7TRYsBRWQIyowCftjzUeu0TjxJ/wXLgo+M0AYKSPU9JL5foeHeE
+9vjASr1+kkimmF62pmRSKCngCcr5MrlViTB8LA==
 </SignatureValue>
 <KeyInfo>
 <X509Data>
