@@ -20,7 +20,6 @@
 <fullyQualifiedTypeName name="com.ssm.cyclists.controller.FacebookManager"/>
 <fullyQualifiedTypeName name="android.net.wifi.WifiConfiguration.Protocol"/>
 <fullyQualifiedTypeName name="android.widget.Toast"/>
-<fullyQualifiedTypeName name="com.ssm.cyclists.model.SettingsData"/>
 <fullyQualifiedTypeName name="com.ssm.cyclists.model.CruiseDataManager"/>
 <fullyQualifiedTypeName name="com.ssm.cyclists.controller.DataBaseManager"/>
 <fullyQualifiedTypeName name="java.util.Calendar"/>
@@ -35,11 +34,9 @@
 <fullyQualifiedTypeName name="android.location.Location"/>
 <fullyQualifiedTypeName name="java.util.StringTokenizer"/>
 <fullyQualifiedTypeName name="android.widget.AdapterView.OnItemClickListener"/>
-<fullyQualifiedTypeName name="com.ssm.cyclists.controller.communication.https.Protocol"/>
 <fullyQualifiedTypeName name="com.ssm.cyclists.R"/>
 <fullyQualifiedTypeName name="com.ssm.cyclists.R.id"/>
 <fullyQualifiedTypeName name="android.database.sqlite.SQLiteException"/>
-<fullyQualifiedTypeName name="com.ssm.cyclists.controller.manager.SettingsDataManager"/>
 <fullyQualifiedTypeName name="java.util.Date"/>
 <fullyQualifiedTypeName name="com.ssm.cyclists.controller.manager.CruiseDataManager"/>
 <fullyQualifiedTypeName name="java.lang.Runnable"/>
@@ -60,4 +57,7 @@
 <fullyQualifiedTypeName name="java.util.ArrayList"/>
 <fullyQualifiedTypeName name="com.jjoe64.graphview.GraphView"/>
 <fullyQualifiedTypeName name="com.jjoe64.graphview.GraphView.GraphViewData"/>
+<fullyQualifiedTypeName name="com.ssm.cyclists.controller.communication.https.Protocol"/>
+<fullyQualifiedTypeName name="com.ssm.cyclists.model.SettingsData"/>
+<fullyQualifiedTypeName name="com.ssm.cyclists.controller.manager.SettingsDataManager"/>
 </qualifiedTypeNameHistroy>

@@ -51,12 +51,9 @@ public class CycleRoomLayout extends BaseFragmentLayout {
 		lyTopBar		= (LinearLayout)getView().findViewById(R.id.top_bar_cycle_room);
 		
 		lvCycleRoomMember = (ListView)getView().findViewById(R.id.cruise_mate_list_cycle_room);
-		ArrayList<UserData> arGeneral = new ArrayList<UserData>();
-		UserData data = new UserData();
-		data.setUserName("È²Á¤±Ù");
-		arGeneral.add(data);
 		
-		Adapter = new CycleRoomListViewAdapter(getView().getContext(),R.layout.cycle_room_listview_row,arGeneral);
+		Adapter = new CycleRoomListViewAdapter(getView().getContext(),R.layout.cycle_room_listview_row,SettingsDataManager.getInstance().getCurrentRoomFriendList());
+		
 		lvCycleRoomMember.setAdapter(Adapter);
 		
 		

@@ -102,7 +102,10 @@ public class Protocol {
 					}
 				}else if(hcn.getResponseOrder().equals("login")){
 					
-					if(hcn.getStringResponseData().equals("SUCCESS")) Log.i(TAG,"Login Success");
+					if(hcn.getStringResponseData().equals("SUCCESS")){
+						Log.i(TAG,"Login Success");
+						FriendsListRequest(SettingsDataManager.getInstance().getMe().getUniqueID());
+					}
 					else if(hcn.getStringResponseData().equals("EALREADYLOGIN")) Log.e(TAG,"Login Fail : EALREADYLOGIN");
 					else if(hcn.getStringResponseData().equals("EMISSING")) Log.e(TAG,"Login Fail : EMISSING");
 					
@@ -114,7 +117,11 @@ public class Protocol {
 					
 				}else if(hcn.getResponseOrder().equals("mkroom")){
 					
-					if(hcn.getStringResponseData().equals("SUCCESS")) Log.i(TAG,"MakeRoom Success");
+					if(hcn.getStringResponseData().equals("SUCCESS")){
+						Log.i(TAG,"MakeRoom Success");
+						//¹æ »ý¼º
+//						Protocol.getInstance().MakeRoom(SettingsDataManager.getInstance().getMe().getUniqueID(),);
+					}
 					else if(hcn.getStringResponseData().equals("ENOTLOGIN")) Log.e(TAG,"MakeRoom Fail : ENOTLOGIN");
 					else if(hcn.getStringResponseData().equals("EMISSING")) Log.e(TAG,"MakeRoom Fail : EMISSING");
 					
@@ -139,7 +146,7 @@ public class Protocol {
 					else if(hcn.getStringResponseData().equals("ENOTARGET")) Log.e(TAG,"AddFriend Fail : ENOTTARGET");
 					else if(hcn.getStringResponseData().equals("EALREADYFRIEND")) Log.e(TAG,"AddFriend Fail : EALREADYFRIEND");
 					else if(hcn.getStringResponseData().equals("EMISSING")) Log.e(TAG,"AddFriend Fail : EMISSING");
-					else if(hcn.getStringResponseData().equals("SUCCESS")){
+					else{
 						Toast.makeText(MainActivity.getInstasnce().getApplicationContext(),"Add friend success",Toast.LENGTH_SHORT).show();
 						Log.d(TAG,"AddFriend Success");
 					}
@@ -156,26 +163,28 @@ public class Protocol {
 					
 				}else if(hcn.getResponseOrder().equals("friendlist")){
 					
-					if(hcn.getResponseType().equals("TEXT")){
+					if(hcn.getResponseType().equals("text")){
 						if(hcn.getStringResponseData().equals("ENOTLOGIN")) Log.e(TAG,"Get FriendList Fail : ENOTLOGIN");
 						else if(hcn.getStringResponseData().equals("ENOLIST")) Log.e(TAG,"Get FriendList Fail : ENOLIST");
 						else if(hcn.getStringResponseData().equals("EMISSING")) Log.e(TAG,"Get FriendList Fail : EMISSING");	
 					}
-					else if(hcn.getResponseType().equals("STRING")){
+					else if(hcn.getResponseType().equals("string")){
 						Log.i(TAG,"get FriendList Success");
 						String friendlist = hcn.getStringResponseData();
 						
-						StringTokenizer tokenizer = new StringTokenizer(friendlist,";");
+ 						StringTokenizer tokenizer = new StringTokenizer(friendlist,";");
 						
 						ArrayList<UserData> friendsList = new ArrayList<UserData>();
 						
-						String UniqueID;
-						while((UniqueID = tokenizer.nextToken())!=null){
-							UserData friend = new UserData();
-							friend.setUniqueID(UniqueID);
-							GetName(SettingsDataManager.getInstance().getMe().getUniqueID(), UniqueID);
+						String UniqueID = null;
+  						while(tokenizer.hasMoreElements()){
+  							UniqueID = tokenizer.nextToken();
+  							UserData friend = new UserData();
+ 							friend.setUniqueID(UniqueID);
+ 							GetName(SettingsDataManager.getInstance().getMe().getUniqueID(), UniqueID);
 							GetImage(SettingsDataManager.getInstance().getMe().getUniqueID(), UniqueID);
 							friendsList.add(friend);
+							
 						}
 						SettingsDataManager.getInstance().setFriendList(friendsList);
 					}
@@ -232,7 +241,10 @@ public class Protocol {
 					else if(hcn.getStringResponseData().equals("ENOTJOINROOM")) Log.e(TAG,"inviteroom Fail : ENOTJOINROOM");
 					else if(hcn.getStringResponseData().equals("ETARGETNOTLOGIN")) Log.e(TAG,"inviteroom Fail : ETARGETNOTLOGIN");
 					else if(hcn.getStringResponseData().equals("ETARGETALREADYJOINROOM")) Log.e(TAG,"inviteroom Fail : ETARGETALREADYJOINROOM");
-					else if(hcn.getStringResponseData().equals("SUCCESS")) Log.e(TAG,"inviteroom SUCCESS");
+					else if(hcn.getStringResponseData().equals("SUCCESS")){
+						Log.e(TAG,"inviteroom SUCCESS");
+						MainActivity.getInstasnce().popupNotification();
+					}
 				}
 			}
 			
@@ -296,9 +308,9 @@ public class Protocol {
 	
 	public boolean FriendsListRequest(String myNumber){
 		HttpsCommunication httpsCommunication = new HttpsCommunication(httpsCallback);
-		httpsCommunication.setUniqueNumber(myNumber);
 		httpsCommunication.setType(HttpsCommunication.TYPE_REQUEST);
 		httpsCommunication.setStringData("friendlist");
+		httpsCommunication.setUniqueNumber(myNumber);
 		
 		if(!httpsCommunication.ExecuteRequest()){
 			Log.e(TAG, "friendlist requeset failed");

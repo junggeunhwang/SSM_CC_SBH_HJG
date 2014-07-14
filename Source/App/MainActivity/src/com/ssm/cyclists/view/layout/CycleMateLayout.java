@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 
 
+
 import com.nhaarman.listviewanimations.itemmanipulation.OnDismissCallback;
 import com.ssm.cyclists.R;
 import com.ssm.cyclists.controller.activity.MainActivity;
@@ -14,6 +15,7 @@ import com.ssm.cyclists.controller.fragment.CycleMateFragment;
 import com.ssm.cyclists.controller.fragment.SearchCycleMateFragment;
 import com.ssm.cyclists.controller.manager.ResourceManager;
 import com.ssm.cyclists.controller.manager.SettingsDataManager;
+import com.ssm.cyclists.model.SettingsData;
 import com.ssm.cyclists.model.UserData;
 import com.ssm.cyclists.model.adapter.CycleMateListViewAdapter;
 import com.ssm.cyclists.view.EnhancedListView;
@@ -108,12 +110,12 @@ public class CycleMateLayout extends BaseFragmentLayout{
 		tvSearch.setTypeface(ResourceManager.getInstance().getFont("helveitica"));
 		etSearchData.setTypeface(ResourceManager.getInstance().getFont("helveitica"));		
 		
-		ArrayList<UserData> arGeneral = new ArrayList<UserData>();
-		UserData data = new UserData();
-		data.setUserName("황정근");
-		arGeneral.add(data);
+//		ArrayList<UserData> arGeneral = new ArrayList<UserData>();
+//		UserData data = new UserData();
+//		data.setUserName("황정근");
+//		arGeneral.add(data);
 
-		Adapter = new CycleMateListViewAdapter(getView().getContext(),R.layout.cyclemate_listview_row,arGeneral);
+		Adapter = new CycleMateListViewAdapter(getView().getContext(),R.layout.cyclemate_listview_row,SettingsDataManager.getInstance().getFriendList());
 		lvCycleMate.setOnItemClickListener(new OnItemClickListener() {
 
 			@Override
@@ -124,6 +126,8 @@ public class CycleMateLayout extends BaseFragmentLayout{
 			
 		lvCycleMate.setAdapter(Adapter);
 
+		Protocol.getInstance().FriendsListRequest(SettingsDataManager.getInstance().getMe().getUniqueID());
+		
 		//색상 업데이트
 		updateColor();
 	}

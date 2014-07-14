@@ -110,7 +110,7 @@ public class HomeLayout extends BaseFragmentLayout {
 				}
 				else{
 					MainActivity.getInstasnce().getLayout().getmMenuDrawer().setTouchMode(MenuDrawer.TOUCH_MODE_BEZEL);
-//					MainActivity.getInstasnce().getLayout().getmCruiseContainerFragment().setViewPagerBounds(1);
+//					MainActivity.getInstasnce().getLayout().getmCruiseContainerFra  gment().setViewPagerBounds(1);
 					//자전거타기 종료
 					SettingsDataManager.getInstance().setStart_stopBicycleFlag(false);
 					CruiseDataManager.getInstance().setCycle_data_list(DataBaseManager.getInstance().selectCruiseData());

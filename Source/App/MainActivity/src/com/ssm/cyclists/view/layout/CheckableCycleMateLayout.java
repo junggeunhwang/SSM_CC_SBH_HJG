@@ -87,22 +87,25 @@ public class CheckableCycleMateLayout extends BaseFragmentLayout{
 						checkedUser.add((UserData)Adapter.getItem(i));
 					}
 				}
-				//방 생성
-				Protocol.getInstance().MakeRoom(SettingsDataManager.getInstance().getMe().getUniqueID());
+				
 
 				String friendsUniqueID = "roommember,";
+				
+				
 				//선택된 사용자 초대
 				for(int i = 0 ; i < checkedUser.size();i++){
 					Protocol.getInstance().InviteFriend(SettingsDataManager.getInstance().getMe().getUniqueID(),checkedUser.get(i).getUniqueID());
 					friendsUniqueID += checkedUser.get(i).getUniqueID();
 					if((i+1)!=checkedUser.size()) friendsUniqueID += ",";
 				}
+				
+				
 				//방 초대 목록 브로드케스트
 				//초대 실패 고료해야하는데... 졸리다....
 				Protocol.getInstance().SendString(friendsUniqueID, SettingsDataManager.getInstance().getMe().getUniqueID());
 				//뷰페이저  활성화
 				MainActivity.getInstasnce().getLayout().replaceFragment(R.layout.fragment_cruise_container);
-				MainActivity.getInstasnce().getLayout().getmCruiseContainerFragment().setViewPagerBounds(4);
+//				MainActivity.getInstasnce().getLayout().getmCruiseCsontainerFragment().setViewPagerBounds(4);
 				//운항 기록 시작
 				MainActivity.getInstasnce().startCruiseInfoRecord();
 			}
@@ -120,12 +123,7 @@ public class CheckableCycleMateLayout extends BaseFragmentLayout{
 		tvFragmentName.setTypeface(ResourceManager.getInstance().getFont("helveitica"));
 		etSearchData.setTypeface(ResourceManager.getInstance().getFont("helveitica"));		
 		
-		ArrayList<UserData> arGeneral = new ArrayList<UserData>();
-		UserData data = new UserData();
-		data.setUserName("황정근");
-		arGeneral.add(data);
-
-		Adapter = new CheckableCycleMateListViewAdapter(getView().getContext(),R.layout.checkable_cyclemate_listview_row,arGeneral);
+		Adapter = new CheckableCycleMateListViewAdapter(getView().getContext(),R.layout.checkable_cyclemate_listview_row,SettingsDataManager.getInstance().getFriendList());
 		
 		lvCycleMate.setAdapter(Adapter);
 

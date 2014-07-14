@@ -108,24 +108,26 @@ public class CycleTrackerDetailGraphLayout extends BaseFragmentLayout {
 		SpeedData = new GraphViewData[speedList.size()];
 		AltitudeData = new GraphViewData[altitudeList.size()];
 		
-		
+		double distanceSum=0;
 		
 		for(int i = 0 ; i < speedList.size();i++){
+			distanceSum+=distList.get(i);
+			
 			if(SpeedMax<Double.valueOf(speedList.get(i))) SpeedMax =Double.valueOf(speedList.get(i)); 
-			GraphViewData gvSpeedData = new GraphViewData(distList.get(i),Double.valueOf(speedList.get(i)));
+			GraphViewData gvSpeedData = new GraphViewData(distanceSum,Double.valueOf(speedList.get(i)));
 			SpeedData[i] = gvSpeedData;
 			
 			if(AltitudeMax<Double.valueOf(altitudeList.get(i))) AltitudeMax =Double.valueOf(altitudeList.get(i));
-			GraphViewData gvAltitudeData = new GraphViewData(distList.get(i),Double.valueOf(altitudeList.get(i)));
+			GraphViewData gvAltitudeData = new GraphViewData(distanceSum,Double.valueOf(altitudeList.get(i)));
 			AltitudeData[i] = gvAltitudeData;
 			
-			if(DistMax<distList.get(i)) AltitudeMax =distList.get(i);//거리고렬를 안했네.. 누적으로해야하는데..
+			if(DistMax<distanceSum) AltitudeMax =distanceSum;//거리고렬를 안했네.. 누적으로해야하는데..
 			
 		}
 		
 		generateGraph();
 		graphView.setManualYAxisBounds(SpeedMax+5, 0);
-		graphView.setViewPort(0,DistMax);
+		graphView.setViewPort(0,DistMax+5);
 		
 		radioSpeed.setOnCheckedChangeListener(new OnCheckedChangeListener(){
 
@@ -223,6 +225,7 @@ public class CycleTrackerDetailGraphLayout extends BaseFragmentLayout {
 	public void backScreen(){
 		MainActivity.getInstasnce().getLayout().replaceFragment(R.layout.fragment_cycle_tracker);
 		MainActivity.getInstasnce().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+		
 	}
 	
 	public void updateColor(){

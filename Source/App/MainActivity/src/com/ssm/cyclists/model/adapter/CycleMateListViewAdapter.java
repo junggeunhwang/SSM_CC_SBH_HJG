@@ -124,9 +124,21 @@ public class CycleMateListViewAdapter extends BaseAdapter {
 		});
 		
 		TextView name = (TextView)convertView.findViewById(R.id.cycle_mate_id_listview_row);
-		name.setText(arSrc.get(position).getUserName());
 		
 		TextView company = (TextView)convertView.findViewById(R.id.cycle_mate_company_listview_row);
+		
+		if(arSrc.get(position).getUserName()==null)
+		{
+			name.setText(arSrc.get(position).getUniqueID());
+			company.setText("");
+		}
+		else{
+			name.setText(arSrc.get(position).getUserName());
+			company.setText(arSrc.get(position).getUniqueID());
+		}
+		
+			
+		
 		LinearLayout background = (LinearLayout)convertView.findViewById(R.id.background_cyclemate_listview_row);
 		
 		if(SettingsDataManager.getInstance().getThemeColor().equals("pink")){

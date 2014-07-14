@@ -98,6 +98,14 @@ public class CycleRoomListViewAdapter extends BaseAdapter {
 		TextView company = (TextView)convertView.findViewById(R.id.cycle_mate_company_listview_row);
 		LinearLayout background = (LinearLayout)convertView.findViewById(R.id.backgorund_cycle_room_listview_row);
 		
+		if(arSrc.get(position).getUserName()==null){
+			name.setText(String.valueOf(arSrc.get(position).getUniqueID()));
+			company.setText(String.valueOf(""));
+		}else{
+			name.setText(String.valueOf(arSrc.get(position).getUserName()));
+			company.setText(String.valueOf(arSrc.get(position).getUniqueID()));
+		}
+		
 		if(SettingsDataManager.getInstance().getThemeColor().equals("pink")){
 			background.setBackground(MainActivity.getInstasnce().getResources().getDrawable(R.drawable.md__list_selector_holo_pink));
 			name.setTextColor(MainActivity.getInstasnce().getResources().getColor(R.color.text_pink));
