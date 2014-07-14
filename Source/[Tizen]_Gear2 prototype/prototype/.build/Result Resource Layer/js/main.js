@@ -2,12 +2,13 @@
 {
 	var ERROR_FILE_WRITE = 'FILE_WRITE_ERR';
     var NO_FREE_SPACE_MSG = 'No free space.';
-    // 좌우 방향 표시등 관련 타이머 제어 함수
-    var leftrightToggleStopFunc;
+    // 모션 인식 활성화 여부
+    var MotionRecognitionCheckbox = document.getElementById("motioncheckbox");
     
     // 오디오 녹음 및 정지 버튼
-    var recordOperationImg = document.getElementById("recordOperationImg");
+    //var recordOperationImg = document.getElementById("recordOperationImg");
     var recordOperation = document.getElementById("recordOperation");
+    var recordbutton = document.getElementById("recordbutton");
     
 	// 손 터치 이벤트 등록
 	window.addEventListener( 'tizenhwkey', function( ev ) {
@@ -22,14 +23,13 @@
 			{
 				tau.changePage("#mainpage");
 			}
-			else if(pageid === "thirdpage")
+			else if(pageid === "alertpage")
 			{
 				tau.changePage("#mainpage");
 			}else if(pageid === "directiontictok")
 			{
 				console.log("directiontictok invoked");
-				leftrightToggleStopFunc();
-				tau.changePage("#mainpage");
+				myevent.fire('toggle.release');
 			}
 			else
 			{
@@ -71,7 +71,7 @@
 		}
 		else
 		{
-			mainExtrastatus.innerHTML = msg_audiosendingerror;
+			voicerecordStatus.innerHTML = msg_audiosendingerror;
 		}
 	}
 
@@ -101,21 +101,19 @@
     	}
     	if (AudioRecordingFlag === false) 
     	{
+    		// 녹음 시작
     		// 이 시점에서 페이지 변경 타이머 중지
     		pagetimer.pause();
-    		// 첫번째 페이지로 변경
-    		onChangetoMainpage();
+    		// 녹음 페이지로 변경
+    		myevent.fire('page.voicerecordpage');
     		startRecording();
-    		//preSoundBeforeRecording();
     	}
     	else 
     	{
-    		recordOperationImg.src = "./images/startrecord.PNG";;
+    		// 녹음 종료
+    		recordOperation.src = "./image/voicerecordpage/startrecord.PNG";;
     		stopRecording();
-    		mainExtrastatus.innerHTML = msg_audiorecordingend;
-
-    		// 타이머 재개
-    		pagetimer.run();
+    		voicerecordStatus.innerHTML = msg_audiorecordingend;
     	}		
     }
     
@@ -128,18 +126,6 @@
     	params.loop = false;
     	params.file = './res/sound/'+filename;
     	
-    	//var endevent = {};
-    	/*endevent.event = 'ended';
-    	endevent.callback = function(){
-    		// 녹음 시작
-    		
-    		// 진동
-    		
-    		// 콜백 제거
-    		audioplay.removeAudioCallback(endevent);
-    	};*/
-    	
-    	//audioplay.addAudioCallback(endevent);
     	audioplay.play(params);
     }
 
@@ -159,14 +145,15 @@
     // 오디오 레코딩 시작
     function onRecordingStart() 
     {
+    	myevent.fire('page.voicerecordpage');
     	toggleRecording(true);
     	AudioRecordingLock = false;
     	preSoundPlay("recordstart.mp3");
     	navigator.vibrate(250);
     	// 이미지 변경
-		recordOperationImg.src = "./images/stoprecord.PNG";
+		recordOperation.src = "./image/voicerecordpage/stoprecord.PNG";
 		// 알림
-		mainExtrastatus.innerHTML = msg_audiorecording;
+		voicerecordStatus.innerHTML = msg_audiorecording;
     }
 
     // 오디오 레코딩 종료
@@ -177,6 +164,11 @@
     	AudioRecordingLock = false;
     	toggleRecording(false);
 		onFileTransfer();
+		
+		// 메인 페이지로 변경
+		myevent.fire('page.mainpage');
+		// 타이머 재개
+		pagetimer.run();
     }
     // 오디오 레코딩 중 에러 발생 시 대처
     function onRecordingError(ev)
@@ -190,6 +182,22 @@
     	}
 
     	toggleRecording(false);
+    }
+    
+    // 모션 인식 적용 여부
+    
+    function onMotionRecognitionCheckbox()
+    {
+    	if(MotionRecognitionCheckbox.checked === true)
+    	{
+    		isMotionCheckUsed = true;
+    		myevent.fire('motionsensor.start');
+    	}
+    	else
+    	{
+    		isMotionCheckUsed = false;
+    		myevent.fire('motionsensor.stop');
+    	}
     }
 
 	
@@ -209,19 +217,22 @@
     
     // 오디오 버튼 이벤트 등록
     recordOperation.addEventListener("click", onAudioRecordingOperation);
+    recordbutton.addEventListener("click", onAudioRecordingOperation);
     // 항상 켜져있게 전원 옵션 해제
     tizen.power.request("SCREEN", "SCREEN_NORMAL");
     tizen.power.request("CPU", "CPU_AWAKE");
 
+    // 좌우 깜빡이 기능 초기화
+    toggleInit();
     // 모션 체크 시작
     MotionCheckStart();
+    // 이벤트 등록
+    MotionRecognitionCheckbox.addEventListener("click", onMotionRecognitionCheckbox);
     // 오디오 스트림 초기화
     audiostream.getStream();
     // SAP 초기화
     SAPInit();
     // 옵션 페이지 활성화
     optionInit();
-    // leftrightToggle 기능 활성화
-    leftrightToggleStopFunc = toggleInit();
 })();
 

@@ -4,8 +4,8 @@ function SAPStringInit()
 {
 	function onReceive(channelId,data)
 	{
-		console.log(channelId + " "  + data);
-		alert(data);
+		/*console.log(channelId + " "  + data);
+		alert(data);*/
 	}
 	var connectioncallback = { 
 			/* when a remote peer agent requests a service connection */ 

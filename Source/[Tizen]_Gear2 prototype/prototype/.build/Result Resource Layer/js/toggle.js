@@ -11,12 +11,12 @@ function toggleInit()
 		if(is_background === false)
 		{
 			is_background = true;
-			imagetag.src = "/images/background.PNG";
+			imagetag.src = "/image/background.png";
 		}
 		else
 		{
 			is_background = false;
-			imagetag.src = "/images/left.PNG";
+			imagetag.src = "/image/left.png";
 		}
 	}
 	function onRighttoggle()
@@ -24,12 +24,12 @@ function toggleInit()
 		if(is_background === false)
 		{
 			is_background = true;
-			imagetag.src = "/images/background.PNG";
+			imagetag.src = "/image/background.png";
 		}
 		else
 		{
 			is_background = false;
-			imagetag.src = "/images/right.PNG";
+			imagetag.src = "/image/right.png";
 		}
 	}
 	function onLeftClicked()
@@ -37,12 +37,16 @@ function toggleInit()
 		tau.changePage("#directiontictok");
 		timerevent = new mytimer.Timer(500,onLefttoggle);
 		timerevent.run();
+		// 사초간 실행 후 종료
+		setTimeout(Release,6000);
 	}
 	function onRightClicked()
 	{
 		tau.changePage("#directiontictok");
 		timerevent = new mytimer.Timer(500,onRighttoggle);
 		timerevent.run();
+		// 4초간 실행 후 종료
+		setTimeout(Release,6000);
 	}
 	function Release()
 	{
@@ -52,12 +56,19 @@ function toggleInit()
 		}
 		else
 		{
-			imagetag.src = "/images/background.PNG";
+			imagetag.src = "/image/background.png";
 			timerevent.stop();
-			delete timerevent;
+			delete timerevent
+			timerevent = undefined;
+			tau.changePage("#mainpage");
 		}
 	}
 	left.addEventListener("click", onLeftClicked);
 	right.addEventListener("click", onRightClicked);
-	return Release;
+	
+	 myevent.listeners({
+	    	'toggle.release': Release,
+	    	'toggle.left': onLeftClicked,
+	    	'toggle.right': onRightClicked
+	    });
 }

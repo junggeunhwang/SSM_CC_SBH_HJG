@@ -27,3 +27,46 @@ body {
 	font-size:5em;
 	color:#fff;
 }
+
+.fitnessinfo{
+	font-size:15px;
+	font-family:나눔고딕;
+	position:absolute;
+}
+
+#ironmanheart{
+	position:absolute;
+	background:url(../image/mainpage/ironmanheart-transparent.png) no-repeat;
+	width:190px;
+	height:188px;
+	margin-left:63px;
+	margin-top:20%;
+	-webkit-animation-name: spin;
+    -webkit-animation-duration: 5s;
+    -webkit-animation-timing-function: linear;
+    -webkit-animation-iteration-count: infinite;
+}
+@-webkit-keyframes spin { 100% { -webkit-transform: rotate(360deg); } }
+
+#mainbackground{
+	background:url(../image/mainpage/speedbackground.png) no-repeat;
+	height:320px;
+	width:320px;
+}
+
+#secondbackground{
+	background:url(../image/secondpage/background.png) no-repeat;
+	height:320px;
+	width:320px;
+}
+
+#alertbackground{
+	background:url(../image/alertpage/background.png) no-repeat transparent;
+	height:40%;
+	widgh:40%;
+}
+
+.tictokstyle{
+	height:100%;
+	width:100%;
+}
