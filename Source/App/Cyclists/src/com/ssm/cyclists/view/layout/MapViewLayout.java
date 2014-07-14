@@ -1,9 +1,19 @@
 package com.ssm.cyclists.view.layout;
 
+import java.util.ArrayList;
+
 import com.ssm.cyclists.R;
 
 import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.model.BitmapDescriptor;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
+import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.maps.model.Polygon;
+import com.google.android.gms.maps.model.PolygonOptions;
+import com.google.android.gms.maps.model.Polyline;
+import com.google.android.gms.maps.model.PolylineOptions;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.MapFragment;
 import com.ssm.cyclists.controller.activity.MainActivity;
@@ -13,6 +23,7 @@ import com.ssm.cyclists.model.SettingsData;
 
 import android.app.Fragment;
 import android.content.Context;
+import android.graphics.Color;
 import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationManager;
@@ -104,6 +115,13 @@ public class MapViewLayout extends BaseFragmentLayout {
  		mGoogleMap = mf.getMap();
 		mGoogleMap.setMyLocationEnabled(true);
 		
+		Location temp = CruiseDataManager.getInstance().getCurrent_loc();
+		temp.setLatitude(temp.getLatitude()+0.0002);
+		temp.setLongitude(temp.getLongitude()+0.0004);
+	
+		addMarker(temp.getLatitude(),temp.getLongitude(),"¼­º¸ÈÆ");
+
+		
 		Location lo = mGoogleMap.getMyLocation();
 		if(lo==null) {
 			lo = CruiseDataManager.getInstance().getCurrent_loc();
@@ -128,6 +146,22 @@ public class MapViewLayout extends BaseFragmentLayout {
 		updateMapViewInfo();
 		updateColor();
 	}
+	
+	public void addMarker(double lattitude,double longitude,String name){
+		LatLng latlng = new LatLng(lattitude,longitude);
+		MarkerOptions options = new MarkerOptions();
+		options.position(latlng);
+		options.title(name);
+		options.draggable(false);
+		options.flat(true);
+		options.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE));
+		Marker marker = mGoogleMap.addMarker(options);
+		
+		marker.showInfoWindow();
+		
+//		mGoogleMap.addPolygon(options)
+	}
+
 
 	
 	

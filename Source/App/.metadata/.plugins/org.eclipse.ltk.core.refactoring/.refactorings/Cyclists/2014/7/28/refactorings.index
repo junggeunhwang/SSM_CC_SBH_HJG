@@ -67,3 +67,13 @@
 1404967881605	Copy file
 1404967910748	Copy compilation unit
 1404967966422	Rename type 'CruiseTwoLayout'
+1404987148830	Delete element
+1404987731150	Copy file
+1404987744107	Copy file
+1404987751426	Rename resource 'fragment_cycle_tracker_detail.xml'
+1404988439285	Delete element
+1404988452174	Copy file
+1404988505060	Copy compilation unit
+1404988536776	Copy compilation unit
+1404990469923	Rename type 'CycleTrackerDetailLayout'
+1404990619756	Rename type 'CycleTrackerDetailFragment'

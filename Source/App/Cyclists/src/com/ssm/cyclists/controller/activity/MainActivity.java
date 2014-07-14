@@ -18,7 +18,7 @@ import com.ssm.cyclists.controller.communication.sapinterface.FileAction;
 import com.ssm.cyclists.controller.communication.sapinterface.SAPProviderService;
 import com.ssm.cyclists.controller.communication.sapinterface.StringAction;
 import com.ssm.cyclists.controller.communication.sapinterface.SAPProviderService.LocalBinder;
-import com.ssm.cyclists.controller.fragment.CycleTrackerDetailFragment;
+import com.ssm.cyclists.controller.fragment.CycleTrackerDetailGraphFragment;
 import com.ssm.cyclists.model.CruiseDataManager;
 import com.ssm.cyclists.model.GoogleLocationManager;
 import com.ssm.cyclists.model.SettingsData;
@@ -27,8 +27,12 @@ import com.ssm.cyclists.view.layout.MainLayout;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.NotificationCompat;
 import android.telephony.TelephonyManager;
 import android.app.AlertDialog;
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.ComponentName;
 import android.content.Context; 
 import android.content.Intent;
@@ -36,6 +40,7 @@ import android.content.ServiceConnection;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.os.IBinder;
+import android.os.Vibrator;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -52,21 +57,27 @@ public class MainActivity extends FragmentActivity {
 	private static final String DEST_DIR  = "/storage/emulated/legacy/Cyclists";
 	private static final String DEST_DIR_RECEIVE  = DEST_DIR+"/Receive";
 	private static final String DEST_DIR_SEND  = DEST_DIR+ "/Send" ;
-			
+	
+	private int noti_num=0;
 	
 	//gps
 	private GoogleLocationManager googleLocationManager;
 	
 	private Context mCtxt;
-	private AlertDialog mAlert;
 	// 서비스 접근
 	private SAPProviderService mSAPService;
-	private String mFilePath;
 	 
 	public int mTransId;
 	
 	private Timer mTimer;
 	private GetTask getTask;
+	
+	//알림  매니저
+	NotificationManager notiMgr;
+	final static int MyNoti=0;
+	
+	//진동
+	Vibrator vibrator;
 	
 	//전화번호
 	TelephonyManager mTelephonyManager;
@@ -109,6 +120,11 @@ public class MainActivity extends FragmentActivity {
     	intent.putExtra("color", SettingsData.getInstance().getThemeColor());
     	
     	startActivity(intent);
+    	
+    	
+
+
+
     	
     	//전화번호
     	mTelephonyManager = (TelephonyManager)getSystemService(Context.TELEPHONY_SERVICE);
@@ -165,7 +181,9 @@ public class MainActivity extends FragmentActivity {
     	stopGetRequest();
     	Protocol.getInstance().Logout(myNumber);
 //    	mSAPService.stopSelfResult(startId)
-    	mSAPService.stopSelf();
+    	boolean ret = mSAPService.stopService(new Intent(getApplicationContext(), SAPProviderService.class));
+    	
+//    	mSAPService.stopSelf();
     	mSAPService = null;
     	super.onDestroy();
     }
@@ -216,14 +234,10 @@ public class MainActivity extends FragmentActivity {
             return;
         }
         
-        if(layout.getActivated_fragment().getClass().equals(CycleTrackerDetailFragment.class))
-        	((CycleTrackerDetailFragment)layout.getActivated_fragment()).getLayout().backScreen();
+        if(layout.getActivated_fragment().getClass().equals(CycleTrackerDetailGraphFragment.class))
+        	((CycleTrackerDetailGraphFragment)layout.getActivated_fragment()).getLayout().backScreen();
         else if(layout.getActivated_fragment().equals(layout.getmCruiseContainerFragment()))
         	super.onBackPressed();
-//        else if(layout.getActivated_fragment().equals(layout.getmFragmentHome()))
-//        	super.onBackPressed();
-//        else if(layout.getActivated_fragment().equals(layout.getCruiseContainerFragment()));
-        	
         else
         	layout.replaceFragment(R.layout.fragment_home);
     }
@@ -298,6 +312,25 @@ public class MainActivity extends FragmentActivity {
         }
     };
       
+    public void popupNotification(){
+    	NotificationManager nm = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+    	PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, new Intent(), PendingIntent.FLAG_UPDATE_CURRENT);
+    	 
+    	Notification.Builder mBuilder = new Notification.Builder(this);
+    	mBuilder.setSmallIcon(R.drawable.ic_launcher);
+    	mBuilder.setTicker("Now we start the cycling!");
+    	mBuilder.setWhen(System.currentTimeMillis());
+    	mBuilder.setNumber(10);
+    	mBuilder.setContentTitle("Now we start the cycling!");
+    	mBuilder.setContentText("You have been invited to the cycle group.");
+    	mBuilder.setDefaults(Notification.DEFAULT_SOUND | Notification.DEFAULT_VIBRATE);
+    	mBuilder.setContentIntent(pendingIntent);
+    	mBuilder.setAutoCancel(true);
+    	
+    	mBuilder.setPriority(NotificationCompat.PRIORITY_MAX);
+    	 
+    	nm.notify(noti_num++, mBuilder.build());
+    }
     
     
     public void startGetRequest(){
@@ -314,7 +347,6 @@ public class MainActivity extends FragmentActivity {
     	
     	mTimer.cancel();
     	mTimer = null;
-
     }
     
 

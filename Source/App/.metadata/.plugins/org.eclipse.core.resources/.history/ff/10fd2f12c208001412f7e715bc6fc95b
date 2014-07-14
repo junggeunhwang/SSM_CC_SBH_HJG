@@ -1,0 +1,240 @@
+package com.ssm.cyclists.view.layout;
+
+import com.ssm.cyclists.R;
+import com.ssm.cyclists.controller.activity.MainActivity;
+import com.ssm.cyclists.controller.fragment.CruiseContainerFragment;
+import com.ssm.cyclists.controller.fragment.CycleMateFragment;
+import com.ssm.cyclists.controller.fragment.CycleTrackerContainerFragment;
+import com.ssm.cyclists.controller.fragment.CycleTrackerFragment;
+import com.ssm.cyclists.controller.fragment.SettingsFragment;
+import com.ssm.cyclists.model.ResourceManager;
+
+import android.app.Fragment;
+import android.app.FragmentTransaction;
+import android.location.Location;
+import android.os.Bundle;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.TextView;
+import net.simonvt.menudrawer.MenuDrawer;
+
+public class MainLayout{
+	
+	static String TAG = MainLayout.class.getSimpleName();
+	
+	static private CruiseContainerFragment    mCruiseContainerFragment = new CruiseContainerFragment();
+	static private CycleMateFragment 		  mFragmentCycleMate = new CycleMateFragment();
+	static private CycleTrackerFragment 	  mFragmentCycleTracker = new CycleTrackerFragment();
+	static private SettingsFragment 		  mSettingsFragment = new SettingsFragment();
+	 
+
+	public static final String STATE_MENUDRAWER = "com.ssm.view.menuDrawer";
+	public static final String STATE_ACTIVE_VIEW_ID = "com.ssm.view.activeViewId";
+	  
+	private MenuDrawer mMenuDrawer;
+	private int mActiveViewId;
+	private int view = R.layout.activity_main;
+	
+	private TextView tvHomeMenu;
+	private TextView tvCycleTrackerMenu;
+	private TextView tvCycleMateMenu;
+	private TextView tvSettingsMenu;
+	
+	MainActivity activity;
+	
+	private Fragment activated_fragment;
+		
+	public MainLayout(MainActivity instance) {
+		activity = instance;
+	}
+	
+	public void init(){
+		
+		 mMenuDrawer = MenuDrawer.attach(activity, MenuDrawer.MENU_DRAG_WINDOW);
+		 
+	     mMenuDrawer.setContentView(R.layout.activity_main);
+	     mMenuDrawer.setMenuView(R.layout.menu_scrollview);
+
+	     tvHomeMenu = (TextView)activity.findViewById(R.id.home_menu);
+	     tvCycleTrackerMenu = (TextView)activity.findViewById(R.id.cycle_tracker_menu);
+	     tvCycleMateMenu = (TextView)activity.findViewById(R.id.cycle_mate_menu);
+	     tvSettingsMenu = (TextView)activity.findViewById(R.id.settings_menu);
+	     
+	     tvHomeMenu.setOnClickListener(buildClickListenr());
+	     tvCycleTrackerMenu.setOnClickListener(buildClickListenr());
+	     tvCycleMateMenu.setOnClickListener(buildClickListenr());
+	     tvSettingsMenu.setOnClickListener(buildClickListenr());
+	     
+	     tvHomeMenu.setTypeface(ResourceManager.getInstance().getFont("helvetica"));
+	     tvCycleTrackerMenu.setTypeface(ResourceManager.getInstance().getFont("helvetica"));
+	     tvCycleMateMenu.setTypeface(ResourceManager.getInstance().getFont("helvetica"));
+	     tvSettingsMenu.setTypeface(ResourceManager.getInstance().getFont("helvetica"));
+
+	     TextView activeView = (TextView)activity.findViewById(mActiveViewId);
+	     if (activeView != null) {
+	          mMenuDrawer.setActiveView(activeView);
+	     }
+		 
+	     FragmentTransaction transaction = activity.getFragmentManager().beginTransaction();
+	     transaction.add(R.id.fragment, mFragmentCycleTracker);
+	     transaction.addToBackStack(null);
+	     transaction.commit();
+	     activated_fragment = mCruiseContainerFragment;
+	}
+	
+	
+	
+	public void replaceFragment(int resID){
+		
+		Fragment newFragment = null;
+		final FragmentTransaction transaction = activity.getFragmentManager().beginTransaction();
+//		MainActivity.getInstasnce().popupNotification();
+		switch(resID)
+		{
+		case R.layout.fragment_cruise_container:
+			newFragment = mCruiseContainerFragment;
+			transaction.detach(activated_fragment);
+			transaction.replace(R.id.fragment,newFragment);
+			transaction.attach(newFragment);
+			transaction.addToBackStack(null);
+			activated_fragment = newFragment;
+			transaction.commit();
+
+//			mCruiseContainerFragment.updateColor();
+			
+			break;	
+		case R.layout.fragment_cycle_tracker:
+			newFragment = mFragmentCycleTracker;
+			transaction.detach(activated_fragment);
+			transaction.replace(R.id.fragment,newFragment);
+			transaction.attach(newFragment);
+			transaction.addToBackStack(null);
+			activated_fragment = newFragment;
+			transaction.commit();
+
+//			mFragmentCycleTracker.getLayout().updateColor();
+			break;
+		case R.layout.fragment_cycle_mate:
+			
+			newFragment = mFragmentCycleMate;
+			transaction.detach(activated_fragment);
+			transaction.replace(R.id.fragment,newFragment);
+			transaction.attach(newFragment);
+			transaction.addToBackStack(null);
+			activated_fragment = newFragment;
+			transaction.commit();
+		
+//			mFragmentCycleMate.getLayout().updateColor();
+			break;
+		case R.layout.fragment_settings:
+			newFragment = mSettingsFragment;
+			transaction.detach(activated_fragment);
+			transaction.replace(R.id.fragment,newFragment);
+			transaction.attach(newFragment);
+			transaction.addToBackStack(null);
+			activated_fragment = newFragment;
+			transaction.commit();
+			
+//			mSettingsFragment.getLayout().updateColor();
+			break;
+		case R.layout.fragment_cycle_tracker_detail_container:
+			newFragment = mFragmentCycleTracker;
+			transaction.detach(activated_fragment);
+			transaction.replace(R.id.fragment,newFragment);
+			transaction.attach(newFragment);
+			transaction.addToBackStack(null);
+			activated_fragment = newFragment;
+			transaction.commit();
+			
+//			newFragment = mFragmentCycleTracker;
+//			transaction.remove(activated_fragment);
+//			activated_fragment = newFragment;
+//			transaction.show(newFragment);
+//			
+//			transaction.commit();
+			break;
+		}
+	}
+	
+	private OnClickListener buildClickListenr(){
+		return new OnClickListener(){
+			
+			@Override
+			public void onClick(View v) {
+				 mMenuDrawer.setActiveView(v);
+			     mMenuDrawer.closeMenu();
+			     mActiveViewId = v.getId();
+			     switch(mActiveViewId){
+			     case R.id.home_menu:
+			    	 replaceFragment(R.layout.fragment_cruise_container);
+			    	 break;
+			     case R.id.cycle_tracker_menu:
+			    	 replaceFragment(R.layout.fragment_cycle_tracker);
+			    	 break;
+			     case R.id.cycle_mate_menu:
+			    	 replaceFragment(R.layout.fragment_cycle_mate);
+			    	 break;
+			     case R.id.settings_menu:
+			    	 replaceFragment(R.layout.fragment_settings);
+			    	 break;
+			     }
+			     
+			}
+		};
+	}
+	
+	public void open_button(View v){
+    	mMenuDrawer.openMenu();
+    }
+	
+	public void toggle_menu(){
+		 mMenuDrawer.toggleMenu();
+	}
+		
+	public void onRestoreInstanceState(Bundle inState){
+		mMenuDrawer.restoreState(inState.getParcelable(STATE_MENUDRAWER));
+	}
+	
+	public void onSaveInstanceState(Bundle outState) {
+        outState.putParcelable(STATE_MENUDRAWER, mMenuDrawer.saveState());
+        outState.putInt(STATE_ACTIVE_VIEW_ID, mActiveViewId);
+    }
+
+	public int getView(){
+		return view;
+	}
+
+	public CycleMateFragment getmFragmentCycleMate() {
+		assert(mFragmentCycleMate!=null);
+		return mFragmentCycleMate;
+	}
+
+	public CycleTrackerFragment getmFragmentCycleTracker() {
+		assert(mFragmentCycleTracker!=null);
+		return mFragmentCycleTracker;
+	}
+
+	public SettingsFragment getmSettingsFragment() {
+		assert(mSettingsFragment!=null);
+		return mSettingsFragment;
+	}
+
+	public Fragment getActivated_fragment() {
+		return activated_fragment;
+	}
+
+	public MenuDrawer getmMenuDrawer() {
+		return mMenuDrawer;
+	}
+	
+	public static CruiseContainerFragment getmCruiseContainerFragment() {
+		return mCruiseContainerFragment;
+	}
+
+	
+	public void setActivated_fragment(Fragment activated_fragment) {
+		this.activated_fragment = activated_fragment;
+	}
+
+
+}

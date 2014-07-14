@@ -56,7 +56,8 @@
             android:label="@string/title_activity_splash" >
         </activity>
 
-        <service android:name="com.ssm.cyclists.controller.communication.sapinterface.SAPProviderService" />
+        <service android:name="com.ssm.cyclists.controller.communication.sapinterface.SAPProviderService" 
+            android:stopWithTask="true"/>
 
         <receiver android:name="com.samsung.android.sdk.accessory.ServiceConnectionIndicationBroadcastReceiver" >
             <intent-filter>

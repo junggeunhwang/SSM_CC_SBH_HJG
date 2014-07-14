@@ -4,6 +4,7 @@ import com.ssm.cyclists.R;
 import com.ssm.cyclists.controller.activity.MainActivity;
 import com.ssm.cyclists.controller.fragment.CruiseContainerFragment;
 import com.ssm.cyclists.controller.fragment.CycleMateFragment;
+import com.ssm.cyclists.controller.fragment.CycleTrackerContainerFragment;
 import com.ssm.cyclists.controller.fragment.CycleTrackerFragment;
 import com.ssm.cyclists.controller.fragment.SettingsFragment;
 import com.ssm.cyclists.model.ResourceManager;
@@ -25,7 +26,7 @@ public class MainLayout{
 	static private CycleMateFragment 		  mFragmentCycleMate = new CycleMateFragment();
 	static private CycleTrackerFragment 	  mFragmentCycleTracker = new CycleTrackerFragment();
 	static private SettingsFragment 		  mSettingsFragment = new SettingsFragment();
-	
+	 
 
 	public static final String STATE_MENUDRAWER = "com.ssm.view.menuDrawer";
 	public static final String STATE_ACTIVE_VIEW_ID = "com.ssm.view.activeViewId";
@@ -54,7 +55,6 @@ public class MainLayout{
 	     mMenuDrawer.setContentView(R.layout.activity_main);
 	     mMenuDrawer.setMenuView(R.layout.menu_scrollview);
 
-	     
 	     tvHomeMenu = (TextView)activity.findViewById(R.id.home_menu);
 	     tvCycleTrackerMenu = (TextView)activity.findViewById(R.id.cycle_tracker_menu);
 	     tvCycleMateMenu = (TextView)activity.findViewById(R.id.cycle_mate_menu);
@@ -100,7 +100,7 @@ public class MainLayout{
 		Fragment newFragment = null;
 		final FragmentTransaction transaction = activity.getFragmentManager().beginTransaction();
 		Location lo = null;
-		
+//		MainActivity.getInstasnce().popupNotification();
 		switch(resID)
 		{
 		case R.layout.fragment_cruise_container:
@@ -149,6 +149,14 @@ public class MainLayout{
 			activated_fragment = mSettingsFragment;
 			transaction.commit();
 			mSettingsFragment.getLayout().updateColor();
+			break;
+		case R.layout.fragment_cycle_tracker_detail_container:
+			newFragment = mFragmentCycleTracker;
+			transaction.remove(activated_fragment);
+			activated_fragment = newFragment;
+			transaction.show(newFragment);
+			
+			transaction.commit();
 			break;
 		}
 	}

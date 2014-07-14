@@ -1,0 +1,35 @@
+package com.ssm.cyclists.timertask;
+
+import java.util.Date;
+import java.util.TimerTask;
+
+import android.util.Log;
+
+import com.ssm.cyclists.controller.DataBaseManager;
+import com.ssm.cyclists.model.manager.CruiseDataManager;
+
+public class CruiseInfoTimerTask extends TimerTask {
+	
+	double startTime = System.currentTimeMillis();
+
+	@Override
+	public void run() {
+		
+		DataBaseManager.getInstance().insertCruiseData(
+				String.valueOf(startTime),
+				String.valueOf(CruiseDataManager.getInstance().getCurrent_speed()),	//speed
+				String.valueOf(CruiseDataManager.getInstance().getElevation()),		//altitude
+				String.valueOf(CruiseDataManager.getInstance().getDistnace()),		//distance
+				String.valueOf(CruiseDataManager.getInstance().getCalory()),		//calory
+				String.valueOf(System.currentTimeMillis()));						//timestamp
+		
+		CruiseDataManager manager = CruiseDataManager.getInstance();
+		
+		Log.d(TAG,"speed : "+ manager.getCurrent_speed() +
+				"altitude : "+ manager.getElevation()+
+				"distance : " + manager.getDistnace()+
+				"calory : " + manager.getCalory())
+	}
+	
+	
+}

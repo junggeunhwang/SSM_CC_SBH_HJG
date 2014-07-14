@@ -20,7 +20,7 @@ public class CruiseContainerFragment extends Fragment {
 	
 	private static HomeFragment	  mHomeFragment = new HomeFragment();
 	private static CruiseFragment mCruiseFragment = new CruiseFragment();
-	private static CycleRoomFragment mCruiseTwoFragment = new CycleRoomFragment();
+	private static CycleRoomFragment mCycleRoomFragment = new CycleRoomFragment();
 	private static MapViewFragment	mMapViewFragment = new MapViewFragment();
 
 	
@@ -58,9 +58,10 @@ public class CruiseContainerFragment extends Fragment {
 			case 1:
 				return mCruiseFragment;
 			case 2:
-				return mCruiseTwoFragment;
-			case 3:
 				return mMapViewFragment;
+			case 3:
+				return mCycleRoomFragment;
+				
 			}
 			return null;
 		}
@@ -84,15 +85,15 @@ public class CruiseContainerFragment extends Fragment {
 		case 1:
 			mHomeFragment.getLayout().updateColor();
 			mCruiseFragment.getLayout().updateColor();
-			mCruiseTwoFragment.getLayout().updateColor();
+			mCycleRoomFragment.getLayout().updateColor();
 			break;
 		case 2:
 			mCruiseFragment.getLayout().updateColor();
-			mCruiseTwoFragment.getLayout().updateColor();
+			mCycleRoomFragment.getLayout().updateColor();
 			mMapViewFragment.getLayout().updateColor();
 			break;
 		case 3:
-			mCruiseTwoFragment.getLayout().updateColor();
+			mCycleRoomFragment.getLayout().updateColor();
 			mMapViewFragment.getLayout().updateColor();
 			break;
 			
@@ -105,7 +106,7 @@ public class CruiseContainerFragment extends Fragment {
 	
 
 	public static CycleRoomFragment getmCruiseTwoFragment() {
-		return mCruiseTwoFragment;
+		return mCycleRoomFragment;
 	}
 
 

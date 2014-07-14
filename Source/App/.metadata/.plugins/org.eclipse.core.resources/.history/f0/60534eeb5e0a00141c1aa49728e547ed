@@ -1,0 +1,300 @@
+package com.ssm.cyclists.controller.manager;
+
+import java.sql.SQLException;
+import java.util.ArrayList;
+
+import com.jjoe64.graphview.GraphView.GraphViewData;
+import com.ssm.cyclists.controller.activity.MainActivity;
+import com.ssm.cyclists.model.CycleData;
+
+import twitter4j.GeoLocation;
+import android.content.ContentValues;
+import android.content.Context;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteException;
+import android.database.sqlite.SQLiteDatabase.CursorFactory;
+import android.database.sqlite.SQLiteOpenHelper;
+import android.location.Location;
+import android.util.Log;
+
+public class DataBaseManager extends SQLiteOpenHelper {
+
+	static String TAG = DataBaseManager.class.getSimpleName();
+	final int NUM 		= 0;
+	final int LATITUDE 	= 1;
+	final int LONGITUDE = 2;
+
+	final int COLOR 	= 1;
+	final int FACEBOOK_LOGIN_STATE = 2;
+	final int TWITTER_LOGIN_STATE = 3;
+	final int INSTAGRAM_LOGIN_STATE = 4;
+	
+	
+	final int DATE 		= 1;
+	final int VELOCITY 	= 2;
+	final int ALTITUDE 	= 3;
+	final int DISTANCE 	= 4;
+	final int CALORY	= 5;
+	final int LATITUDE_CRUISEDATA = 6;
+	final int LONGITUDE_CRUISEDATA = 7;
+	final int TIME_STAMP = 8;
+	
+	static DataBaseManager manager;
+	SQLiteDatabase db;
+	Context context;
+
+	private DataBaseManager(Context context, String name, CursorFactory factory,
+			int version) {
+		super(context, name, factory, version);
+		this.manager = this;
+		this.context = context;
+	}
+
+	@Override
+	public void onCreate(SQLiteDatabase db) {
+		String sql = "CREATE TABLE last_location("+
+				"num INTEGER PRIMARY KEY AUTOINCREMENT,"+
+				"latitude TEXT,"+
+				"longitude TEXT);";
+		db.execSQL(sql);
+		
+		String sql2 = "CREATE TABLE settings("+
+				"num INTEGER PRIMARY KEY AUTOINCREMENT,"+
+				"color TEXT," +
+				"facebook_login TEXT," +
+				"twitter_login TEXT," +
+				"instagram_login TEXT);";
+		db.execSQL(sql2);
+		
+		String sql3 = "CREATE TABLE cruise_data("+
+				"num INTEGER PRIMARY KEY AUTOINCREMENT,"+
+				"startTime TEXT," +
+				"velocity TEXT," +
+				"altitude TEXT," +
+				"distance TEXT," +
+				"calory TEXT," +
+				"lattitude TEXT," +
+				"longitude TEXT," +
+				"timestamp TEXT);";
+		db.execSQL(sql3);
+	}
+
+	@Override
+	public void onUpgrade(SQLiteDatabase db, int arg1, int arg2) {
+		db.execSQL("DROP TABLE IF EXSITS last_location");
+		onCreate(db);
+		db.execSQL("DROP TABLE IF EXSITS settings");
+		onCreate(db);
+		db.execSQL("DROP TABLE IF EXSITS cruise_data");
+		onCreate(db);
+	}
+	
+	public void updateLastLocation(Location loc){
+
+		ContentValues row = new ContentValues();
+		row.put("latitude",String.valueOf(loc.getLatitude()));
+		row.put("longitude",String.valueOf(loc.getLongitude()));
+		
+		db = manager.getWritableDatabase();
+		
+		Cursor c = db.query("last_location", null,null,null,null,null,null);
+		
+		int count = c.getCount();
+		c.moveToNext();
+		if(c.getCount()==0){
+			db.insert("last_location",null,row);
+		}
+		else{
+			db.update("last_location",row,"num="+c.getInt(NUM),null);
+		}
+	}
+	
+	public GeoLocation selectLastLocation(){
+		
+		db = manager.getReadableDatabase();
+		
+		Cursor c = db.query("last_location", null,null,null,null,null,null);
+
+		c.moveToNext();
+		if(c.getCount()==0) return null;
+		GeoLocation loc = new GeoLocation(Double.valueOf(c.getString(LATITUDE)),Double.valueOf(c.getString(LONGITUDE)));
+		
+		return loc;
+	}
+	
+	public void updateSettingInfo(){
+
+		ContentValues row = new ContentValues();
+		row.put("color",SettingsDataManager.getInstance().getThemeColor());
+		row.put("facebook_login",SettingsDataManager.getInstance().isFacebookConnectd());
+		row.put("twitter_login",SettingsDataManager.getInstance().isTwitterConnectd());
+		row.put("instagram_login",SettingsDataManager.getInstance().isInstagramConnectd());
+		
+		db = manager.getWritableDatabase();
+		
+		Cursor c = db.query("settings", null,null,null,null,null,null);
+		
+		int count = c.getCount();
+		c.moveToNext();
+		if(c.getCount()==0){
+			db.insert("settings",null,row);
+		}
+		else{
+			int ret = db.update("settings",row,"num="+c.getInt(NUM),null);
+			Log.d(TAG, "Database affected row : "+String.valueOf(ret));
+		}
+	}
+	
+	public void selectSettingInfo(){
+		
+		db = manager.getReadableDatabase();
+		
+		Cursor c = db.query("settings", null,null,null,null,null,null);
+
+		c.moveToNext();
+		if(c.getCount()==0) return;
+		
+		if(c.getString(FACEBOOK_LOGIN_STATE).equals("T"))	SettingsDataManager.getInstance().setFacebookConnectd(true);
+		else SettingsDataManager.getInstance().setFacebookConnectd(false);
+		
+		if(c.getString(TWITTER_LOGIN_STATE).equals("T"))	SettingsDataManager.getInstance().setTwitterConnectd(true);
+		else SettingsDataManager.getInstance().setTwitterConnectd(false);
+		
+		if(c.getString(INSTAGRAM_LOGIN_STATE).equals("T"))	SettingsDataManager.getInstance().setInstagramConnectd(true);
+		else SettingsDataManager.getInstance().setInstagramConnectd(false);
+		
+		SettingsDataManager.getInstance().setThemeColor(c.getString(COLOR));
+	}
+	
+	public void insertCruiseData(String date,String velocity,String altitude,String distance,String calory,String timestamp){
+		ContentValues row = new ContentValues();
+		row.put("startTime",date);
+		row.put("velocity",velocity);
+		row.put("altitude",altitude);
+		row.put("distance",distance);
+		row.put("calory",calory);
+		row.put("timestamp", timestamp);
+		
+		db = manager.getWritableDatabase();
+		db.insert("cruise_data",null,row);
+		
+	}
+	public ArrayList<String> selectCruiseDataStartTime(){
+
+		db = manager.getReadableDatabase();
+		Cursor c = db.rawQuery("select * from cruise_data group by startTime order by timestamp;",null);
+
+		final int DATE 		= 1;
+		final int VELOCITY 	= 2;
+		final int ALTITUDE 	= 3;
+		final int DISTANCE 	= 4;
+		final int CALORY	= 5;
+		final int LATITUDE_CRUISEDATA = 6;
+		final int LONGITUDE_CRUISEDATA = 7;
+		final int TIME_STAMP = 8;
+		
+		ArrayList<CycleData> cycleDataList = new ArrayList<CycleData>();
+		
+		String prevStartTime = "";
+		
+		ArrayList<String> startTime = new ArrayList<String>();
+		ArrayList<String> velocity = new ArrayList<String>();
+		ArrayList<String> altitude = new ArrayList<String>();
+		ArrayList<String> distance = new ArrayList<String>();
+		ArrayList<String> calory = new ArrayList<String>();
+		ArrayList<Location> location = new ArrayList<Location>();
+		ArrayList<String> timestamp = new ArrayList<String>();
+		
+		for(int i = 0 ; i < c.getCount() ; i++){
+			c.moveToNext();
+			
+			if(!prevStartTime.equals(c.getString(DATE))){
+				
+				CycleData data = new CycleData();
+				data.setStartTime(cycle_date)
+				data.setSpeed(velocity);
+				data.setAltitude(altitude);
+				data.setDistance(distance);
+				data.setConsumeCalrories(calory);
+
+				
+				startTime = new ArrayList<String>();
+				velocity = new ArrayList<String>();
+				altitude = new ArrayList<String>();
+				distance = new ArrayList<String>();
+				calory = new ArrayList<String>();
+				lattitude = new ArrayList<String>();
+				longitude = new ArrayList<String>();
+				timestamp = new ArrayList<String>();
+			}
+		
+			startTime.add(c.getString(c.getShort(DATE)));
+			velocity.add(c.getString(VELOCITY));
+			altitude.add(c.getString(ALTITUDE));
+			distance.add(c.getString(DISTANCE));
+			calory.add(c.getString(CALORY));
+
+			Location loc = new Location("gps");
+			loc.setLatitude(Double.valueOf(c.getString(LATITUDE_CRUISEDATA)));
+			loc.setLongitude(Double.valueOf(c.getString(LONGITUDE_CRUISEDATA)));
+			loc.setLongitude(longitude)
+			lattitude.add();
+			longitude.add(c.getString(LONGITUDE_CRUISEDATA));
+			timestamp.add(c.getString(TIME_STAMP));
+			
+				
+			Log.d(TAG,"1 : " +c.getString(1));
+			Log.d(TAG,"2 : " +c.getString(2));
+			Log.d(TAG,"3 : " +c.getString(3));
+			Log.d(TAG,"4 : " +c.getString(4));
+			Log.d(TAG,"5 : " +c.getString(5));
+			Log.d(TAG,"6 : " +c.getString(6));
+			Log.d(TAG,"7 : " +c.getString(7));
+			Log.d(TAG,"8 : " +c.getString(8));
+		}
+		
+		return startTime;		
+	}
+	
+	public void selectCruiseData(String startTime){
+		db = manager.getReadableDatabase();
+		
+		String query = "select * from cruise_data where date="+startTime+";";
+		Cursor c = db.rawQuery(query,null);
+		
+		if(c.getCount()!=0)
+		{
+			ArrayList<Double> distance = new ArrayList<Double>();
+			ArrayList<String> speed = new ArrayList<String>();
+			ArrayList<String> altitude = new ArrayList<String>();
+			ArrayList<String> calory = new ArrayList<String>();
+			ArrayList<Location> location = new ArrayList<Location>();
+			ArrayList<String> timestamp = new ArrayList<String>();
+			
+			while(c.moveToNext()){
+				distance.add(Double.valueOf(c.getString(DISTANCE)));
+				speed.add(c.getString(VELOCITY));
+				altitude.add(c.getString(ALTITUDE));
+				calory.add(c.getString(CALORY));
+				Location loc = new Location("gps");
+				loc.setLatitude(Double.valueOf(c.getString(LATITUDE_CRUISEDATA)));
+				loc.setLongitude(Double.valueOf(c.getString(LONGITUDE_CRUISEDATA)));
+				location.add(loc);
+				timestamp.add(c.getString(TIME_STAMP));
+			}
+			
+			CruiseDataManager.getInstance().insertCycleData(startTime, speed, altitude, calory, distance, location,timestamp);
+		}
+	}
+	
+	public void close(){
+		db.close();
+	}
+	
+	static public DataBaseManager getInstance(){
+		if(manager == null) manager = new DataBaseManager(MainActivity.getInstasnce(),"CyclistsDB.sqlite",null,1);
+		return manager;
+	}
+
+}

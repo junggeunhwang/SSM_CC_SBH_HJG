@@ -1,0 +1,93 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.twitterlogintest.TwitLogin$PlaceholderFragment" 
+    android:orientation="vertical">
+
+    	<LinearLayout
+	    android:id="@+id/top_bar_cyclemate"
+		android:layout_width="match_parent"
+	    android:layout_height="45dp"
+	    android:background="@color/bk_color_pink_heavy"
+	    android:gravity="center_vertical"
+	    android:weightSum="1" >
+
+
+        <View
+	        android:layout_width="0dip"
+	        android:layout_height="match_parent"
+	        android:layout_weight="0.05"/>
+                
+		<Button
+			android:id="@+id/menu_button_cyclemate"
+	    	android:layout_width="35dp"
+	        android:layout_height="30dp"
+	        android:background="@drawable/menu_btn"/>
+
+		<View
+	        android:layout_width="0dip"
+	        android:layout_height="match_parent"
+	        android:layout_weight="0.40"/>
+
+        <TextView
+            android:id="@+id/fragment_name_cyclemate"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            
+            android:gravity="center_vertical|center_horizontal"
+            android:text="Twitter"
+            android:textColor="@color/white"
+            android:textSize="15sp" />
+        <View
+	        android:layout_width="0dip"
+	        android:layout_height="match_parent"
+	        android:layout_weight="0.35"/>
+        <ImageView
+            android:id="@+id/btn_submit_twitter"
+            android:layout_width="0dip"
+            android:layout_height="match_parent"
+            android:background="@color/md__transparent"
+            android:gravity="center_vertical|center_horizontal"
+            android:layout_weight="0.2"
+            />
+
+    </LinearLayout>
+    <LinearLayout 
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:padding="10dp"
+        android:orientation="vertical">
+	    <EditText
+	        android:id="@+id/editText1"
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:ems="10" 
+	        android:textSize="12sp"
+	        android:hint="Twitter Username">
+	
+	        <requestFocus />
+	    </EditText>
+	
+	    <EditText
+	        android:id="@+id/editText2"
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:ems="10"
+	        android:inputType="textPassword"
+	        android:textSize="12sp" 
+	        android:hint="Password"/>
+	
+	    <TextView
+	        android:id="@+id/textView1"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_marginTop="5dp"
+	        android:text="Password is not sotred."
+	        android:textColor="#55000000" />
+        
+    </LinearLayout>
+
+   
+</LinearLayout>

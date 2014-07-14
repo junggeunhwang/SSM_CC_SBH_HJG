@@ -3,8 +3,10 @@ package com.ssm.cyclists.controller.communication.https;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.ArrayList;
 
 import com.ssm.cyclists.controller.activity.MainActivity;
+import com.ssm.cyclists.model.UserData;
 
 import android.util.Log;
 import android.widget.Toast;
@@ -92,6 +94,33 @@ public class Protocol {
 		if(instance==null)instance = new Protocol();
 		return instance;
 	}
+	
+	/* 초대 요청
+	 * 초대된 상대방은 자동으로 방에 입장되며 진동과 노티로 그 사실을 알게 된다.
+	 */
+	public boolean InviteRequest(String myNumber,ArrayList<UserData> invitedUser){
+		HttpsCommunication httpsCommunication = new HttpsCommunication(httpsCallback);
+		httpsCommunication.setType(HttpsCommunication.TYPE_REQUEST);
+		httpsCommunication.setStringData("invite");
+		httpsCommunication.setUniqueNumber(myNumber);
+		
+		String str = "";
+		for(int i = 0;i<invitedUser.size();i++){
+			str+=invitedUser.get(i).getUniqueID();
+			if(i!=invitedUser.size()-1) str+=",";
+		}
+		
+		httpsCommunication.setExtraData(str);
+		
+		if(!httpsCommunication.ExecuteRequest()){
+			Log.e(TAG, "invite requeset failed");
+			return false;
+		}
+		
+		Log.d(TAG, "invite requeset success");
+		return true;
+	}
+	
 	
 
 

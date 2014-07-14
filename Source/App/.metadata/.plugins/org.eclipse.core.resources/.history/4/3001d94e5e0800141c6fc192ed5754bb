@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bk_color_pink_light"
+    android:orientation="vertical">
+    <LinearLayout
+	    android:id="@+id/top_bar_search_cyclemate"
+		android:layout_width="match_parent"
+	    android:layout_height="45dp"
+	    android:background="@color/bk_color_pink_heavy"
+	    android:gravity="center_vertical"
+	    android:weightSum="1" >
+
+
+        <View
+	        android:layout_width="0dip"
+	        android:layout_height="match_parent"
+	        android:layout_weight="0.05"/>
+                
+		<Button
+			android:id="@+id/cancel_button_search_cyclemate"
+	    	android:layout_width="35dp"
+	        android:layout_height="30dp"
+	        android:background="@color/md__transparent"
+	        android:textSize="11dp"
+	        android:text="Cancel"
+	        android:textColor="@color/white"/>
+
+		<View
+	        android:layout_width="0dip"
+	        android:layout_height="match_parent"
+	        android:layout_weight="0.45"/>
+
+        <TextView
+            android:id="@+id/fragment_name_search_cyclemate"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            
+            android:gravity="center_vertical|center_horizontal"
+            android:text="Search"
+            android:textColor="@color/white"
+            android:textSize="15sp" />
+        <View
+	        android:layout_width="0dip"
+	        android:layout_height="match_parent"
+	        android:layout_weight="0.45"/>
+		<Button
+			android:id="@+id/search_button_search_cyclemate"
+	    	android:layout_width="35dp"
+	        android:layout_height="30dp"
+	        android:background="@color/md__transparent"
+	        android:textSize="11dp"
+	        android:text="Search"
+	        android:textColor="@color/white"/>
+		<View
+	        android:layout_width="0dip"
+	        android:layout_height="match_parent"
+	        android:layout_weight="0.05"/>
+    </LinearLayout>
+    
+    <LinearLayout
+        android:id="@+id/background_search_cyclemate"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tv_comment_search_cyclemate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:text="Search with phone number to find friend."
+            android:textSize="13dp"/>
+        
+        <EditText
+            android:id="@+id/search_target_search_cyclemate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
+            android:paddingLeft="10dp"
+            android:textSize="20dp"
+            android:hint="input phone number."
+            android:background="@drawable/rounded_edittext"/>
+        
+    </LinearLayout>
+
+	<TextView
+        android:id="@+id/app_name_search_cyclemate"
+        android:layout_width="match_parent"
+        android:layout_height="20dp"
+        android:layout_marginBottom = "10dp"
+        android:gravity="center_vertical|center_horizontal"
+        android:text="Bicycle app"
+        android:textColor="@color/text_pink"/>
+    
+</LinearLayout>
