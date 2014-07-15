@@ -17,6 +17,7 @@ public class CruiseInfoTimerTask extends TimerTask {
 	static String TAG = CruiseInfoTimerTask.class.getSimpleName();
 	
 	long startTime = System.currentTimeMillis();
+	int count = 0;
 	
 	@Override
 	public void run() {
@@ -48,11 +49,15 @@ public class CruiseInfoTimerTask extends TimerTask {
 				String.valueOf(CruiseDataManager.getInstance().getCurrent_loc().getLongitude()),
 				String.valueOf(now));						//timestamp
 		
-		String location = "location,"+
-		CruiseDataManager.getInstance().getCurrent_loc().getLatitude() + "," + 
-		CruiseDataManager.getInstance().getCurrent_loc().getLongitude();
-		
-		Protocol.getInstance().SendString(location, SettingsDataManager.getInstance().getMe().getUniqueID());
+		count++;
+		if(count == 5){
+			String location = "location,"+
+					CruiseDataManager.getInstance().getCurrent_loc().getLatitude() + "," + 
+					CruiseDataManager.getInstance().getCurrent_loc().getLongitude();
+					
+					Protocol.getInstance().SendString(location, SettingsDataManager.getInstance().getMe().getUniqueID());
+			count = 0;
+		}
 		
 		CruiseDataManager manager = CruiseDataManager.getInstance();
 		if(MainActivity.getInstasnce().getLayout().getmCruiseContainerFragment().getmMapViewFragment().isVisible())

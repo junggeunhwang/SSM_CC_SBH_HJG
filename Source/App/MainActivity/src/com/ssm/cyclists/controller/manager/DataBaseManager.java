@@ -88,11 +88,21 @@ public class DataBaseManager extends SQLiteOpenHelper {
 
 	@Override
 	public void onUpgrade(SQLiteDatabase db, int arg1, int arg2) {
-		db.execSQL("DROP TABLE IF EXSITS last_location");
-		db.execSQL("DROP TABLE IF EXSITS settings");
-		db.execSQL("DROP TABLE IF EXSITS cruise_data");
-		db.execSQL("DROP TABLE IF EXSITS friend");
+		db.execSQL("DROP TABLE IF EXISTS last_location;");
+		db.execSQL("DROP TABLE IF EXISTS settings;");
+		db.execSQL("DROP TABLE IF EXISTS cruise_data;");
+		db.execSQL("DROP TABLE IF EXISTS friend;");
 		onCreate(db);
+	}
+	
+	public void recreateFriendTable(){
+		db = db = manager.getWritableDatabase();
+		db.execSQL("DROP TABLE IF EXISTS friend;");
+		
+		String sql = "CREATE TABLE friend("+
+				"uniqueNumber TEXT PRIMARY KEY,"+
+				"name TEXT);";
+		db.execSQL(sql);
 	}
 	
 	public void insertFriend(String uniqueNumber,String name){
@@ -110,8 +120,19 @@ public class DataBaseManager extends SQLiteOpenHelper {
 		db.rawQuery("update friendlist set name = \""+name+"\" where uniqueNumber=\""+uniqueNumber+"\";", null);
 	}
 	public void deleteAllFriend(){
+		
+  		recreateFriendTable();
+		
 		db = manager.getWritableDatabase();
+		Cursor c = db.rawQuery("select * from friend",null);
+ 		int a = c.getCount();
 		db.rawQuery("delete from friend;", null);
+		
+		c = db.rawQuery("select * from friend",null);
+ 		a = c.getCount();
+		
+		
+		
 	}
 	
 	public ArrayList<UserData> selectFriend(){
@@ -292,14 +313,14 @@ public class DataBaseManager extends SQLiteOpenHelper {
 				cycleDataList.add(data);	
 			}
 				
-			Log.d(TAG,"1 : " +c.getString(1));
-			Log.d(TAG,"2 : " +c.getString(2));
-			Log.d(TAG,"3 : " +c.getString(3));
-			Log.d(TAG,"4 : " +c.getString(4));
-			Log.d(TAG,"5 : " +c.getString(5));
-			Log.d(TAG,"6 : " +c.getString(6));
-			Log.d(TAG,"7 : " +c.getString(7));
-			Log.d(TAG,"8 : " +c.getString(8));
+//			Log.d(TAG,"1 : " +c.getString(1));
+//			Log.d(TAG,"2 : " +c.getString(2));
+//			Log.d(TAG,"3 : " +c.getString(3));
+//			Log.d(TAG,"4 : " +c.getString(4));
+//			Log.d(TAG,"5 : " +c.getString(5));
+//			Log.d(TAG,"6 : " +c.getString(6));
+//			Log.d(TAG,"7 : " +c.getString(7));
+//			Log.d(TAG,"8 : " +c.getString(8));
 		}
 		
 		

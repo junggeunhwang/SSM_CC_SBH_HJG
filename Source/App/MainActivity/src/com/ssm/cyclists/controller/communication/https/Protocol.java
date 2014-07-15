@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.StringTokenizer;
 
+import com.ssm.cyclists.R;
 import com.ssm.cyclists.controller.activity.MainActivity;
 import com.ssm.cyclists.controller.manager.DataBaseManager;
 import com.ssm.cyclists.controller.manager.SettingsDataManager;
@@ -41,6 +42,18 @@ public class Protocol {
 				
 					if(hcn.getResponseType().equals("string")){
 						/*Multicast Data*/
+						
+						//방에 초대됨
+						if(hcn.getStringResponseData().equals("JOINROOM"))
+						{
+							MainActivity.getInstasnce().popupNotification();
+							SettingsDataManager.getInstance().setStart_stopBicycleFlag(true);
+							MainActivity.getInstasnce().getLayout().getmCruiseContainerFragment().setViewPagerEnable(true);
+							//뷰페이저  활성화
+							MainActivity.getInstasnce().getLayout().replaceFragment(R.layout.fragment_cruise_container);
+							return;
+						}
+						
 						String receive = hcn.getStringResponseData();
 						String senderUniqueID = hcn.getResponseUniqueNumber();
 						
@@ -60,19 +73,6 @@ public class Protocol {
 									friendList.get(i).setCurrentLocation(loc);
 								}
 							}
-						}else if (token.equals("roommember")){
-							Log.d(TAG,"room member Broadcast received");
-							ArrayList<UserData> roomMemberList = new ArrayList<UserData>();
-							ArrayList<UserData> friendList = SettingsDataManager.getInstance().getFriendList();
-							
-							while((token = tokenizer.nextToken())!=null){
-								for(int i = 0 ; i < friendList.size() ; i++){
-									if(friendList.get(i).getUniqueID().equals(token)){
-										roomMemberList.add(friendList.get(i));
-									}
-								}
-							}
-							SettingsDataManager.getInstance().setCurrentRoomFriendList(roomMemberList);
 						}
 					}else if(hcn.getResponseType().equals("file")){
 						
@@ -119,7 +119,19 @@ public class Protocol {
 					if(hcn.getStringResponseData().equals("SUCCESS")){
 						Log.i(TAG,"MakeRoom Success");
 						//방 생성
-//						Protocol.getInstance().MakeRoom(SettingsDataManager.getInstance().getMe().getUniqueID(),);
+						Protocol.getInstance().InviteFriend(SettingsDataManager.getInstance().getMe().getUniqueID(),SettingsDataManager.getInstance().getCurrentRoomFriendList());
+						
+						for(int i =  0;i<SettingsDataManager.getInstance().getCurrentRoomFriendList().size();i++){ 
+							// 방 참석자 브로드캐스트
+							String friendsUniqueID = "roommember,";
+							
+							//선택된 사용자 초대
+							for(int j = 0 ; j < SettingsDataManager.getInstance().getCurrentRoomFriendList().size();j++){
+								friendsUniqueID += SettingsDataManager.getInstance().getCurrentRoomFriendList().get(j).getUniqueID();
+								if((j+1)!=SettingsDataManager.getInstance().getCurrentRoomFriendList().size()) friendsUniqueID += ",";
+							}
+							Protocol.getInstance().SendString(friendsUniqueID, SettingsDataManager.getInstance().getMe().getUniqueID());
+						}
 					}
 					else if(hcn.getStringResponseData().equals("ENOTLOGIN")) Log.e(TAG,"MakeRoom Fail : ENOTLOGIN");
 					else if(hcn.getStringResponseData().equals("EMISSING")) Log.e(TAG,"MakeRoom Fail : EMISSING");
@@ -244,7 +256,6 @@ public class Protocol {
 					else if(hcn.getStringResponseData().equals("ETARGETALREADYJOINROOM")) Log.e(TAG,"inviteroom Fail : ETARGETALREADYJOINROOM");
 					else if(hcn.getStringResponseData().equals("SUCCESS")){
 						Log.e(TAG,"inviteroom SUCCESS");
-						MainActivity.getInstasnce().popupNotification();
 					}
 				}
 			}
@@ -262,18 +273,21 @@ public class Protocol {
 	}
 	
 
-	public boolean InviteFriend(String myNumber,String targetNumber){
-		HttpsCommunication httpsCommunication = new HttpsCommunication(httpsCallback);
-		httpsCommunication.setType(HttpsCommunication.TYPE_REQUEST);
-		httpsCommunication.setUniqueNumber(myNumber);
-		httpsCommunication.setStringData("inviteroom");
-		httpsCommunication.setExtraData(targetNumber);
-		
-		if(!httpsCommunication.ExecuteRequest()){
-			Log.e(TAG, "invite friend requeset failed");
-			return false;
+	public boolean InviteFriend(String myNumber,ArrayList<UserData> targetNumbers){
+		for(int i = 0 ; i < targetNumbers.size();i++){
+			HttpsCommunication httpsCommunication = new HttpsCommunication(httpsCallback);
+			httpsCommunication.setType(HttpsCommunication.TYPE_REQUEST);
+			httpsCommunication.setUniqueNumber(myNumber);
+			httpsCommunication.setStringData("inviteroom");
+			httpsCommunication.setExtraData(targetNumbers.get(i).getUniqueID());
+			
+			if(!httpsCommunication.ExecuteRequest()){
+				Log.e(TAG, "invite friend requeset failed");
+				return false;
+			}
+			Log.d(TAG, "invite friend request success : " + targetNumbers.get(i));	
 		}
-		Log.d(TAG, "invite friend request success : " + targetNumber);
+		
 		return true;
 	}
 	
@@ -382,7 +396,7 @@ public class Protocol {
 			Log.e(TAG, "logout requeset failed");
 			return false;
 		}
-		Log.d(TAG, "logut request success");
+		Log.d(TAG, "logout request success");
 		return true;
     }
     

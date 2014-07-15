@@ -17,6 +17,7 @@ public class SettingsDataManager {
 	private UserData  me;
 	private ArrayList<UserData> friendList;
 	private ArrayList<UserData> currentRoomFriendList;
+	
 	private String Unit;
 	
 	

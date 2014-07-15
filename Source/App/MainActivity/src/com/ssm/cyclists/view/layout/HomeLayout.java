@@ -120,7 +120,14 @@ public class HomeLayout extends BaseFragmentLayout {
 					MainActivity.getInstasnce().getLayout().getmCruiseContainerFragment().setViewPagerEnable(false);
 					//자전거타기 종료
 					SettingsDataManager.getInstance().setStart_stopBicycleFlag(false);
-					CruiseDataManager.getInstance().setCycle_data_list(DataBaseManager.getInstance().selectCruiseData());
+					new Thread(new Runnable() {
+						
+						@Override
+						public void run() {
+							CruiseDataManager.getInstance().setCycle_data_list(DataBaseManager.getInstance().selectCruiseData());	
+						}
+					}).start();
+					
 					MainActivity.getInstasnce().stopCruiseInfoRecord();
 					Protocol.getInstance().ExitRoom(SettingsDataManager.getInstance().getMe().getUniqueID());
 					CruiseDataManager.getInstance().clear();
@@ -318,10 +325,10 @@ public class HomeLayout extends BaseFragmentLayout {
 	 }
 	 
 	 public void convertStartBtn(){
-		 if(btnStartToBicycle.getText().equals("Start biking"))
-			 btnStartToBicycle.setText("Stop biking");
-		 else if(btnStartToBicycle.getText().equals("Stop biking"))
-			 btnStartToBicycle.setText("Start biking");
+		 if(btnStartToBicycle.getText().equals("Start Cycling"))
+			 btnStartToBicycle.setText("Stop Cycling");
+		 else if(btnStartToBicycle.getText().equals("Stop Cycling"))
+			 btnStartToBicycle.setText("Start Cycling");
 			 
 	 }
 	 

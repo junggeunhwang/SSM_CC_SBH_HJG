@@ -78,33 +78,20 @@ public class CheckableCycleMateLayout extends BaseFragmentLayout{
 			
 			@Override
 			public void onClick(View arg0) {
-				MainActivity.getInstasnce().getLayout().getmCruiseContainerFragment().setViewPagerEnable(true);
-//				MainActivity.getInstasnce().getLayout().getmCruiseContainerFragment().setViewPagerBounds(4);
+				MainActivity.getInstasnce().getLayout();
+				MainLayout.getmCruiseContainerFragment().setViewPagerEnable(true);
 				SettingsDataManager.getInstance().setStart_stopBicycleFlag(true);
-				ArrayList<UserData> checkedUser = new ArrayList<UserData>();
 				
+				ArrayList<UserData> checkedUser = new ArrayList<UserData>();
 				for(int i = 0 ; i < Adapter.getCount();i++){
 					if(((UserData)Adapter.getItem(i)).isChecked()){
 						checkedUser.add((UserData)Adapter.getItem(i));
 					}
 				}
-				
 
-				String friendsUniqueID = "roommember,";
-				
-				
-				//선택된 사용자 초대
-				for(int i = 0 ; i < checkedUser.size();i++){
-					Protocol.getInstance().InviteFriend(SettingsDataManager.getInstance().getMe().getUniqueID(),checkedUser.get(i).getUniqueID());
-					friendsUniqueID += checkedUser.get(i).getUniqueID();
-					if((i+1)!=checkedUser.size()) friendsUniqueID += ",";
-					SettingsDataManager.getInstance().setCurrentRoomFriendList(checkedUser);
-				}
-				SettingsDataManager.getInstance().getCurrentRoomFriendList().add(SettingsDataManager.getInstance().getMe());
-				
-				//방 초대 목록 브로드케스트
-				//초대 실패 고료해야하는데... 졸리다....
-				Protocol.getInstance().SendString(friendsUniqueID, SettingsDataManager.getInstance().getMe().getUniqueID());
+				SettingsDataManager.getInstance().setCurrentRoomFriendList(checkedUser);
+				//방 생성
+				Protocol.getInstance().MakeRoom(SettingsDataManager.getInstance().getMe().getUniqueID());
 				//뷰페이저  활성화
 				MainActivity.getInstasnce().getLayout().replaceFragment(R.layout.fragment_cruise_container);
 				//운항 기록 시작

@@ -7,6 +7,7 @@ import android.util.Log;
 import com.ssm.cyclists.controller.activity.MainActivity;
 import com.ssm.cyclists.controller.communication.https.HttpsCommunication;
 import com.ssm.cyclists.controller.communication.https.Protocol;
+import com.ssm.cyclists.controller.manager.SettingsDataManager;
 
 public class GetTask extends TimerTask { 
 
@@ -16,7 +17,7 @@ public class GetTask extends TimerTask {
 
 			HttpsCommunication httpsCommunication = new HttpsCommunication(Protocol.getInstance().getHttpsCallback());
 			httpsCommunication.setType(HttpsCommunication.TYPE_REQUEST);
-			httpsCommunication.setUniqueNumber(MainActivity.getInstasnce().getMyNumber());
+			httpsCommunication.setUniqueNumber(SettingsDataManager.getInstance().getMe().getUniqueID());
 			httpsCommunication.setStringData("get");
 			Log.i(TAG, "get");
 			

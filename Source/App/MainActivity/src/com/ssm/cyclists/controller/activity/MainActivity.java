@@ -118,7 +118,7 @@ public class MainActivity extends FragmentActivity {
     	//전화번호
         mTelephonyManager = (TelephonyManager)getSystemService(Context.TELEPHONY_SERVICE);
         myNumber = mTelephonyManager.getLine1Number();
-        myNumber = "01098765432";
+        if(myNumber==null)myNumber = "01098765432";
 //       	myNumber = "01012345678";
         	
         Log.d(TAG,"my number : "+myNumber);
@@ -199,19 +199,12 @@ public class MainActivity extends FragmentActivity {
     	layout = new MainLayout(this);
     	setContentView(layout.getView());
         layout.init();
-       
-   
-
+        
         
     }
 
     @Override
-    protected void onResume() {
-    	this.instance = this;
-    	super.onStart();
-    	FacebookManager.getInstance().start();
-    	googleLocationManager.resume();
-    	
+    protected void onStart() {
     	startGetRequest();
     	Protocol.getInstance().Login(myNumber);
     	
@@ -219,22 +212,34 @@ public class MainActivity extends FragmentActivity {
         mCtxt = getApplicationContext();
         mCtxt.bindService(new Intent(getApplicationContext(), SAPProviderService.class), 
                 this.mSAPConnection, Context.BIND_AUTO_CREATE);
-        
+    	super.onStart();
+    }
+    
+    @Override
+    protected void onResume() {
+    	this.instance = this;
+    	super.onStart();
+    	FacebookManager.getInstance().start();
+    	googleLocationManager.resume();
     	super.onResume();
     }
 
     @Override
-    protected void onPause() {
-    	Log.d(TAG,"onPause");
-    	FacebookManager.getInstance().stop();
-    	googleLocationManager.pause();
-    	
+    protected void onDestroy() {
     	stopGetRequest();
     	Protocol.getInstance().Logout(myNumber);
     	if(mSAPService!=null)
     		mSAPService.stopService(new Intent(getApplicationContext(), SAPProviderService.class));
     	getFragmentManager().beginTransaction().remove(layout.getmCruiseContainerFragment());
     	mSAPService = null;
+    	super.onDestroy();
+    }
+    
+    @Override
+    protected void onPause() {
+    	Log.d(TAG,"onPause");
+    	FacebookManager.getInstance().stop();
+    	googleLocationManager.pause();
     	super.onPause();
     }
    
@@ -282,8 +287,13 @@ public class MainActivity extends FragmentActivity {
         	((CycleTrackerContainerFragment)layout.getActivated_fragment()).getmCycleTrackerDetailGraphFragment().getLayout().backScreen();
 
         else if(layout.getActivated_fragment().equals(layout.getmCruiseContainerFragment())){
+        	//운동중엔 백버튼 무력화
+        	if(SettingsDataManager.getInstance().isStart_stopBicycleFlag()  == true){
+        		return;
+        	}
         	
         	if(exit_flag==1){
+        		Protocol.getInstance().Logout(SettingsDataManager.getInstance().getMe().getUniqueID());
         		finish();
             	System.exit(0);
         	}

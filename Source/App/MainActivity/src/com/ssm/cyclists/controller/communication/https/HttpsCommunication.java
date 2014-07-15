@@ -36,7 +36,8 @@ public class HttpsCommunication
 	public static final String TYPE_FILE = "file";
 	public static final String TYPE_REQUEST = "request";
 //	private final String urlString = "https://221.146.188.179";
-	private final String urlString = "https://moonlightchaser.mooo.com";
+//	private final String urlString = "https://moonlightchaser.mooo.com";
+	private final String urlString = "https://mynightmyluna.mooo.com";
 
 	private boolean isUniqueNumberSet = false;
 	private boolean isTypeSet = false;
@@ -111,7 +112,7 @@ public class HttpsCommunication
                 } catch (Exception e)
                 {
 //                	Log.e(TAG, e.getLocalizedMessage());
-                    e.printStackTrace();
+                     e.printStackTrace();
 //                    callback.onResponseFailure(e.getLocalizedMessage());
                 }
 
