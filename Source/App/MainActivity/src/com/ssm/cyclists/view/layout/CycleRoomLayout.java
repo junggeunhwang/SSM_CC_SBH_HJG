@@ -60,6 +60,10 @@ public class CycleRoomLayout extends BaseFragmentLayout {
 		updateColor();
 	}
 	
+	public void updateRoomInfo(){
+		
+	}
+	
 	private OnClickListener buildMenuButtonListener(){
 		
 		return new OnClickListener(){

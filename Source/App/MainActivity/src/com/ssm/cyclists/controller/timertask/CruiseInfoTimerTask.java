@@ -49,7 +49,6 @@ public class CruiseInfoTimerTask extends TimerTask {
 				String.valueOf(now));						//timestamp
 		
 		String location = "location,"+
-		String.valueOf(SettingsDataManager.getInstance().getMe().getUniqueID())+ "," +
 		CruiseDataManager.getInstance().getCurrent_loc().getLatitude() + "," + 
 		CruiseDataManager.getInstance().getCurrent_loc().getLongitude();
 		
@@ -64,6 +63,25 @@ public class CruiseInfoTimerTask extends TimerTask {
 		
 		if(MainActivity.getInstasnce().getLayout().getmCruiseContainerFragment().getmMapViewFragment().isVisible())
 			MainActivity.getInstasnce().getLayout().getmCruiseContainerFragment().getmMapViewFragment().updateMapViewInfo();
+		
+		// 이 랜덤 값은 테스트를 위한 값이며, 실제 값이 들어가야 함.
+
+//		double maxspeed = a.nextDouble()*k; 
+//		double avgspeed = a.nextDouble()*k;
+//		double distance = a.nextDouble()*k;
+//		double altitude = a.nextDouble()*k;
+//		double kcal = a.nextDouble()*k;
+
+//		// format 메서드 이용
+//		String response = String.format("fitninfo;%.2f;%.2f;%.2f;%.2f;%.2f",
+//				Double.valueOf(CruiseDataManager.getInstance().getMaximum_speed()),
+//				CruiseDataManager.getInstance().,
+//				Double.valueOf(CruiseDataManager.getInstance().getDistnace()),
+//				Double.valueOf(CruiseDataManager.getInstance().getElevation()),
+//				Double.valueOf(CruiseDataManager.getInstance().getCalory()));
+//
+//		// 보내기
+//		MainActivity.getInstasnce().getmSAPService().SendByteData(response.getBytes());
 		
 		Log.d(TAG,"speed : "+ manager.getCurrent_speed() + "\n"+
 				"altitude : "+ manager.getElevation()+ "\n"+

@@ -7,12 +7,16 @@ import org.apache.http.util.Args;
 
 import com.ssm.cyclists.R;
 import com.ssm.cyclists.controller.activity.MainActivity;
+import com.ssm.cyclists.controller.manager.CruiseDataManager;
+import com.ssm.cyclists.controller.manager.SettingsDataManager;
 import com.ssm.cyclists.controller.timertask.CruiseInfoTimerTask;
+import com.ssm.cyclists.model.SettingsData;
 
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.content.Context;
 import android.os.Bundle;
+import android.support.v13.app.FragmentPagerAdapter;
 import android.support.v13.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
@@ -36,14 +40,13 @@ public class CruiseContainerFragment extends Fragment {
 	
 	private ViewPager mPager;
 	private PageAdapter mAdapter;
-	private boolean viewPagerEnable;
+	private boolean viewPagerEnable = false;
+	
 	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-		
-		viewPagerEnable = false;
-		
+
 		View root = inflater.inflate(R.layout.fragment_cruise_container, container, false);
 		
 		mHomeFragment.setContainerFragment(this);
@@ -57,6 +60,11 @@ public class CruiseContainerFragment extends Fragment {
 		mPager.setAdapter(mAdapter);
 		mPager.setCurrentItem(0);
 //		updateColor();
+		if(viewPagerEnable == true){
+			setViewPagerBounds(4);
+		}else{
+			setViewPagerBounds(1);	
+		}
 		return root;
 	}
 	
@@ -65,10 +73,10 @@ public class CruiseContainerFragment extends Fragment {
 		Adapter.setCount(itmeCount);
 		mPager.setAdapter(Adapter);
 		mPager.setCurrentItem(0);
-		MainActivity.getInstasnce().getLayout().replaceFragment(R.layout.fragment_cruise_container);
+//		onDestroyView();
 	}
 
-	public static final class PageAdapter extends FragmentStatePagerAdapter {
+	public static final class PageAdapter extends FragmentPagerAdapter {
 
 		int count = 4;
 		
@@ -198,6 +206,15 @@ public class CruiseContainerFragment extends Fragment {
 
 	public ViewPager getmPager() {
 		return mPager;
+	}
+
+	public boolean isViewPagerEnable() {
+		return viewPagerEnable;
+	}
+
+	public void setViewPagerEnable(boolean viewPagerEnable) {
+		this.viewPagerEnable = viewPagerEnable;
+		onDestroyView();
 	}
 
 

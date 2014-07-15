@@ -35,7 +35,8 @@ public class HttpsCommunication
 	public static final String TYPE_STRING = "string";
 	public static final String TYPE_FILE = "file";
 	public static final String TYPE_REQUEST = "request";
-	private final String urlString = "https://221.146.188.179";
+//	private final String urlString = "https://221.146.188.179";
+	private final String urlString = "https://moonlightchaser.mooo.com";
 
 	private boolean isUniqueNumberSet = false;
 	private boolean isTypeSet = false;

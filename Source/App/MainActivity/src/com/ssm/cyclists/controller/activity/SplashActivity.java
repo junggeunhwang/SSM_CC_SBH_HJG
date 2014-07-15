@@ -4,16 +4,21 @@ import twitter4j.GeoLocation;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
+import com.ssm.cyclists.LawRightDialog;
 import com.ssm.cyclists.R;
+import com.ssm.cyclists.controller.asynctask.WeatherUpdateAsyncTask;
 import com.ssm.cyclists.controller.manager.CruiseDataManager;
 import com.ssm.cyclists.controller.manager.DataBaseManager;
 import com.ssm.cyclists.controller.manager.ResourceManager;
+import com.ssm.cyclists.controller.manager.SettingsDataManager;
 import com.ssm.cyclists.view.layout.SplashLayout;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.content.res.Configuration;
 import android.location.Criteria;
 import android.location.LocationManager;
@@ -22,6 +27,10 @@ import android.os.Handler;
 import android.os.Message;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 
 public class SplashActivity extends Activity {
@@ -63,13 +72,46 @@ public class SplashActivity extends Activity {
 		Handler handler = new Handler(){
 			@Override
 			public void handleMessage(Message msg) {
-				finish();
-				overridePendingTransition(R.anim.fade_in,R.anim.fade_out);
+				
+			
+				if(SettingsDataManager.getInstance().getMe().getUserName().equals("")){
+					
+					setContentView(R.layout.activity_initialize_user_name);
+					overridePendingTransition(R.anim.fade_in,R.anim.fade_out);
+					
+					final EditText etUserName = (EditText)findViewById(R.id.et_user_name_initialize);
+					etUserName.setTypeface(ResourceManager.getInstance().getFont("helvetica"));
+					
+					Button btnEnjoy = (Button)findViewById(R.id.btn_enjoy_cycling_initialize);
+					btnEnjoy.setTypeface(ResourceManager.getInstance().getFont("helvetica"));
+					btnEnjoy.setOnClickListener(new OnClickListener() {
+						
+						@Override
+						public void onClick(View v) {
+							//이름 입력정보 저장
+							SharedPreferences pref_init_username_out = getSharedPreferences("init_username", 0);
+							Editor editor_init_username = pref_init_username_out.edit();
+							editor_init_username.putString("init_username",etUserName.getText().toString());
+							editor_init_username.commit();
+							
+							SettingsDataManager.getInstance().getMe().setUserName(etUserName.getText().toString());
+							finish();
+							overridePendingTransition(R.anim.fade_in,R.anim.fade_out);
+						}
+					});
+				}
+				else{
+					finish();
+					overridePendingTransition(R.anim.fade_in,R.anim.fade_out);
+				}
 				super.handleMessage(msg);
 			}
 		};
 
+		WeatherUpdateAsyncTask task = new WeatherUpdateAsyncTask();
+		task.execute(CruiseDataManager.getInstance().getCurrent_loc());
 		handler.sendEmptyMessageDelayed(0, 1500);
+		
 	}
 
 	@Override

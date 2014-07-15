@@ -1,6 +1,10 @@
 package com.ssm.cyclists.view.layout;
 
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.Calendar;
 
 import net.simonvt.menudrawer.MenuDrawer;
@@ -22,6 +26,7 @@ import com.ssm.cyclists.view.ImageViewRounded;
 import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -42,6 +47,8 @@ import android.widget.TextView;
 public class HomeLayout extends BaseFragmentLayout {
 	
 	static String TAG = HomeLayout.class.getSimpleName();
+	private static final String DEST_DIR  = "/storage/emulated/legacy/Cyclists";
+	private static final String DEST_DIR_PROFILE  = DEST_DIR+ "/Profile" ;
 	
 	private Button btnStartToBicycle;
 	
@@ -89,10 +96,10 @@ public class HomeLayout extends BaseFragmentLayout {
 		
 		if(SettingsDataManager.getInstance().isStart_stopBicycleFlag()==false)
 		{
-			btnStartToBicycle.setText("Start biking");
+			btnStartToBicycle.setText("Start Cycling");
 		}
 		else{
-			btnStartToBicycle.setText("Stop biking");
+			btnStartToBicycle.setText("Stop Cycling");
 		}
 		btnStartToBicycle.setOnClickListener(new OnClickListener() {
 			
@@ -110,7 +117,7 @@ public class HomeLayout extends BaseFragmentLayout {
 				}
 				else{
 					MainActivity.getInstasnce().getLayout().getmMenuDrawer().setTouchMode(MenuDrawer.TOUCH_MODE_BEZEL);
-//					MainActivity.getInstasnce().getLayout().getmCruiseContainerFra  gment().setViewPagerBounds(1);
+					MainActivity.getInstasnce().getLayout().getmCruiseContainerFragment().setViewPagerEnable(false);
 					//자전거타기 종료
 					SettingsDataManager.getInstance().setStart_stopBicycleFlag(false);
 					CruiseDataManager.getInstance().setCycle_data_list(DataBaseManager.getInstance().selectCruiseData());
@@ -214,6 +221,26 @@ public class HomeLayout extends BaseFragmentLayout {
 				@Override
 				public void run() {
 					UserData me = SettingsDataManager.getInstance().getMe();
+					if(SettingsDataManager.getInstance().isFacebookConnectd() || SettingsDataManager.getInstance().isTwitterConnectd() || SettingsDataManager.getInstance().isInstagramConnectd())
+					{
+						//file -> byte[]
+						File profile = new File(DEST_DIR_PROFILE);
+                    	try {
+                    		FileInputStream fis = new FileInputStream(profile);
+                    		byte[] content = new byte[(int) profile.length()];
+							fis = new FileInputStream(profile);
+							fis.read(content);
+							//byte[] -> bitmap
+							Bitmap profileImg = BitmapFactory.decodeByteArray(content , 0, content .length);
+							me.setProfileImg(profileImg);
+						} catch (FileNotFoundException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						} catch (IOException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+					}
 					if(me.getProfileImg()!=null){
 						ivProfileImage.setImageBitmap(me.getProfileImg());
 					}
@@ -231,13 +258,8 @@ public class HomeLayout extends BaseFragmentLayout {
 				@Override
 				public void run() {
 					UserData me = SettingsDataManager.getInstance().getMe();
-					if(me.getUserName() == null){
 						tvUserID.setText(me.getUniqueID());
-					}
-					else{
 						tvUserID.setText(me.getUserName());	
-					}
-					
 				}
 			});
 		 }

@@ -20,6 +20,8 @@ import com.ssm.cyclists.model.adapter.CycleMateListViewAdapter;
 import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.pm.ActivityInfo;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -64,11 +66,8 @@ public class CheckableCycleMateLayout extends BaseFragmentLayout{
 			
 			@Override
 			public void onClick(View arg0) {
-				InputMethodManager imm = (InputMethodManager)MainActivity.getInstasnce().getSystemService(
-					      Context.INPUT_METHOD_SERVICE);
-					imm.hideSoftInputFromWindow(etSearchData.getWindowToken(), 0);
-					MainActivity.getInstasnce().getLayout().getmMenuDrawer().setTouchMode(MenuDrawer.TOUCH_MODE_BEZEL);
-					SettingsDataManager.getInstance().setStart_stopBicycleFlag(false);
+				MainActivity.getInstasnce().getLayout().getmMenuDrawer().setTouchMode(MenuDrawer.TOUCH_MODE_BEZEL);
+				SettingsDataManager.getInstance().setStart_stopBicycleFlag(false);
 				backScreen();
 			}
 		});
@@ -79,6 +78,8 @@ public class CheckableCycleMateLayout extends BaseFragmentLayout{
 			
 			@Override
 			public void onClick(View arg0) {
+				MainActivity.getInstasnce().getLayout().getmCruiseContainerFragment().setViewPagerEnable(true);
+//				MainActivity.getInstasnce().getLayout().getmCruiseContainerFragment().setViewPagerBounds(4);
 				SettingsDataManager.getInstance().setStart_stopBicycleFlag(true);
 				ArrayList<UserData> checkedUser = new ArrayList<UserData>();
 				
@@ -97,15 +98,15 @@ public class CheckableCycleMateLayout extends BaseFragmentLayout{
 					Protocol.getInstance().InviteFriend(SettingsDataManager.getInstance().getMe().getUniqueID(),checkedUser.get(i).getUniqueID());
 					friendsUniqueID += checkedUser.get(i).getUniqueID();
 					if((i+1)!=checkedUser.size()) friendsUniqueID += ",";
+					SettingsDataManager.getInstance().setCurrentRoomFriendList(checkedUser);
 				}
-				
+				SettingsDataManager.getInstance().getCurrentRoomFriendList().add(SettingsDataManager.getInstance().getMe());
 				
 				//방 초대 목록 브로드케스트
 				//초대 실패 고료해야하는데... 졸리다....
 				Protocol.getInstance().SendString(friendsUniqueID, SettingsDataManager.getInstance().getMe().getUniqueID());
 				//뷰페이저  활성화
 				MainActivity.getInstasnce().getLayout().replaceFragment(R.layout.fragment_cruise_container);
-//				MainActivity.getInstasnce().getLayout().getmCruiseCsontainerFragment().setViewPagerBounds(4);
 				//운항 기록 시작
 				MainActivity.getInstasnce().startCruiseInfoRecord();
 			}
@@ -114,6 +115,27 @@ public class CheckableCycleMateLayout extends BaseFragmentLayout{
 		tvFragmentName 	= (TextView)getView().findViewById(R.id.fragment_name_checkable_cyclemate);
 		tvAppName		= (TextView)getView().findViewById(R.id.app_name_checkable_cycle_mate);
 		etSearchData 	= (EditText)getView().findViewById(R.id.et_search_data_checkable_cyclemate);
+		etSearchData.addTextChangedListener(new TextWatcher() {
+			
+			@Override
+			public void onTextChanged(CharSequence s, int start, int before, int count) {
+				if(etSearchData.getText().toString().equals("")) Adapter.search("");
+			}
+			
+			@Override
+			public void beforeTextChanged(CharSequence s, int start, int count,
+					int after) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void afterTextChanged(Editable s) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
+		
 		lvCycleMate		= (ListView)getView().findViewById(R.id.lv_checkable_cyclemate);
 		
 		lyTopBar		= (LinearLayout)getView().findViewById(R.id.top_bar_checkable_cyclemate);
@@ -137,9 +159,13 @@ public class CheckableCycleMateLayout extends BaseFragmentLayout{
 		view = inflater.inflate(R.layout.fragment_checkable_cycle_mate, container, false);
 	}
 	
+	public void onPause() {
+		MainActivity.getInstasnce().getLayout().hideSoftKeyboard(etSearchData);
+	}
 
 
 	public void backScreen(){
+		MainActivity.getInstasnce().getLayout().getmCruiseContainerFragment().setViewPagerEnable(false);
 		MainActivity.getInstasnce().getLayout().replaceFragment(R.layout.fragment_cruise_container);
 	}
 	

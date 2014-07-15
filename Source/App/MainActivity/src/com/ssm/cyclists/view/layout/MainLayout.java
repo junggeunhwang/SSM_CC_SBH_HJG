@@ -7,14 +7,19 @@ import com.ssm.cyclists.controller.fragment.CycleMateFragment;
 import com.ssm.cyclists.controller.fragment.CycleTrackerContainerFragment;
 import com.ssm.cyclists.controller.fragment.CycleTrackerFragment;
 import com.ssm.cyclists.controller.fragment.SettingsFragment;
+import com.ssm.cyclists.controller.manager.DataBaseManager;
 import com.ssm.cyclists.controller.manager.ResourceManager;
+import com.ssm.cyclists.controller.manager.SettingsDataManager;
 
 import android.app.Fragment;
 import android.app.FragmentTransaction;
+import android.content.Context;
 import android.location.Location;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.EditText;
 import android.widget.TextView;
 import net.simonvt.menudrawer.MenuDrawer;
 
@@ -82,12 +87,17 @@ public class MainLayout{
 	     activated_fragment = mCruiseContainerFragment;
 	}
 	
-	
+	public void hideSoftKeyboard(EditText et){
+		InputMethodManager imm = (InputMethodManager)MainActivity.getInstasnce().getSystemService(
+			      Context.INPUT_METHOD_SERVICE);
+			imm.hideSoftInputFromWindow(et.getWindowToken(), 0);
+	}
 	
 	public void replaceFragment(int resID){
 		
 		Fragment newFragment = null;
 		final FragmentTransaction transaction = activity.getFragmentManager().beginTransaction();
+			
 //		MainActivity.getInstasnce().popupNotification();
 		switch(resID)
 		{
@@ -115,7 +125,7 @@ public class MainLayout{
 //			mFragmentCycleTracker.getLayout().updateColor();
 			break;
 		case R.layout.fragment_cycle_mate:
-			
+			SettingsDataManager.getInstance().setFriendList(DataBaseManager.getInstance().selectFriend());	
 			newFragment = mFragmentCycleMate;
 			transaction.detach(activated_fragment);
 			transaction.replace(R.id.fragment,newFragment);

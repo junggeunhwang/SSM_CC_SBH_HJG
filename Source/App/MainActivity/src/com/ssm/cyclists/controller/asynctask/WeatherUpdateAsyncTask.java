@@ -6,6 +6,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.ssm.cyclists.R;
+import com.ssm.cyclists.controller.activity.MainActivity;
 import com.ssm.cyclists.controller.manager.CruiseDataManager;
 
 import android.location.Location;
@@ -116,6 +117,7 @@ public class WeatherUpdateAsyncTask extends AsyncTask<Location, Integer, Long> {
 			}
 			CruiseDataManager.getInstance().setHumidity(main.getInt("humidity"));
 			CruiseDataManager.getInstance().setTemperature(((int)Math.round((main.getDouble("temp")-276.15))));
+			
 								
 		} catch (JSONException e) {
 			Log.e(TAG,e.getLocalizedMessage());
@@ -131,6 +133,11 @@ public class WeatherUpdateAsyncTask extends AsyncTask<Location, Integer, Long> {
 		if(result == 1L) Log.e(TAG,"Weather update fail.");
 		else{
 			Log.d(TAG,"Weather update success.");
+			try{
+				MainActivity.getInstasnce().getLayout().getmCruiseContainerFragment().getmHomeFragment().updateHomeInfo();
+			}catch(NullPointerException e){
+				e.printStackTrace();
+			}
 		}
 		super.onPostExecute(result);
 	}

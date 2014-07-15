@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import com.jjoe64.graphview.GraphView.GraphViewData;
 import com.ssm.cyclists.controller.activity.MainActivity;
 import com.ssm.cyclists.model.CycleData;
+import com.ssm.cyclists.model.UserData;
 
 import twitter4j.GeoLocation;
 import android.content.ContentValues;
@@ -78,16 +79,57 @@ public class DataBaseManager extends SQLiteOpenHelper {
 				"longitude TEXT," +
 				"timestamp TEXT);";
 		db.execSQL(sql3);
+		
+		String sql4 = "CREATE TABLE friend("+
+				"uniqueNumber TEXT PRIMARY KEY,"+
+				"name TEXT);";
+		db.execSQL(sql4);
 	}
 
 	@Override
 	public void onUpgrade(SQLiteDatabase db, int arg1, int arg2) {
 		db.execSQL("DROP TABLE IF EXSITS last_location");
-		onCreate(db);
 		db.execSQL("DROP TABLE IF EXSITS settings");
-		onCreate(db);
 		db.execSQL("DROP TABLE IF EXSITS cruise_data");
+		db.execSQL("DROP TABLE IF EXSITS friend");
 		onCreate(db);
+	}
+	
+	public void insertFriend(String uniqueNumber,String name){
+		ContentValues row = new ContentValues();
+		row.put("uniqueNumber",uniqueNumber);
+		row.put("name",name);
+		
+		db = manager.getWritableDatabase();
+		db.insert("friend",null,row);
+	}
+	
+	public void updateFriend(String uniqueNumber, String name){
+		ContentValues values = new ContentValues();
+		db = manager.getWritableDatabase();
+		db.rawQuery("update friendlist set name = \""+name+"\" where uniqueNumber=\""+uniqueNumber+"\";", null);
+	}
+	public void deleteAllFriend(){
+		db = manager.getWritableDatabase();
+		db.rawQuery("delete from friend;", null);
+	}
+	
+	public ArrayList<UserData> selectFriend(){
+		ArrayList<UserData> arr = new ArrayList<UserData>();
+		db = manager.getReadableDatabase();
+		
+		Cursor c = db.rawQuery("select * from friend order by name;", null);
+		
+		int count = c.getCount();
+		c.moveToNext();
+		for(int i = 0 ; i < count ; i++){
+			UserData data = new UserData();
+			data.setUniqueID(c.getString(0));
+			data.setUserName(c.getString(1));
+			arr.add(data);
+		}
+		
+		return arr;
 	}
 	
 	public void updateLastLocation(Location loc){

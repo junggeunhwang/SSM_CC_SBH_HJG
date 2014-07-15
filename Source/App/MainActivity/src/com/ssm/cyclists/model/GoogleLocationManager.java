@@ -61,13 +61,6 @@ public class GoogleLocationManager implements LocationListener ,ConnectionCallba
 		if(MainActivity.getInstasnce().getLayout().getmCruiseContainerFragment().getmHomeFragment().isVisible()){
 			MainActivity.getInstasnce().getLayout().getmCruiseContainerFragment().getmHomeFragment().updateHomeInfo();
 		}
-//		
-//		if(MainActivity.getInstasnce().getLayout().getmCruiseContainerFragment().getmMapViewFragment().isVisible()){
-//			MainActivity.getInstasnce().getLayout().getmCruiseContainerFragment().getmMapViewFragment().moveMapCamenra(location);
-//		}
-//		
-//		if(MainActivity.getInstasnce().getLayout().getActivated_fragment().equals(MainActivity.getInstasnce().getLayout().getmCruiseContainerFragment()))
-//			MainActivity.getInstasnce().getLayout().getmCruiseContainerFragment().getmCruiseFragment().updateCruiseInfo();
 	}
 
 	@Override

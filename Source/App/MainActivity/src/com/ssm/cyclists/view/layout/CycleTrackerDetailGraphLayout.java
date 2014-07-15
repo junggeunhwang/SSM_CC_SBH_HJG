@@ -101,9 +101,42 @@ public class CycleTrackerDetailGraphLayout extends BaseFragmentLayout {
 	
 		//그래프그리기
 		CycleData cycleData = MainActivity.getInstasnce().getLayout().getmFragmentCycleTracker().getCurrentActivatedData();
-		ArrayList<String> speedList = cycleData.getSpeedList();
-		ArrayList<String> altitudeList = cycleData.getAltitudeList();
-		ArrayList<Double> distList = cycleData.getDistanceList();
+//		ArrayList<String> speedList = cycleData.getSpeedList();
+//		ArrayList<String> altitudeList = cycleData.getAltitudeList();
+//		ArrayList<Double> distList = cycleData.getDistanceList();
+		ArrayList<String> speedList = new ArrayList<String>();
+		ArrayList<String> altitudeList = new ArrayList<String>();
+		ArrayList<Double> distList = new ArrayList<Double>();
+		
+		speedList.add("2");
+		speedList.add("6");
+		speedList.add("5");
+		speedList.add("10");
+		speedList.add("10");
+		speedList.add("8");
+		speedList.add("13");
+		speedList.add("4");
+		speedList.add("5");
+		
+		altitudeList.add("23.5");
+		altitudeList.add("24");
+		altitudeList.add("24.2");
+		altitudeList.add("24");
+		altitudeList.add("25");
+		altitudeList.add("28");
+		altitudeList.add("23.5");
+		altitudeList.add("22");
+		altitudeList.add("25");
+		
+		distList.add(0.3);
+		distList.add(0.3);
+		distList.add(0.3);
+		distList.add(0.4);
+		distList.add(0.3);
+		distList.add(0.3);
+		distList.add(0.4);
+		distList.add(0.3);
+		distList.add(0.3);
 		
 		SpeedData = new GraphViewData[speedList.size()];
 		AltitudeData = new GraphViewData[altitudeList.size()];
@@ -117,17 +150,18 @@ public class CycleTrackerDetailGraphLayout extends BaseFragmentLayout {
 			GraphViewData gvSpeedData = new GraphViewData(distanceSum,Double.valueOf(speedList.get(i)));
 			SpeedData[i] = gvSpeedData;
 			
-			if(AltitudeMax<Double.valueOf(altitudeList.get(i))) AltitudeMax =Double.valueOf(altitudeList.get(i));
+			if(AltitudeMax<Double.valueOf(altitudeList.get(i)))
+				AltitudeMax =Double.valueOf(altitudeList.get(i));
 			GraphViewData gvAltitudeData = new GraphViewData(distanceSum,Double.valueOf(altitudeList.get(i)));
 			AltitudeData[i] = gvAltitudeData;
 			
-			if(DistMax<distanceSum) AltitudeMax =distanceSum;//거리고렬를 안했네.. 누적으로해야하는데..
+			if(DistMax<distanceSum) DistMax =distanceSum;//거리고렬를 안했네.. 누적으로해야하는데..
 			
 		}
 		
 		generateGraph();
-		graphView.setManualYAxisBounds(SpeedMax+5, 0);
-		graphView.setViewPort(0,DistMax+5);
+		graphView.setManualYAxisBounds(SpeedMax+SpeedMax*0.2, 0);
+		graphView.setViewPort(0,DistMax);
 		
 		radioSpeed.setOnCheckedChangeListener(new OnCheckedChangeListener(){
 
@@ -136,7 +170,7 @@ public class CycleTrackerDetailGraphLayout extends BaseFragmentLayout {
 					boolean isChecked) {
 				if(isChecked){
 					graphView.removeAllSeries();
-					graphView.setManualYAxisBounds(SpeedMax+5, 0);
+					graphView.setManualYAxisBounds(SpeedMax+SpeedMax*0.2, 0);
 					graphView.setViewPort(0,DistMax);
 					if(SettingsDataManager.getInstance().getThemeColor().equals("pink")){
 						graphView.addSeries(new GraphViewSeries("speed_data",new GraphViewSeriesStyle(MainActivity.getInstasnce().getResources().getColor(R.color.bk_color_pink_heavy),3),SpeedData));
@@ -159,7 +193,7 @@ public class CycleTrackerDetailGraphLayout extends BaseFragmentLayout {
 					boolean isChecked) {
 				if(isChecked){
 					graphView.removeAllSeries();
-					graphView.setManualYAxisBounds(AltitudeMax+5, 0);
+					graphView.setManualYAxisBounds(AltitudeMax+AltitudeMax*0.2, 0);
 					graphView.setViewPort(0,DistMax);
 					if(SettingsDataManager.getInstance().getThemeColor().equals("pink")){
 						graphView.addSeries(new GraphViewSeries("altitude_data",new GraphViewSeriesStyle(MainActivity.getInstasnce().getResources().getColor(R.color.bk_color_pink_heavy),3),AltitudeData));

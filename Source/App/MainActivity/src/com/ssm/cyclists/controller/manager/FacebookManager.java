@@ -3,11 +3,13 @@ package com.ssm.cyclists.controller.manager;
 import java.io.BufferedOutputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.math.BigInteger;
 import java.net.URL;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -22,6 +24,7 @@ import com.facebook.SessionState;
 import com.facebook.Settings;
 import com.facebook.model.GraphUser;
 import com.google.android.gms.internal.fr;
+import com.ssm.cyclists.R;
 import com.ssm.cyclists.controller.activity.MainActivity;
 import com.ssm.cyclists.model.UserData;
 import com.ssm.cyclists.controller.asynctask.AsyncGetBitmapTask;
@@ -34,6 +37,7 @@ import android.content.pm.PackageManager.NameNotFoundException;
 import android.content.pm.Signature;
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.CompressFormat;
+import android.graphics.drawable.BitmapDrawable;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -181,6 +185,20 @@ public class FacebookManager {
                     me.setUserName(user.getName());
                     me.setFacebook_id(user.getId());
                     SettingsDataManager.getInstance().setMe(me);
+                    
+                    File profile = new File("");
+                    FileInputStream fis;
+                    try {
+                    	byte[] content = new byte[(int) profile.length()];
+                    	fis = new FileInputStream(profile);
+                    	fis.read(content);
+                    	getMD5Hash(content);
+                    	
+                    	fis.close();
+                    } catch (IOException e) {
+                    	e.printStackTrace();
+                    }
+                    
                     AsyncGetBitmapTask task = new AsyncGetBitmapTask();
                     task.execute();
                 }
@@ -188,6 +206,21 @@ public class FacebookManager {
 
     	}
     }
+	
+	private String getMD5Hash(byte[] input){
+		MessageDigest md;
+		String hash = null;
+		try {
+			md = MessageDigest.getInstance("MD5");
+			md.update(input,0,input.length);
+			hash = new BigInteger(1, md.digest()).toString(16);
+		} catch (NoSuchAlgorithmException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return hash;
+	}
 	
     private void getHashKey()
     {

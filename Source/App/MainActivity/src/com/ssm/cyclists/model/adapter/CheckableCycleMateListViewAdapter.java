@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import com.ssm.cyclists.R;
 import com.ssm.cyclists.controller.activity.MainActivity;
+import com.ssm.cyclists.controller.manager.DataBaseManager;
 import com.ssm.cyclists.controller.manager.ResourceManager;
 import com.ssm.cyclists.controller.manager.SettingsDataManager;
 import com.ssm.cyclists.model.UserData;
@@ -50,6 +51,24 @@ public class CheckableCycleMateListViewAdapter extends BaseAdapter {
 	
 	public void removeAll(){
 		arSrc.clear();
+		notifyDataSetChanged();
+	}
+	
+	public void search(String target){
+		reset();
+		ArrayList<UserData> searchResult = new ArrayList<UserData>();
+		for(int i = 0 ; i < arSrc.size();i++){
+			if(arSrc.get(i).getUniqueID().contains(target) || arSrc.get(i).getUserName().contains(target)){
+				searchResult.add(arSrc.get(i));
+			}
+		}
+		
+		arSrc = searchResult;
+		notifyDataSetChanged();
+	}
+
+	public void reset(){
+		arSrc = DataBaseManager.getInstance().selectFriend();
 		notifyDataSetChanged();
 	}
 	

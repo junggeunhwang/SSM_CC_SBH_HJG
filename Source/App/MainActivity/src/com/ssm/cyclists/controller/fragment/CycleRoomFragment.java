@@ -1,5 +1,7 @@
 package com.ssm.cyclists.controller.fragment;
 
+import com.ssm.cyclists.controller.manager.CruiseDataManager;
+import com.ssm.cyclists.controller.manager.SettingsDataManager;
 import com.ssm.cyclists.view.layout.CycleRoomLayout;
 
 import android.app.Fragment;
@@ -18,6 +20,15 @@ public class CycleRoomFragment extends Fragment {
 		layout = new CycleRoomLayout(this);
 		layout.createView(inflater, container);
 		layout.init();
+
+		if(SettingsDataManager.getInstance().isStart_stopBicycleFlag()==false){// start to bycycle
+			//true update.
+			CruiseDataManager.getInstance().updateCruiseData();	
+		}else{	//stop to bycycle
+			//false no update and clear;
+			CruiseDataManager.getInstance().clear();
+			layout.updateRoomInfo();
+		}
 		
 		return layout.getView();
 	}

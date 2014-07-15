@@ -1,10 +1,15 @@
 package com.ssm.cyclists.controller.activity;
 
+import twitter4j.TwitterFactory;
+import twitter4j.auth.AccessToken;
+
 import com.ssm.cyclists.R;
+import com.ssm.cyclists.controller.manager.TwitterManager;
 import com.ssm.cyclists.model.TwitterBasicInfo;
 
 import android.support.v7.app.ActionBarActivity;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -81,5 +86,11 @@ public class TwitLoginActivity extends ActionBarActivity {
 			return true;
 		}
 		return super.onOptionsItemSelected(item);
+	}
+	
+	@Override
+	protected void onResume() {
+		// TODO Auto-generated method stub
+		super.onResume();
 	}
 }

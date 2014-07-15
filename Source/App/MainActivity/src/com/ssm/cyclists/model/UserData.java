@@ -5,8 +5,8 @@ import android.location.Location;
 
 public class UserData {
 	
-	private String UserName = null;
-	private String UniqueID = null;
+	private String UserName = "";
+	private String UniqueID = "";
 	private Bitmap ProfileImg = null;
 	
 	private String facebook_id = null;
@@ -21,7 +21,10 @@ public class UserData {
 	}
 
 	public void setUserName(String userName) {
-		UserName = userName;
+		if(userName==null)
+			UserName="";
+		else
+			UserName = userName;
 	}
 
 	public Bitmap getProfileImg() {

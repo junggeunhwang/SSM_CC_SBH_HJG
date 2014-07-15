@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.StringTokenizer;
 
 import com.ssm.cyclists.controller.activity.MainActivity;
+import com.ssm.cyclists.controller.manager.DataBaseManager;
 import com.ssm.cyclists.controller.manager.SettingsDataManager;
 import com.ssm.cyclists.model.UserData;
 
@@ -41,16 +42,14 @@ public class Protocol {
 					if(hcn.getResponseType().equals("string")){
 						/*Multicast Data*/
 						String receive = hcn.getStringResponseData();
-						String senderUniqueID;
+						String senderUniqueID = hcn.getResponseUniqueNumber();
 						
 						StringTokenizer tokenizer = new StringTokenizer(receive,",");
 						String token = tokenizer.nextToken();
-						
 						Location loc = new Location("gps");
 						
 						if(token.equals("location")){
 							Log.d(TAG,"locationBroadcast received");
-							senderUniqueID = tokenizer.nextToken();
 							loc.setLatitude(Double.valueOf(tokenizer.nextToken()));
 							loc.setLongitude(Double.valueOf(tokenizer.nextToken()));
 							
@@ -170,6 +169,7 @@ public class Protocol {
 					}
 					else if(hcn.getResponseType().equals("string")){
 						Log.i(TAG,"get FriendList Success");
+						DataBaseManager.getInstance().deleteAllFriend();
 						String friendlist = hcn.getStringResponseData();
 						
  						StringTokenizer tokenizer = new StringTokenizer(friendlist,";");
@@ -184,7 +184,7 @@ public class Protocol {
  							GetName(SettingsDataManager.getInstance().getMe().getUniqueID(), UniqueID);
 							GetImage(SettingsDataManager.getInstance().getMe().getUniqueID(), UniqueID);
 							friendsList.add(friend);
-							
+							DataBaseManager.getInstance().insertFriend(friend.getUniqueID(),friend.getUserName());
 						}
 						SettingsDataManager.getInstance().setFriendList(friendsList);
 					}
@@ -205,6 +205,7 @@ public class Protocol {
 						for(int i = 0;i<friendList.size();i++){
 							if(friendList.get(i).getUniqueID().equals(targetNumber)){
 								friendList.get(i).setUserName(name);
+								DataBaseManager.getInstance().updateFriend(friendList.get(i).getUniqueID(),friendList.get(i).getUserName());
 							}
 						}
 						Log.i(TAG,"GetName Success : " + name);

@@ -25,6 +25,12 @@ public class CheckableCycleMateFragment extends Fragment {
 		return layout.getView();
 	}
 
+	@Override
+	public void onPause() {
+		// TODO Auto-generated method stub
+		super.onPause();
+	}
+	
 	public CheckableCycleMateLayout getLayout() {
 		assert(layout!=null);
 		return layout;

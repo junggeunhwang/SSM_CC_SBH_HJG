@@ -40,7 +40,7 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name="com.ssm.cyclists.controller.activity.MainActivity"
+            android:name=".controller.activity.MainActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:label="@string/app_name"
             android:protectionLevel="signature"
@@ -52,12 +52,14 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.ssm.cyclists.controller.activity.SplashActivity"
+            android:name=".controller.activity.SplashActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
             android:label="@string/title_activity_splash" >
         </activity>
 
-        <service android:name="com.ssm.cyclists.controller.communication.sapinterface.SAPProviderService" 
-            android:stopWithTask="true"/>
+        <service
+            android:name=".controller.communication.sapinterface.SAPProviderService"
+            android:stopWithTask="true" />
 
         <receiver android:name="com.samsung.android.sdk.accessory.ServiceConnectionIndicationBroadcastReceiver" >
             <intent-filter>
@@ -92,20 +94,25 @@
             android:value="@string/app_id" />
 
         <activity
-            android:name="com.ssm.cyclists.controller.activity.TwitLoginActivity"
+            android:name=".controller.activity.TwitLoginActivity"
             android:label="@string/title_activity_twit_login" >
         </activity>
         <activity
-            android:name="com.ssm.cyclists.TestActivity"
+            android:name=".TestActivity"
             android:label="@string/title_activity_test" >
         </activity>
         <activity
-            android:name="com.ssm.cyclists.controller.fragment.CruiseContainerFragment"
+            android:name=".controller.fragment.CruiseContainerFragment"
             android:label="@string/title_activity_cruise_container" >
- 			<intent-filter>
-                <action android:name="UPDATE_CRUISE_INFO"/>
-                <category android:name="android.intent.category.DEFAULT"/>
+            <intent-filter>
+                <action android:name="UPDATE_CRUISE_INFO" />
+
+                <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
+        </activity>
+        <activity
+            android:name=".InitializeUserNameActivity"
+            android:label="@string/title_activity_initialize_user_name" >
         </activity>
     </application>
 

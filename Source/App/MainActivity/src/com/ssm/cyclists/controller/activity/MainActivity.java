@@ -11,6 +11,7 @@ import java.util.TimerTask;
 
 import net.simonvt.menudrawer.MenuDrawer;
 
+import com.ssm.cyclists.LawRightDialog;
 import com.ssm.cyclists.R;
 import com.ssm.cyclists.controller.communication.https.Protocol;
 import com.ssm.cyclists.controller.communication.sapinterface.FileAction;
@@ -27,6 +28,7 @@ import com.ssm.cyclists.controller.manager.SettingsDataManager;
 import com.ssm.cyclists.controller.manager.TwitterManager;
 import com.ssm.cyclists.controller.timertask.CruiseInfoTimerTask;
 import com.ssm.cyclists.controller.timertask.GetTask;
+import com.ssm.cyclists.model.SettingsData;
 import com.ssm.cyclists.model.TwitterBasicInfo;
 import com.ssm.cyclists.model.UserData;
 import com.ssm.cyclists.view.layout.MainLayout;
@@ -43,14 +45,18 @@ import android.content.ComponentName;
 import android.content.Context; 
 import android.content.Intent;
 import android.content.ServiceConnection;
+import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.os.Vibrator;
+import android.preference.Preference;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Toast;
 
 public class MainActivity extends FragmentActivity {
@@ -108,22 +114,38 @@ public class MainActivity extends FragmentActivity {
 	  
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-    	try{
     	
-    		//전화번호
-        	mTelephonyManager = (TelephonyManager)getSystemService(Context.TELEPHONY_SERVICE);
-        	myNumber = mTelephonyManager.getLine1Number();
-//        	myNumber = "01098765432";
-//        	myNumber = "01012345678";
+    	//전화번호
+        mTelephonyManager = (TelephonyManager)getSystemService(Context.TELEPHONY_SERVICE);
+        myNumber = mTelephonyManager.getLine1Number();
+        myNumber = "01098765432";
+//       	myNumber = "01012345678";
         	
-        	Log.d(TAG,"my number : "+myNumber);
+        Log.d(TAG,"my number : "+myNumber);
         	
-        	UserData me = SettingsDataManager.getInstance().getMe();
-        	me.setUniqueID(myNumber);
-        	SettingsDataManager.getInstance().setMe(me);
+        UserData me = SettingsDataManager.getInstance().getMe();
+        me.setUniqueID(myNumber);
+        SettingsDataManager.getInstance().setMe(me);
         	
-        	Protocol.getInstance().Login(myNumber);
-    	
+        //저장된 이름 불러오기
+        SharedPreferences pref_init_username_in = getSharedPreferences("init_username", 0);
+        String storedUserName = pref_init_username_in.getString("init_username", null);
+        if(storedUserName!=null) SettingsDataManager.getInstance().getMe().setUserName(storedUserName);
+          	
+        //위치정보 법 관련 다이얼로그 수락 저장
+        SharedPreferences pref1 = getSharedPreferences("law", 0);
+        if(!pref1.getBoolean("right", false)){
+        	LawRightDialog dialog = new LawRightDialog(this);
+        	dialog.getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL, WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL);
+        	dialog.setCancelable(true);
+        	dialog.show();
+        }
+          	
+        Protocol.getInstance().Login(myNumber);
+        
+        //Faceboo 초기화       
+        FacebookManager.getInstance().init(savedInstanceState);
+        
     	this.instance = this;
     	
     	this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
@@ -143,17 +165,29 @@ public class MainActivity extends FragmentActivity {
     		ReceiveDir.mkdir();
     	}
 
+    	//운동기록 읽기
     	CruiseDataManager.getInstance().setCycle_data_list(DataBaseManager.getInstance().selectCruiseData());
     	DataBaseManager.getInstance().selectSettingInfo();
-
+    	SettingsDataManager.getInstance().setFriendList(DataBaseManager.getInstance().selectFriend());
     	//테마 설정 저장
     	if(SettingsDataManager.getInstance().getThemeColor()==null)SettingsDataManager.getInstance().setThemeColor("gray");
+    	
+    	
+    	
+    	//Splash 시작
     	Intent intent = new Intent(this,SplashActivity.class);
     	intent.putExtra("color", SettingsDataManager.getInstance().getThemeColor());
     	
     	startActivity(intent);
     	
-    	
+
+		
+		SharedPreferences pref2 = getSharedPreferences("law", 0);
+		Editor editor = pref2.edit();
+		editor.putBoolean("right",true);
+		editor.commit();
+
+		
     	//위치 서비스
     	googleLocationManager = new GoogleLocationManager();
     	googleLocationManager.init(this);
@@ -163,59 +197,47 @@ public class MainActivity extends FragmentActivity {
     	super.onCreate(savedInstanceState);
     	
     	layout = new MainLayout(this);
-    	
     	setContentView(layout.getView());
-    	
         layout.init();
-        FacebookManager.getInstance().init(savedInstanceState);
+       
    
+
+        
+    }
+
+    @Override
+    protected void onResume() {
+    	this.instance = this;
+    	super.onStart();
+    	FacebookManager.getInstance().start();
+    	googleLocationManager.resume();
+    	
+    	startGetRequest();
+    	Protocol.getInstance().Login(myNumber);
+    	
         // bind services
         mCtxt = getApplicationContext();
         mCtxt.bindService(new Intent(getApplicationContext(), SAPProviderService.class), 
                 this.mSAPConnection, Context.BIND_AUTO_CREATE);
         
-        //https
-		startGetRequest();
-    	}catch(IllegalStateException e){
-    		Log.e(TAG,"썅");
-    		e.printStackTrace();
-    	}
-    }
-    
-    
-    @Override
-    protected void onStart() {
-    	this.instance = this;
-    	super.onStart();
-    	FacebookManager.getInstance().start();
-    	googleLocationManager.resume();
-    }
-    
-    @Override
-    protected void onStop() {
-    	Log.d(TAG,"onStop");
-    	super.onStop();
-    	FacebookManager.getInstance().stop();
-    	googleLocationManager.pause();
-    }
-    
-    @Override
-    protected void onDestroy() {
-    	Log.d(TAG,"onDestroy");
-    	stopGetRequest();
-    	Protocol.getInstance().Logout(myNumber);
-    	boolean ret = mSAPService.stopService(new Intent(getApplicationContext(), SAPProviderService.class));
-    	getFragmentManager().beginTransaction().remove(layout.getmCruiseContainerFragment());
-    	mSAPService = null;
-    	super.onDestroy();
-    }
-    
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.main, menu);
-        return true;
+    	super.onResume();
     }
 
+    @Override
+    protected void onPause() {
+    	Log.d(TAG,"onPause");
+    	FacebookManager.getInstance().stop();
+    	googleLocationManager.pause();
+    	
+    	stopGetRequest();
+    	Protocol.getInstance().Logout(myNumber);
+    	if(mSAPService!=null)
+    		mSAPService.stopService(new Intent(getApplicationContext(), SAPProviderService.class));
+    	getFragmentManager().beginTransaction().remove(layout.getmCruiseContainerFragment());
+    	mSAPService = null;
+    	super.onPause();
+    }
+   
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
     	super.onActivityResult(requestCode, resultCode, data);

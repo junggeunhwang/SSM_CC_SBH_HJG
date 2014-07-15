@@ -61,6 +61,8 @@ public class CruiseDataManager {
 	
 	private ArrayList<CycleData> cycle_data_list;
 	
+	private long startTimemillies;
+	
 	private CruiseDataManager(){
 		geoCoder 	  = new Geocoder(MainActivity.getInstasnce(),Locale.ENGLISH);
 		humidity 	  = 0;
@@ -97,7 +99,7 @@ public class CruiseDataManager {
 	}
 	
 	public void updateCruiseData(){
-		if(update_count%2==0){
+		if(update_count%6==0){
 			LocationInfoUpdateAsyncTask location_info_update_task = new LocationInfoUpdateAsyncTask();
 			location_info_update_task.execute(current_loc);	
 		}
@@ -163,6 +165,12 @@ public class CruiseDataManager {
 				return cycle_data_list.get(i);
 			}
 		}
+		
+		return null;
+	}
+	
+	public Double getAvgSpeed(){
+		
 		
 		return null;
 	}

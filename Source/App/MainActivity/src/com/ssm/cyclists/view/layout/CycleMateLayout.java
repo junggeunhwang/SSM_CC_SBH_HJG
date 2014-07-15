@@ -22,9 +22,14 @@ import com.ssm.cyclists.view.EnhancedListView;
 import com.ssm.cyclists.view.EnhancedListView.Undoable;
 
 import android.app.FragmentTransaction;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.View.OnKeyListener;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
@@ -34,6 +39,7 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.TextView.OnEditorActionListener;
 import android.widget.Toast;
 
 
@@ -86,7 +92,13 @@ public class CycleMateLayout extends BaseFragmentLayout{
 		lyTopBar		= (LinearLayout)getView().findViewById(R.id.top_bar_cyclemate);
 		lyMidBar		= (LinearLayout)getView().findViewById(R.id.mid_bar_cyclemate);
 		
-		
+		btnSearch.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				Adapter.search(etSearchData.getText().toString());
+			}
+		});
 		
 		btnAdd.setTypeface(ResourceManager.getInstance().getFont("helveitca"));
 		btnAdd.setOnClickListener(new OnClickListener() {
@@ -109,34 +121,55 @@ public class CycleMateLayout extends BaseFragmentLayout{
 		tvFragmentName.setTypeface(ResourceManager.getInstance().getFont("helvetica"));
 		tvSearch.setTypeface(ResourceManager.getInstance().getFont("helveitica"));
 		etSearchData.setTypeface(ResourceManager.getInstance().getFont("helveitica"));		
-		
-//		ArrayList<UserData> arGeneral = new ArrayList<UserData>();
-//		UserData data = new UserData();
-//		data.setUserName("황정근");
-//		arGeneral.add(data);
 
+		etSearchData.addTextChangedListener(new TextWatcher() {
+			
+			@Override
+			public void onTextChanged(CharSequence s, int start, int before, int count) {
+				if(etSearchData.getText().toString().equals("")) Adapter.search("");
+			}
+			
+			@Override
+			public void beforeTextChanged(CharSequence s, int start, int count,
+					int after) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void afterTextChanged(Editable s) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
+
+		
 		Adapter = new CycleMateListViewAdapter(getView().getContext(),R.layout.cyclemate_listview_row,SettingsDataManager.getInstance().getFriendList());
 		lvCycleMate.setOnItemClickListener(new OnItemClickListener() {
 
 			@Override
 			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
 					long arg3) {
+				Adapter.search(etSearchData.getText().toString());
 			}
 		});
 			
 		lvCycleMate.setAdapter(Adapter);
 
-		Protocol.getInstance().FriendsListRequest(SettingsDataManager.getInstance().getMe().getUniqueID());
+//		Protocol.getInstance().FriendsListRequest(SettingsDataManager.getInstance().getMe().getUniqueID());
 		
 		//색상 업데이트
 		updateColor();
 	}
-	
+
 	@Override
 	public void createView(LayoutInflater inflater, ViewGroup container) {
 		view = inflater.inflate(R.layout.fragment_cycle_mate, container, false);
 	}
-	
+
+	public void onPause() {
+		MainActivity.getInstasnce().getLayout().hideSoftKeyboard(etSearchData);
+	}
 	
 	private OnClickListener buildMenuButtonListener(){
 		

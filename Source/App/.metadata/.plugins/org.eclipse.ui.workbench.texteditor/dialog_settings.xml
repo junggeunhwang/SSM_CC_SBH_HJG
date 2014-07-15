@@ -2,22 +2,23 @@
 <section name="Workbench">
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
 		<item value="false" key="isRegEx"/>
-		<item value="MakeRoom" key="selection"/>
+		<item value="" key="selection"/>
 		<item value="false" key="casesensitive"/>
 		<item value="false" key="incremental"/>
 		<item value="true" key="wrap"/>
 		<item value="false" key="wholeword"/>
 		<list key="findhistory">
-			<item value="makeroom"/>
-			<item value="MakeRoom"/>
-			<item value="InVite"/>
-			<item value="login"/>
-			<item value="invite"/>
-			<item value="get FriendList"/>
-			<item value="btnStartToBicycle"/>
 			<item value="start"/>
+			<item value="mS"/>
+			<item value="startGetRequest"/>
+			<item value="logout"/>
+			<item value="FriendList"/>
+			<item value="friendList"/>
+			<item value="friendlist"/>
+			<item value="setUser"/>
 		</list>
 		<list key="replacehistory">
+			<item value="@string/app_name"/>
 		</list>
 	</section>
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog_dialogBounds">

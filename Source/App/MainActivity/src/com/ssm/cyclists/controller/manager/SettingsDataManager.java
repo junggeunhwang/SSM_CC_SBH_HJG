@@ -40,7 +40,11 @@ public class SettingsDataManager {
 		return instance;
 	}
 
-
+	public void clear(){
+		currentRoomFriendList = new ArrayList<UserData>();
+	}
+	
+	
 	public String getThemeColor() {
 		return ThemeColor;
 	}
