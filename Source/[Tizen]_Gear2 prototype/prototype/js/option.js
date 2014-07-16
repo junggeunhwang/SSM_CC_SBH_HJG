@@ -90,7 +90,7 @@ function optionInit(){
     TestButton = document.getElementById("test");
     AudioRecordButton = document.getElementById("start_record");
     AudioPlayButton = document.getElementById("play_record");
-    OptionButton = document.getElementById("peerstatus");
+    OptionButton = document.getElementById("deviceinfo");
 
     TestButton.addEventListener("click",onTestPage);
     AudioRecordButton.addEventListener("click",onAudioRecordingOperation);

@@ -2,8 +2,5 @@
 #add
 #modify
 res/wgt/author-signature.xml
-res/wgt/css/style.css
 res/wgt/index.html
-res/wgt/js/core/SAPFile.js
-res/wgt/js/core/displayvariable.js
 res/wgt/signature1.xml

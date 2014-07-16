@@ -6,6 +6,65 @@ function SAPStringInit()
 	{
 		/*console.log(channelId + " "  + data);
 		alert(data);*/
+		
+		var msg = data.toString();
+		
+		var msginfo = msg.split(';');
+		
+		if(msginfo === undefined)
+		{
+			// just ignore
+			return;
+		}
+		
+		var type = msginfo[0];
+		
+		if(type === "fitninfo")
+		{
+			if(msginfo.length !== 6)
+			{
+				// ignore;
+			}
+			else
+			{
+				var maxspeed = msginfo[1];
+				var avgspeed = msginfo[2];
+				var distance = msginfo[3];
+				var altitude = msginfo[4];
+				var kcal = msginfo[5];
+				
+				mainMaxspeed.innerHTML = maxspeed+" km/h";
+				mainAvgspeed.innerHTML = avgspeed+" km/h";
+				mainDistance.innerHTML = distance+" km";
+				mainAltitude.innerHTML = altitude+" m";
+				
+				secondKcalinfo.innerHTML = kcal+" kcal";
+			}
+		}
+		else if(type === "alertmsg")
+		{
+			if(msginfo.length!==3)
+			{
+				//ignore
+			}
+			else
+			{
+				var msg = msginfo[1];
+				var sender = msginfo[2];
+				
+				var data = {};
+				
+				data.type = "alert";
+				data.message = msg;
+				data.sender = sender;
+				
+				multicastedqueue.push(data);
+			}
+		}
+		else
+		{
+			// invalid msg
+		}
 	}
 	var connectioncallback = { 
 			/* when a remote peer agent requests a service connection */ 
@@ -50,7 +109,17 @@ function SAPStringInit()
 			onerror : function(errorCode) 
 				{ 
 					console.log("Service connection error. : " + errorCode); 
-					mainPeerstatus.innerHTML = msg_peernoresponse;
+					
+					if(errorCode.toString() === "INVALID_PEERAGENT" )
+					{
+						mainPeerstatus.innerHTML = msg_peerinvalid;
+					}else if(errorCode.toString() === "PEERAGENT_NO_RESPONSE")
+					{
+						mainPeerstatus.innerHTML = msg_peernoresponse;
+					}else if(errorCode.toString() === "PEERAGENT_REJECTED")
+					{
+						mainPeerstatus.innerHTML = msg_peernotrunning;
+					}
 				} 
 	}; 
 	try { 

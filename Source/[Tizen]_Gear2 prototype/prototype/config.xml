@@ -3,9 +3,9 @@
     <tizen:application id="48ur612mRk.getsensorvalue" package="48ur612mRk" required_version="2.2"/>
     <content src="index.html"/>
     <feature name="http://tizen.org/feature/screen.size.normal.320.320"/>
-    <icon src="icon.png"/>
+    <icon src="icon.png" height="103" width="115"/>
     <tizen:metadata key="AccessoryServicesLocation" value="res/xml/SAPServiceProfile.xml"/>
-    <name>prototype</name>
+    <name>ExCycling</name>
     <tizen:privilege name="http://tizen.org/feature/sensor.accelerometer"/>
     <tizen:privilege name="http://tizen.org/privilege/filesystem.read"/>
     <tizen:privilege name="http://tizen.org/privilege/filesystem.write"/>
@@ -15,5 +15,6 @@
     <tizen:privilege name="http://developer.samsung.com/privilege/accessoryprotocol"/>
     <tizen:privilege name="http://tizen.org/privilege/content.read"/>
     <tizen:privilege name="http://tizen.org/privilege/content.write"/>
+    <tizen:privilege name="http://developer.samsung.com/privilege/healthinfo"/>
     <tizen:setting background-support="enable" encryption="disable" hwkey-event="enable"/>
 </widget>
