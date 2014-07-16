@@ -1,0 +1,88 @@
+package com.ssm.ExCycling;
+
+import com.ssm.ExCycling.R;
+import com.ssm.ExCycling.controller.activity.MainActivity;
+import com.ssm.ExCycling.controller.manager.ResourceManager;
+
+import android.app.Dialog;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.text.InputType;
+import android.view.View;
+import android.view.ViewGroup.LayoutParams;
+import android.view.Window;
+import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.Toast;
+
+public class LawRightDialog extends Dialog {
+
+	
+	Button btnRight;
+	Button btnLeft;
+	
+	CheckBox chkLocationApply;
+	CheckBox chkRightApply;
+	
+	LinearLayout top;
+	LinearLayout mid;
+	LinearLayout bottom;
+	
+	
+	public LawRightDialog(Context context) {
+		super(context);
+		requestWindowFeature(Window.FEATURE_NO_TITLE);
+		setContentView(R.layout.law_right_dialog);
+		
+		btnRight = (Button)findViewById(R.id.btn_agree_lawright_dialog);
+		btnLeft = (Button)findViewById(R.id.btn_disagree_lawright_dialog);
+		
+		chkLocationApply = (CheckBox)findViewById(R.id.chk_location_service_apply_lawright_dialog);
+		chkRightApply = (CheckBox)findViewById(R.id.chk_location_service_right_apply_lawright_dialog);
+
+		top = (LinearLayout)findViewById(R.id.ly_top_lawright_dialog);
+		mid = (LinearLayout)findViewById(R.id.ly_mid_lawright_dialog);
+		bottom = (LinearLayout)findViewById(R.id.ly_bottom_lawright_dialog);
+		
+		btnRight.setTypeface(ResourceManager.getInstance().getFont("helvetica"));
+		btnLeft.setTypeface(ResourceManager.getInstance().getFont("helvetica"));
+		
+		chkLocationApply.setTypeface(ResourceManager.getInstance().getFont("helvetica"));
+		chkRightApply.setTypeface(ResourceManager.getInstance().getFont("helvetica"));
+		
+		btnRight.setOnClickListener(new View.OnClickListener(){
+
+			@Override
+			public void onClick(View v) {
+				if(chkLocationApply.isChecked() && chkRightApply.isChecked()){
+					dismiss();
+				}else{
+					Toast.makeText(MainActivity.getInstasnce(),"You have not yet agreed.", Toast.LENGTH_SHORT).show();
+				}
+			}
+		});
+		
+		btnLeft.setOnClickListener(new View.OnClickListener(){
+
+			@Override
+			public void onClick(View v) {
+				MainActivity.getInstasnce().finish();
+				System.exit(0);
+			}
+		});
+	}
+	
+	@Override
+	public void onBackPressed() {
+		// TODO Auto-generated method stub
+//		super.onBackPressed();
+	}
+
+	@Override
+	public void onWindowFocusChanged(boolean hasFocus) {
+		// TODO Auto-generated method stub
+	//	super.onWindowFocusChanged(hasFocus);
+	}
+}

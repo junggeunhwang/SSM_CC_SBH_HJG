@@ -28,7 +28,7 @@
             android:paddingTop="10dp"
             android:background="@drawable/home_circle" >
 
-            <com.ssm.cyclists.view.ImageViewRounded
+            <com.ssm.ExCycling.view.ImageViewRounded
                 android:id="@+id/profile_image"
                 android:layout_width="90dp"
                 android:layout_height="90dp" />

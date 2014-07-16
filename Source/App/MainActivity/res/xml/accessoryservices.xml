@@ -5,7 +5,7 @@
             id="/system/SAPInterface"
             name="SAPInterface"
             role="provider"
-            serviceImpl="com.ssm.cyclists.controller.communication.sapinterface.SAPProviderService"
+            serviceImpl="com.ssm.ExCycling.controller.communication.sapinterface.SAPProviderService"
             version="1.0"
             serviceLimit="ANY"
 	    	serviceTimeout="10">

@@ -1,7 +1,0 @@
-package com.ssm.cyclists;
-
-import android.app.Dialog;
-
-public class LawRightDialog extends Dialog {
-
-}

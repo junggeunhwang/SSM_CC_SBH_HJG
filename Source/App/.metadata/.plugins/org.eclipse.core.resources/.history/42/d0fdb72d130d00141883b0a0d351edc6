@@ -1,0 +1,374 @@
+package com.ssm.cyclists.view.layout;
+
+import java.util.ArrayList;
+
+import com.ssm.ExCycling.R;
+import com.ssm.ExCycling.controller.activity.MainActivity;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.model.BitmapDescriptor;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
+import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.maps.model.Polygon;
+import com.google.android.gms.maps.model.PolygonOptions;
+import com.google.android.gms.maps.model.Polyline;
+import com.google.android.gms.maps.model.PolylineOptions;
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.MapFragment;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.ssm.cyclists.controller.manager.CruiseDataManager;
+import com.ssm.cyclists.controller.manager.ResourceManager;
+import com.ssm.cyclists.controller.manager.SettingsDataManager;
+import com.ssm.cyclists.model.SettingsData;
+import com.ssm.cyclists.model.UserData;
+
+import android.app.Fragment;
+import android.app.FragmentTransaction;
+import android.content.Context;
+import android.graphics.Color;
+import android.location.Criteria;
+import android.location.Location;
+import android.location.LocationManager;
+import android.os.Handler;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
+
+public class MapViewLayout extends BaseFragmentLayout {
+
+	static String TAG = MapViewLayout.class.getSimpleName();
+	
+	private Button btnMenu;
+	private TextView tvFragmentName;
+	private TextView tvTitleTopLeft;
+	private TextView tvTitleBottomLeft;
+	private TextView tvValueTopLeft;
+	private TextView tvTitleTopRight;
+	private TextView tvTitleBottomRight;
+	private TextView tvValueTopRight;
+	private TextView tvValueBottomRight;
+
+	private TextView tvWind;
+	private TextView tvWindUnit;
+	private TextView tvWindData;
+	
+	private TextView tvAppName;
+	private GoogleMap mGoogleMap;
+	
+	private LinearLayout lyTopBar;
+	private LinearLayout lyMidBar;
+	private LinearLayout lyWindLayout;
+	
+	private ImageView ivLocationIcon;
+	
+	MapFragment mapFragment;
+//	MapView map_view;
+	
+	boolean init_map = false;
+	
+	public MapViewLayout(Fragment instance) {
+		super(instance);
+		Log.d(TAG,"MapViewLayout");
+	}
+	
+	public void clean(){
+		Log.d(TAG,"clean");
+		mGoogleMap.setMyLocationEnabled(false);
+		mGoogleMap.clear();
+	}
+
+	@Override
+	public void createView(LayoutInflater inflater, ViewGroup container) {
+		Log.d(TAG,"onCreateView");
+		if(view==null)
+			view = inflater.inflate(R.layout.fragment_map, container, false);
+	}
+	
+	public void init(){
+		Log.d(TAG,"init");
+		btnMenu = (Button)getView().findViewById(R.id.menu_button_map);
+		btnMenu.setOnClickListener(buildMenuButtonListener());
+		
+		tvFragmentName = (TextView)getView().findViewById(R.id.fragment_name_map);
+		tvTitleTopLeft = (TextView)getView().findViewById(R.id.tv_title_top_left_map);
+		tvTitleBottomLeft = (TextView)getView().findViewById(R.id.tv_title_bottom_left_map);
+		tvValueTopLeft = (TextView)getView().findViewById(R.id.tv_value_top_left_map);
+		tvTitleTopRight = (TextView)getView().findViewById(R.id.tv_title_top_right_map);
+		tvTitleBottomRight = (TextView)getView().findViewById(R.id.tv_title_bottom_right_map);
+		tvValueTopRight = (TextView)getView().findViewById(R.id.tv_value_top_right_map);
+		tvValueBottomRight = (TextView)getView().findViewById(R.id.tv_value_bottom_right_map);
+		tvAppName = (TextView)getView().findViewById(R.id.app_name_map);
+		
+		tvWind = (TextView)getView().findViewById(R.id.tv_value_bottom_left_map);
+		tvWindData = (TextView)getView().findViewById(R.id.tv_value_bottom_left_two_map);
+		tvWindUnit = (TextView)getView().findViewById(R.id.tv_unit_bottom_left_two_map);
+		
+		
+		lyTopBar = (LinearLayout)getView().findViewById(R.id.top_bar_map);
+		lyMidBar = (LinearLayout)getView().findViewById(R.id.mid_box_map);
+		lyWindLayout = (LinearLayout)getView().findViewById(R.id.wind_layout_map);
+		
+		ivLocationIcon = (ImageView)getView().findViewById(R.id.location_icon_map);
+		
+		tvFragmentName.setTypeface(ResourceManager.getInstance().getFont("helvetica"));
+		tvTitleTopLeft.setTypeface(ResourceManager.getInstance().getFont("helvetica"));
+		tvTitleBottomLeft.setTypeface(ResourceManager.getInstance().getFont("helvetica"));
+		tvValueTopLeft.setTypeface(ResourceManager.getInstance().getFont("helvetica"));
+		tvTitleTopRight.setTypeface(ResourceManager.getInstance().getFont("helvetica"));
+		tvTitleBottomRight.setTypeface(ResourceManager.getInstance().getFont("helvetica"));
+		tvValueTopRight.setTypeface(ResourceManager.getInstance().getFont("helvetica"));
+		tvValueBottomRight.setTypeface(ResourceManager.getInstance().getFont("helvetica"));
+		tvAppName.setTypeface(ResourceManager.getInstance().getFont("helvetica"));
+		
+		tvWindData.setTypeface(ResourceManager.getInstance().getFont("nanum-gothic"));
+		tvWind.setTypeface(ResourceManager.getInstance().getFont("helvetica"));
+		tvWindUnit.setTypeface(ResourceManager.getInstance().getFont("helvetica"));
+		
+		MapFragment mf =(MapFragment)MainActivity.getInstasnce().getFragmentManager().findFragmentById(R.id.map_map); 
+
+ 		mGoogleMap = mf.getMap();
+		mGoogleMap.setMyLocationEnabled(true);
+
+		Location lo = mGoogleMap.getMyLocation();
+		if(lo==null) {
+			lo = CruiseDataManager.getInstance().getCurrent_loc();
+			if(lo==null)
+			{
+				 // Creating a criteria object to retrieve provider
+	            Criteria criteria = new Criteria();
+
+	            // Getting the name of the best provider
+	            String provider = ((LocationManager) getView().getContext().getSystemService(Context.LOCATION_SERVICE)).getBestProvider(criteria, true);
+	            lo = new Location(provider);
+				lo.setLatitude(37.523452);
+				lo.setLongitude(127.028540);
+			}
+		}
+		else{
+			moveMapCamenra(lo);
+			final Location loc = lo;
+			CruiseDataManager.getInstance().setCurrent_loc(loc.getLatitude(),loc.getLongitude());
+		}
+		
+		
+		updateMapViewInfo();
+		updateColor();
+	}
+	
+	public void updateMateLocation(){
+		
+		for(int i = 0 ; i < SettingsDataManager.getInstance().getFriendList().size() ; i++){
+			if(SettingsDataManager.getInstance().getFriendList().get(i).getCurrentLocation()!=null){
+				addMarker(SettingsDataManager.getInstance().getFriendList().get(i).getCurrentLocation().getLatitude(),
+						SettingsDataManager.getInstance().getFriendList().get(i).getCurrentLocation().getLongitude(),
+						SettingsDataManager.getInstance().getFriendList().get(i).getUserName());
+			}
+		}
+	}
+	
+	public void addMarker(final double lattitude,final double longitude,final String name){
+		MainActivity.getInstasnce().runOnUiThread(new Runnable() {
+			
+			@Override
+			public void run() {
+				LatLng latlng = new LatLng(lattitude,longitude);
+				MarkerOptions options = new MarkerOptions();
+				options.position(latlng);
+				options.title(name);
+				options.draggable(false);
+				options.flat(true);
+				options.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE));
+				Marker marker = mGoogleMap.addMarker(options);
+				
+				marker.showInfoWindow();
+			}
+		});
+		
+	}
+	
+	public void moveMapCamenra(Location location){
+			
+		Log.d(TAG,"moveMapCamenra");
+
+		
+		// Getting latitude of the current location
+		double latitude = location.getLatitude();
+		 
+		// Getting longitude of the current location
+		double longitude = location.getLongitude();
+		 
+		// Creating a LatLng object for the current location
+		LatLng latLng = new LatLng(latitude, longitude);
+		 	     
+		if(!init_map){
+			// Showing the current location in Google Map
+			mGoogleMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
+			mGoogleMap.animateCamera(CameraUpdateFactory.zoomTo(15));
+		    init_map = true;
+		}
+
+		// Zoom in the Google Map
+	}
+	
+	private OnClickListener buildMenuButtonListener(){
+	
+		return new OnClickListener(){
+
+			@Override
+			public void onClick(View v) {
+				((MainActivity)fragment.getActivity()).open_button(v);
+			}
+		};
+	}
+	
+	public GoogleMap getMapInstance(){
+		assert(mGoogleMap!=null);
+		return mGoogleMap;
+	}
+
+	public void updateMapViewInfo(){
+		moveMapCamenra(CruiseDataManager.getInstance().getCurrent_loc());
+		updateMateLocation();
+		setMemberCount();
+		setElapsedTime();
+		setWind();
+		setAvgTeamSpeed();
+	}
+	public void setAvgTeamSpeed(){
+		
+		
+		tvValueTopRight.post(new Runnable() {
+			
+			@Override
+			public void run() {
+				double sum = 0;
+				ArrayList<UserData> friendlist = SettingsDataManager.getInstance().getCurrentRoomFriendList();
+				for(int i = 0 ; i < friendlist.size();i++){
+					sum+=friendlist.get(i).getSpeed();
+				}
+				Log.d(TAG,String.format("%.2f", sum/(friendlist.size()+1)));
+				String avgSpeed = String.format("%.2f", sum/(friendlist.size()+1)) + " Km/h";
+				tvValueTopRight.setText(avgSpeed);
+			}
+		});
+		
+		
+	}
+	public void setWind(){
+		tvWindData.post(new Runnable() {
+			
+			@Override
+			public void run() {
+				tvWindData.setText(String.valueOf(CruiseDataManager.getInstance().getWind()));
+			}
+		});
+		
+		tvWind.post(new Runnable() {
+			
+			@Override
+			public void run() {
+
+				double dir = CruiseDataManager.getInstance().getWind_direction();
+				
+				if(dir < 90){
+					tvWind.setText("East");
+				}
+				else if(dir<180){
+					tvWind.setText("South");
+				}else if(dir<270){
+					tvWind.setText("West");
+				}else{
+					tvWind.setText("North");
+				}
+			}
+		});
+		
+	}
+	public void setElapsedTime(){
+		if(tvValueTopLeft!=null){
+			tvValueTopLeft.post(new Runnable() {
+				
+				@Override
+				public void run() {
+					tvValueTopLeft.setText(CruiseDataManager.getInstance().getElapsedTime());
+				}
+			});
+		}
+	}
+	
+	public void setMemberCount(){
+		if(tvValueBottomRight!=null){
+			tvValueBottomRight.post(new Runnable() {
+				
+				@Override
+				public void run() {
+					tvValueBottomRight.setText(
+							String.valueOf((SettingsDataManager.getInstance()
+							.getCurrentRoomFriendList()
+							.size()+1)+" Person"));
+				}
+			});	
+		}
+	}
+	
+	public void updateColor(){
+		if(SettingsDataManager.getInstance().getThemeColor().equals("pink")){
+			lyTopBar.setBackgroundColor(MainActivity.getInstasnce().getResources().getColor(R.color.bk_color_pink_heavy));
+			lyMidBar.setBackgroundColor(MainActivity.getInstasnce().getResources().getColor(R.color.bk_color_pink_mid));
+			
+			tvAppName.setTextColor(MainActivity.getInstasnce().getResources().getColor(R.color.text_pink));
+			
+			tvTitleTopLeft.setBackgroundColor(MainActivity.getInstasnce().getResources().getColor(R.color.bk_color_pink_heavy));
+			tvTitleBottomLeft.setBackgroundColor(MainActivity.getInstasnce().getResources().getColor(R.color.bk_color_pink_heavy));
+			tvValueTopLeft.setBackgroundColor(MainActivity.getInstasnce().getResources().getColor(R.color.bk_color_pink_heavy));
+			tvWind.setBackgroundColor(MainActivity.getInstasnce().getResources().getColor(R.color.bk_color_pink_heavy));
+			tvTitleTopRight.setBackgroundColor(MainActivity.getInstasnce().getResources().getColor(R.color.bk_color_pink_heavy));
+			tvTitleBottomRight.setBackgroundColor(MainActivity.getInstasnce().getResources().getColor(R.color.bk_color_pink_heavy));
+			tvValueTopRight.setBackgroundColor(MainActivity.getInstasnce().getResources().getColor(R.color.bk_color_pink_heavy));
+			tvValueBottomRight.setBackgroundColor(MainActivity.getInstasnce().getResources().getColor(R.color.bk_color_pink_heavy));
+			lyWindLayout.setBackgroundColor(MainActivity.getInstasnce().getResources().getColor(R.color.bk_color_pink_heavy));
+			ivLocationIcon.setImageDrawable(MainActivity.getInstasnce().getResources().getDrawable(R.drawable.location_icon_pink));
+		}else if(SettingsDataManager.getInstance().getThemeColor().equals("green")){
+			lyTopBar.setBackgroundColor(MainActivity.getInstasnce().getResources().getColor(R.color.bk_color_green_heavy));
+			lyMidBar.setBackgroundColor(MainActivity.getInstasnce().getResources().getColor(R.color.bk_color_green_mid));
+			
+			tvAppName.setTextColor(MainActivity.getInstasnce().getResources().getColor(R.color.text_green));
+
+			tvTitleTopLeft.setBackgroundColor(MainActivity.getInstasnce().getResources().getColor(R.color.bk_color_green_heavy));
+			tvTitleBottomLeft.setBackgroundColor(MainActivity.getInstasnce().getResources().getColor(R.color.bk_color_green_heavy));
+			tvValueTopLeft.setBackgroundColor(MainActivity.getInstasnce().getResources().getColor(R.color.bk_color_green_heavy));
+			tvWind.setBackgroundColor(MainActivity.getInstasnce().getResources().getColor(R.color.bk_color_green_heavy));
+			tvTitleTopRight.setBackgroundColor(MainActivity.getInstasnce().getResources().getColor(R.color.bk_color_green_heavy));
+			tvTitleBottomRight.setBackgroundColor(MainActivity.getInstasnce().getResources().getColor(R.color.bk_color_green_heavy));
+			tvValueTopRight.setBackgroundColor(MainActivity.getInstasnce().getResources().getColor(R.color.bk_color_green_heavy));
+			tvValueBottomRight.setBackgroundColor(MainActivity.getInstasnce().getResources().getColor(R.color.bk_color_green_heavy));
+			lyWindLayout.setBackgroundColor(MainActivity.getInstasnce().getResources().getColor(R.color.bk_color_green_heavy));
+			ivLocationIcon.setImageDrawable(MainActivity.getInstasnce().getResources().getDrawable(R.drawable.location_icon_green));
+		}else if(SettingsDataManager.getInstance().getThemeColor().equals("gray")){
+			lyTopBar.setBackgroundColor(MainActivity.getInstasnce().getResources().getColor(R.color.bk_color_gray_heavy));
+			lyMidBar.setBackgroundColor(MainActivity.getInstasnce().getResources().getColor(R.color.bk_color_gray_mid));
+			
+			tvAppName.setTextColor(MainActivity.getInstasnce().getResources().getColor(R.color.text_gray));
+			
+			tvTitleTopLeft.setBackgroundColor(MainActivity.getInstasnce().getResources().getColor(R.color.bk_color_gray_heavy));
+			tvTitleBottomLeft.setBackgroundColor(MainActivity.getInstasnce().getResources().getColor(R.color.bk_color_gray_heavy));
+			tvValueTopLeft.setBackgroundColor(MainActivity.getInstasnce().getResources().getColor(R.color.bk_color_gray_heavy));
+			tvWind.setBackgroundColor(MainActivity.getInstasnce().getResources().getColor(R.color.bk_color_gray_heavy));
+			tvTitleTopRight.setBackgroundColor(MainActivity.getInstasnce().getResources().getColor(R.color.bk_color_gray_heavy));
+			tvTitleBottomRight.setBackgroundColor(MainActivity.getInstasnce().getResources().getColor(R.color.bk_color_gray_heavy));
+			tvValueTopRight.setBackgroundColor(MainActivity.getInstasnce().getResources().getColor(R.color.bk_color_gray_heavy));
+			tvValueBottomRight.setBackgroundColor(MainActivity.getInstasnce().getResources().getColor(R.color.bk_color_gray_heavy));
+			lyWindLayout.setBackgroundColor(MainActivity.getInstasnce().getResources().getColor(R.color.bk_color_gray_heavy));
+			ivLocationIcon.setImageDrawable(MainActivity.getInstasnce().getResources().getDrawable(R.drawable.location_icon_gray));
+		}
+	}
+	
+	
+}

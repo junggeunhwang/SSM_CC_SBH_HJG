@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.ssm.cyclists"
+    package="com.ssm.ExCycling"
     android:versionCode="1"
     android:versionName="1.0" >
 
@@ -33,6 +33,7 @@
     <uses-permission android:name="com.samsung.accessory.permission.ACCESSORY_FRAMEWORK" />
     <uses-permission android:name="com.samsung.wmanager.APP" />
     <uses-permission android:name="com.samsung.wmanager.ENABLE_NOTIFICATION" />
+    <uses-permission android:name="android.permission.INTERACT_ACROSS_USERS_FULL"/>
 
     <application
         android:allowBackup="true"
@@ -77,6 +78,7 @@
             </intent-filter>
         </receiver>
 
+        <meta-data android:name="GearAppType" android:value="wgt"/>
         <meta-data
             android:name="AccessoryServicesLocation"
             android:value="/res/xml/accessoryservices.xml" />

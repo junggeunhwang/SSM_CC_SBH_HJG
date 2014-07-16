@@ -1,0 +1,58 @@
+package com.ssm.ExCycling.fragment;
+
+
+import com.ssm.ExCycling.controller.manager.CruiseDataManager;
+import com.ssm.ExCycling.controller.manager.SettingsDataManager;
+import com.ssm.ExCycling.view.layout.HomeLayout;
+
+import android.app.Fragment;
+
+import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+
+
+public class HomeFragment extends Fragment {
+
+	static String TAG = HomeLayout.class.getSimpleName();
+	
+	HomeLayout layout;
+//	Fragment containerFragment;
+	
+	public HomeFragment() {
+		// TODO Auto-generated constructor stub
+	}
+	
+	
+	@Override
+	public View onCreateView(LayoutInflater inflater, ViewGroup container,
+			Bundle savedInstanceState) {
+
+		layout = new HomeLayout(this);
+		layout.createView(inflater, container);
+		layout.init();
+		
+		if(SettingsDataManager.getInstance().isStart_stopBicycleFlag()==false){// start to bycycle
+			//true update.
+			CruiseDataManager.getInstance().updateCruiseData();		 
+		}else{	//stop to bycycle
+			//false no update and clear;
+			CruiseDataManager.getInstance().clear();
+		}
+		
+		return layout.getView();
+	}
+
+
+	
+	public void updateHomeInfo(){
+		layout.updateHomeInfo();
+	}
+	
+	public HomeLayout getLayout() {
+		assert(layout!=null);
+		return layout;
+	}
+
+}

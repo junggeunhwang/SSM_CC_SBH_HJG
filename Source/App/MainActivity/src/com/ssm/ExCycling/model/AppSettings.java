@@ -1,0 +1,73 @@
+package com.ssm.ExCycling.model;
+
+public class AppSettings {
+	
+	static String TAG = AppSettings.class.getSimpleName();
+
+	static final int pink = 1;
+	static final int green = 2;
+	static final int gray = 3;
+	
+	static final int km		= 10;
+	static final int mile	= 11;
+	
+	private int current_color;
+	
+	private boolean FacebookInterwork;
+	private boolean TwitterInterwork;
+	private boolean InstagramInterwork;
+	
+	private static AppSettings instance;
+	
+	private static int unit;
+	
+	private AppSettings() {
+		// TODO Auto-generated constructor stub
+	}
+
+	public static AppSettings getInstance() {
+		if(instance==null) instance = new AppSettings(); 
+		return instance;
+	}
+
+	public int getCurrent_color() {
+		return current_color;
+	}
+
+	public static int getUnit() {
+		return unit;
+	}
+
+	public static void setUnit(int unit) {
+		AppSettings.unit = unit;
+	}
+
+	public boolean isFacebookInterwork() {
+		return FacebookInterwork;
+	}
+
+	public boolean isTwitterInterwork() {
+		return TwitterInterwork;
+	}
+
+	public boolean isInstagramInterwork() {
+		return InstagramInterwork;
+	}
+
+	public void setCurrent_color(int current_color) {
+		this.current_color = current_color;
+	}
+
+	public void setFacebookInterwork(boolean facebookInterwork) {
+		FacebookInterwork = facebookInterwork;
+	}
+
+	public void setTwitterInterwork(boolean twitterInterwork) {
+		TwitterInterwork = twitterInterwork;
+	}
+
+	public void setInstagramInterwork(boolean instagramInterwork) {
+		InstagramInterwork = instagramInterwork;
+	}
+	
+}

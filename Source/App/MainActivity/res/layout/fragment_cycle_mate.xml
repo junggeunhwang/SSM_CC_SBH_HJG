@@ -43,16 +43,6 @@
 	        android:layout_width="0dip"
 	        android:layout_height="match_parent"
 	        android:layout_weight="0.35"/>
-        <Button
-            android:id="@+id/btn_add_cyclemate"
-            android:layout_width="0dip"
-            android:layout_height="match_parent"
-            android:background="@color/md__transparent"
-            android:gravity="center_vertical|center_horizontal"
-            android:layout_weight="0.2"
-            android:textColor="@color/white"
-            android:text="Add"
-            android:textSize="11dp"/>
 
     </LinearLayout>
 

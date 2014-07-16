@@ -90,20 +90,20 @@
             android:gravity="center_vertical"
             android:orientation="horizontal" >
 
-            <com.ssm.cyclists.view.ImageViewRounded
+            <com.ssm.ExCycling.view.ImageViewRounded
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:scaleType="centerInside"
                 android:src="@drawable/bk_sample_pink" />
 
-            <com.ssm.cyclists.view.ImageViewRounded
+            <com.ssm.ExCycling.view.ImageViewRounded
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:layout_marginLeft="10dp"
                 android:scaleType="centerInside"
                 android:src="@drawable/bk_sample_green" />
 
-            <com.ssm.cyclists.view.ImageViewRounded
+            <com.ssm.ExCycling.view.ImageViewRounded
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:layout_marginLeft="10dp"
