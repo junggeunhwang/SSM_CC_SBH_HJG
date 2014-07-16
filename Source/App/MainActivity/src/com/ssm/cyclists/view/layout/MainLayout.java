@@ -2,6 +2,7 @@ package com.ssm.cyclists.view.layout;
 
 import com.ssm.cyclists.R;
 import com.ssm.cyclists.controller.activity.MainActivity;
+import com.ssm.cyclists.controller.communication.https.Protocol;
 import com.ssm.cyclists.controller.fragment.CruiseContainerFragment;
 import com.ssm.cyclists.controller.fragment.CycleMateFragment;
 import com.ssm.cyclists.controller.fragment.CycleTrackerContainerFragment;
@@ -10,6 +11,7 @@ import com.ssm.cyclists.controller.fragment.SettingsFragment;
 import com.ssm.cyclists.controller.manager.DataBaseManager;
 import com.ssm.cyclists.controller.manager.ResourceManager;
 import com.ssm.cyclists.controller.manager.SettingsDataManager;
+import com.ssm.cyclists.model.SettingsData;
 
 import android.app.Fragment;
 import android.app.FragmentTransaction;
@@ -123,6 +125,7 @@ public class MainLayout{
 
 			break;
 		case R.layout.fragment_cycle_mate:
+			Protocol.getInstance().FriendsListRequest(SettingsDataManager.getInstance().getMe().getUniqueID());
 			newFragment = mFragmentCycleMate;
 			transaction.detach(activated_fragment);
 			transaction.replace(R.id.fragment,newFragment);

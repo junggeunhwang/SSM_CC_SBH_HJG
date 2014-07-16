@@ -7,8 +7,10 @@ import org.json.JSONObject;
 
 import com.ssm.cyclists.R;
 import com.ssm.cyclists.controller.activity.MainActivity;
+import com.ssm.cyclists.controller.activity.SplashActivity;
 import com.ssm.cyclists.controller.manager.CruiseDataManager;
 
+import android.content.Intent;
 import android.location.Location;
 import android.os.AsyncTask;
 import android.util.Log;
@@ -124,7 +126,6 @@ public class WeatherUpdateAsyncTask extends AsyncTask<Location, Integer, Long> {
 			CruiseDataManager.getInstance().setHumidity(main.getInt("humidity"));
 			CruiseDataManager.getInstance().setTemperature(((int)Math.round((main.getDouble("temp")-276.15))));
 			
-								
 		} catch (JSONException e) {
 			Log.e(TAG,e.getLocalizedMessage());
 			e.printStackTrace();

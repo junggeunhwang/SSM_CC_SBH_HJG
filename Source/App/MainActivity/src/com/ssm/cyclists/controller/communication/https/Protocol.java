@@ -5,6 +5,8 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.StringTokenizer;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import com.ssm.cyclists.R;
 import com.ssm.cyclists.controller.activity.MainActivity;
@@ -23,6 +25,7 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.location.Location;
 import android.os.Looper;
+import android.util.Base64;
 import android.util.Log;
 import android.view.WindowManager;
 import android.widget.Toast;
@@ -45,10 +48,12 @@ public class Protocol {
 	
 	private Protocol() {
 		
+		
 		httpsCallback = new HttpsCommunicationCallback() {
 			@Override
 			public void onResponseSuccess(HttpsCommunication hcn) {
-				
+				int getImageCount=0; 
+
 				if(hcn.getResponseOrder().equals("get")){
 				
 					if(hcn.getResponseType().equals("string")){
@@ -120,9 +125,7 @@ public class Protocol {
 						
 						MainActivity.getInstasnce().getmSAPService().sendFile(file.getAbsolutePath());
 						
-//						if(!file.delete()){
-//							Log.e(TAG,"temporary voice file is not deleted");
-//						}
+
 					}else if(hcn.getResponseType().equals("text")){
 						/* 서버  -> 안드로이드 응답 수신 */
 						
@@ -131,6 +134,7 @@ public class Protocol {
 					
 					if(hcn.getStringResponseData().equals("SUCCESS")){
 						Log.i(TAG,"Login Success");
+						UpdateProfile(SettingsDataManager.getInstance().getMe().getUniqueID());
 						FriendsListRequest(SettingsDataManager.getInstance().getMe().getUniqueID());
 					}
 					else if(hcn.getStringResponseData().equals("EALREADYLOGIN")){
@@ -142,7 +146,9 @@ public class Protocol {
 				}else if(hcn.getResponseOrder().equals("logout")){
 					
 					if(hcn.getStringResponseData().equals("SUCCESS")) Log.i(TAG,"Logout Success");
-					else if(hcn.getStringResponseData().equals("ENOTLOGIN")) Log.e(TAG,"logout Fail : ENOTLOGIN");
+					else if(hcn.getStringResponseData().equals("ENOTLOGIN")){
+						Log.e(TAG,"logout Fail : ENOTLOGIN");
+					}
 					else if(hcn.getStringResponseData().equals("EMISSING")) Log.e(TAG,"logout Fail : EMISSING");
 					
 				}else if(hcn.getResponseOrder().equals("mkroom")){
@@ -164,13 +170,17 @@ public class Protocol {
 							Protocol.getInstance().SendString(friendsUniqueID, SettingsDataManager.getInstance().getMe().getUniqueID());
 						}
 					}
-					else if(hcn.getStringResponseData().equals("ENOTLOGIN")) Log.e(TAG,"MakeRoom Fail : ENOTLOGIN");
+					else if(hcn.getStringResponseData().equals("ENOTLOGIN")){
+						Log.e(TAG,"MakeRoom Fail : ENOTLOGIN");
+					}
 					else if(hcn.getStringResponseData().equals("EMISSING")) Log.e(TAG,"MakeRoom Fail : EMISSING");
 					
 				}else if(hcn.getResponseOrder().equals("joinroom")){
 					
 					if(hcn.getStringResponseData().equals("SUCCESS")) Log.i(TAG,"JoinRoom Success");
-					else if(hcn.getStringResponseData().equals("ENOTLOGIN")) Log.e(TAG,"JoinRoom Fail : ENOTLOGIN");
+					else if(hcn.getStringResponseData().equals("ENOTLOGIN")) {
+						Log.e(TAG,"JoinRoom Fail : ENOTLOGIN");
+					}
 					else if(hcn.getStringResponseData().equals("EALREADYJOINROOM")) Log.e(TAG,"JoinRoom Fail : EALREADYJOINROOM");
 					else if(hcn.getStringResponseData().equals("ENOTARGET")) Log.e(TAG,"JoinRoom Fail : ENOTARGET");
 					else if(hcn.getStringResponseData().equals("EMISSING")) Log.e(TAG,"JoinRoom Fail : EMISSING");
@@ -192,13 +202,17 @@ public class Protocol {
 						
 						
 					}
-					else if(hcn.getStringResponseData().equals("ENOTLOGIN")) Log.e(TAG,"ExitRoom Fail : ENOTLOGIN");
+					else if(hcn.getStringResponseData().equals("ENOTLOGIN")) {
+						Log.e(TAG,"ExitRoom Fail : ENOTLOGIN");
+					}
 					else if(hcn.getStringResponseData().equals("ENOTJOINROOM")) Log.e(TAG,"ExitRoom Fail : ENOTJOINROOM");
 					else if(hcn.getStringResponseData().equals("EMISSING")) Log.e(TAG,"ExitRoom Fail : EMISSING");
 					
 				}else if(hcn.getResponseOrder().equals("addfriend")){
 					
-					if(hcn.getStringResponseData().equals("ENOTLOGIN")) Log.e(TAG,"AddFriend Fail : ENOTLOGIN");
+					if(hcn.getStringResponseData().equals("ENOTLOGIN")) {
+						Log.e(TAG,"AddFriend Fail : ENOTLOGIN");
+					}
 					else if(hcn.getStringResponseData().equals("ENOTARGET")){
 						Log.e(TAG,"AddFriend Fail : ENOTTARGET");
 						makeToast("User does not exist.");
@@ -226,7 +240,9 @@ public class Protocol {
 					
 				}else if(hcn.getResponseOrder().equals("delfriend")){
 					
-					if(hcn.getStringResponseData().equals("ENOTLOGIN")) Log.e(TAG,"Delete Friend Fail : ENOTLOGIN");
+					if(hcn.getStringResponseData().equals("ENOTLOGIN")) {
+						Log.e(TAG,"Delete Friend Fail : ENOTLOGIN");
+					}
 					else if(hcn.getStringResponseData().equals("ENOTTARGET")) Log.e(TAG,"Delete Friend Fail : ENOTTARGET");
 					else if(hcn.getStringResponseData().equals("ENOTFRIEND")) Log.e(TAG,"Delete Friend Fail : ENOTFRIEND");
 					else if(hcn.getStringResponseData().equals("EMISSING")) Log.e(TAG,"Delete Friend Fail : EMISSING");
@@ -245,56 +261,109 @@ public class Protocol {
 				}else if(hcn.getResponseOrder().equals("friendlist")){
 					
 					if(hcn.getResponseType().equals("text")){
-						if(hcn.getStringResponseData().equals("ENOTLOGIN")) Log.e(TAG,"Get FriendList Fail : ENOTLOGIN");
+						if(hcn.getStringResponseData().equals("ENOTLOGIN")) {
+							Log.e(TAG,"Get FriendList Fail : ENOTLOGIN");
+						}
 						else if(hcn.getStringResponseData().equals("ENOLIST")) Log.e(TAG,"Get FriendList Fail : ENOLIST");
 						else if(hcn.getStringResponseData().equals("EMISSING")) Log.e(TAG,"Get FriendList Fail : EMISSING");	
+						ArrayList<UserData> friendsList = new ArrayList<UserData>();
+						SettingsDataManager.getInstance().setFriendList(friendsList);
 					}
 					else if(hcn.getResponseType().equals("string")){
 						Log.i(TAG,"get FriendList Success");
-						String friendlist = hcn.getStringResponseData();
 						
- 						StringTokenizer tokenizer = new StringTokenizer(friendlist,";");
+						String friendlist = hcn.getStringResponseData();
+						StringTokenizer tokenizer = new StringTokenizer(friendlist,";"); 
+						
+ 						String strFriendCount = tokenizer.nextToken();
+						int friendCount = Integer.valueOf(strFriendCount);       
+						
 						ArrayList<UserData> friendsList = new ArrayList<UserData>();
-						String UniqueID = null;
-  						while(tokenizer.hasMoreElements()){
-  							UniqueID = tokenizer.nextToken();
-  							UserData friend = new UserData();
- 							friend.setUniqueID(UniqueID);
- 							GetName(SettingsDataManager.getInstance().getMe().getUniqueID(), UniqueID);
-							GetImage(SettingsDataManager.getInstance().getMe().getUniqueID(), UniqueID);
-							friendsList.add(friend);
+						for(int i = 0 ; i < friendCount ; i++){
+							UserData newFriend = new UserData();
+							newFriend.setUniqueID(tokenizer.nextToken());
+							newFriend.setUserName(new String(Base64.decode(tokenizer.nextToken(), Base64.DEFAULT)));
+							friendsList.add(newFriend);
+							GetImage(SettingsDataManager.getInstance().getMe().getUniqueID(),newFriend.getUniqueID());
 						}
 						SettingsDataManager.getInstance().setFriendList(friendsList);
-					}
-					
-				}else if(hcn.getResponseOrder().equals("getname")){
-					
-					if(hcn.getResponseType().equals("text")){
-						if(hcn.getStringResponseData().equals("ENOTLOGIN")) Log.e(TAG,"GetName Fail : ENOTLOGIN");
-						else if(hcn.getStringResponseData().equals("ENOTARGET")) Log.e(TAG,"GetName Fail : ENOTARGET");
-						else if(hcn.getStringResponseData().equals("ENONAME")) Log.e(TAG,"GetName Fail : ENONAME");
-						else if(hcn.getStringResponseData().equals("EMISSING")) Log.e(TAG,"GetName Fail : EMISSING");
-					}
-					else if(hcn.getResponseType().equals("string")){
-						String name = hcn.getStringResponseData();
-						String targetNumber = hcn.getResponseUniqueNumber();
-						ArrayList<UserData> friendList = SettingsDataManager.getInstance().getFriendList();
 						
-						for(int i = 0;i<friendList.size();i++){
-							if(friendList.get(i).getUniqueID().equals(targetNumber)){
-								friendList.get(i).setUserName(name);
-							}
-						}
-						Log.i(TAG,"GetName Success : " + name);
-					}
-					
-				}else if(hcn.getResponseOrder().equals("getimage")){
+//						String friendlist = hcn.getStringResponseData();
+//						
+// 						StringTokenizer tokenizer = new StringTokenizer(friendlist,";");
+// 						ArrayList<UserData> friendsList = new ArrayList<UserData>();
+// 						String UniqueID = null;
+//  						while(tokenizer.hasMoreElements()){
+//  							UniqueID = tokenizer.nextToken();
+//  							UserData friend = new UserData();
+// 							friend.setUniqueID(UniqueID);
+//							friendsList.add(friend);
+//						}
+//  						
+//  						int count = 0;
+//  						
+//  						for(int i = 0 ; i < SettingsDataManager.getInstance().getFriendList().size(); i++){
+//  							for(int j = 0 ; j < friendsList.size();j++){
+//  								if(SettingsDataManager.getInstance().getFriendList().get(i).equals(friendsList.get(j))){
+//  									count++;
+//  								}
+//  							}
+//  						}
+//  						
+//  						if((count == SettingsDataManager.getInstance().getFriendList().size()) && (count == friendsList.size())){
+//  							SettingsDataManager.getInstance().setFriendList(friendsList);	
+//  						}else{
+//  							for(int i = 0 ; i < friendsList.size();i++){
+//  								SettingsDataManager.getInstance().setFriendList(friendsList);
+//  	 							GetName(SettingsDataManager.getInstance().getMe().getUniqueID(), friendsList.get(i).getUniqueID());
+//  								GetImage(SettingsDataManager.getInstance().getMe().getUniqueID(),friendsList.get(i).getUniqueID());
+//  							}
+//  						}
+//					}
+					}	
+				}
+//				else if(hcn.getResponseOrder().equals("getname")){
+//					
+//					if(hcn.getResponseType().equals("text")){
+//						if(hcn.getStringResponseData().equals("ENOTLOGIN")) {
+//							Log.e(TAG,"GetName Fail : ENOTLOGIN");
+//						}
+//						else if(hcn.getStringResponseData().equals("ENOTARGET")) Log.e(TAG,"GetName Fail : ENOTARGET");
+//						else if(hcn.getStringResponseData().equals("ENONAME")) Log.e(TAG,"GetName Fail : ENONAME");
+//						else if(hcn.getStringResponseData().equals("EMISSING")) Log.e(TAG,"GetName Fail : EMISSING");
+//					}
+//					else if(hcn.getResponseType().equals("string")){
+//						
+//						String name = new String(Base64.decode(hcn.getStringResponseData(), Base64.DEFAULT));
+//						String targetNumber = hcn.getResponseUniqueNumber();
+//						ArrayList<UserData> friendList = SettingsDataManager.getInstance().getFriendList();
+//						
+//						for(int i = 0;i<friendList.size();i++){
+//							if(friendList.get(i).getUniqueID().equals(targetNumber)){
+//								friendList.get(i).setUserName(name);
+//							}
+//						}
+//						Log.i(TAG,"GetName Success : " + name);
+//					}
+//					
+//				}
+				else if(hcn.getResponseOrder().equals("getimage")){
 					
 					if(hcn.getResponseType().equals("text")){
-						if(hcn.getStringResponseData().equals("ENOTLOGIN")) Log.e(TAG,"getimage Fail : ENOTLOGIN");
+						if(hcn.getStringResponseData().equals("ENOTLOGIN")) {
+							Log.e(TAG,"getimage Fail : ENOTLOGIN");
+						}
 						else if(hcn.getStringResponseData().equals("ENOTARGET")) Log.e(TAG,"getimage Fail : ENOTARGET");
 						else if(hcn.getStringResponseData().equals("ENOTARGET")) Log.e(TAG,"getimage Fail : ENONAME");
 						else if(hcn.getStringResponseData().equals("EMISSING")) Log.e(TAG,"getimage Fail : EMISSING");
+						else{
+							Log.e(TAG, "getimage Fail");
+							getImageCount++;
+							if(getImageCount == SettingsDataManager.getInstance().getFriendList().size()){
+								getImageCount=0;
+								hideProgressDialog();
+							}
+						}
 					}
 					else if(hcn.getResponseType().equals("file")){
 						//row profile data 
@@ -310,21 +379,33 @@ public class Protocol {
 								friendList.get(i).setProfileImg(profile_bitmap);
 							}
 						}
+						
+						getImageCount++;
+						if(getImageCount == SettingsDataManager.getInstance().getFriendList().size()){
+							getImageCount=0;
+							hideProgressDialog();
+						}
+						
 						Log.i(TAG,"GetFile Success");
 					}
-					
 					if(MainActivity.getInstasnce().getLayout().getActivated_fragment().getClass().equals(SearchCycleMateFragment.class)){
 						((SearchCycleMateFragment)MainActivity.getInstasnce().getLayout().getActivated_fragment()).getLayout().backScreen();
 					}
-					hideProgressDialog();
+
 				}else if(hcn.getResponseOrder().equals("inviteroom")){
-					if(hcn.getStringResponseData().equals("ENOTLOGIN")) Log.e(TAG,"inviteroom Fail : ENOTLOGIN");
+					if(hcn.getStringResponseData().equals("ENOTLOGIN")) {
+						Log.e(TAG,"inviteroom Fail : ENOTLOGIN");
+					}
 					else if(hcn.getStringResponseData().equals("ENOTJOINROOM")) Log.e(TAG,"inviteroom Fail : ENOTJOINROOM");
 					else if(hcn.getStringResponseData().equals("ETARGETNOTLOGIN")) Log.e(TAG,"inviteroom Fail : ETARGETNOTLOGIN");
 					else if(hcn.getStringResponseData().equals("ETARGETALREADYJOINROOM")) Log.e(TAG,"inviteroom Fail : ETARGETALREADYJOINROOM");
 					else if(hcn.getStringResponseData().equals("SUCCESS")){
 						Log.e(TAG,"inviteroom SUCCESS");
 					}
+				}else if(hcn.getResponseOrder().equals("update")){
+					if(hcn.getStringResponseData().equals("ENOTLOGIN")) Log.e(TAG,"Update Profile Fail : ENOTLOGIN");
+					else if(hcn.getStringResponseData().equals("EMISSING")) Log.e(TAG,"Update Profile Fail : EMISSING");
+					else if(hcn.getStringResponseData().equals("SUCCESS")) Log.d(TAG,"Update Profile Success");	
 				}
 			}
 			
@@ -336,7 +417,8 @@ public class Protocol {
 	
 		progressDialog = new ProgressDialog(MainActivity.getInstasnce());
         progressDialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
-        progressDialog.getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL, WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL);
+        progressDialog.getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE, WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+        progressDialog.setCanceledOnTouchOutside(false);
         progressDialog.setCancelable(false);
 	}
 	
@@ -356,12 +438,24 @@ public class Protocol {
          }.start();
 	}
 
+	
+	Timer cancelTimer;
+	
 	private void showProgressDialog(){
 		MainActivity.getInstasnce().runOnUiThread(new Runnable() {
 			
 			@Override
 			public void run() {
-				progressDialog.show();
+				if(progressDialog!=null) progressDialog.show();
+				
+				cancelTimer = new Timer();
+				cancelTimer.schedule(new TimerTask(){
+					@Override
+					public void run() {
+//						makeToast("Network status is not good.");
+ 						hideProgressDialog();
+					}
+				}, 5000);
 			}
 		});
 
@@ -369,15 +463,21 @@ public class Protocol {
 	
 	private void hideProgressDialog(){
 		MainActivity.getInstasnce().runOnUiThread(new Runnable() {
-			
 			@Override
 			public void run() {
-				progressDialog.hide();
+				if(progressDialog!=null) progressDialog.hide();
+				if(cancelTimer!=null){
+					cancelTimer.cancel();
+					cancelTimer = null;
+				}
 			}
 		});
 
 	}
 	
+	public void DismissProgressDialog(){
+		progressDialog.dismiss();
+	}
 	public boolean InviteFriend(String myNumber,ArrayList<UserData> targetNumbers){
 		for(int i = 0 ; i < targetNumbers.size();i++){
 			HttpsCommunication httpsCommunication = new HttpsCommunication(httpsCallback);
@@ -480,19 +580,42 @@ public class Protocol {
     	httpsCommunication.setType(HttpsCommunication.TYPE_REQUEST);
     	httpsCommunication.setStringData("login");
     	httpsCommunication.setUniqueNumber(myNumber);
-    	UserData me = SettingsDataManager.getInstance().getMe();
-    	if(me.getUserName()!=null){
-    		httpsCommunication.setExtraData(me.getUserName());
-    	}
-    	if(me.getProfileImg()!=null){
-    		File myProfile = new File(DEST_DIR_PROFILE+"/me.png");
-    		httpsCommunication.setFileData(myProfile);
-    	}
+//    	UserData me = SettingsDataManager.getInstance().getMe();
+//    	if(me.getUserName()!=null){
+//    		httpsCommunication.setExtraData(me.getUserName());
+//    	}
+//    	if(me.getProfileImg()!=null){
+//    		File myProfile = new File(DEST_DIR_PROFILE+"/me.png");
+//    		httpsCommunication.setFileData(myProfile);
+//    	}
 		if(!httpsCommunication.ExecuteRequest()){
 			Log.e(TAG, "login requeset failed");
 			return false;
 		}
 		Log.d(TAG, "login request success");
+		return true;
+    }
+    
+    public boolean UpdateProfile(String myNumber){
+    	HttpsCommunication httpsCommunication = new HttpsCommunication(httpsCallback);
+    	httpsCommunication.setType(HttpsCommunication.TYPE_REQUEST);
+    	httpsCommunication.setStringData("update");
+    	httpsCommunication.setUniqueNumber(myNumber);
+    	
+    	UserData me = SettingsDataManager.getInstance().getMe();
+    	if(me.getUserName()!=null){
+    		httpsCommunication.setExtraData(Base64.encodeToString(me.getUserName().getBytes(),Base64.DEFAULT));
+		}
+		if(me.getProfileImg()!=null){
+			File myProfile = new File(DEST_DIR_PROFILE+"/me.png");
+			httpsCommunication.setFileData(myProfile);
+		}
+		
+		if(!httpsCommunication.ExecuteRequest()){
+			Log.e(TAG, "UpdateProfile requeset failed");
+			return false;
+		}
+		Log.d(TAG, "UpdateProfile request success");
 		return true;
     }
     
@@ -556,12 +679,15 @@ public class Protocol {
         HttpsCommunication httpsCommunication = new HttpsCommunication(httpsCallback);
         httpsCommunication.setType(HttpsCommunication.TYPE_FILE);
         httpsCommunication.setUniqueNumber(myNumber);
-        httpsCommunication.setFileData(new File(path));
+        File file = new File(path);
+        httpsCommunication.setFileData(file);
     	
     	if(!httpsCommunication.ExecuteRequest()){
 			Log.e(TAG, "SendFile requeset failed");
+			file.delete();
 			return false;
 		}
+    	file.delete();
     	Log.d(TAG, "SendFile request success");
     	return true;
     }

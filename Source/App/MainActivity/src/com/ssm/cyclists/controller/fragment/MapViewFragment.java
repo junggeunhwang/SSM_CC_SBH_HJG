@@ -20,7 +20,6 @@ public class MapViewFragment extends Fragment {
 	static String TAG = MapViewFragment.class.getSimpleName();
 	
 	private MapViewLayout layout = null;
-	Fragment containerFragment;
 	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -43,18 +42,7 @@ public class MapViewFragment extends Fragment {
 		
 		return layout.getView();
 	}
-	
-	@Override
-	public void onActivityCreated(Bundle savedInstanceState) {
-		
-		super.onActivityCreated(savedInstanceState);
-	}
-	
-	@Override
-	public void onStart() {
-		
-		super.onStart();
-	}
+
 	public void moveMapCamenra(Location location){
 		layout.moveMapCamenra(location);
 	}
@@ -74,14 +62,5 @@ public class MapViewFragment extends Fragment {
 	
 	public void updateMapViewInfo(){
 		layout.updateMapViewInfo();
-	}
-	
-	public Fragment getContainerFragment() {
-		return containerFragment;
-	}
-
-
-	public void setContainerFragment(Fragment containerFragment) {
-		this.containerFragment = containerFragment;
 	}
 }

@@ -16,7 +16,6 @@ public class CruiseFragment extends Fragment {
 	static String TAG = CruiseFragment.class.getSimpleName();
 	
 	private CruiseLayout layout;
-	Fragment containerFragment;
 	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -47,12 +46,4 @@ public class CruiseFragment extends Fragment {
 		return layout;
 	}
 	
-	public Fragment getContainerFragment() {
-		return containerFragment;
-	}
-
-
-	public void setContainerFragment(Fragment containerFragment) {
-		this.containerFragment = containerFragment;
-	}
 }

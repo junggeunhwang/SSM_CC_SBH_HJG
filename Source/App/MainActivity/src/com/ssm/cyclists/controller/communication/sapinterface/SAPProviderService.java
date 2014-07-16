@@ -19,6 +19,7 @@ import android.os.IBinder;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.google.android.gms.internal.is;
 import com.samsung.android.sdk.SsdkUnsupportedException;
 import com.samsung.android.sdk.accessory.SA;
 import com.samsung.android.sdk.accessory.SAAgent;
@@ -41,6 +42,8 @@ public static final String TAG = "SAPStringProviderService";
 
 	// 어플리케이션 컨텍스트
 	public Context mContext = null;
+	
+	private boolean isBind = false;
 
 	// 서비스 외부로 알리기위한 문자열 전송 관련 인터페이스
 	private StringAction stringAction;
@@ -197,20 +200,17 @@ public static final String TAG = "SAPStringProviderService";
     @Override 
     protected void onServiceConnectionRequested(SAPeerAgent peerAgent) 
     {        	
-    	isAuthentication = false;
-    	
-    	if(isAuthentication) 
+    	if(isBind && peerAgent.getAppName().equals("SAPInterface")) 
     	{
-            Toast.makeText(getBaseContext(), "Authentication On!", Toast.LENGTH_SHORT).show();
-            Log.e(TAG, "Start authenticatePeerAgent");
-            authenticatePeerAgent(peerAgent);
-        }
-    	else 
-    	{
-            Toast.makeText(getBaseContext(), "Authentication Off!", Toast.LENGTH_SHORT).show();
+            // Toast.makeText(getBaseContext(), "", Toast.LENGTH_SHORT).show();
             Log.e(TAG, "acceptServiceConnectionRequest");
             acceptServiceConnectionRequest(peerAgent);
-        }    		
+        }
+    	else
+    	{
+    		Log.e(TAG,"rejectServiceConnectionRequest");
+    		rejectServiceConnectionRequest(peerAgent);
+    	}
     } 
     
     protected void onAuthenticationResponse(SAPeerAgent uPeerAgent,	SAAuthenticationToken authToken, int error) 
@@ -366,6 +366,19 @@ public static final String TAG = "SAPStringProviderService";
         }
     }
     
+    public void closeGearConnection()
+    {
+    	if(mSAPSocket != null)
+    	{
+    		mSAPSocket.close();
+    	}
+    }
+    
+    
+    public void setVirtualBindStatus(boolean status)
+    {
+    	isBind = status;
+    }
     public int sendFile(String fullPath)
     {
     	if(mPeerAgent == null)

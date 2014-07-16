@@ -19,21 +19,17 @@ import com.ssm.cyclists.controller.communication.sapinterface.SAPProviderService
 import com.ssm.cyclists.controller.communication.sapinterface.StringAction;
 import com.ssm.cyclists.controller.communication.sapinterface.SAPProviderService.LocalBinder;
 import com.ssm.cyclists.controller.fragment.CycleTrackerContainerFragment;
-import com.ssm.cyclists.controller.fragment.CycleTrackerDetailGraphFragment;
 import com.ssm.cyclists.controller.manager.CruiseDataManager;
-import com.ssm.cyclists.controller.manager.DataBaseManager;
 import com.ssm.cyclists.controller.manager.FacebookManager;
 import com.ssm.cyclists.controller.manager.GoogleLocationManager;
 import com.ssm.cyclists.controller.manager.SettingsDataManager;
 import com.ssm.cyclists.controller.manager.TwitterManager;
 import com.ssm.cyclists.controller.timertask.CruiseInfoTimerTask;
 import com.ssm.cyclists.controller.timertask.GetTask;
-import com.ssm.cyclists.model.SettingsData;
 import com.ssm.cyclists.model.TwitterBasicInfo;
 import com.ssm.cyclists.model.UserData;
 import com.ssm.cyclists.view.layout.MainLayout;
 
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.NotificationCompat;
 import android.telephony.TelephonyManager;
@@ -43,6 +39,7 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.ComponentName;
 import android.content.Context; 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.ServiceConnection;
 import android.content.SharedPreferences;
@@ -52,6 +49,7 @@ import android.os.Bundle;
 import android.os.IBinder;
 import android.os.Vibrator;
 import android.preference.Preference;
+import android.provider.Settings;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -113,65 +111,68 @@ public class MainActivity extends FragmentActivity {
 	  
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-    	
-    	//전화번호
-        mTelephonyManager = (TelephonyManager)getSystemService(Context.TELEPHONY_SERVICE);
-        myNumber = mTelephonyManager.getLine1Number();
-        if(myNumber==null)myNumber = "01098765432";
-//       	myNumber = "01012345678";
-        	
-        Log.d(TAG,"my number : "+myNumber);
-        	
-        UserData me = SettingsDataManager.getInstance().getMe();
-        me.setUniqueID(myNumber);
-        SettingsDataManager.getInstance().setMe(me);
-        	
-        //저장된 이름 불러오기
-        SharedPreferences pref_init_username_in = getSharedPreferences("init_username", 0);
-        String storedUserName = pref_init_username_in.getString("init_username", null);
-        if(storedUserName!=null) SettingsDataManager.getInstance().getMe().setUserName(storedUserName);
-          	
-        //위치정보 법 관련 다이얼로그 수락 저장
-        SharedPreferences pref1 = getSharedPreferences("law", 0);
-        if(!pref1.getBoolean("right", false)){
-        	LawRightDialog dialog = new LawRightDialog(this);
-        	dialog.getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL, WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL);
-        	dialog.setCancelable(false);
-        	dialog.show();
-        }
-          	
-        Protocol.getInstance().Login(myNumber);
+    	this.instance = this;
+    	// service
+    	mCtxt = getApplicationContext();
+        mCtxt.bindService(new Intent(getApplicationContext(), SAPProviderService.class), 
+                 this.mSAPConnection, Context.BIND_AUTO_CREATE);
         
+        
+        
+        //전화번호 얻기 -> 로그인 -> 임시파일 저장할 디렉토리 생성 까지 멀티쓰레드 사용으로 성능 향상
+        new Thread(new Runnable() {
+			
+			@Override
+			public void run() {
+				//전화번호
+		        mTelephonyManager = (TelephonyManager)getSystemService(Context.TELEPHONY_SERVICE);
+		        myNumber = mTelephonyManager.getLine1Number();
+		        if(myNumber==null)myNumber = "01098765432";
+//		       	myNumber = "01012345678";
+		        	
+		        Log.d(TAG,"my number : "+myNumber);
+		        	
+		        UserData me = SettingsDataManager.getInstance().getMe();
+		        me.setUniqueID(myNumber);
+		        SettingsDataManager.getInstance().setMe(me);
+		        	
+		        //저장된 이름 불러오기
+		        SharedPreferences pref_init_username_in = getSharedPreferences("init_username", 0);
+		        String storedUserName = pref_init_username_in.getString("init_username", null);
+		        if(storedUserName!=null) SettingsDataManager.getInstance().getMe().setUserName(storedUserName);
+		          	
+		        //위치정보 법 관련 다이얼로그 수락 저장
+		        SharedPreferences pref1 = getSharedPreferences("law", 0);
+		        if(!pref1.getBoolean("right", false)){
+		        	LawRightDialog dialog = new LawRightDialog(MainActivity.getInstasnce());
+		        	dialog.getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL, WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL);
+		        	dialog.setCancelable(false);
+		        	dialog.show();
+		        }
+		          	
+		        Protocol.getInstance().Login(myNumber);
+		        
+		       	MainActivity.getInstasnce().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+		    	 
+		    	File RootDir = new File(DEST_DIR);
+		    	if(!RootDir.exists()){
+		    		RootDir.mkdir();
+		    	}
+		    	
+		    	File SendDir = new File(DEST_DIR_SEND);
+		    	if(!SendDir.exists()){
+		    		SendDir.mkdir();
+		    	}
+		    	
+		    	File ReceiveDir = new File(DEST_DIR_RECEIVE);
+		    	if(!ReceiveDir.exists()){
+		    		ReceiveDir.mkdir();
+		    	}
+			}
+		}).run();
+    	
         //Faceboo 초기화       
         FacebookManager.getInstance().init(savedInstanceState);
-        
-    	this.instance = this;
-    	
-    	this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-    	 
-    	File RootDir = new File(DEST_DIR);
-    	if(!RootDir.exists()){
-    		RootDir.mkdir();
-    	}
-    	
-    	File SendDir = new File(DEST_DIR_SEND);
-    	if(!SendDir.exists()){
-    		SendDir.mkdir();
-    	}
-    	
-    	File ReceiveDir = new File(DEST_DIR_RECEIVE);
-    	if(!ReceiveDir.exists()){
-    		ReceiveDir.mkdir();
-    	}
-
-    	//운동기록 읽기
-    	CruiseDataManager.getInstance().setCycle_data_list(DataBaseManager.getInstance().selectCruiseData());
-    	DataBaseManager.getInstance().selectSettingInfo();
-    	SettingsDataManager.getInstance().setFriendList(DataBaseManager.getInstance().selectFriend());
-    	//테마 설정 저장
-    	if(SettingsDataManager.getInstance().getThemeColor()==null)SettingsDataManager.getInstance().setThemeColor("gray");
-    	
-    	
     	
     	//Splash 시작
     	Intent intent = new Intent(this,SplashActivity.class);
@@ -179,8 +180,6 @@ public class MainActivity extends FragmentActivity {
     	
     	startActivity(intent);
     	
-
-		
 		SharedPreferences pref2 = getSharedPreferences("law", 0);
 		Editor editor = pref2.edit();
 		editor.putBoolean("right",true);
@@ -198,22 +197,10 @@ public class MainActivity extends FragmentActivity {
     	layout = new MainLayout(this);
     	setContentView(layout.getView());
         layout.init();
-        
+        startGetRequest();
         
     }
 
-    @Override
-    protected void onStart() {
-    	startGetRequest();
-    	Protocol.getInstance().Login(myNumber);
-    	
-        // bind services
-        mCtxt = getApplicationContext();
-        mCtxt.bindService(new Intent(getApplicationContext(), SAPProviderService.class), 
-                this.mSAPConnection, Context.BIND_AUTO_CREATE);
-    	super.onStart();
-    }
-    
     @Override
     protected void onResume() {
     	this.instance = this;
@@ -225,12 +212,12 @@ public class MainActivity extends FragmentActivity {
 
     @Override
     protected void onDestroy() {
-    	stopGetRequest();
-    	Protocol.getInstance().Logout(myNumber);
-    	if(mSAPService!=null)
-    		mSAPService.stopService(new Intent(getApplicationContext(), SAPProviderService.class));
-    	getFragmentManager().beginTransaction().remove(layout.getmCruiseContainerFragment());
-    	mSAPService = null;
+    	
+    	mSAPService.setVirtualBindStatus(false);
+    	mSAPService.closeGearConnection();
+    	mCtxt.unbindService(mSAPConnection);
+    	
+    	getFragmentManager().beginTransaction().remove(MainLayout.getmCruiseContainerFragment());
     	super.onDestroy();
     }
     
@@ -283,15 +270,17 @@ public class MainActivity extends FragmentActivity {
         }
         
         if(layout.getActivated_fragment().getClass().equals(CycleTrackerContainerFragment.class))
-        	((CycleTrackerContainerFragment)layout.getActivated_fragment()).getmCycleTrackerDetailGraphFragment().getLayout().backScreen();
+        	CycleTrackerContainerFragment.getmCycleTrackerDetailGraphFragment().getLayout().backScreen();
 
-        else if(layout.getActivated_fragment().equals(layout.getmCruiseContainerFragment())){
+        else if(layout.getActivated_fragment().equals(MainLayout.getmCruiseContainerFragment())){
         	//운동중엔 백버튼 무력화
         	if(SettingsDataManager.getInstance().isStart_stopBicycleFlag()  == true){
         		return;
         	}
         	
         	if(exit_flag==1){
+        		stopGetRequest();
+        		Protocol.getInstance().DismissProgressDialog();
         		Protocol.getInstance().Logout(SettingsDataManager.getInstance().getMe().getUniqueID());
         		finish();
             	System.exit(0);
@@ -317,6 +306,7 @@ public class MainActivity extends FragmentActivity {
         }
     }
     
+  
     
     
     private ServiceConnection mSAPConnection = new ServiceConnection() {
@@ -331,7 +321,7 @@ public class MainActivity extends FragmentActivity {
         {
             Log.d(TAG_SAP, "SAP service connected");
             mSAPService = ((LocalBinder) service).getService();
-            
+            mSAPService.setVirtualBindStatus(true);
             // 문자열 관련 수신 액션
             mSAPService.registerStringAction(new StringAction()
             {
@@ -412,17 +402,18 @@ public class MainActivity extends FragmentActivity {
     
     public void startGetRequest(){
     	Log.d(TAG,"Sart getTask");
-    	getTask = new GetTask();
-    	mTimer = new Timer();
-    	mTimer.scheduleAtFixedRate(getTask, new Date(),1000);
+    	if(getTask==null){
+    		getTask = new GetTask();	
+    	}
+    	if(mTimer==null){
+    		mTimer = new Timer();
+        	mTimer.scheduleAtFixedRate(getTask, new Date(),1000);	
+    	}
     }
     
     public void stopGetRequest(){
     	Log.d(TAG,"Stop getTask");
-    	getTask.cancel();
-    	getTask = null;
-    	
-    	mTimer.cancel();
+     	mTimer.cancel();
     	mTimer = null;
     }
     

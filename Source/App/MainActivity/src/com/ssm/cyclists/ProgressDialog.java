@@ -21,23 +21,6 @@ public class ProgressDialog extends Dialog {
 	}
 	
 	@Override
-	public void show() {
-		super.show();
-		
-		new Timer().schedule(new TimerTask(){
-			@Override
-			public void run() {
-				hide();
-			}
-		}, 4000);
-	}
-	
-	@Override
-	public void hide() {
-		// TODO Auto-generated method stub
-		super.hide();
-	}
-	@Override
 	public void onBackPressed() {
 		// TODO Auto-generated method stub
 //		super.onBackPressed();

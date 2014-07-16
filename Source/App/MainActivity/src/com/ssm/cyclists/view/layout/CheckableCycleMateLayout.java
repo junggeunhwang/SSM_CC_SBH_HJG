@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import net.simonvt.menudrawer.MenuDrawer;
 
 
+
 import com.nhaarman.listviewanimations.itemmanipulation.OnDismissCallback;
 import com.ssm.cyclists.R;
 import com.ssm.cyclists.controller.activity.MainActivity;
@@ -21,10 +22,13 @@ import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.pm.ActivityInfo;
 import android.text.Editable;
+import android.text.InputType;
 import android.text.TextWatcher;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
@@ -34,6 +38,7 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.TextView.OnEditorActionListener;
 
 
 public class CheckableCycleMateLayout extends BaseFragmentLayout{
@@ -106,7 +111,9 @@ public class CheckableCycleMateLayout extends BaseFragmentLayout{
 			
 			@Override
 			public void onTextChanged(CharSequence s, int start, int before, int count) {
-				if(etSearchData.getText().toString().equals("")) Adapter.search("");
+				if(etSearchData.getText().toString().equals("")) {
+					if(Adapter!=null) Adapter.search("");
+				}
 			}
 			
 			@Override
@@ -120,6 +127,20 @@ public class CheckableCycleMateLayout extends BaseFragmentLayout{
 			public void afterTextChanged(Editable s) {
 				// TODO Auto-generated method stub
 				
+			}
+		});
+		
+		etSearchData.setImeOptions(EditorInfo.IME_ACTION_SEARCH);
+		etSearchData.setInputType(InputType.TYPE_CLASS_TEXT);
+		
+		etSearchData.setOnEditorActionListener(new OnEditorActionListener() {
+			
+			@Override
+			public boolean onEditorAction(TextView v, int actionID, KeyEvent event) {
+				if(actionID == EditorInfo.IME_ACTION_SEARCH) {
+					Adapter.search(etSearchData.getText().toString());
+				}
+				return false;
 			}
 		});
 		
@@ -152,7 +173,8 @@ public class CheckableCycleMateLayout extends BaseFragmentLayout{
 
 
 	public void backScreen(){
-		MainActivity.getInstasnce().getLayout().getmCruiseContainerFragment().setViewPagerEnable(false);
+		MainActivity.getInstasnce().getLayout().hideSoftKeyboard(etSearchData);
+		MainLayout.getmCruiseContainerFragment().setViewPagerEnable(false);
 		MainActivity.getInstasnce().getLayout().replaceFragment(R.layout.fragment_cruise_container);
 	}
 	

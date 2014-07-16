@@ -73,10 +73,10 @@ public class CruiseDataManager {
 		calory		  = 0;
 		distnace	  = 0;
 		maximum_speed = 0;
-		update_count  = 12;
+		update_count  = 15;
 		ElapsedTime = "00 : 00 : 00";
 		last_location_update_time = 0;
-		curarent_address = "";
+		curarent_address = "Calculating the position...";
 		firstLocationUpdateFlag = false;
 		
 		user_weight = 70;// test
@@ -101,13 +101,13 @@ public class CruiseDataManager {
 	}
 	
 	public void updateCruiseData(){
-		if(update_count%6==0){
+		if(update_count%7==0){
 			LocationInfoUpdateAsyncTask location_info_update_task = new LocationInfoUpdateAsyncTask();
 			location_info_update_task.execute(current_loc);	
 		}
 		
 		
-		if(update_count==12){
+		if(update_count==15){
 			WeatherUpdateAsyncTask weather_update_task = new WeatherUpdateAsyncTask();
 			weather_update_task.execute(current_loc);
 			update_count=1;

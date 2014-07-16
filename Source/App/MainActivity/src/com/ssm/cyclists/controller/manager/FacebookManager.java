@@ -28,7 +28,6 @@ import com.ssm.cyclists.R;
 import com.ssm.cyclists.controller.activity.MainActivity;
 import com.ssm.cyclists.model.UserData;
 import com.ssm.cyclists.controller.asynctask.AsyncGetBitmapTask;
-import com.ssm.cyclists.controller.communication.https.Protocol;
 
 import android.content.Intent;
 import android.content.pm.PackageInfo;

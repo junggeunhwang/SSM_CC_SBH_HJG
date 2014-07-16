@@ -12,9 +12,11 @@ import com.ssm.cyclists.controller.manager.SettingsDataManager;
 public class GetTask extends TimerTask { 
 
 	static String TAG = GetTask.class.getSimpleName();
+	boolean state = true;
 	@Override
 	public void run() {
 
+		if(state){
 			HttpsCommunication httpsCommunication = new HttpsCommunication(Protocol.getInstance().getHttpsCallback());
 			httpsCommunication.setType(HttpsCommunication.TYPE_REQUEST);
 			httpsCommunication.setUniqueNumber(SettingsDataManager.getInstance().getMe().getUniqueID());
@@ -24,5 +26,17 @@ public class GetTask extends TimerTask {
 			if(!httpsCommunication.ExecuteRequest()){
 				Log.e(TAG, "get Failed");
 			}
+		}
+		else{
+			this.cancel();
+		}
 	}
+	public boolean isState() {
+		return state;
+	}
+	public void setState(boolean state) {
+		this.state = state;
+	}
+	
+	
 }

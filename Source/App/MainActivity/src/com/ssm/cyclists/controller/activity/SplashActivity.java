@@ -2,9 +2,6 @@ package com.ssm.cyclists.controller.activity;
 
 import twitter4j.GeoLocation;
 
-import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.GooglePlayServicesUtil;
-import com.ssm.cyclists.LawRightDialog;
 import com.ssm.cyclists.R;
 import com.ssm.cyclists.controller.asynctask.WeatherUpdateAsyncTask;
 import com.ssm.cyclists.controller.manager.CruiseDataManager;
@@ -15,23 +12,23 @@ import com.ssm.cyclists.view.layout.SplashLayout;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.app.Dialog;
-import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
+import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
-import android.location.Criteria;
-import android.location.LocationManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.view.Menu;
-import android.view.MenuItem;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.View.OnKeyListener;
+import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.TextView;
+import android.widget.TextView.OnEditorActionListener;
 
 public class SplashActivity extends Activity {
 
@@ -43,8 +40,12 @@ public class SplashActivity extends Activity {
 	@SuppressLint("HandlerLeak") @Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		
-		layout = new SplashLayout(this);
+		setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+		DataBaseManager.getInstance().selectSettingInfo();
+		//테마 설정 저장
+    	if(SettingsDataManager.getInstance().getThemeColor()==null)SettingsDataManager.getInstance().setThemeColor("gray");
+
+    	layout = new SplashLayout(this);
 		setContentView(layout.getView());
 		theme_color = getIntent().getStringExtra("color");
 		
@@ -61,6 +62,9 @@ public class SplashActivity extends Activity {
 				
 		layout.init();
 		
+		
+    	//운동기록 읽기
+    	CruiseDataManager.getInstance().setCycle_data_list(DataBaseManager.getInstance().selectCruiseData());
 		ResourceManager.getInstance().setAssetManager(getAssets());
 
 		
@@ -68,7 +72,10 @@ public class SplashActivity extends Activity {
 		if(location != null){
 			CruiseDataManager.getInstance().setCurrent_loc(location.getLatitude(),location.getLongitude());
 		}
-	
+		WeatherUpdateAsyncTask task = new WeatherUpdateAsyncTask();
+		task.execute(CruiseDataManager.getInstance().getCurrent_loc());
+		
+		
 		Handler handler = new Handler(){
 			@Override
 			public void handleMessage(Message msg) {
@@ -82,7 +89,18 @@ public class SplashActivity extends Activity {
 					final EditText etUserName = (EditText)findViewById(R.id.et_user_name_initialize);
 					etUserName.setTypeface(ResourceManager.getInstance().getFont("helvetica"));
 					
-					Button btnEnjoy = (Button)findViewById(R.id.btn_enjoy_cycling_initialize);
+					final Button btnEnjoy = (Button)findViewById(R.id.btn_enjoy_cycling_initialize);
+					etUserName.setImeOptions(EditorInfo.IME_ACTION_DONE);
+					etUserName.setOnEditorActionListener(new OnEditorActionListener() {
+						
+						@Override
+						public boolean onEditorAction(TextView v, int actionID, KeyEvent event) {
+							if((actionID == EditorInfo.IME_ACTION_DONE) || (event != null && event.getKeyCode() == KeyEvent.KEYCODE_ENTER)){
+								btnEnjoy.callOnClick();
+							}
+							return false;
+						}
+					});
 					btnEnjoy.setTypeface(ResourceManager.getInstance().getFont("helvetica"));
 					btnEnjoy.setOnClickListener(new OnClickListener() {
 						
@@ -108,36 +126,12 @@ public class SplashActivity extends Activity {
 			}
 		};
 
-		WeatherUpdateAsyncTask task = new WeatherUpdateAsyncTask();
-		task.execute(CruiseDataManager.getInstance().getCurrent_loc());
-		handler.sendEmptyMessageDelayed(0, 1500);
+
+		handler.sendEmptyMessageDelayed(0, 2500);
 		
 	}
 
 	@Override
 	public void onConfigurationChanged(Configuration newConfig) {
-		// TODO Auto-generated method stub
-//		super.onConfigurationChanged(newConfig);
 	}
-	
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.splash, menu);
-		return true;
-	}
-
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		// Handle action bar item clicks here. The action bar will
-		// automatically handle clicks on the Home/Up button, so long
-		// as you specify a parent activity in AndroidManifest.xml.
-		int id = item.getItemId();
-		if (id == R.id.action_settings) {
-			return true;
-		}
-		return super.onOptionsItemSelected(item);
-	}
-	
 }

@@ -90,8 +90,8 @@ public class AsyncGetBitmapTask extends AsyncTask<Long, String, Bitmap>
         	fo.flush();
         	fo.close();
         	
-        	Protocol.getInstance().Logout(SettingsDataManager.getInstance().getMe().getUniqueID());
-        	Protocol.getInstance().Login(SettingsDataManager.getInstance().getMe().getUniqueID());
+//        	Protocol.getInstance().Logout(SettingsDataManager.getInstance().getMe().getUniqueID());
+//        	Protocol.getInstance().Login(SettingsDataManager.getInstance().getMe().getUniqueID());//race condition....¤Ð¤Ð
         } catch (FileNotFoundException e) {
         	Log.e(TAG,e.getLocalizedMessage());
         	e.printStackTrace();

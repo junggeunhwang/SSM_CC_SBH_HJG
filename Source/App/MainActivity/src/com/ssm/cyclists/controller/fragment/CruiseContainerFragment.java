@@ -46,20 +46,11 @@ public class CruiseContainerFragment extends Fragment {
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-
 		View root = inflater.inflate(R.layout.fragment_cruise_container, container, false);
-		
-		mHomeFragment.setContainerFragment(this);
-		mCruiseFragment.setContainerFragment(this);
-		mCycleRoomFragment.setContainerFragment(this);
-		mMapViewFragment.setContainerFragment(this);
-		
 		mAdapter = new PageAdapter(getChildFragmentManager());
-		
 		mPager = (ViewPager)root.findViewById(R.id.container);
 		mPager.setAdapter(mAdapter);
 		mPager.setCurrentItem(0);
-//		updateColor();
 		if(viewPagerEnable == true){
 			setViewPagerBounds(4);
 		}else{
@@ -73,7 +64,6 @@ public class CruiseContainerFragment extends Fragment {
 		Adapter.setCount(itmeCount);
 		mPager.setAdapter(Adapter);
 		mPager.setCurrentItem(0);
-//		onDestroyView();
 	}
 
 	public static final class PageAdapter extends FragmentPagerAdapter {

@@ -1,8 +1,11 @@
 package com.ssm.cyclists.controller.manager;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.location.Location;
+import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.Settings;
@@ -42,9 +45,41 @@ public class GoogleLocationManager implements LocationListener ,ConnectionCallba
             return false;
         }
         locationClient= new LocationClient(context, this, this);
+        LocationManager manager = (LocationManager)MainActivity.getInstasnce().getSystemService(Context.LOCATION_SERVICE);
+        boolean state = manager.isProviderEnabled(LocationManager.GPS_PROVIDER);
+        if(state == false){
+        	showSettingsAlert();
+        }
         return true;
     }
 	
+    public void showSettingsAlert(){
+    	AlertDialog.Builder alertDialog = new AlertDialog.Builder(MainActivity.getInstasnce());
+    	
+    	alertDialog.setTitle("GPS is settings");
+    	
+    	alertDialog.setMessage("GPS is not enabled. Do you want to go to settings menu?");
+    	
+    	alertDialog.setPositiveButton("Settings", new DialogInterface.OnClickListener() {
+			
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+				MainActivity.getInstasnce().startActivity(intent);
+				
+			}
+		});
+    	
+    	alertDialog.setNegativeButton("cancel",new DialogInterface.OnClickListener() {
+			
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				dialog.cancel();
+			}
+		});
+    	
+    	alertDialog.show();
+    }
     public void resume(){
     	 locationClient.connect();
     }

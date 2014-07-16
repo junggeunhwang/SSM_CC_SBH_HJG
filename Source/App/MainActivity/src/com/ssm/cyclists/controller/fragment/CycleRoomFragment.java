@@ -13,7 +13,6 @@ import android.view.ViewGroup;
 public class CycleRoomFragment extends Fragment {
 
 	private CycleRoomLayout layout;
-	Fragment containerFragment;
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
@@ -36,14 +35,5 @@ public class CycleRoomFragment extends Fragment {
 	public CycleRoomLayout getLayout() {
 		assert(layout!=null);
 		return layout;
-	}
-	
-	public Fragment getContainerFragment() {
-		return containerFragment;
-	}
-
-
-	public void setContainerFragment(Fragment containerFragment) {
-		this.containerFragment = containerFragment;
 	}
 }
