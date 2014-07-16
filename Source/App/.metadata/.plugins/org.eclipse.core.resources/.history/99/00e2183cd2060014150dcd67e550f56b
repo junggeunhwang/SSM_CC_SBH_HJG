@@ -1,0 +1,27 @@
+package com.ssm.cyclists.model;
+
+import com.jjoe64.graphview.GraphView.GraphViewData;
+
+
+
+public class CycleData {
+
+	private String date;
+	private double distance;
+	private GraphViewData[] arSpeed;
+	private GraphViewData[] arAltitude;
+	private GraphViewData[] arConsumeCalrories;
+	
+	public CycleData() {
+		// TODO Auto-generated constructor stub
+	}
+
+	public String getDate() {
+		return date;
+	}
+
+	public void setDate(String cycle_date) {
+		this.date = cycle_date;
+	}
+
+}

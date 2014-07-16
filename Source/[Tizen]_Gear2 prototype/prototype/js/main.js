@@ -8,6 +8,7 @@
     // 오디오 녹음 및 정지 버튼
     //var recordOperationImg = document.getElementById("recordOperationImg");
     var recordOperation = document.getElementById("recordOperation");
+    var recordView = document.getElementById("voicerecordpage");
     var recordbutton = document.getElementById("recordbutton");
     
 	// 손 터치 이벤트 등록
@@ -217,10 +218,11 @@
     
     // 오디오 버튼 이벤트 등록
     recordOperation.addEventListener("click", onAudioRecordingOperation);
+    recordView.addEventListener("click", onAudioRecordingOperation);
     recordbutton.addEventListener("click", onAudioRecordingOperation);
     // 항상 켜져있게 전원 옵션 해제
     tizen.power.request("SCREEN", "SCREEN_NORMAL");
-    tizen.power.request("CPU", "CPU_AWAKE");
+    // tizen.power.request("CPU", "CPU_AWAKE");
 
     // 좌우 깜빡이 기능 초기화
     toggleInit();

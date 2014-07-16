@@ -1,0 +1,63 @@
+package com.ssm.cyclists.model;
+
+import android.location.Location;
+
+import com.jjoe64.graphview.GraphView.GraphViewData;
+
+
+
+public class CycleData {
+
+	private String date;
+	private double distance;
+	
+	private GraphViewData[] arSpeed;
+	private GraphViewData[] arAltitude;
+	private GraphViewData[] arConsumeCalrories;
+	private Location[] arLocation;
+	
+	public CycleData() {
+		// TODO Auto-generated constructor stub
+	}
+
+	public String getDate() {
+		return date;
+	}
+
+	public GraphViewData[] getArSpeed() {
+		return arSpeed;
+	}
+
+	public GraphViewData[] getArAltitude() {
+		return arAltitude;
+	}
+
+	public GraphViewData[] getArConsumeCalrories() {
+		return arConsumeCalrories;
+	}
+
+	public Location[] getArLocation() {
+		return arLocation;
+	}
+
+	public void setDate(String cycle_date) {
+		this.date = cycle_date;
+	}
+	
+	public void setArSpeed(GraphViewData[] arSpeed) {
+		this.arSpeed = arSpeed;
+	}
+
+	public void setArAltitude(GraphViewData[] arAltitude) {
+		this.arAltitude = arAltitude;
+	}
+
+	public void setArConsumeCalrories(GraphViewData[] arConsumeCalrories) {
+		this.arConsumeCalrories = arConsumeCalrories;
+	}
+
+	public void setArLocation(Location[] arLocation) {
+		this.arLocation = arLocation;
+	}
+
+}

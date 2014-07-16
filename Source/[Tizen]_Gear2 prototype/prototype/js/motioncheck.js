@@ -1,7 +1,7 @@
 function MotionCheckStart()
 {
 	var motionqueue = [];
-	var avg_motion_count = 43;
+	var avg_motion_count = 38;
 	
 	function MotionSuccess(i)
 	{
@@ -23,7 +23,7 @@ function MotionCheckStart()
 	
 	function MotionCheck(va_avg,va_SD,hq_avg,hq_SD)
 	{
-		if(va_avg > 0.71)
+		if(va_avg > 0.71 || va_avg <=0.22)
 		{
 			if(hq_avg <= 0.88)
 			{

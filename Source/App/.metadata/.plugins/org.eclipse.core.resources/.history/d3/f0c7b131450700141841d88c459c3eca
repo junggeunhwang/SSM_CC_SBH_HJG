@@ -1,0 +1,60 @@
+package com.ssm.cyclists.view.layout;
+
+import com.ssm.cyclists.R;
+import com.ssm.cyclists.controller.activity.MainActivity;
+
+import android.app.Fragment;
+import android.view.LayoutInflater;
+import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
+
+public class SearchCycleMateLayout extends BaseFragmentLayout {
+
+	static String TAG = SearchCycleMateLayout.class.getSimpleName();
+	
+	private String theme_color;
+	
+	private Button btnCancel; 
+	
+	private TextView fragmentName;
+	
+	
+	public SearchCycleMateLayout(Fragment instance) {
+		super(instance);
+		theme_color = "gray";
+	}
+
+	@Override
+	public void createView(LayoutInflater inflater, ViewGroup container) {
+		view = inflater.inflate(R.layout.fragment_cycle_tracker, container, false);
+	}
+	
+	public void init(){
+
+		btnCancel = (Button)getView().findViewById(R.id.cancel_button_search_cyclemate);
+		
+		fragmentName = (TextView)getView().findViewById(R.id.fragment_name_search_cyclemate);
+	}
+	
+	public void updateColor(){
+		if(theme_color.equals("pink")){
+		
+		}else if(theme_color.equals("green")){
+			
+
+		}else if(theme_color.equals("gray")){
+			
+		}
+	}
+	
+	public String getTheme_color() {
+		 return theme_color;
+	 }
+
+	public void setTheme_color(String theme_color) {
+			this.theme_color = theme_color;
+	}
+
+}

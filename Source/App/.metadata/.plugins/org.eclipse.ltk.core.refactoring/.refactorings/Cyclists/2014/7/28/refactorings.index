@@ -29,3 +29,41 @@
 1404655345404	Rename resource 'splash.png'
 1404661818134	Move file
 1404666463359	Rename resource 'location_icon.png'
+1404834147440	Rename type 'GetTimer'
+1404837689200	Rename resource 'md__list_selector_background_transition_holo_white.xml'
+1404837709181	Copy file
+1404837717748	Rename resource 'Copy of md__list_selector_background_transition_holo_gray.xml'
+1404837737880	Copy file
+1404837745137	Rename resource 'Copy of md__list_selector_background_transition_holo_green.xml'
+1404837911091	Copy file
+1404837922345	Copy file
+1404837935296	Rename resource 'md__list_selector_holo_white.xml'
+1404876054291	Delete element
+1404883623639	Copy file
+1404883914420	Copy compilation unit
+1404884155808	Copy compilation unit
+1404884177237	Copy compilation unit
+1404884344664	Copy file
+1404885393373	Delete element
+1404886056690	Delete element
+1404886302256	Delete element
+1404887402350	Delete element
+1404909753445	Copy file
+1404909763092	Delete element
+1404909772625	Copy file
+1404910324354	Delete element
+1404912994038	Copy file
+1404913534599	Delete element
+1404913597259	Copy file
+1404914229344	Delete element
+1404921609675	Move compilation unit
+1404923421971	Delete element
+1404926223549	Move compilation unit
+1404932262631	Rename type 'CruiseContainerActivity'
+1404932274523	Move compilation unit
+1404932304968	Rename resource 'activity_cruise_container.xml'
+1404967764391	Rename type 'CruiseTwoFragment'
+1404967785616	Rename resource 'fragment_cruise_two.xml'
+1404967881605	Copy file
+1404967910748	Copy compilation unit
+1404967966422	Rename type 'CruiseTwoLayout'
