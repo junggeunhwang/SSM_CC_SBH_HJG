@@ -54,10 +54,15 @@ public class CycleRoomListViewAdapter extends BaseAdapter {
 		notifyDataSetChanged();
 	}
 	
+	public void reset(){
+		arSrc = SettingsDataManager.getInstance().getFriendList();
+		notifyDataSetChanged();
+	}
+	
 	public CycleRoomListViewAdapter(Context context,int alayout, ArrayList<UserData> aarSrc) {
 		this.context = context;
 		Inflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-		arSrc = aarSrc;
+		arSrc = SettingsDataManager.getInstance().getCurrentRoomFriendList();
 		layout = alayout;
 	}
 	
@@ -78,7 +83,7 @@ public class CycleRoomListViewAdapter extends BaseAdapter {
 
 	@Override
 	public View getView(final int position, View convertView, ViewGroup parent) {
-		
+		arSrc = SettingsDataManager.getInstance().getCurrentRoomFriendList();
 		if(convertView == null){
 			convertView = Inflater.inflate(layout,parent,false);
 		}
@@ -98,13 +103,8 @@ public class CycleRoomListViewAdapter extends BaseAdapter {
 		TextView company = (TextView)convertView.findViewById(R.id.cycle_mate_company_listview_row);
 		LinearLayout background = (LinearLayout)convertView.findViewById(R.id.backgorund_cycle_room_listview_row);
 		
-		if(arSrc.get(position).getUserName()==null){
-			name.setText(String.valueOf(arSrc.get(position).getUniqueID()));
-			company.setText(String.valueOf(""));
-		}else{
-			name.setText(String.valueOf(arSrc.get(position).getUserName()));
-			company.setText(String.valueOf(arSrc.get(position).getUniqueID()));
-		}
+		name.setText(String.valueOf(arSrc.get(position).getUniqueID()));
+		company.setText(String.valueOf(arSrc.get(position).getUserName()));
 		
 		if(SettingsDataManager.getInstance().getThemeColor().equals("pink")){
 			background.setBackground(MainActivity.getInstasnce().getResources().getDrawable(R.drawable.md__list_selector_holo_pink));

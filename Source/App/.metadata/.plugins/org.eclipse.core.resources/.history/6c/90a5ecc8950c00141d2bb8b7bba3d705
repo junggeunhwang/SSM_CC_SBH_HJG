@@ -1,0 +1,27 @@
+package com.ssm.cyclists;
+
+import android.app.Dialog;
+import android.content.Context;
+import android.view.Window;
+
+public class ProgressDialog extends Dialog {
+
+	public ProgressDialog(Context context) {
+		super(context);
+		requestWindowFeature(Window.FEATURE_NO_TITLE);
+		setContentView(R.layout.progress_dialog);
+	
+	}
+	
+	@Override
+	public void onBackPressed() {
+		// TODO Auto-generated method stub
+//		super.onBackPressed();
+	}
+
+	@Override
+	public void onWindowFocusChanged(boolean hasFocus) {
+		// TODO Auto-generated method stub
+	//	super.onWindowFocusChanged(hasFocus);
+	}
+}

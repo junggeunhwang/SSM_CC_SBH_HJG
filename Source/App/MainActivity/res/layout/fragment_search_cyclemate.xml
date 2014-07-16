@@ -62,7 +62,7 @@
     </LinearLayout>
     
     <LinearLayout
-        
+        android:id="@+id/mainlayout_search_cyclemate"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="1"
@@ -91,9 +91,17 @@
             android:textSize="20dp"
             android:hint="input phone number."
             android:background="@drawable/rounded_edittext"/>
+
+        <ProgressBar
+            android:id="@+id/progressbar_search_cyclemate"
+            style="?android:attr/progressBarStyleLarge"
+            android:layout_marginTop="30dp"
+            android:visibility="invisible"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
         
     </LinearLayout>
-
+	
 	<TextView
         android:id="@+id/app_name_search_cyclemate"
         android:layout_width="match_parent"

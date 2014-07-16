@@ -8,14 +8,23 @@ import java.util.StringTokenizer;
 
 import com.ssm.cyclists.R;
 import com.ssm.cyclists.controller.activity.MainActivity;
+import com.ssm.cyclists.controller.fragment.CruiseContainerFragment;
+import com.ssm.cyclists.controller.fragment.SearchCycleMateFragment;
 import com.ssm.cyclists.controller.manager.DataBaseManager;
 import com.ssm.cyclists.controller.manager.SettingsDataManager;
+import com.ssm.cyclists.model.SettingsData;
 import com.ssm.cyclists.model.UserData;
+import com.ssm.cyclists.view.layout.MainLayout;
+import com.ssm.cyclists.ProgressDialog;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.location.Location;
+import android.os.Looper;
 import android.util.Log;
+import android.view.WindowManager;
 import android.widget.Toast;
 
 public class Protocol {
@@ -29,6 +38,8 @@ public class Protocol {
 	private static final String DEST_DIR_RECEIVE  = DEST_DIR+"/Receive";
 	private static final String DEST_DIR_SEND  = DEST_DIR+ "/Send" ;
 	private static final String DEST_DIR_PROFILE  = DEST_DIR+ "/Profile" ;
+	
+	private ProgressDialog progressDialog;
 	
 	private HttpsCommunicationCallback httpsCallback;
 	
@@ -48,8 +59,10 @@ public class Protocol {
 						{
 							MainActivity.getInstasnce().popupNotification();
 							SettingsDataManager.getInstance().setStart_stopBicycleFlag(true);
-							MainActivity.getInstasnce().getLayout().getmCruiseContainerFragment().setViewPagerEnable(true);
+							//운항 기록 시작
+							MainActivity.getInstasnce().startCruiseInfoRecord();
 							//뷰페이저  활성화
+							MainActivity.getInstasnce().getLayout().getmCruiseContainerFragment().setViewPagerEnable(true);
 							MainActivity.getInstasnce().getLayout().replaceFragment(R.layout.fragment_cruise_container);
 							return;
 						}
@@ -60,18 +73,33 @@ public class Protocol {
 						StringTokenizer tokenizer = new StringTokenizer(receive,",");
 						String token = tokenizer.nextToken();
 						Location loc = new Location("gps");
-						
+						double speed;
 						if(token.equals("location")){
 							Log.d(TAG,"locationBroadcast received");
 							loc.setLatitude(Double.valueOf(tokenizer.nextToken()));
 							loc.setLongitude(Double.valueOf(tokenizer.nextToken()));
+							speed = Double.valueOf(tokenizer.nextToken());
 							
-							ArrayList<UserData> friendList = SettingsDataManager.getInstance().getFriendList();
+							ArrayList<UserData> friendList = SettingsDataManager.getInstance().getCurrentRoomFriendList();
+							
+							boolean isInFriendflag = false;
 							
 							for(int i = 0 ; i < friendList.size() ; i++){
 								if(friendList.get(i).getUniqueID().equals(senderUniqueID)){
 									friendList.get(i).setCurrentLocation(loc);
+									friendList.get(i).setSpeed(speed);
+									isInFriendflag = true;
 								}
+							}
+							
+							if(!isInFriendflag){
+								UserData data = new UserData();
+								data.setUniqueID(senderUniqueID);
+								data.setCurrentLocation(loc);
+								SettingsDataManager.getInstance().getCurrentRoomFriendList().add(data);
+								GetName(SettingsDataManager.getInstance().getMe().getUniqueID(),senderUniqueID);
+								GetImage(SettingsDataManager.getInstance().getMe().getUniqueID(),senderUniqueID);
+								Log.d(TAG,"CurrentRoomMember Added : " + senderUniqueID);
 							}
 						}
 					}else if(hcn.getResponseType().equals("file")){
@@ -105,7 +133,10 @@ public class Protocol {
 						Log.i(TAG,"Login Success");
 						FriendsListRequest(SettingsDataManager.getInstance().getMe().getUniqueID());
 					}
-					else if(hcn.getStringResponseData().equals("EALREADYLOGIN")) Log.e(TAG,"Login Fail : EALREADYLOGIN");
+					else if(hcn.getStringResponseData().equals("EALREADYLOGIN")){
+						Log.e(TAG,"Login Fail : EALREADYLOGIN");
+						FriendsListRequest(SettingsDataManager.getInstance().getMe().getUniqueID());
+					}
 					else if(hcn.getStringResponseData().equals("EMISSING")) Log.e(TAG,"Login Fail : EMISSING");
 					
 				}else if(hcn.getResponseOrder().equals("logout")){
@@ -146,7 +177,21 @@ public class Protocol {
 					
 				}else if(hcn.getResponseOrder().equals("exitroom")){
 					
-					if(hcn.getStringResponseData().equals("SUCCESS")) Log.d(TAG,"ExitRoom Success");
+					if(hcn.getStringResponseData().equals("SUCCESS")){
+						Log.d(TAG,"ExitRoom Success");
+						ArrayList<UserData> roomFriendList = SettingsDataManager.getInstance().getCurrentRoomFriendList();
+						String uniqueID = hcn.getResponseUniqueNumber();
+						for(int i = 0 ; i < roomFriendList.size() ; i++){
+							if(roomFriendList.get(i).getUniqueID().equals(uniqueID)){
+								SettingsDataManager.getInstance().getCurrentRoomFriendList().remove(roomFriendList.get(i));
+								MainLayout.getmCruiseContainerFragment();
+								CruiseContainerFragment.getmCruiseTwoFragment().getLayout().getAdapter().notifyDataSetChanged();
+								
+							}
+						}
+						
+						
+					}
 					else if(hcn.getStringResponseData().equals("ENOTLOGIN")) Log.e(TAG,"ExitRoom Fail : ENOTLOGIN");
 					else if(hcn.getStringResponseData().equals("ENOTJOINROOM")) Log.e(TAG,"ExitRoom Fail : ENOTJOINROOM");
 					else if(hcn.getStringResponseData().equals("EMISSING")) Log.e(TAG,"ExitRoom Fail : EMISSING");
@@ -154,12 +199,29 @@ public class Protocol {
 				}else if(hcn.getResponseOrder().equals("addfriend")){
 					
 					if(hcn.getStringResponseData().equals("ENOTLOGIN")) Log.e(TAG,"AddFriend Fail : ENOTLOGIN");
-					else if(hcn.getStringResponseData().equals("ENOTARGET")) Log.e(TAG,"AddFriend Fail : ENOTTARGET");
-					else if(hcn.getStringResponseData().equals("EALREADYFRIEND")) Log.e(TAG,"AddFriend Fail : EALREADYFRIEND");
+					else if(hcn.getStringResponseData().equals("ENOTARGET")){
+						Log.e(TAG,"AddFriend Fail : ENOTTARGET");
+						makeToast("User does not exist.");
+						((SearchCycleMateFragment)MainActivity.getInstasnce().getLayout().getActivated_fragment()).getLayout().setProgressBarVisible(false);
+						((SearchCycleMateFragment)MainActivity.getInstasnce().getLayout().getActivated_fragment()).getLayout().enableButton(true);
+					}
+					else if(hcn.getStringResponseData().equals("EALREADYFRIEND")){
+						Log.e(TAG,"AddFriend Fail : EALREADYFRIEND");
+						makeToast("Users are already friends.");
+						((SearchCycleMateFragment)MainActivity.getInstasnce().getLayout().getActivated_fragment()).getLayout().setProgressBarVisible(false);
+						((SearchCycleMateFragment)MainActivity.getInstasnce().getLayout().getActivated_fragment()).getLayout().enableButton(true);
+					}
 					else if(hcn.getStringResponseData().equals("EMISSING")) Log.e(TAG,"AddFriend Fail : EMISSING");
 					else{
-						Toast.makeText(MainActivity.getInstasnce().getApplicationContext(),"Add friend success",Toast.LENGTH_SHORT).show();
 						Log.d(TAG,"AddFriend Success");
+						
+						UserData newFriend = new UserData();
+						newFriend.setUniqueID(hcn.getResponseUniqueNumber());
+						SettingsDataManager.getInstance().getFriendList().add(newFriend);
+						
+						Protocol.getInstance().GetName(SettingsDataManager.getInstance().getMe().getUniqueID(),hcn.getResponseUniqueNumber());
+						Protocol.getInstance().GetImage(SettingsDataManager.getInstance().getMe().getUniqueID(),hcn.getResponseUniqueNumber());
+						makeToast("Add to friends success.");
 					}
 					
 				}else if(hcn.getResponseOrder().equals("delfriend")){
@@ -170,8 +232,16 @@ public class Protocol {
 					else if(hcn.getStringResponseData().equals("EMISSING")) Log.e(TAG,"Delete Friend Fail : EMISSING");
 					else if(hcn.getStringResponseData().equals("SUCCESS")){
 						Log.d(TAG,"Delete Friend Success");
+						makeToast("Remove friend success.");
+						ArrayList<UserData> friendList = SettingsDataManager.getInstance().getCurrentRoomFriendList();
+						String uniqueID = hcn.getResponseUniqueNumber();
+						for(int i = 0 ; i < friendList.size() ; i++){
+							if(friendList.get(i).getUniqueID().equals(uniqueID)){
+								SettingsDataManager.getInstance().getFriendList().remove(friendList.get(i));
+							}
+						}
 					}
-					
+					hideProgressDialog();
 				}else if(hcn.getResponseOrder().equals("friendlist")){
 					
 					if(hcn.getResponseType().equals("text")){
@@ -181,13 +251,10 @@ public class Protocol {
 					}
 					else if(hcn.getResponseType().equals("string")){
 						Log.i(TAG,"get FriendList Success");
-						DataBaseManager.getInstance().deleteAllFriend();
 						String friendlist = hcn.getStringResponseData();
 						
  						StringTokenizer tokenizer = new StringTokenizer(friendlist,";");
-						
 						ArrayList<UserData> friendsList = new ArrayList<UserData>();
-						
 						String UniqueID = null;
   						while(tokenizer.hasMoreElements()){
   							UniqueID = tokenizer.nextToken();
@@ -196,7 +263,6 @@ public class Protocol {
  							GetName(SettingsDataManager.getInstance().getMe().getUniqueID(), UniqueID);
 							GetImage(SettingsDataManager.getInstance().getMe().getUniqueID(), UniqueID);
 							friendsList.add(friend);
-							DataBaseManager.getInstance().insertFriend(friend.getUniqueID(),friend.getUserName());
 						}
 						SettingsDataManager.getInstance().setFriendList(friendsList);
 					}
@@ -217,7 +283,6 @@ public class Protocol {
 						for(int i = 0;i<friendList.size();i++){
 							if(friendList.get(i).getUniqueID().equals(targetNumber)){
 								friendList.get(i).setUserName(name);
-								DataBaseManager.getInstance().updateFriend(friendList.get(i).getUniqueID(),friendList.get(i).getUserName());
 							}
 						}
 						Log.i(TAG,"GetName Success : " + name);
@@ -246,9 +311,12 @@ public class Protocol {
 							}
 						}
 						Log.i(TAG,"GetFile Success");
-						
 					}
 					
+					if(MainActivity.getInstasnce().getLayout().getActivated_fragment().getClass().equals(SearchCycleMateFragment.class)){
+						((SearchCycleMateFragment)MainActivity.getInstasnce().getLayout().getActivated_fragment()).getLayout().backScreen();
+					}
+					hideProgressDialog();
 				}else if(hcn.getResponseOrder().equals("inviteroom")){
 					if(hcn.getStringResponseData().equals("ENOTLOGIN")) Log.e(TAG,"inviteroom Fail : ENOTLOGIN");
 					else if(hcn.getStringResponseData().equals("ENOTJOINROOM")) Log.e(TAG,"inviteroom Fail : ENOTJOINROOM");
@@ -265,14 +333,51 @@ public class Protocol {
 				Log.e(TAG,"https : response failure");
 			}
 		};
+	
+		progressDialog = new ProgressDialog(MainActivity.getInstasnce());
+        progressDialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+        progressDialog.getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL, WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL);
+        progressDialog.setCancelable(false);
 	}
 	
 	public static Protocol getInstance(){
 		if(instance==null)instance = new Protocol();
 		return instance;
 	}
-	
 
+	private void makeToast(final String text){
+		 new Thread() {
+             @Override
+             public void run() {
+                 Looper.prepare();
+                 Toast.makeText(MainActivity.getInstasnce(),text,Toast.LENGTH_SHORT).show();
+                 Looper.loop();
+             }
+         }.start();
+	}
+
+	private void showProgressDialog(){
+		MainActivity.getInstasnce().runOnUiThread(new Runnable() {
+			
+			@Override
+			public void run() {
+				progressDialog.show();
+			}
+		});
+
+	}
+	
+	private void hideProgressDialog(){
+		MainActivity.getInstasnce().runOnUiThread(new Runnable() {
+			
+			@Override
+			public void run() {
+				progressDialog.hide();
+			}
+		});
+
+	}
+	
 	public boolean InviteFriend(String myNumber,ArrayList<UserData> targetNumbers){
 		for(int i = 0 ; i < targetNumbers.size();i++){
 			HttpsCommunication httpsCommunication = new HttpsCommunication(httpsCallback);
@@ -292,6 +397,7 @@ public class Protocol {
 	}
 	
 	public boolean AddFriendRequest(String myNumber,String targetNumber){
+		showProgressDialog();
 		HttpsCommunication httpsCommunication = new HttpsCommunication(httpsCallback);
 		httpsCommunication.setType(HttpsCommunication.TYPE_REQUEST);
 		httpsCommunication.setUniqueNumber(myNumber);
@@ -307,6 +413,8 @@ public class Protocol {
 	}
 	
 	public boolean DeleteFriendRequest(String myNumber,String targetNumber){
+		showProgressDialog();
+		
 		HttpsCommunication httpsCommunication = new HttpsCommunication(httpsCallback);
 		httpsCommunication.setType(HttpsCommunication.TYPE_REQUEST);
 		httpsCommunication.setUniqueNumber(myNumber);
@@ -322,6 +430,8 @@ public class Protocol {
 	}
 	
 	public boolean FriendsListRequest(String myNumber){
+		showProgressDialog();
+		
 		HttpsCommunication httpsCommunication = new HttpsCommunication(httpsCallback);
 		httpsCommunication.setType(HttpsCommunication.TYPE_REQUEST);
 		httpsCommunication.setStringData("friendlist");

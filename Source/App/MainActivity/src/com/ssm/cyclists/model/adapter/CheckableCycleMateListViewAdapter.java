@@ -4,7 +4,6 @@ import java.util.ArrayList;
 
 import com.ssm.cyclists.R;
 import com.ssm.cyclists.controller.activity.MainActivity;
-import com.ssm.cyclists.controller.manager.DataBaseManager;
 import com.ssm.cyclists.controller.manager.ResourceManager;
 import com.ssm.cyclists.controller.manager.SettingsDataManager;
 import com.ssm.cyclists.model.UserData;
@@ -68,14 +67,14 @@ public class CheckableCycleMateListViewAdapter extends BaseAdapter {
 	}
 
 	public void reset(){
-		arSrc = DataBaseManager.getInstance().selectFriend();
+		arSrc = SettingsDataManager.getInstance().getFriendList();
 		notifyDataSetChanged();
 	}
 	
 	public CheckableCycleMateListViewAdapter(Context context,int alayout, ArrayList<UserData> aarSrc) {
 		this.context = context;
 		Inflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-		arSrc = aarSrc;
+		arSrc = SettingsDataManager.getInstance().getFriendList();
 		layout = alayout;
 	}
 	

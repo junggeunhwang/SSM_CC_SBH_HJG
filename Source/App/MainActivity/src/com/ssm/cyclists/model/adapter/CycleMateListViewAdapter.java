@@ -12,6 +12,7 @@ import com.ssm.cyclists.view.ImageViewRounded;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.Bitmap;
@@ -19,6 +20,7 @@ import android.graphics.drawable.BitmapDrawable;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.WindowManager;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -35,7 +37,6 @@ public class CycleMateListViewAdapter extends BaseAdapter {
 	private LayoutInflater Inflater;
 	private ArrayList<UserData> arSrc;
 	private int layout;
-	
 	
 	public void insert(UserData data,int position){
 		arSrc.add(position,data);
@@ -71,14 +72,14 @@ public class CycleMateListViewAdapter extends BaseAdapter {
 	}
 
 	public void reset(){
-		arSrc = DataBaseManager.getInstance().selectFriend();
+		arSrc = SettingsDataManager.getInstance().getFriendList();
 		notifyDataSetChanged();
 	}
 	
 	public CycleMateListViewAdapter(Context context,int alayout, ArrayList<UserData> aarSrc) {
 		this.context = context;
 		Inflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-		arSrc = DataBaseManager.getInstance().selectFriend();
+		arSrc = SettingsDataManager.getInstance().getFriendList();
 		layout = alayout;
 	}
 	
@@ -99,6 +100,7 @@ public class CycleMateListViewAdapter extends BaseAdapter {
 
 	@Override
 	public View getView(final int position, View convertView, ViewGroup parent) {
+		
 		
 		if(convertView == null){
 			convertView = Inflater.inflate(layout,parent,false);
@@ -126,7 +128,10 @@ public class CycleMateListViewAdapter extends BaseAdapter {
 			        			SettingsDataManager.getInstance().getMe().getUniqueID(),
 			        			arSrc.get(position).getUniqueID());
 			        	remove(position);
+			        	
+//			        	SettingsDataManager.getInstance().getFriendList().remove(arSrc.get(position));
 			        	notifyDataSetChanged();
+			        	
 			        }}).setNegativeButton("No", new DialogInterface.OnClickListener() {
 				        public void onClick(DialogInterface dialog, int id) {
 				            // Action for 'NO' Button

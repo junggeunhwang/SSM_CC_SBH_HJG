@@ -3,7 +3,9 @@ package com.ssm.cyclists.controller.manager;
 import android.content.Context;
 import android.content.Intent;
 import android.location.Location;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -29,6 +31,8 @@ public class GoogleLocationManager implements LocationListener ,ConnectionCallba
     
     public boolean init(Context context){
     	mContext = context;
+    	turnGPSOn();
+    
     	
     	 // check Google Play service APK is available and up to date.
         // see http://developer.android.com/google/play-services/setup.html
@@ -48,6 +52,18 @@ public class GoogleLocationManager implements LocationListener ,ConnectionCallba
     public void pause(){
     	isReconnect = false;
            locationClient.disconnect();
+    }
+    
+    private void turnGPSOn(){
+        String provider = Settings.Secure.getString(MainActivity.getInstasnce().getContentResolver(), Settings.Secure.LOCATION_PROVIDERS_ALLOWED);
+
+        if(!provider.contains("gps")){ //if gps is disabled
+            final Intent poke = new Intent();
+            poke.setClassName("com.android.settings", "com.android.settings.widget.SettingsAppWidgetProvider"); 
+            poke.addCategory(Intent.CATEGORY_ALTERNATIVE);
+            poke.setData(Uri.parse("3")); 
+            MainActivity.getInstasnce().sendBroadcast(poke);
+        }
     }
 	@Override
 	public void onLocationChanged(Location location) {

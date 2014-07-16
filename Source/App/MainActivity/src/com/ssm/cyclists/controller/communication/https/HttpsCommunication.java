@@ -111,7 +111,7 @@ public class HttpsCommunication
                     callback.onResponseFailure(e.getLocalizedMessage());
                 } catch (Exception e)
                 {
-//                	Log.e(TAG, e.getLocalizedMessage());
+                	Log.e(TAG, "HttpsCommunication error");
                      e.printStackTrace();
 //                    callback.onResponseFailure(e.getLocalizedMessage());
                 }

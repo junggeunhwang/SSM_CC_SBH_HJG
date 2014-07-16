@@ -27,6 +27,12 @@ public class WeatherUpdateAsyncTask extends AsyncTask<Location, Integer, Long> {
 			JSONObject weather = jsonObj.getJSONArray("weather").getJSONObject(0);
 			Log.d(TAG, "id : "+weather.getInt("id") +" weather : " + weather.getString("main"));
 
+			final JSONObject wind = jsonObj.getJSONObject("wind");
+			CruiseDataManager.getInstance().setWind(wind.getDouble("speed"));
+			Log.d(TAG,"wind : "  + CruiseDataManager.getInstance().getWind());
+			CruiseDataManager.getInstance().setWind_direction(wind.getDouble("deg"));
+			Log.d(TAG,"wind dir : " + CruiseDataManager.getInstance().getWind_direction());
+			
 			final JSONObject main = jsonObj.getJSONObject("main");
 				
 			int weather_id = weather.getInt("id");

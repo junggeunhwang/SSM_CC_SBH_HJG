@@ -110,7 +110,6 @@ public class MainLayout{
 			activated_fragment = newFragment;
 			transaction.commit();
 
-//			mCruiseContainerFragment.updateColor();
 			
 			break;	
 		case R.layout.fragment_cycle_tracker:
@@ -122,10 +121,8 @@ public class MainLayout{
 			activated_fragment = newFragment;
 			transaction.commit();
 
-//			mFragmentCycleTracker.getLayout().updateColor();
 			break;
 		case R.layout.fragment_cycle_mate:
-			SettingsDataManager.getInstance().setFriendList(DataBaseManager.getInstance().selectFriend());	
 			newFragment = mFragmentCycleMate;
 			transaction.detach(activated_fragment);
 			transaction.replace(R.id.fragment,newFragment);
@@ -134,7 +131,6 @@ public class MainLayout{
 			activated_fragment = newFragment;
 			transaction.commit();
 		
-//			mFragmentCycleMate.getLayout().updateColor();
 			break;
 		case R.layout.fragment_settings:
 			newFragment = mSettingsFragment;
@@ -145,7 +141,6 @@ public class MainLayout{
 			activated_fragment = newFragment;
 			transaction.commit();
 			
-//			mSettingsFragment.getLayout().updateColor();
 			break;
 
 		case R.layout.fragment_cycle_tracker_detail_container:
@@ -157,12 +152,6 @@ public class MainLayout{
 			activated_fragment = newFragment;
 			transaction.commit();
 //			
-//			newFragment = mFragmentCycleTracker;
-//			transaction.remove(activated_fragment);
-//			transaction.replace(R.id.fragment,newFragment);
-//			transaction.addToBackStack(null);
-//			activated_fragment = newFragment;
-//			transaction.commit();
 			break;
 		}
 	}

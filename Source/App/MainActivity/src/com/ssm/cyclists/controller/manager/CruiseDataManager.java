@@ -41,6 +41,8 @@ public class CruiseDataManager {
 	private double elevation;
 	private double current_speed;
 	private String curarent_address;
+	private double wind;
+	private double wind_direction;
 	
 	//운동 시작 시간
 	private String ElapsedTime;
@@ -230,6 +232,22 @@ public class CruiseDataManager {
 
 	public String getElapsedTime() {
 		return ElapsedTime;
+	}
+
+	public double getWind() {
+		return wind;
+	}
+
+	public void setWind(double wind) {
+		this.wind = wind;
+	}
+
+	public double getWind_direction() {
+		return wind_direction;
+	}
+
+	public void setWind_direction(double wind_direction) {
+		this.wind_direction = wind_direction;
 	}
 
 	public void setElapsedTime(String elapsedTime) {

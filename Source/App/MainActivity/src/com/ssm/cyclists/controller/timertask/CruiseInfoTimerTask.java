@@ -53,9 +53,11 @@ public class CruiseInfoTimerTask extends TimerTask {
 		if(count == 5){
 			String location = "location,"+
 					CruiseDataManager.getInstance().getCurrent_loc().getLatitude() + "," + 
-					CruiseDataManager.getInstance().getCurrent_loc().getLongitude();
+					CruiseDataManager.getInstance().getCurrent_loc().getLongitude()+ "," +
+					CruiseDataManager.getInstance().getCurrent_speed();
 					
-					Protocol.getInstance().SendString(location, SettingsDataManager.getInstance().getMe().getUniqueID());
+			Protocol.getInstance().SendString(location, SettingsDataManager.getInstance().getMe().getUniqueID());
+					
 			count = 0;
 		}
 		

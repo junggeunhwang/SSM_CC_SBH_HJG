@@ -2,8 +2,11 @@ package com.ssm.cyclists.view.layout;
 
 import com.ssm.cyclists.R;
 import com.ssm.cyclists.controller.activity.MainActivity;
+import com.ssm.cyclists.controller.fragment.SearchCycleMateFragment;
 import com.ssm.cyclists.controller.manager.ResourceManager;
 import com.ssm.cyclists.controller.manager.SettingsDataManager;
+import com.ssm.cyclists.model.SettingsData;
+import com.ssm.cyclists.model.UserData;
 
 import android.app.Fragment;
 import android.app.FragmentTransaction;
@@ -18,6 +21,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 public class SearchCycleMateLayout extends BaseFragmentLayout {
@@ -36,6 +40,10 @@ public class SearchCycleMateLayout extends BaseFragmentLayout {
 	private LinearLayout topBar;
 	private LinearLayout background;
 	
+	private ProgressBar progressBar;
+	private LinearLayout mainLayout;
+	
+	private boolean ProgressBarVisible = false;
 	
 	public SearchCycleMateLayout(Fragment instance) {
 		super(instance);
@@ -61,6 +69,10 @@ public class SearchCycleMateLayout extends BaseFragmentLayout {
 		comment	 = (TextView)getView().findViewById(R.id.tv_comment_search_cyclemate);
 		
 		search_target = (EditText)getView().findViewById(R.id.search_target_search_cyclemate);
+		
+		progressBar = (ProgressBar)getView().findViewById(R.id.progressbar_search_cyclemate);
+		
+		mainLayout = (LinearLayout)getView().findViewById(R.id.mainlayout_search_cyclemate);
 		
 		btnCancel.setTypeface(ResourceManager.getInstance().getFont("helvetica"));
 		btnSearch.setTypeface(ResourceManager.getInstance().getFont("helvetica"));
@@ -88,13 +100,37 @@ public class SearchCycleMateLayout extends BaseFragmentLayout {
 				com.ssm.cyclists.controller.communication.https.Protocol.getInstance().AddFriendRequest(
 						SettingsDataManager.getInstance().getMe().getUniqueID(),
 						search_target.getText().toString());
-				backScreen();
+//				setProgressBarVisible(true);
+				enableButton(false);
+//				backScreen();
 			}
 		});
-		
 		updateColor();
 	}
 	
+	public void enableButton(final boolean state){
+		search_target.post(new Runnable() {
+			
+			@Override
+			public void run() {
+				search_target.setEnabled(state);
+			}
+		});
+		btnCancel.post(new Runnable() {
+			
+			@Override
+			public void run() {
+				btnCancel.setEnabled(state);
+			}
+		});
+		btnSearch.post(new Runnable() {
+			
+			@Override
+			public void run() {
+				btnSearch.setEnabled(state);
+			}
+		});
+	}
 	public void updateColor(){
 		if(SettingsDataManager.getInstance().getThemeColor().equals("pink")){
 			topBar.setBackgroundColor(MainActivity.getInstasnce().getResources().getColor(R.color.bk_color_pink_heavy));
@@ -112,12 +148,40 @@ public class SearchCycleMateLayout extends BaseFragmentLayout {
 	}
 	
 	public void backScreen(){
+		MainActivity.getInstasnce().getLayout().hideSoftKeyboard(search_target);
 		FragmentTransaction transaction = MainActivity.getInstasnce().getFragmentManager().beginTransaction();
 		transaction.hide(fragment);
 		transaction.show(MainActivity.getInstasnce().getLayout().getmFragmentCycleMate());
 		MainActivity.getInstasnce().getLayout().setActivated_fragment(MainActivity.getInstasnce().getLayout().getmFragmentCycleMate());
 		transaction.commit();
-		
+		MainActivity.getInstasnce().getLayout().getmFragmentCycleMate().getLayout().getAdapter().reset();
 		MainActivity.getInstasnce().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+	}
+
+	public boolean isProgressBarVisible() {
+		return ProgressBarVisible;
+	}
+
+	public void setProgressBarVisible(boolean progressBarVisible) {
+		ProgressBarVisible = progressBarVisible;
+		if(ProgressBarVisible){
+			
+			progressBar.post(new Runnable() {
+				
+				@Override
+				public void run() {
+					progressBar.setVisibility(ProgressBar.VISIBLE);
+				}
+			});
+			
+		}else{
+			progressBar.post(new Runnable() {
+				
+				@Override
+				public void run() {
+					progressBar.setVisibility(ProgressBar.INVISIBLE);
+				}
+			});
+		}
 	}
 }

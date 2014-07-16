@@ -48,17 +48,20 @@
 	   	    android:layout_width="match_parent"
 	   	    android:layout_height="0dip"
 	   	    android:layout_weight="0.35"/>
+
 	   	<EditText
-	        android:id="@+id/et_user_name_initialize"
-	        android:layout_width="match_parent"
-	        android:layout_height="0dip"
-	        android:paddingTop="10dp"
-	        android:paddingBottom="10dp"
-	        android:paddingLeft="5dp"
-	        android:hint="Please enter your name."
-	        android:background="@drawable/rounded_edittext"
-	        android:textSize="12sp"
-	        android:layout_weight="0.15"/>
+	   	    android:id="@+id/et_user_name_initialize"
+	   	    android:layout_width="match_parent"
+	   	    android:layout_height="0dip"
+	   	    android:layout_weight="0.15"
+	   	    android:background="@drawable/rounded_edittext"
+	   	    android:hint="Please enter your name."
+	   	    android:maxLines="1"
+	   	    android:paddingBottom="10dp"
+	   	    android:paddingLeft="5dp"
+	   	    android:paddingTop="10dp"
+	   	    android:textSize="12sp" />
+
 	   	<View
 	   	    android:layout_width="match_parent"
 	   	    android:layout_height="0dip"

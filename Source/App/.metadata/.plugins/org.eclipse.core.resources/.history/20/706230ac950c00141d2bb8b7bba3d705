@@ -1,0 +1,39 @@
+package com.ssm.cyclists;
+
+import com.ssm.cyclists.controller.activity.MainActivity;
+import com.ssm.cyclists.controller.manager.ResourceManager;
+
+import android.app.Dialog;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.text.InputType;
+import android.view.View;
+import android.view.ViewGroup.LayoutParams;
+import android.view.Window;
+import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.Toast;
+
+public class ProgressDialog extends Dialog {
+
+	public ProgressDialog(Context context) {
+		super(context);
+		requestWindowFeature(Window.FEATURE_NO_TITLE);
+		setContentView(R.layout.law_right_dialog);
+	
+	}
+	
+	@Override
+	public void onBackPressed() {
+		// TODO Auto-generated method stub
+//		super.onBackPressed();
+	}
+
+	@Override
+	public void onWindowFocusChanged(boolean hasFocus) {
+		// TODO Auto-generated method stub
+	//	super.onWindowFocusChanged(hasFocus);
+	}
+}

@@ -8,6 +8,7 @@ public class UserData {
 	private String UserName = "";
 	private String UniqueID = "";
 	private Bitmap ProfileImg = null;
+	private double speed = 0;
 	
 	private String facebook_id = null;
 	private boolean checked = false;
@@ -46,6 +47,14 @@ public class UserData {
 
 	public Location getCurrentLocation() {
 		return currentLocation;
+	}
+
+	public double getSpeed() {
+		return speed;
+	}
+
+	public void setSpeed(double speed) {
+		this.speed = speed;
 	}
 
 	public void setCurrentLocation(Location currentLocation) {

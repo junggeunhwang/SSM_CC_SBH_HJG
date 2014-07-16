@@ -6,34 +6,25 @@ import java.util.ArrayList;
 
 
 
-import com.nhaarman.listviewanimations.itemmanipulation.OnDismissCallback;
 import com.ssm.cyclists.R;
 import com.ssm.cyclists.controller.activity.MainActivity;
 import com.ssm.cyclists.controller.communication.https.Protocol;
-import com.ssm.cyclists.controller.fragment.CheckableCycleMateFragment;
 import com.ssm.cyclists.controller.fragment.CycleMateFragment;
 import com.ssm.cyclists.controller.fragment.SearchCycleMateFragment;
 import com.ssm.cyclists.controller.manager.ResourceManager;
 import com.ssm.cyclists.controller.manager.SettingsDataManager;
-import com.ssm.cyclists.model.SettingsData;
 import com.ssm.cyclists.model.UserData;
 import com.ssm.cyclists.model.adapter.CycleMateListViewAdapter;
-import com.ssm.cyclists.view.EnhancedListView;
-import com.ssm.cyclists.view.EnhancedListView.Undoable;
 
 import android.app.FragmentTransaction;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.View.OnKeyListener;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -220,6 +211,14 @@ public class CycleMateLayout extends BaseFragmentLayout{
 			tvAppName.setTextColor(MainActivity.getInstasnce().getResources().getColor(R.color.text_gray));
 			etSearchData.setCompoundDrawables(MainActivity.getInstasnce().getResources().getDrawable(R.drawable.search_small_gray),null,null,null);
 		}
+	}
+
+	public CycleMateListViewAdapter getAdapter() {
+		return Adapter;
+	}
+
+	public void setAdapter(CycleMateListViewAdapter adapter) {
+		Adapter = adapter;
 	}
 
 }

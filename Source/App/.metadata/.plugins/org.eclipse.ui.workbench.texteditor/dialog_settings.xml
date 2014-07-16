@@ -2,20 +2,20 @@
 <section name="Workbench">
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
 		<item value="false" key="isRegEx"/>
-		<item value="Login" key="selection"/>
+		<item value="login" key="selection"/>
 		<item value="false" key="casesensitive"/>
 		<item value="false" key="incremental"/>
 		<item value="true" key="wrap"/>
 		<item value="false" key="wholeword"/>
 		<list key="findhistory">
 			<item value="login"/>
-			<item value="logout"/>
-			<item value="logut"/>
-			<item value="invait"/>
-			<item value="invaiteroom"/>
-			<item value="make"/>
-			<item value="makeroom"/>
-			<item value="back"/>
+			<item value="friend"/>
+			<item value="tv_value_bottom_left_map"/>
+			<item value="invite"/>
+			<item value="button"/>
+			<item value="search"/>
+			<item value="GetImage"/>
+			<item value="getimage"/>
 		</list>
 		<list key="replacehistory">
 			<item value="@string/app_name"/>

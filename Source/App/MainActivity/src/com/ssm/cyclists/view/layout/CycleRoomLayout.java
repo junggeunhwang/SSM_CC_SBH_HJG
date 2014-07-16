@@ -98,4 +98,12 @@ public class CycleRoomLayout extends BaseFragmentLayout {
 		}
 		Adapter.notifyDataSetChanged();
 	}
+
+	public CycleRoomListViewAdapter getAdapter() {
+		return Adapter;
+	}
+
+	public void setAdapter(CycleRoomListViewAdapter adapter) {
+		Adapter = adapter;
+	}
 }
