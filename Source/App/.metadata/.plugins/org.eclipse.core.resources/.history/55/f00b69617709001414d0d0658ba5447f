@@ -1,0 +1,7 @@
+package com.ssm.cyclists.controller.asynctask;
+
+import android.os.AsyncTask;
+
+public class AsyncGetBitmapTask extends AsyncTask<PhotoToLoad, String, Bitmap> {
+
+}

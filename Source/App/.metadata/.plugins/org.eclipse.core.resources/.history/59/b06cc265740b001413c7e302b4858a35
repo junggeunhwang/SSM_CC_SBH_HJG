@@ -1,0 +1,73 @@
+package com.ssm.cyclists;
+
+import com.ssm.cyclists.controller.activity.MainActivity;
+import com.ssm.cyclists.controller.manager.ResourceManager;
+
+import android.app.Dialog;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.view.View;
+import android.view.Window;
+import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.Toast;
+
+public class LawRightDialog extends Dialog {
+
+	
+	Button Agree;
+	Button DisAgree;
+	
+	CheckBox chkLocationApply;
+	CheckBox chkRightApply;
+	
+	public LawRightDialog(Context context) {
+		super(context);
+		requestWindowFeature(Window.FEATURE_NO_TITLE);
+		setContentView(R.layout.law_right_dialog);
+		
+		Agree = (Button)findViewById(R.id.btn_agree_lawright_dialog);
+		DisAgree = (Button)findViewById(R.id.btn_disagree_lawright_dialog);
+		
+		chkLocationApply = (CheckBox)findViewById(R.id.chk_location_service_apply_lawright_dialog);
+		chkRightApply = (CheckBox)findViewById(R.id.chk_location_service_right_apply_lawright_dialog);
+		
+		Agree.setTypeface(ResourceManager.getInstance().getFont("helvetica"));
+		DisAgree.setTypeface(ResourceManager.getInstance().getFont("helvetica"));
+		
+		chkLocationApply.setTypeface(ResourceManager.getInstance().getFont("helvetica"));
+		chkRightApply.setTypeface(ResourceManager.getInstance().getFont("helvetica"));
+		
+		Agree.setOnClickListener(new View.OnClickListener(){
+
+			@Override
+			public void onClick(View v) {
+				if(chkLocationApply.isChecked() && chkRightApply.isChecked()){
+					dismiss();
+				}else{
+					Toast.makeText(MainActivity.getInstasnce(),"You have not yet agreed.", Toast.LENGTH_SHORT);
+				}
+			}
+		});
+		
+		DisAgree.setOnClickListener(new View.OnClickListener(){
+
+			@Override
+			public void onClick(View v) {
+				
+			}
+		});
+	}
+	
+	@Override
+	public void onBackPressed() {
+		// TODO Auto-generated method stub
+//		super.onBackPressed();
+	}
+
+	@Override
+	public void onWindowFocusChanged(boolean hasFocus) {
+		if(hasFocus!=true)
+			super.onWindowFocusChanged(hasFocus);
+	}
+}

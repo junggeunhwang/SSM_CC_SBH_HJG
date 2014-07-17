@@ -2,28 +2,41 @@ function MotionCheckStart()
 {
 	var motionqueue = [];
 	var avg_motion_count = 38;
+	var isMotionProceed = false;
 	
 	function MotionSuccess(i)
 	{
 		MotionSensorStop();		
 		console.log("YES Motion detected "+ i);
-		setTimeout(MotionSensorStart,250);
+		myevent.fire('audio.onAudioRecordingOperation');
+		setTimeout(MotionSensorStart,750);
+	}
+	function onWRIST_UP()
+	{
+		if(isMotionProceed === false)
+		{
+			isMotionProceed = true;
+			MotionSuccess("WRIST_UP");			
+		}
 	}
 	
 	function MotionSensorStop()
 	{
+		webapis.motion.stop("WRIST_UP");
 		window.removeEventListener("devicemotion",onAccelerationCallback,true);
 		motionqueue = [];
 	}
 	
 	function MotionSensorStart()
 	{
+		isMotionProceed = false;
 		window.addEventListener("devicemotion",onAccelerationCallback,true);
+		webapis.motion.start("WRIST_UP", onWRIST_UP);
 	}
 	
 	function MotionCheck(va_avg,va_SD,hq_avg,hq_SD)
 	{
-		if(va_avg > 0.71 || va_avg <=0.22)
+		if(va_avg > 0.71)// || va_avg <=0.22)
 		{
 			if(hq_avg <= 0.88)
 			{
@@ -31,9 +44,12 @@ function MotionCheckStart()
 				{
 					if(hq_SD > 0.5)
 					{
-						console.log(va_avg +","+ hq_avg +","+ va_SD+","+hq_SD);
-						MotionSuccess("up");
-						myevent.fire('audio.onAudioRecordingOperation');
+						if(isMotionProceed === false)
+						{
+							isMotionProceed = true;
+							console.log(va_avg +","+ hq_avg +","+ va_SD+","+hq_SD);
+							MotionSuccess("up");
+						}
 					}
 				}
 			}

@@ -1,0 +1,105 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:orientation="vertical"
+    android:weightSum="1"
+    tools:context="com.ssm.cyclists.controller.activity.SplashActivity"
+    tools:ignore="MergeRootFrame">
+
+    <LinearLayout
+        android:id="@+id/ly_top_lawright_dialog"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical|center_horizontal"
+        android:weightSum="1">
+    	<TextView
+	        android:id="@+id/tv_location_service_apply"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:text="@string/locationservice_apply"
+	        android:textSize="12sp" 
+	        android:layout_marginTop="15dp"
+	        android:layout_marginBottom="10dp"
+	        android:layout_marginLeft="10dp"
+	        android:layout_marginRight="5dp"
+	        android:layout_weight="1"/>
+    	<CheckBox 
+    	    android:id="@+id/chk_location_service_apply_lawright_dialog"
+    	    android:layout_width="25dp"
+    	    android:layout_height="25dp"
+    	    android:layout_marginRight="10dp"/>
+    </LinearLayout>
+    
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="@color/bk_color_gray_light"
+        android:layout_marginTop="5dp"
+    	android:layout_marginBottom="5dp"/>
+    
+    <LinearLayout
+        android:id="@+id/ly_mid_lawright_dialog"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:weightSum="1"
+        android:orientation="horizontal"
+        android:gravity="center_vertical|center_horizontal">
+	    <TextView
+	        android:id="@+id/tv_location_service_right_apply"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:text="@string/locationservice_right_apply"
+	        android:textSize="12sp"
+	        android:layout_marginTop="10dp"
+	        android:layout_marginBottom="10dp"
+	        android:layout_marginLeft="10dp"
+	        android:layout_marginRight="5dp"
+	        android:layout_weight="1" />
+    	<CheckBox 
+    	    android:id="@+id/chk_location_service_right_apply_lawright_dialog"
+    	    android:layout_width="25dp"
+    	    android:layout_height="25dp"
+    	    android:layout_marginRight="10dp"/>    
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="@color/bk_color_gray_light"
+        android:layout_marginTop="5dp"/>
+    
+	<LinearLayout
+	    android:id="@+id/ly_top_lawright_dialog"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="2">
+    	<Button 
+    	    android:id="@+id/btn_disagree_lawright_dialog"
+    	    android:layout_width="0dip"
+    	    android:layout_height="30dp"
+    	    android:background="@color/white"
+    	    android:text="@string/disagree"
+    	    android:textSize="12sp"
+    	    android:textStyle="bold"
+    	    android:layout_weight="1"/>
+    	<View
+    	    android:layout_width="2dp"
+    	    android:layout_height="match_parent"
+    	    android:background="@color/bk_color_gray_light"/>
+    	<Button
+    	    android:id="@+id/btn_agree_lawright_dialog" 
+    	    android:layout_width="0dip"
+    	    android:layout_height="30dp"
+    	    android:background="@color/white"
+    	    android:text="@string/agree"
+    	    android:textSize="12sp"
+    	    android:textStyle="bold"
+    	    android:layout_weight="1"/>    
+    </LinearLayout>
+
+</LinearLayout>
+

@@ -1,0 +1,254 @@
+package com.ssm.cyclists.controller.manager;
+
+import java.io.BufferedOutputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.math.BigInteger;
+import java.net.URL;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
+
+import com.facebook.HttpMethod;
+import com.facebook.LoggingBehavior;
+import com.facebook.Request;
+import com.facebook.Response;
+import com.facebook.Session;
+import com.facebook.SessionState;
+import com.facebook.Settings;
+import com.facebook.model.GraphUser;
+import com.google.android.gms.internal.fr;
+import com.ssm.cyclists.R;
+import com.ssm.cyclists.controller.activity.MainActivity;
+import com.ssm.cyclists.model.UserData;
+import com.ssm.cyclists.controller.asynctask.AsyncGetBitmapTask;
+
+import android.content.Intent;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
+import android.content.pm.PackageManager.NameNotFoundException;
+import android.content.pm.Signature;
+import android.graphics.Bitmap;
+import android.graphics.Bitmap.CompressFormat;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.BitmapFactory;
+import android.os.AsyncTask;
+import android.os.Bundle;
+import android.util.Base64;
+import android.util.Log;
+import android.widget.Toast;
+
+
+
+public class FacebookManager {
+
+	static String TAG = FacebookManager.class.getSimpleName();
+	
+	private static final String DEST_DIR  = "/storage/emulated/legacy/Cyclists";
+	private static final String DEST_DIR_PROFILE  = DEST_DIR+ "/Profile" ;
+	
+	private static FacebookManager instance;
+	private Session.StatusCallback statusCallback = new SessionStatusCallback();
+	private static final String URL_PREFIX_FRIENDS = "https://graph.facebook.com/me/friends?access_token=";
+	
+	private boolean loginStaus;
+	private FacebookManager() {
+		loginStaus = false;
+	}
+	
+	public void init(Bundle savedInstanceState){
+		getHashKey();
+		Settings.addLoggingBehavior(LoggingBehavior.INCLUDE_ACCESS_TOKENS);
+		Session session = Session.getActiveSession();
+	        if (session == null) {
+	            if (savedInstanceState != null) {
+	                session = Session.restoreSession(MainActivity.getInstasnce(), null, statusCallback, savedInstanceState);
+	                onClickFacebook();
+	            }
+	            if (session == null) {
+	                session = new Session(MainActivity.getInstasnce().getApplicationContext());
+	            }
+	            Session.setActiveSession(session);
+	            if (session.getState().equals(SessionState.CREATED_TOKEN_LOADED)) {
+	                session.openForRead(new Session.OpenRequest(MainActivity.getInstasnce()).setCallback(statusCallback));
+	            }
+	        }
+	}
+	
+    
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        
+        Session.getActiveSession().onActivityResult(MainActivity.getInstasnce(), requestCode, resultCode, data);
+    }
+    
+    
+    public void onSaveInstanceState(Bundle outState) {
+        Session session = Session.getActiveSession();
+        Session.saveSession(session, outState);
+    }
+	
+	public static FacebookManager getInstance(){
+		if(instance == null) instance = new FacebookManager();
+		return instance;		
+	}
+	
+	public void start(){
+		Session.getActiveSession().addCallback(statusCallback);
+	}
+	
+	public void stop(){
+		Session.getActiveSession().addCallback(statusCallback);
+	}
+	
+    public void onClickFacebook() {
+        Session session = Session.getActiveSession();
+        login();
+        getMyFacebookInfo(session);
+        Toast.makeText(MainActivity.getInstasnce().getApplicationContext(),"facebook login",Toast.LENGTH_SHORT).show();
+    }
+
+    public void onClickFacebookLogout() {
+        Session session = Session.getActiveSession();
+        logout();
+        
+        Toast.makeText(MainActivity.getInstasnce().getApplicationContext(),"facebook logout",Toast.LENGTH_SHORT).show();
+    }
+    
+	private void login(){
+		 Session session = Session.getActiveSession();
+	        if (!session.isOpened() && !session.isClosed()) {
+	            session.openForRead(new Session.OpenRequest(MainActivity.getInstasnce()).setCallback(statusCallback));
+	        } else {
+	            Session.openActiveSession(MainActivity.getInstasnce(), true, statusCallback);
+	        }
+	}
+	
+	private void logout(){
+		 Session session = Session.getActiveSession();
+	        if (!session.isClosed()) {
+	            session.closeAndClearTokenInformation();
+	        }
+	}
+	
+	private class SessionStatusCallback implements Session.StatusCallback {
+	        @Override
+	        public void call(Session session, SessionState state, Exception exception) {
+	            if(state.isOpened()){
+	            	SettingsDataManager.getInstance().setFacebookConnectd(true);
+	            	getMyFacebookInfo(session);
+	            	
+	            }
+	            else if(state.isClosed()){
+	            	SettingsDataManager.getInstance().setFacebookConnectd(false);
+	            	SettingsDataManager.getInstance().getMe().setProfileImg(null);
+	                SettingsDataManager.getInstance().getMe().setUserName(null);
+	                SettingsDataManager.getInstance().getMe().setFacebook_id(null);
+	            }
+	        }
+	    }
+	   
+    public boolean isLoginStaus() {
+		return loginStaus;
+	}
+
+	public void setLoginStaus(boolean loginStaus) {
+		this.loginStaus = loginStaus;
+	}
+
+	private void getMyFacebookInfo(Session session){
+    	if(session.isOpened()){
+    		Request.newMeRequest(session, new Request.GraphUserCallback() {
+    			 
+                @Override
+                public void onCompleted(GraphUser user, Response response) {
+                	                	
+                    System.err.println(" getId  :  " + user.getId());
+                    System.err.println(" getFirstName  :  " + user.getFirstName());
+                    System.err.println(" getLastName  :  " + user.getLastName());
+                    System.err.println(" getMiddleName  :  " + user.getMiddleName());
+                    System.err.println(" getBirthday  :  " + user.getBirthday());
+                    System.err.println(" getLink  :  " + user.getLink());
+                    System.err.println(" getName  :  " + user.getName());
+                    System.err.println(" getUsername :  " + user.getUsername());
+                    System.err.println(" getLocation :  " + user.getLocation());
+                    System.err.println("getRawResponse  :  " + response.getRawResponse());
+                   
+                   
+                    UserData me = SettingsDataManager.getInstance().getMe();
+                    me.setUserName(user.getName());
+                    me.setFacebook_id(user.getId());
+                    SettingsDataManager.getInstance().setMe(me);
+                    
+                    File profile = new File("");
+                    FileInputStream fis;
+                    try {
+                    	byte[] content = new byte[(int) profile.length()];
+                    	fis = new FileInputStream(profile);
+                    	fis.read(content);
+                    	getMD5Hash(content);
+                    	
+                    	fis.close();
+                    } catch (IOException e) {
+                    	e.printStackTrace();
+                    }
+                    
+                    AsyncGetBitmapTask task = new AsyncGetBitmapTask();
+                    task.execute();
+                }
+            }).executeAsync();
+
+    	}
+    }
+	
+	private String getMD5Hash(byte[] input){
+		MessageDigest md;
+		String hash = null;
+		try {
+			md = MessageDigest.getInstance("MD5");
+			md.update(input,0,input.length);
+			hash = new BigInteger(1, md.digest()).toString(16);
+		} catch (NoSuchAlgorithmException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return hash;
+	}
+	
+    private void getHashKey()
+    {
+            PackageInfo info;
+            try {
+            info = MainActivity.getInstasnce().getPackageManager().getPackageInfo("com.example.facebooklogintest", PackageManager.GET_SIGNATURES);
+            for (Signature signature : info.signatures) {MessageDigest md;
+            md = MessageDigest.getInstance("SHA");
+            md.update(signature.toByteArray());
+                       //String something = new String(Base64.encode(md.digest(), 0));
+                         String something = new String(Base64.encode(md.digest(),0));
+                       Log.e("** Hash Key", something);
+            }
+            }
+            catch (NameNotFoundException e1) {
+            Log.e("name not found", e1.toString());
+            }
+
+            catch (NoSuchAlgorithmException e) {
+            Log.e("no such an algorithm", e.toString());
+            }
+            catch (Exception e){
+            Log.e("exception", e.toString());
+            }
+
+    }
+
+	public Session.StatusCallback getStatusCallback() {
+		return statusCallback;
+	}
+
+}

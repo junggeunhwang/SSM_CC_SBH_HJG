@@ -1,0 +1,22 @@
+package com.ssm.cyclists;
+
+import android.app.Dialog;
+import android.content.Context;
+import android.widget.Button;
+import android.widget.CheckBox;
+
+public class LawRightDialog extends Dialog {
+
+	
+	Button Agree;
+	Button DisAgree;
+	
+	CheckBox chkLocationApply;
+	CheckBox chkRightApply;
+	
+	public LawRightDialog(Context context) {
+		super(context);
+		// TODO Auto-generated constructor stub
+	}
+
+}

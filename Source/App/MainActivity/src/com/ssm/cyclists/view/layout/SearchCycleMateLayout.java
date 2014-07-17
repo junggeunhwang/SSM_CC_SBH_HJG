@@ -1,0 +1,187 @@
+package com.ssm.cyclists.view.layout;
+
+import com.ssm.cyclists.R;
+import com.ssm.cyclists.controller.activity.MainActivity;
+import com.ssm.cyclists.controller.fragment.SearchCycleMateFragment;
+import com.ssm.cyclists.controller.manager.ResourceManager;
+import com.ssm.cyclists.controller.manager.SettingsDataManager;
+import com.ssm.cyclists.model.SettingsData;
+import com.ssm.cyclists.model.UserData;
+
+import android.app.Fragment;
+import android.app.FragmentTransaction;
+import android.content.Context;
+import android.content.pm.ActivityInfo;
+import android.net.wifi.WifiConfiguration.Protocol;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.ProgressBar;
+import android.widget.TextView;
+
+public class SearchCycleMateLayout extends BaseFragmentLayout {
+
+	static String TAG = SearchCycleMateLayout.class.getSimpleName();
+	
+	private Button btnCancel; 
+	private Button btnSearch;
+	
+	private TextView tvAppName;
+	private TextView fragmentName;
+	private TextView comment;
+	
+	private EditText search_target;
+	
+	private LinearLayout topBar;
+	private LinearLayout background;
+	
+	private ProgressBar progressBar;
+	private LinearLayout mainLayout;
+	
+	private boolean ProgressBarVisible = false;
+	
+	public SearchCycleMateLayout(Fragment instance) {
+		super(instance);
+	}
+
+	@Override
+	public void createView(LayoutInflater inflater, ViewGroup container) {
+		view = inflater.inflate(R.layout.fragment_search_cyclemate, container, false);
+	}
+	
+	public void init(){
+		
+		tvAppName = (TextView)getView().findViewById(R.id.app_name_search_cyclemate);
+		tvAppName.setTypeface(ResourceManager.getInstance().getFont("helvetica"));
+
+		topBar = (LinearLayout)getView().findViewById(R.id.top_bar_search_cyclemate);
+		background = (LinearLayout)getView().findViewById(R.id.background_search_cyclemate);
+		
+		btnCancel = (Button)getView().findViewById(R.id.cancel_button_search_cyclemate);
+		btnSearch = (Button)getView().findViewById(R.id.search_button_search_cyclemate);
+		
+		fragmentName = (TextView)getView().findViewById(R.id.fragment_name_search_cyclemate);
+		comment	 = (TextView)getView().findViewById(R.id.tv_comment_search_cyclemate);
+		
+		search_target = (EditText)getView().findViewById(R.id.search_target_search_cyclemate);
+		
+		progressBar = (ProgressBar)getView().findViewById(R.id.progressbar_search_cyclemate);
+		
+		mainLayout = (LinearLayout)getView().findViewById(R.id.mainlayout_search_cyclemate);
+		
+		btnCancel.setTypeface(ResourceManager.getInstance().getFont("helvetica"));
+		btnSearch.setTypeface(ResourceManager.getInstance().getFont("helvetica"));
+		
+		fragmentName.setTypeface(ResourceManager.getInstance().getFont("helvetica"));
+		comment.setTypeface(ResourceManager.getInstance().getFont("helvetica"));
+		
+		search_target.setTypeface(ResourceManager.getInstance().getFont("helvetica"));
+		
+		btnCancel.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View arg0) {
+				InputMethodManager imm = (InputMethodManager)MainActivity.getInstasnce().getSystemService(
+					      Context.INPUT_METHOD_SERVICE);
+					imm.hideSoftInputFromWindow(search_target.getWindowToken(), 0);
+				backScreen();
+			}
+		});
+		
+		btnSearch.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View arg0) {
+				com.ssm.cyclists.controller.communication.https.Protocol.getInstance().AddFriendRequest(
+						SettingsDataManager.getInstance().getMe().getUniqueID(),
+						search_target.getText().toString());
+//				setProgressBarVisible(true);
+				enableButton(false);
+//				backScreen();
+			}
+		});
+		updateColor();
+	}
+	
+	public void enableButton(final boolean state){
+		search_target.post(new Runnable() {
+			
+			@Override
+			public void run() {
+				search_target.setEnabled(state);
+			}
+		});
+		btnCancel.post(new Runnable() {
+			
+			@Override
+			public void run() {
+				btnCancel.setEnabled(state);
+			}
+		});
+		btnSearch.post(new Runnable() {
+			
+			@Override
+			public void run() {
+				btnSearch.setEnabled(state);
+			}
+		});
+	}
+	public void updateColor(){
+		if(SettingsDataManager.getInstance().getThemeColor().equals("pink")){
+			topBar.setBackgroundColor(MainActivity.getInstasnce().getResources().getColor(R.color.bk_color_pink_heavy));
+			background.setBackgroundColor(MainActivity.getInstasnce().getResources().getColor(R.color.bk_color_pink_light));
+			tvAppName.setTextColor(MainActivity.getInstasnce().getResources().getColor(R.color.text_pink));
+		}else if(SettingsDataManager.getInstance().getThemeColor().equals("green")){
+			topBar.setBackgroundColor(MainActivity.getInstasnce().getResources().getColor(R.color.bk_color_green_heavy));
+			background.setBackgroundColor(MainActivity.getInstasnce().getResources().getColor(R.color.bk_color_green_light));
+			tvAppName.setTextColor(MainActivity.getInstasnce().getResources().getColor(R.color.text_green));
+		}else if(SettingsDataManager.getInstance().getThemeColor().equals("gray")){
+			topBar.setBackgroundColor(MainActivity.getInstasnce().getResources().getColor(R.color.bk_color_gray_heavy));
+			background.setBackgroundColor(MainActivity.getInstasnce().getResources().getColor(R.color.bk_color_gray_light));
+			tvAppName.setTextColor(MainActivity.getInstasnce().getResources().getColor(R.color.text_gray));
+		}
+	}
+	
+	public void backScreen(){
+		MainActivity.getInstasnce().getLayout().hideSoftKeyboard(search_target);
+		FragmentTransaction transaction = MainActivity.getInstasnce().getFragmentManager().beginTransaction();
+		transaction.hide(fragment);
+		transaction.show(MainActivity.getInstasnce().getLayout().getmFragmentCycleMate());
+		MainActivity.getInstasnce().getLayout().setActivated_fragment(MainActivity.getInstasnce().getLayout().getmFragmentCycleMate());
+		transaction.commit();
+		MainActivity.getInstasnce().getLayout().getmFragmentCycleMate().getLayout().getAdapter().reset();
+		MainActivity.getInstasnce().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+	}
+
+	public boolean isProgressBarVisible() {
+		return ProgressBarVisible;
+	}
+
+	public void setProgressBarVisible(boolean progressBarVisible) {
+		ProgressBarVisible = progressBarVisible;
+		if(ProgressBarVisible){
+			
+			progressBar.post(new Runnable() {
+				
+				@Override
+				public void run() {
+					progressBar.setVisibility(ProgressBar.VISIBLE);
+				}
+			});
+			
+		}else{
+			progressBar.post(new Runnable() {
+				
+				@Override
+				public void run() {
+					progressBar.setVisibility(ProgressBar.INVISIBLE);
+				}
+			});
+		}
+	}
+}

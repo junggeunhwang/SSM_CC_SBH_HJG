@@ -4,7 +4,7 @@
 <SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha256"></SignatureMethod>
 <Reference URI="author-signature.xml">
 <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
-<DigestValue>UwRv04V5Kbd1Z7BKCHqi8yiBqOUgF4WPPuS+x4NKrXg=</DigestValue>
+<DigestValue>7phOnP5qjYGVrfZdVkhF09CX3qKg4AiGU1QGXJGxPuo=</DigestValue>
 </Reference>
 <Reference URI="config.xml">
 <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
@@ -16,7 +16,7 @@
 </Reference>
 <Reference URI="icon.png">
 <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
-<DigestValue>FRrsHy/fRk04XHVT7RiTHyNRnEJC7HRSDOAeBnifO7s=</DigestValue>
+<DigestValue>0H0LC7UkrR23ugw7y4WOGlDvzoz3BS2iJqAFCPQdN0c=</DigestValue>
 </Reference>
 <Reference URI="image/alertpage/background.png">
 <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
@@ -29,6 +29,10 @@
 <Reference URI="image/left.png">
 <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
 <DigestValue>rhhMXl46X2zJCffyLC78gs4HTQkEmV4Lb6sgj+18Rg8=</DigestValue>
+</Reference>
+<Reference URI="image/mainpage/exit.png">
+<DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
+<DigestValue>LPsd5JiYuAP6m8Zz8dWcbMkkd6KGtjjNmlyADh+9NfE=</DigestValue>
 </Reference>
 <Reference URI="image/mainpage/ironmanheart-transparent.png">
 <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
@@ -80,11 +84,11 @@
 </Reference>
 <Reference URI="index.html">
 <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
-<DigestValue>WdFd9rsYsSgNgTkhZ/ENwMGsvflZXIDBD71EoMwCqrw=</DigestValue>
+<DigestValue>FRLghJaakU2tXfh+9UAU8vTAV0LaV4+CHIMAX7Ns/GE=</DigestValue>
 </Reference>
 <Reference URI="js/core/SAPFile.js">
 <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
-<DigestValue>L+pnGnJe1jjROgquY8jEPGf93O5dGCOFnI1Y0LmgLu8=</DigestValue>
+<DigestValue>XDjP1KAcYWywpZn8OsuC61HIZtokG9jFWp7jhDdtJ0M=</DigestValue>
 </Reference>
 <Reference URI="js/core/SAPInit.js">
 <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
@@ -132,11 +136,11 @@
 </Reference>
 <Reference URI="js/main.js">
 <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
-<DigestValue>VU90mLqUVjSAI5/U+xxJwEPp3ufbtEym7481McFYBPE=</DigestValue>
+<DigestValue>tyuxx0yduqjN016e/CkRpqytkzm89a83HgOk1FnvviQ=</DigestValue>
 </Reference>
 <Reference URI="js/motioncheck.js">
 <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
-<DigestValue>qzA72ZnRTXwLKk8+VwcMd9VTZQ3v+tS7FOS/m0aPizY=</DigestValue>
+<DigestValue>xgyQMVz5En87ChDpYuCE91izgpiHSaI7b/lHXwsZZco=</DigestValue>
 </Reference>
 <Reference URI="js/motionlog.js">
 <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
@@ -387,11 +391,11 @@
 </Reference>
 </SignedInfo>
 <SignatureValue>
-UH8YMKbNKxRIAIs1Ga5E40BZCxpzv1dH7zEJ6Nn1MTY/RsBl2CElpTP+q7zogxaiaB2uaBO+RTA0
-kfPJqmbccznIyu44iCya661mDaDqXkcOGTvJMeEQRXDpNl0FsAMwi0DGS2iDAKhgHY9C4GFRlL1d
-1+xpLJs1/ZmzFs/9zjgSdhkTaa2oA7yUR5512Yd1fQymkXA0AX1BMLSsRD78HoJ2aHNZ6JNpoTZf
-afokGwGtb39NjP87hk6BvqFrr90BO2yyuhJcYBsHrsgKCp9o2/HkscqFgwArsLlexP4rdch6L6Lr
-4iGIfoX+Etj5pS+Efc9Xy6Tv9hXnfUjGZSu41w==
+oak3p/7stCInNMLKKnqxOSXMcGD5GzoQbB6g8S8Y86gK9UOepaM84vKP82SIt0nhR09ywpSeSx5n
+dR+ylp+PPiTDpCQTtPsgWGhbCdSi+0JFQe/D0/p0JaaO8AI28KkAggeAQzTKO8qcNowvV3ruVCXI
+DGHU+ghLYzOzylCqQRmPDuLoM22uERdqhqubEjfgCco6EUXEF4bXV9rgUWAcn8HBGCurD39Ln20Y
+G9VNScYFGZqd/4TyNFoHe7v5XX8GJeslwPIO955xGP1ELbdB3xYTepXKdwZeium6xE9nQ2gbk1ca
+kwtrDK+5XhoYZjLwuA1lTqD73THPHsQj+IiBkg==
 </SignatureValue>
 <KeyInfo>
 <X509Data>

@@ -1,0 +1,7 @@
+package com.ssm.cyclists.view;
+
+import android.os.AsyncTask;
+
+public class ProgressBar extends AsyncTask<integer, integer="" string,=""> {
+
+}

@@ -10,6 +10,8 @@
     var recordOperation = document.getElementById("recordOperation");
     var recordView = document.getElementById("voicerecordpage");
     var recordbutton = document.getElementById("recordbutton");
+    var mainrecordbutton = document.getElementById("mainrecordbutton");
+    var mainexitbutton = document.getElementById("mainexitbutton");
     
 	// 손 터치 이벤트 등록
 	window.addEventListener( 'tizenhwkey', function( ev ) {
@@ -18,7 +20,7 @@
 			var page = document.getElementsByClassName( 'ui-page-active' )[0],
 				pageid = page ? page.id : "";
 			if( pageid === "mainpage" ) {
-				myevent.fire('application.exit');
+				tau.changePage("#secondpage");
 			} 
 			else if(pageid === "secondpage")
 			{
@@ -26,7 +28,7 @@
 			}
 			else if(pageid === "alertpage")
 			{
-				tau.changePage("#mainpage");
+				window.history.back();
 			}else if(pageid === "directiontictok")
 			{
 				console.log("directiontictok invoked");
@@ -72,6 +74,24 @@
 		}
 		else
 		{
+			tizen.filesystem.resolve(
+					'file:///opt/usr/media/Sounds/',
+					   function(dir) {
+					     console.log("Mount point Name is " +  dir.path);
+					     console.log(filesystem.basename(RecordedAudioPath));
+					     dir.deleteFile(
+					    		 RecordedAudioPath
+					    		 ,
+					             function(){
+					               console.log("File Deleted");
+					             }, function(e) {
+					               console.log("Error" + e.message);
+					             });
+
+					   }, function(e) {
+					     console.log("Error: " + e.message);
+					   }, "r"
+					 );
 			voicerecordStatus.innerHTML = msg_audiosendingerror;
 		}
 	}
@@ -140,7 +160,7 @@
     function onAudioError()
     {
     	console.log('onAudioError()');
-    	alert("오디오 모듈 로드에 실패했습니다. 어플리케이션을 다시시작하십시오.");
+    	alert("Fail to load audio module. Restart application please.");
     	tizen.application.getCurrentApplication().exit();
     }
     // 오디오 레코딩 시작
@@ -162,6 +182,7 @@
     {
     	RecordedAudioPath = ev.detail.path;
     	preSoundPlay("recordend.mp3");
+    	navigator.vibrate(250);
     	AudioRecordingLock = false;
     	toggleRecording(false);
 		onFileTransfer();
@@ -220,6 +241,9 @@
     recordOperation.addEventListener("click", onAudioRecordingOperation);
     recordView.addEventListener("click", onAudioRecordingOperation);
     recordbutton.addEventListener("click", onAudioRecordingOperation);
+    mainrecordbutton.addEventListener("click", onAudioRecordingOperation);
+    mainexitbutton.addEventListener("click", onApplicationExit);
+    
     // 항상 켜져있게 전원 옵션 해제
     tizen.power.request("SCREEN", "SCREEN_NORMAL");
     // tizen.power.request("CPU", "CPU_AWAKE");

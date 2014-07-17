@@ -12,7 +12,7 @@
 </Reference>
 <Reference URI="icon.png">
 <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
-<DigestValue>FRrsHy/fRk04XHVT7RiTHyNRnEJC7HRSDOAeBnifO7s=</DigestValue>
+<DigestValue>0H0LC7UkrR23ugw7y4WOGlDvzoz3BS2iJqAFCPQdN0c=</DigestValue>
 </Reference>
 <Reference URI="image/alertpage/background.png">
 <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
@@ -25,6 +25,10 @@
 <Reference URI="image/left.png">
 <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
 <DigestValue>rhhMXl46X2zJCffyLC78gs4HTQkEmV4Lb6sgj+18Rg8=</DigestValue>
+</Reference>
+<Reference URI="image/mainpage/exit.png">
+<DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
+<DigestValue>LPsd5JiYuAP6m8Zz8dWcbMkkd6KGtjjNmlyADh+9NfE=</DigestValue>
 </Reference>
 <Reference URI="image/mainpage/ironmanheart-transparent.png">
 <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
@@ -76,11 +80,11 @@
 </Reference>
 <Reference URI="index.html">
 <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
-<DigestValue>WdFd9rsYsSgNgTkhZ/ENwMGsvflZXIDBD71EoMwCqrw=</DigestValue>
+<DigestValue>FRLghJaakU2tXfh+9UAU8vTAV0LaV4+CHIMAX7Ns/GE=</DigestValue>
 </Reference>
 <Reference URI="js/core/SAPFile.js">
 <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
-<DigestValue>L+pnGnJe1jjROgquY8jEPGf93O5dGCOFnI1Y0LmgLu8=</DigestValue>
+<DigestValue>XDjP1KAcYWywpZn8OsuC61HIZtokG9jFWp7jhDdtJ0M=</DigestValue>
 </Reference>
 <Reference URI="js/core/SAPInit.js">
 <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
@@ -128,11 +132,11 @@
 </Reference>
 <Reference URI="js/main.js">
 <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
-<DigestValue>VU90mLqUVjSAI5/U+xxJwEPp3ufbtEym7481McFYBPE=</DigestValue>
+<DigestValue>tyuxx0yduqjN016e/CkRpqytkzm89a83HgOk1FnvviQ=</DigestValue>
 </Reference>
 <Reference URI="js/motioncheck.js">
 <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
-<DigestValue>qzA72ZnRTXwLKk8+VwcMd9VTZQ3v+tS7FOS/m0aPizY=</DigestValue>
+<DigestValue>xgyQMVz5En87ChDpYuCE91izgpiHSaI7b/lHXwsZZco=</DigestValue>
 </Reference>
 <Reference URI="js/motionlog.js">
 <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
@@ -383,11 +387,11 @@
 </Reference>
 </SignedInfo>
 <SignatureValue>
-OCagDG9HHuTm5UxzdIdCrNbitVvP2XU9nRgMIgD9B5yK5XujjOietOARjw++Cm4wPG/TcQJ/aZyB
-f7/t9cEHHizS2zOwav1AJrV410Ew7sPvg9AeZo4KgDdC7O9St9CBB7GMpmZnujLR5mPc2d49Vf4N
-/J4uVtdm7meJE3tLorL0STfejz96fsxN/KKBGZYoU+Tb8/ErHPy7Tr8H/GNBLl8Yt8Ka0TlgmFI3
-/im4V8NdeF6p1ebaco5C+BWpByMbDdBoVYmH80G2VbexAFnrgL/O/85TjU5QFkg3+8bjX1M+FfMh
-4JoGUuqlJHqQ1CW0E9FOfqnOwHOO+Tuhbd5diw==
+cEVTXpc29Br7fV+DLnnw7SEb5m9lBj5cGDl9EaZqs2uJ+NuENPU5TUVBdsyNkhd6C7EVyX2Dkmem
+MicLtiWk7qF1TnK7mWhDso188kveHlbEaG4+kggXXvOtxYblOQTDy1XnlQvgmUGSALRZdFm7a7iP
+2W5l0PYiMJbvtQoEBlSU+aaBtZwaiAoCYBgfuT3wuQ9+KcKEV/nsMjJDfb+6JB63XsZzkW5jNguN
+Rq6eMEWeZFQpjeb/SOI02ML4ksi/84sCPAniv0u+zCZv1E9W5dmL5wd1u9BPbYFfCtv67+qo34Tc
+pGj6/OXmDpknUCE8sBxVNrH3DuXdjB8wbgK2DQ==
 </SignatureValue>
 <KeyInfo>
 <X509Data>

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:background="@color/white">
+
+	<LinearLayout
+	    android:id="@+id/top_bar_cycle_tracker"
+		android:layout_width="match_parent"
+	    android:layout_height="45dp"
+	    android:background="@color/bk_color_pink_heavy"
+	    android:gravity="center_vertical"
+	    android:weightSum="1" >
+
+
+        <View
+	        android:layout_width="0dip"
+	        android:layout_height="match_parent"
+	        android:layout_weight="0.05"/>
+               
+        <Button
+			android:id="@+id/menu_button_cycletracker"
+	    	android:layout_width="35dp"
+	        android:layout_height="30dp"
+	        android:background="@drawable/menu_btn"/>
+
+        <View
+            android:layout_width="0dip"
+            android:layout_height="match_parent"
+            android:layout_weight="0.36" />
+
+        <TextView
+            android:id="@+id/fragment_name_cycletracker"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical|center_horizontal"
+            android:text="Cycle Tracker"
+            android:textColor="@color/white"
+            android:textSize="15sp" />
+
+    </LinearLayout>
+
+ 	 <ListView
+ 	     android:id="@+id/lv_cycletracker"
+ 	     android:layout_width="match_parent"
+ 	     android:layout_height="389dp"
+ 	     android:background="@color/white" >
+
+ 	 </ListView>
+ 	 
+ 	 <TextView
+	        android:id="@+id/app_name_cycletracker"
+	        android:layout_width="match_parent"
+	        android:layout_height="15dp"
+
+	        android:layout_marginBottom="10dp"
+	        android:gravity="center_vertical|center_horizontal"
+	        android:text="Bicycle app"
+	        android:textStyle="bold"
+	        android:textSize="13sp"
+	        android:textColor="@color/text_pink" />
+
+</LinearLayout>

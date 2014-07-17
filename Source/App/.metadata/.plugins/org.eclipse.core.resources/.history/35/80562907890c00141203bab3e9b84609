@@ -1,0 +1,226 @@
+package com.ssm.cyclists.view.layout;
+
+import java.util.ArrayList;
+
+
+
+
+
+import com.nhaarman.listviewanimations.itemmanipulation.OnDismissCallback;
+import com.ssm.cyclists.R;
+import com.ssm.cyclists.controller.activity.MainActivity;
+import com.ssm.cyclists.controller.communication.https.Protocol;
+import com.ssm.cyclists.controller.fragment.CheckableCycleMateFragment;
+import com.ssm.cyclists.controller.fragment.CycleMateFragment;
+import com.ssm.cyclists.controller.fragment.SearchCycleMateFragment;
+import com.ssm.cyclists.controller.manager.ResourceManager;
+import com.ssm.cyclists.controller.manager.SettingsDataManager;
+import com.ssm.cyclists.model.UserData;
+import com.ssm.cyclists.model.adapter.CycleMateListViewAdapter;
+
+import android.app.FragmentTransaction;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.ListView;
+import android.widget.TextView;
+import android.widget.TextView.OnEditorActionListener;
+import android.widget.Toast;
+
+
+public class CycleMateLayout extends BaseFragmentLayout{
+
+	static String TAG = CycleMateLayout.class.getSimpleName();
+	
+	private Button btnMenu;
+	private Button btnSearch;
+	private Button btnAdd;
+	
+	private TextView tvFragmentName;
+	private TextView tvSearch;
+	private TextView tvAppName;
+	
+
+	
+	private LinearLayout lyTopBar;
+	private LinearLayout lyMidBar;
+	
+	private EditText etSearchData;
+
+	private ListView lvCycleMate;
+	
+	CycleMateListViewAdapter Adapter;
+	
+	public CycleMateLayout(CycleMateFragment instance) {
+		super(instance);
+	}
+	
+	public void init(){
+		//친구목록 요청
+		Protocol.getInstance().FriendsListRequest(SettingsDataManager.getInstance().getMe().getUniqueID());
+
+		//컴포넌트 초기화
+		btnMenu 		= (Button)getView().findViewById(R.id.menu_button_cyclemate);
+		btnMenu.setOnClickListener(buildMenuButtonListener());
+		
+		
+		btnSearch		= (Button)getView().findViewById(R.id.btn_search_cyclemate);
+		btnAdd			= (Button)getView().findViewById(R.id.btn_add_cyclemate);
+		
+		tvFragmentName 	= (TextView)getView().findViewById(R.id.fragment_name_cyclemate);
+		tvSearch 		= (TextView)getView().findViewById(R.id.tv_search_cyclemate);
+		tvAppName		= (TextView)getView().findViewById(R.id.app_name_cycle_mate);
+		
+		etSearchData 	= (EditText)getView().findViewById(R.id.et_search_data_cyclemate);
+		lvCycleMate		= (ListView)getView().findViewById(R.id.lv_cyclemate);
+		
+		lyTopBar		= (LinearLayout)getView().findViewById(R.id.top_bar_cyclemate);
+		lyMidBar		= (LinearLayout)getView().findViewById(R.id.mid_bar_cyclemate);
+		
+		btnSearch.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				Adapter.search(etSearchData.getText().toString());
+			}
+		});
+		
+		btnAdd.setTypeface(ResourceManager.getInstance().getFont("helveitca"));
+		btnAdd.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View arg0) {
+				SearchCycleMateFragment searchCycleMateFragment = new SearchCycleMateFragment();
+				FragmentTransaction transaction = MainActivity.getInstasnce().getFragmentManager().beginTransaction();
+				transaction.add(R.id.fragment,searchCycleMateFragment);
+				transaction.hide(MainActivity.getInstasnce().getLayout().getActivated_fragment());
+				transaction.show(searchCycleMateFragment);
+				MainActivity.getInstasnce().getLayout().setActivated_fragment(searchCycleMateFragment);
+				transaction.commit();
+				
+			}
+		});
+		
+		
+		tvAppName.setTypeface(ResourceManager.getInstance().getFont("helvetica"));
+		tvFragmentName.setTypeface(ResourceManager.getInstance().getFont("helvetica"));
+		tvSearch.setTypeface(ResourceManager.getInstance().getFont("helveitica"));
+		etSearchData.setTypeface(ResourceManager.getInstance().getFont("helveitica"));		
+
+		etSearchData.addTextChangedListener(new TextWatcher() {
+			
+			@Override
+			public void onTextChanged(CharSequence s, int start, int before, int count) {
+				if(etSearchData.getText().toString().equals("")) Adapter.search("");
+			}
+			
+			@Override
+			public void beforeTextChanged(CharSequence s, int start, int count,
+					int after) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void afterTextChanged(Editable s) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
+
+		
+		Adapter = new CycleMateListViewAdapter(getView().getContext(),R.layout.cyclemate_listview_row,SettingsDataManager.getInstance().getFriendList());
+		lvCycleMate.setOnItemClickListener(new OnItemClickListener() {
+
+			@Override
+			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
+					long arg3) {
+				Adapter.search(etSearchData.getText().toString());
+			}
+		});
+			
+		lvCycleMate.setAdapter(Adapter);
+
+//		Protocol.getInstance().FriendsListRequest(SettingsDataManager.getInstance().getMe().getUniqueID());
+		
+		//색상 업데이트
+		updateColor();
+	}
+
+	@Override
+	public void createView(LayoutInflater inflater, ViewGroup container) {
+		view = inflater.inflate(R.layout.fragment_cycle_mate, container, false);
+	}
+
+	public void onPause() {
+		MainActivity.getInstasnce().getLayout().hideSoftKeyboard(etSearchData);
+	}
+	
+	private OnClickListener buildMenuButtonListener(){
+		
+		return new OnClickListener(){
+
+			@Override
+			public void onClick(View v) {
+				((MainActivity)fragment.getActivity()).open_button(v);
+			}
+		};
+	}
+
+	public void refreshFriends(){
+		
+		Adapter.removeAll();
+		
+		ArrayList<UserData> list = SettingsDataManager.getInstance().getFriendList();
+		
+		for(int i  = 0;i < list.size() ; i++){
+			Adapter.add(list.get(i));	
+		}
+	}
+	
+	
+	public void updateColor(){
+		if(SettingsDataManager.getInstance().getThemeColor().equals("pink")){
+			lyTopBar.setBackgroundColor(MainActivity.getInstasnce().getResources().getColor(R.color.bk_color_pink_heavy));
+			lyMidBar.setBackgroundColor(MainActivity.getInstasnce().getResources().getColor(R.color.bk_color_pink_mid));
+			tvSearch.setTextColor(MainActivity.getInstasnce().getResources().getColor(R.color.text_pink));
+			tvAppName.setTextColor(MainActivity.getInstasnce().getResources().getColor(R.color.text_pink));
+			btnSearch.setBackground(MainActivity.getInstasnce().getResources().getDrawable(R.drawable.search_big_pink));
+			Adapter.notifyDataSetChanged();
+			etSearchData.setCompoundDrawables(MainActivity.getInstasnce().getResources().getDrawable(R.drawable.search_small_pink),null,null,null);
+		}else if(SettingsDataManager.getInstance().getThemeColor().equals("green")){
+			lyTopBar.setBackgroundColor(MainActivity.getInstasnce().getResources().getColor(R.color.bk_color_green_heavy));
+			lyMidBar.setBackgroundColor(MainActivity.getInstasnce().getResources().getColor(R.color.bk_color_green_mid));
+			tvSearch.setTextColor(MainActivity.getInstasnce().getResources().getColor(R.color.text_green));
+			btnSearch.setBackground(MainActivity.getInstasnce().getResources().getDrawable(R.drawable.search_big_green));
+			tvAppName.setTextColor(MainActivity.getInstasnce().getResources().getColor(R.color.text_green));
+			Adapter.notifyDataSetChanged();
+			etSearchData.setCompoundDrawables(MainActivity.getInstasnce().getResources().getDrawable(R.drawable.search_small_green),null,null,null);
+		}else if(SettingsDataManager.getInstance().getThemeColor().equals("gray")){
+			lyTopBar.setBackgroundColor(MainActivity.getInstasnce().getResources().getColor(R.color.bk_color_gray_heavy));
+			lyMidBar.setBackgroundColor(MainActivity.getInstasnce().getResources().getColor(R.color.bk_color_gray_mid));
+			tvSearch.setTextColor(MainActivity.getInstasnce().getResources().getColor(R.color.text_gray));
+			btnSearch.setBackground(MainActivity.getInstasnce().getResources().getDrawable(R.drawable.search_big_gray));
+			Adapter.notifyDataSetChanged();
+			tvAppName.setTextColor(MainActivity.getInstasnce().getResources().getColor(R.color.text_gray));
+			etSearchData.setCompoundDrawables(MainActivity.getInstasnce().getResources().getDrawable(R.drawable.search_small_gray),null,null,null);
+		}
+	}
+
+	public CycleMateListViewAdapter getAdapter() {
+		return Adapter;
+	}
+
+	public void setAdapter(CycleMateListViewAdapter adapter) {
+		Adapter = adapter;
+	}
+
+}

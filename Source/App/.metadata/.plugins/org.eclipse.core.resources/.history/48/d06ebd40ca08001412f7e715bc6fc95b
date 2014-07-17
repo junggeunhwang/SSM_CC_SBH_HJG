@@ -1,0 +1,357 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="vertical">
+
+	<LinearLayout
+	    android:id="@+id/top_bar_cruise"
+	    android:layout_width="match_parent"
+	    android:layout_height="45dp"
+	    android:background="@color/bk_color_pink_heavy"
+	    android:gravity="center_vertical"
+	    android:weightSum="1" >
+
+
+        <View
+	        android:layout_width="0dip"
+	        android:layout_height="match_parent"
+	        android:layout_weight="0.05"/>
+                
+		<Button
+			android:id="@+id/menu_button_cruise
+			"
+	    	android:layout_width="35dp"
+	        android:layout_height="30dp"
+	        android:background="@drawable/menu_btn"/>
+
+        <View
+            android:layout_width="0dip"
+            android:layout_height="match_parent"
+            android:layout_weight="0.33" />
+
+        <TextView
+            android:id="@+id/fragment_name_cruise"
+            android:layout_width="0dip"
+            android:layout_height="match_parent"
+            android:layout_weight="0.1594"
+            android:gravity="center_vertical|center_horizontal"
+            android:text="Cruise"
+            android:textColor="@color/white"
+            android:textSize="15sp" />
+        
+        <View
+            android:layout_width="0dip"
+            android:layout_height="match_parent"
+            android:layout_weight="0.46" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dip"
+        android:layout_weight="1"
+        android:gravity="top|center_horizontal"
+        android:orientation="vertical"
+        android:weightSum="1" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dip"
+            android:layout_weight="0.77"
+            android:background="@color/white"
+            android:gravity="center_horizontal|center_vertical"
+            android:orientation="vertical"
+            android:weightSum="1" >
+            
+			<View
+			    android:layout_width="match_parent"
+			    android:layout_height="0dip"
+			    android:layout_weight="0.27" />
+            
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dip"
+                android:layout_weight="0.46"
+                android:gravity="center_vertical|center_horizontal"
+                android:orientation="horizontal"
+                android:weightSum="1" >
+            		
+		        <View
+		            android:layout_width="0dip"
+		            android:layout_height="match_parent"
+		            android:layout_weight="0.265" />
+		
+				<LinearLayout
+				    android:id="@+id/outer_circle_cruise"
+				    android:layout_width="0dip"
+				    android:layout_height="match_parent"
+				    android:layout_weight="0.48"
+				    android:background="@drawable/outer_circle_pink"
+				    android:gravity="center_vertical|center_horizontal"
+				    android:orientation="vertical"
+				    android:weightSum="1" >
+		            		            
+		            	<View
+		            	    android:layout_width="match_parent"
+		            	    android:layout_height="0dip"
+		            	    android:layout_weight="0.1" />
+
+		                <LinearLayout
+		                    android:layout_width="match_parent"
+		                    android:layout_height="0dip"
+		                    android:layout_weight="0.85"
+		                    android:gravity="center_vertical|center_horizontal"
+		                    android:orientation="horizontal"
+		                    android:weightSum="1" >
+
+			                <View
+			                    android:layout_width="0dip"
+			                    android:layout_height="match_parent"
+			                    android:layout_weight="0.05" />
+		            		
+			                <LinearLayout
+			                    android:id="@+id/inner_circle_cruise"
+			                    android:layout_width="0dip"
+			                    android:layout_height="match_parent"
+			                    android:layout_weight="0.90"
+			                    android:background="@drawable/inner_circle_pink"
+			                    android:gravity="center_vertical|center_horizontal"
+			                    android:orientation="vertical" >
+			                    
+			                    <TextView
+			                        android:id="@+id/tv_distance_cruise"
+			                        android:layout_width="wrap_content"
+			                        android:layout_height="wrap_content"
+			                        android:text="Distance"
+			                        android:textColor="@color/text_pink"
+			                        android:textSize="15dp" />
+
+			                    <LinearLayout
+									android:layout_width="wrap_content"
+			                        android:layout_height="wrap_content"
+			                        android:layout_marginTop="10dp">
+									<TextView
+				                        android:id="@+id/tv_distance_data_cruise"
+				                        android:layout_width="wrap_content"
+				                        android:layout_height="wrap_content"
+				                        android:text="17"
+				                        android:textColor="@color/text_pink"
+				                        android:textSize="15dp" />
+									<TextView
+				                        android:id="@+id/tv_distance_data_unit_cruise"
+				                        android:layout_width="wrap_content"
+				                        android:layout_height="wrap_content"
+				                        android:text="Km"
+				                        android:textColor="@color/text_pink"
+				                        android:textSize="15dp" />
+			                        
+			                    </LinearLayout>
+			                   
+			                    <LinearLayout
+			                        android:layout_width="wrap_content"
+			                        android:layout_height="wrap_content"
+			                        android:layout_marginTop="10dp">
+									<TextView
+				                        android:id="@+id/tv_average_velocity_data_cruise"
+				                        android:layout_width="wrap_content"
+				                        android:layout_height="wrap_content"
+				                        android:text="3.5"
+				                        android:textColor="@color/text_pink"
+				                        android:textSize="12dp" />		
+									
+									<TextView
+				                        android:id="@+id/tv_average_velocity_data_unit_cruise"
+				                        android:layout_width="wrap_content"
+				                        android:layout_height="wrap_content"
+				                        android:text="Km/h"
+				                        android:textColor="@color/text_pink"
+				                        android:textSize="12dp" />		                        
+			                        
+			                    </LinearLayout>
+
+
+			                    
+			                </LinearLayout>
+			                
+			                <View
+			                    android:layout_width="0dip"
+			                    android:layout_height="match_parent"
+			                    android:layout_weight="0.05" />
+
+						</LinearLayout>
+		                
+		                <View
+		                    android:layout_width="match_parent"
+		                    android:layout_height="0dip"
+		                    android:layout_weight="0.05" />
+		                
+		            </LinearLayout>
+		            
+				<View
+				    android:layout_width="0dip"
+				    android:layout_height="match_parent"
+				    android:layout_weight="0.265" />
+		       
+        	</LinearLayout>
+
+           <View
+               android:layout_width="match_parent"
+               android:layout_height="0dip"
+               android:layout_weight="0.27" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/mid_bar_cruise"
+            android:layout_width="match_parent"
+            android:layout_height="0dip"
+            android:layout_weight="0.1465"
+            android:background="@color/bk_color_pink_mid"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:weightSum="1" >
+
+        	<LinearLayout 
+        	    android:layout_width="0dip"
+        	    android:layout_height="match_parent"
+        	    android:layout_weight="0.33"
+        	    android:orientation="vertical"
+        	    android:gravity="center_vertical|center_horizontal">
+        	    <TextView
+        	        android:id="@+id/tv_kcal_cruise"
+        	        android:layout_width="wrap_content"
+        	        android:layout_height="wrap_content"
+        	        android:textColor="@color/text_pink"
+        	        android:text="Kcal"
+        	        android:textSize="10sp"/>
+        	    <LinearLayout
+        			android:layout_width="wrap_content"
+        	        android:layout_height="wrap_content"
+        	        android:layout_margin="5dp">
+        	    
+        	        <TextView
+	        	        android:id="@+id/tv_kcal_data_cruise"        	        
+	        	    	android:layout_width="wrap_content"
+	        	        android:layout_height="wrap_content"
+	        	        android:textColor="@color/text_pink"
+	        	        android:text="120"/>
+        	        
+        	        <TextView
+	        	        android:id="@+id/tv_kcal_data_unit_cruise"        	        
+	        	    	android:layout_width="wrap_content"
+	        	        android:layout_height="wrap_content"
+	        	        android:layout_marginLeft="3dp"
+	        	        android:textColor="@color/text_pink"
+	        	        android:text="Kcal"/>
+        	        
+        	    </LinearLayout>
+        	            	    
+        	</LinearLayout>
+        	
+        	<View 
+        	    android:id="@+id/left_bar_cruise"
+        	    android:layout_width="0dip"
+        	    android:layout_height="wrap_content"
+        	    android:layout_weight="0.005"
+        	    android:background="@color/bk_color_pink_heavy"
+        	    android:layout_marginTop="7dp"
+        	    android:layout_marginBottom="7dp"/>
+        	
+        	<LinearLayout 
+        	    android:layout_width="0dip"
+        	    android:layout_height="match_parent"
+        	    android:layout_weight="0.33"
+        	    android:orientation="vertical"
+        	    android:gravity="center_vertical|center_horizontal">
+
+        	    <TextView
+        	        android:id="@+id/tv_altitude_cruise"
+        	        android:layout_width="wrap_content"
+        	        android:layout_height="wrap_content"
+        	        android:text="Altitude"
+        	        android:textColor="@color/text_pink"
+        	        android:textSize="10sp" />
+
+        	    <LinearLayout 
+        			android:layout_width="wrap_content"
+        	        android:layout_height="wrap_content"
+        	        android:layout_margin="5dp">
+        	    	<TextView
+	        	        android:id="@+id/tv_altitude_data_cruise"
+	        	     	android:layout_width="wrap_content"
+	        	        android:layout_height="wrap_content"
+	        	        android:textColor="@color/text_pink"
+	        	        android:text="100"/>
+        	    	<TextView
+	        	        android:id="@+id/tv_altitude_data_unit_cruise"
+	        	     	android:layout_width="wrap_content"
+	        	        android:layout_height="wrap_content"
+	        	        android:layout_marginLeft="3dp"
+	        	        android:textColor="@color/text_pink"
+	        	        android:text="m"/>
+        	    </LinearLayout>
+        	    
+        	</LinearLayout>
+        	
+        	<View 
+        	    android:id="@+id/right_bar_cruise"
+        	    android:layout_width="0dip"
+        	    android:layout_height="wrap_content"
+        	    android:layout_weight="0.005"
+        	    android:background="@color/bk_color_pink_heavy"
+        	    android:layout_marginTop="7dp"
+        	    android:layout_marginBottom="7dp"/>
+        	
+        	<LinearLayout 
+        	    android:layout_width="0dip"
+        	    android:layout_height="match_parent"
+        	    android:layout_weight="0.33"
+        	    android:orientation="vertical"
+				android:gravity="center_vertical|center_horizontal">
+        	    <TextView
+        	        android:id="@+id/tv_max_speed_cruise"
+        	        android:layout_width="wrap_content"
+        	        android:layout_height="wrap_content"
+        	        android:textColor="@color/text_pink"
+        	        android:text="Maximum Speed"
+        	        android:textSize="10sp"/>
+        	    <LinearLayout 
+        			android:layout_width="wrap_content"
+        	        android:layout_height="wrap_content"
+        	        android:layout_margin="5dp">
+	        		<TextView
+	        	        android:id="@+id/tv_max_speed_data_cruise"
+	        			android:layout_width="wrap_content"
+	        	        android:layout_height="wrap_content"
+	        	        android:textColor="@color/text_pink"
+	        	        android:text="50"/>
+        	        <TextView
+	        	        android:id="@+id/tv_max_speed_data_unit_cruise"
+	        			android:layout_width="wrap_content"
+	        	        android:layout_height="wrap_content"
+	        	        android:layout_marginLeft="3dp"
+	        	        android:textColor="@color/text_pink"
+	        	        android:text="Km/h"/>
+        	    </LinearLayout>
+
+        	</LinearLayout>
+        </LinearLayout>
+	<View
+	    android:layout_width="match_parent"
+	    android:layout_height="0dip"
+	    android:layout_weight="0.0835"/>
+
+    </LinearLayout>
+	<TextView
+	        android:id="@+id/app_name_cruise"
+	        android:layout_width="match_parent"
+	        android:layout_height="20dp"
+	        android:layout_marginBottom="10dp"
+	        android:gravity="center_vertical|center_horizontal"
+	        android:text="Bicycle app"
+	        android:textStyle="bold"
+	        android:textSize="13sp"
+	        android:textColor="@color/text_pink" />
+</LinearLayout>

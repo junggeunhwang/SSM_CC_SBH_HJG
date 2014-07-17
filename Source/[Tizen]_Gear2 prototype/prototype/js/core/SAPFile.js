@@ -8,6 +8,27 @@ function SAPFileInit()
 		console.log("Error Exception, error name : " + e.name + ", error message : " + e.message); 
 	} 
 	// 보내는 콜백
+	function fileDelete()
+	{
+		tizen.filesystem.resolve(
+				'file:///opt/usr/media/Sounds/',
+				   function(dir) {
+				     console.log("Mount point Name is " +  dir.path);
+				     console.log(filesystem.basename(RecordedAudioPath));
+				     dir.deleteFile(
+				    		 RecordedAudioPath
+				    		 ,
+				             function(){
+				               console.log("File Deleted");
+				             }, function(e) {
+				               console.log("Error" + e.message);
+				             });
+
+				   }, function(e) {
+				     console.log("Error: " + e.message);
+				   }, "r"
+				 );
+	}
 	var sendfilecallback = { 
 			onprogress : function(transferId, progress)
 			{ 
@@ -16,12 +37,14 @@ function SAPFileInit()
 			oncomplete : function(transferId, localPath)
 			{ 
 				console.log("File transfer complete. transferId : " + transferId);
-				mainExtrastatus.innerHTML = msg_audiosendingsuccess;
+				
+				fileDelete();
 			}, 
 			onerror : function(errorCode, transferId)
 			{ 
 				console.log("FileSendError transferId : " + transferId + " code : " + errorCode);
-				mainExtrastatus.innerHTML = msg_audiosendingerror;
+				
+				fileDelete();
 			} 
 	}; 
 	// 받는 콜백
