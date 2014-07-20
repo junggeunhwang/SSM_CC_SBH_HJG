@@ -1,0 +1,47 @@
+package com.ssm.cyclists.controller.fragment;
+
+import java.util.ArrayList;
+
+import com.ssm.cyclists.model.UserData;
+import com.ssm.cyclists.view.layout.SearchCycleMateLayout;
+
+import android.app.Fragment;
+import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+
+
+public class SearchCycleMateFragment extends Fragment {
+
+	SearchCycleMateLayout layout;
+	
+	ArrayList<UserData> SearchResult;
+	
+	public SearchCycleMateFragment() {
+		ArrayList<UserData> SearchResult = new ArrayList<UserData>();
+	}
+	
+	public ArrayList<UserData> getSearchResult() {
+		return SearchResult;
+	}
+
+	public void setSearchResult(ArrayList<UserData> searchResult) {
+		SearchResult = searchResult;
+	}
+
+	@Override
+	public View onCreateView(LayoutInflater inflater, ViewGroup container,
+			Bundle savedInstanceState) {
+		layout = new SearchCycleMateLayout(this);
+		layout.createView(inflater, container);
+		layout.init();
+		
+		return layout.getView();
+	}
+
+	public SearchCycleMateLayout getLayout() {
+		assert(layout!=null);
+		return layout;
+	}
+}

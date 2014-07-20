@@ -54,216 +54,234 @@
 		    <View
 		        android:layout_width="match_parent"
 		        android:layout_height="0dip"
-		        android:layout_weight="0.0647"/>
+		        android:layout_weight="0.04"/>
 		    
+		<LinearLayout
+		    android:layout_width="match_parent"
+		    android:layout_height="0dip"
+		    android:layout_marginLeft="5dp"
+		    android:layout_marginRight="5dp"
+		    android:layout_weight="0.3623"
+		    android:background="@color/white"
+		    android:gravity="center_horizontal|center_vertical"
+		    android:orientation="vertical"
+		    android:weightSum="1" >
+
 		    <LinearLayout
-		        android:id="@+id/mid_box_cycle_tracker_detail_map"
 		        android:layout_width="match_parent"
 		        android:layout_height="0dip"
-		        android:layout_weight="0.3217"
-		        android:background="@color/bk_color_pink_mid"
-		        android:orientation="vertical"
-		        android:weightSum="1" >
-	
-	        <LinearLayout
-	            android:layout_width="match_parent"
-	            android:layout_height="match_parent"
-	            android:layout_weight="0.5"
-	            android:orientation="horizontal"
-	            android:weightSum="1" >
-	
-	            <LinearLayout
-	                android:layout_width="match_parent"
-	                android:layout_height="match_parent"
-	                android:layout_weight="0.5"
-	                android:weightSum="1"
-	                android:orientation="vertical">
-	 
-	                <View
-				        android:layout_width="match_parent"
-				        android:layout_height="0dip"
-				        android:layout_weight="0.1010"/>
-	                <TextView
-	                    android:id="@+id/tv_title_top_left_cycle_tracker_detail_map"
-	                    android:layout_width="match_parent"
-	                    android:layout_height="0dip"
-	                    android:layout_marginLeft="10dp"
-	                    android:layout_marginRight="10dp"
-	                    android:layout_weight="0.24"
-	                    android:background="@color/bk_color_pink_heavy"
-	                    android:gravity="center_vertical|center_horizontal"
-	                    android:text="First starter"
-	                    android:textColor="@color/white"
-	                    android:textSize="8sp" />
-	                 <View
-				        android:layout_width="match_parent"
-				        android:layout_height="0dip"
-				        android:layout_weight="0.035"/>
-	                <TextView
-	                    android:id="@+id/tv_value_top_left_cycle_tracker_detail_map"
-	                    android:layout_width="match_parent"
-	                    android:layout_height="0dip"
-	
-	                    android:layout_marginLeft="10dp"
-	                    android:layout_marginRight="10dp"
-	                    
-	                    android:layout_weight="0.54"
-	                    android:background="@color/bk_color_pink_heavy"
-	                    android:gravity="center_vertical|center_horizontal"
-	                    android:text="20 Km"
-	                    android:textColor="@color/white"
-	                    android:textSize="12sp"/>
-	
-	            </LinearLayout>
-	
-	            <LinearLayout
-	                android:layout_width="match_parent"
-	                android:layout_height="match_parent"
-	                android:layout_weight="0.5"
-	                android:weightSum="1"
-	                android:orientation="vertical">
-	 
-	                <View
-				        android:layout_width="match_parent"
-				        android:layout_height="0dip"
-				        android:layout_weight="0.1010"/>
-	                <TextView
-	                    android:id="@+id/tv_title_top_right_cycle_tracker_detail_map"
-	                    android:layout_width="match_parent"
-	                    android:layout_height="0dip"
-	                    android:layout_marginLeft="10dp"
-	                    android:layout_marginRight="10dp"
-	                    android:layout_weight="0.24"
-	                    android:background="@color/bk_color_pink_heavy"
-	                    android:gravity="center_vertical|center_horizontal"
-	                    android:text="Start point"
-	                    android:textColor="@color/white"
-	                    android:textSize="8sp" />
-	                 <View
-				        android:layout_width="match_parent"
-				        android:layout_height="0dip"
-				        android:layout_weight="0.035"/>
-	                <TextView
-	                    android:id="@+id/tv_value_top_right_cycle_tracker_detail_map"
-	                    android:layout_width="match_parent"
-	                    android:layout_height="0dip"
-	
-	                    android:layout_marginLeft="10dp"
-	                    android:layout_marginRight="10dp"
-	                    
-	                    android:layout_weight="0.54"
-	                    android:background="@color/bk_color_pink_heavy"
-	                    android:gravity="center_vertical|center_horizontal"
-	                    android:text="Distance 20 Km"
-	                    android:textColor="@color/white"
-	                    android:textSize="12sp"/>
-	
-	            </LinearLayout>
-	
-	        </LinearLayout>
-	
-	        <LinearLayout
-	            android:layout_width="match_parent"
-	            android:layout_height="match_parent"
-	            android:layout_weight="0.5"
-	            android:orientation="horizontal"
-	            android:weightSum="1" >
-	
-	            <LinearLayout
-	                android:layout_width="match_parent"
-	                android:layout_height="match_parent"
-	                android:layout_weight="0.5"
-	                android:weightSum="1"
-	                android:orientation="vertical">
-	 
-	                <View
-				        android:layout_width="match_parent"
-				        android:layout_height="0dip"
-				        android:layout_weight="0.1010"/>
-	                <TextView
-	                    android:id="@+id/tv_title_bottom_left_cycle_tracker_detail_map"
-	                    android:layout_width="match_parent"
-	                    android:layout_height="0dip"
-	                    android:layout_marginLeft="10dp"
-	                    android:layout_marginRight="10dp"
-	                    android:layout_weight="0.24"
-	                    android:background="@color/bk_color_pink_heavy"
-	                    android:gravity="center_vertical|center_horizontal"
-	                    android:text="Last starter"
-	                    android:textColor="@color/white"
-	                    android:textSize="8sp" />
-	                 <View
-				        android:layout_width="match_parent"
-				        android:layout_height="0dip"
-				        android:layout_weight="0.035"/>
-	                <TextView
-	                    android:id="@+id/tv_value_bottom_left_cycle_tracker_detail_map"
-	                    android:layout_width="match_parent"
-	                    android:layout_height="0dip"
-	
-	                    android:layout_marginLeft="10dp"
-	                    android:layout_marginRight="10dp"
-	                    
-	                    android:layout_weight="0.54"
-	                    android:background="@color/bk_color_pink_heavy"
-	                    android:gravity="center_vertical|center_horizontal"
-	                    android:text="11 Km"
-	                    android:textColor="@color/white"
-	                    android:textSize="12sp"/>
-	
-	            </LinearLayout>
-	
-	            <LinearLayout
-	                android:layout_width="match_parent"
-	                android:layout_height="match_parent"
-	                android:layout_weight="0.5"
-	                android:weightSum="1"
-	                android:orientation="vertical">
-	 
-	                <View
-				        android:layout_width="match_parent"
-				        android:layout_height="0dip"
-				        android:layout_weight="0.1010"/>
-	                <TextView
-	                    android:id="@+id/tv_title_bottom_right_cycle_tracker_detail_map"
-	                    android:layout_width="match_parent"
-	                    android:layout_height="0dip"
-	                    android:layout_marginLeft="10dp"
-	                    android:layout_marginRight="10dp"
-	                    android:layout_weight="0.24"
-	                    android:background="@color/bk_color_pink_heavy"
-	                    android:gravity="center_vertical|center_horizontal"
-	                    android:text="Total member"
-	                    android:textColor="@color/white"
-	                    android:textSize="8sp" />
-	                 <View
-				        android:layout_width="match_parent"
-				        android:layout_height="0dip"
-				        android:layout_weight="0.035"/>
-	                <TextView
-	                    android:id="@+id/tv_value_bottom_right_cycle_tracker_detail_map"
-	                    android:layout_width="match_parent"
-	                    android:layout_height="0dip"
-	
-	                    android:layout_marginLeft="10dp"
-	                    android:layout_marginRight="10dp"
-	                    
-	                    android:layout_weight="0.54"
-	                    android:background="@color/bk_color_pink_heavy"
-	                    android:gravity="center_vertical|center_horizontal"
-	                    android:text="5 People"
-	                    android:textColor="@color/white"
-	                    android:textSize="12sp"/>
-	
-	            </LinearLayout>
-	
-	        </LinearLayout>
-	    </LinearLayout>
+		        android:layout_marginBottom="1.5dp"
+		        android:layout_marginTop="1.5dp" 
+		        android:layout_weight="0.16">
+
+		        <TextView
+		            android:id="@+id/tv_title_total_distance_cycletracker_detail"
+		            android:layout_width="0dip"
+		            android:layout_height="match_parent"
+		            android:layout_marginRight="5dp"
+		            android:layout_weight="0.3"
+		            android:background="@color/bk_color_pink_heavy"
+		            android:gravity="center_vertical|center_horizontal"
+		            android:paddingBottom="3dp"
+		            android:paddingTop="3dp"
+		            android:text="Total Distance"
+		            android:textColor="@color/white"
+		            android:textSize="10sp" />
+
+		        <TextView
+		            android:id="@+id/tv_data_total_distance_cycletracker_detail"
+		            android:layout_width="0dip"
+		            android:layout_height="match_parent"
+		            android:layout_weight="0.7"
+		            android:background="@color/bk_color_pink_light"
+		            android:gravity="center_vertical|center_horizontal"
+		            android:paddingBottom="3dp"
+		            android:paddingTop="3dp"
+		            android:text="Total Distance"
+		            android:textColor="@color/text_pink"
+		            android:textSize="10sp" />
+		    </LinearLayout>
+
+		    <LinearLayout
+		        android:layout_width="match_parent"
+		        android:layout_height="0dip"
+		        android:layout_marginBottom="1.5dp"
+		        android:layout_marginTop="1.5dp" 
+		        android:layout_weight="0.16">
+
+		        <TextView
+		            android:id="@+id/tv_title_total_calories_cycletracker_detail"
+		            android:layout_width="0dip"
+		            android:layout_height="match_parent"
+		            android:layout_marginRight="5dp"
+		            android:layout_weight="0.3"
+		            android:background="@color/bk_color_pink_heavy"
+		            android:gravity="center_vertical|center_horizontal"
+		            android:paddingBottom="3dp"
+		            android:paddingTop="3dp"
+		            android:text="Total Calories"
+		            android:textColor="@color/white"
+		            android:textSize="10sp" />
+
+		        <TextView
+		            android:id="@+id/tv_data_total_calories_cycletracker_detail"
+		            android:layout_width="0dip"
+		            android:layout_height="match_parent"
+		            android:layout_weight="0.7"
+		            android:background="@color/bk_color_pink_light"
+		            android:gravity="center_vertical|center_horizontal"
+		            android:paddingBottom="3dp"
+		            android:paddingTop="3dp"
+		            android:text="100 Kcal"
+		            android:textColor="@color/text_pink"
+		            android:textSize="10sp" />
+		    </LinearLayout>
+
+		    <LinearLayout
+		        android:layout_width="match_parent"
+		        android:layout_height="0dip"
+		        android:layout_marginBottom="1.5dp"
+		        android:layout_marginTop="1.5dp" 
+		        android:layout_weight="0.16">
+
+		        <TextView
+		            android:id="@+id/tv_title_avgspeed_cycletracker_detail"
+		            android:layout_width="0dip"
+		            android:layout_height="match_parent"
+		            android:layout_marginRight="5dp"
+		            android:layout_weight="0.3"
+		            android:background="@color/bk_color_pink_heavy"
+		            android:gravity="center_vertical|center_horizontal"
+		            android:paddingBottom="3dp"
+		            android:paddingTop="3dp"
+		            android:text="Average Speed"
+		            android:textColor="@color/white"
+		            android:textSize="10sp" />
+
+		        <TextView
+		            android:id="@+id/tv_data_avgspeed_cycletracker_detail"
+		            android:layout_width="0dip"
+		            android:layout_height="match_parent"
+		            android:layout_weight="0.7"
+		            android:background="@color/bk_color_pink_light"
+		            android:gravity="center_vertical|center_horizontal"
+		            android:paddingBottom="3dp"
+		            android:paddingTop="3dp"
+		            android:text="22 Km/h"
+		            android:textColor="@color/text_pink"
+		            android:textSize="10sp" />
+		    </LinearLayout>
+
+		    <LinearLayout
+		        android:layout_width="match_parent"
+		        android:layout_height="0dip"
+		        android:layout_marginBottom="1.5dp"
+		        android:layout_marginTop="1.5dp"
+		        android:layout_weight="0.16" >
+
+		        <TextView
+		            android:id="@+id/tv_title_number_of_people_cycletracker_detail"
+		            android:layout_width="0dip"
+		            android:layout_height="match_parent"
+		            android:layout_marginRight="5dp"
+		            android:layout_weight="0.3"
+		            android:background="@color/bk_color_pink_heavy"
+		            android:gravity="center_vertical|center_horizontal"
+		            android:paddingBottom="3dp"
+		            android:paddingTop="3dp"
+		            android:text="Number of people"
+		            android:textColor="@color/white"
+		            android:textSize="10sp" />
+
+		        <TextView
+		            android:id="@+id/tv_data_number_of_people_cycletracker_detail"
+		            android:layout_width="0dip"
+		            android:layout_height="match_parent"
+		            android:layout_weight="0.7"
+		            android:background="@color/bk_color_pink_light"
+		            android:gravity="center_vertical|center_horizontal"
+		            android:paddingBottom="3dp"
+		            android:paddingTop="3dp"
+		            android:text="5 Person"
+		            android:textColor="@color/text_pink"
+		            android:textSize="10sp" />
+		    </LinearLayout>
+
+		    <LinearLayout
+		        android:layout_width="match_parent"
+		        android:layout_height="0dip"
+		        android:layout_marginBottom="1.5dp"
+		        android:layout_marginTop="1.5dp" 
+		        android:layout_weight="0.16">
+
+		        <TextView
+		            android:id="@+id/tv_title_atmosphere_cycletracker_detail"
+		            android:layout_width="0dip"
+		            android:layout_height="match_parent"
+		            android:layout_marginRight="5dp"
+		            android:layout_weight="0.3"
+		            android:background="@color/bk_color_pink_heavy"
+		            android:gravity="center_vertical|center_horizontal"
+		            android:paddingBottom="3dp"
+		            android:paddingTop="3dp"
+		            android:text="Atmosphere"
+		            android:textColor="@color/white"
+		            android:textSize="10sp" />
+
+		        <TextView
+		            android:id="@+id/tv_data_atmosphere_cycletracker_detail"
+		            android:layout_width="0dip"
+		            android:layout_height="match_parent"
+		            android:layout_weight="0.7"
+		            android:background="@color/bk_color_pink_light"
+		            android:gravity="center_vertical|center_horizontal"
+		            android:paddingBottom="3dp"
+		            android:paddingTop="3dp"
+		            android:text="27 / 66 %"
+		            android:textColor="@color/text_pink"
+		            android:textSize="10sp" />
+		    </LinearLayout>
+
+		    <LinearLayout
+		        android:layout_width="match_parent"
+		        android:layout_height="0dip"
+		        android:layout_marginBottom="1.5dp"
+		        android:layout_marginTop="1.5dp"
+		        android:layout_weight="0.16" >
+
+		        <TextView
+		            android:id="@+id/tv_title_wind_cycletracker_detail"
+		            android:layout_width="0dip"
+		            android:layout_height="match_parent"
+		            android:layout_marginRight="5dp"
+		            android:layout_weight="0.3"
+		            android:background="@color/bk_color_pink_heavy"
+		            android:gravity="center_vertical|center_horizontal"
+		            android:paddingBottom="3dp"
+		            android:paddingTop="3dp"
+		            android:text="Wind"
+		            android:textColor="@color/white"
+		            android:textSize="10sp" />
+
+		        <TextView
+		            android:id="@+id/tv_data_wind_cycletracker_detail"
+		            android:layout_width="0dip"
+		            android:layout_height="match_parent"
+		            android:layout_weight="0.7"
+		            android:background="@color/bk_color_pink_light"
+		            android:gravity="center_vertical|center_horizontal"
+		            android:paddingBottom="3dp"
+		            android:paddingTop="3dp"
+		            android:text="West  2.2 Km/h"
+		            android:textColor="@color/text_pink"
+		            android:textSize="10sp" />
+		    </LinearLayout>
+		</LinearLayout>
 	    
 	    <View
 	        android:layout_width="match_parent"
 	        android:layout_height="0dip"
-	        android:layout_weight="0.0559"/>
+	        android:layout_weight="0.040"/>
 	        
 	    <TextView
 	        android:id="@+id/app_name_cycle_tracker_detail_map"

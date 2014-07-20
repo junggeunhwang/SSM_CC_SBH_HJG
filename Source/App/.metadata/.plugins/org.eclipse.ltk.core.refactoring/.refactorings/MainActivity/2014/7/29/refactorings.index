@@ -22,3 +22,23 @@
 1405486051751	Rename resource 'xhdpi.png'
 1405486059259	Delete element
 1405486068878	Rename resource 'xxhdpi.png'
+1405532693321	Delete element
+1405533631746	Rename package 'com.ssm.cyclists.controller'
+1405533637498	Rename package 'com.ssm.cyclists.controller.activity'
+1405533648402	Rename package 'com.ssm.cyclists.controller.asynctask'
+1405533656236	Rename package 'com.ssm.cyclists.controller.communication.https'
+1405533662713	Rename package 'com.ssm.cyclists.controller.communication.sapinterface'
+1405533669241	Rename package 'com.ssm.cyclists.controller.fragment'
+1405533675426	Rename package 'com.ssm.cyclists.controller.manager'
+1405533681048	Rename package 'com.ssm.cyclists.controller.timertask'
+1405533687013	Rename package 'com.ssm.cyclists.model'
+1405533691457	Rename package 'com.ssm.cyclists.model.adapter'
+1405533697139	Rename package 'com.ssm.cyclists.view'
+1405533704112	Rename package 'com.ssm.cyclists.view.layout'
+1405545477437	Delete element
+1405569932456	Rename type 'DistDiffMonitorTimertask'
+1405593343739	Move compilation units
+1405593350031	Move compilation unit
+1405597475915	Delete element
+1405617598155	Delete element
+1405629344618	Delete element

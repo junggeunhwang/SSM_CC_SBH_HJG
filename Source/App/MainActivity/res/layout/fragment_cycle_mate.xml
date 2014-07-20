@@ -43,16 +43,6 @@
 	        android:layout_width="0dip"
 	        android:layout_height="match_parent"
 	        android:layout_weight="0.35"/>
-        <Button
-            android:id="@+id/btn_add_cyclemate"
-            android:layout_width="0dip"
-            android:layout_height="match_parent"
-            android:background="@color/md__transparent"
-            android:gravity="center_vertical|center_horizontal"
-            android:layout_weight="0.2"
-            android:textColor="@color/white"
-            android:text="Add"
-            android:textSize="11dp"/>
 
     </LinearLayout>
 
@@ -95,7 +85,7 @@
 	           android:background="@drawable/rounded_edittext"
 	           android:drawableLeft="@drawable/search_small"
 	           android:ems="10"
-	           android:hint="name or phone number"
+	           android:hint="enter name"
 	           android:maxLines="1"
 	           android:paddingBottom="5dp"
 	           android:paddingLeft="5dp"

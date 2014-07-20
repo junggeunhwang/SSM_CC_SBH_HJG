@@ -1,0 +1,283 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical"
+    android:weightSum="1" >
+    
+	<LinearLayout
+	    android:id="@+id/top_bar_cycle_tracker_detail_map"
+	    android:layout_width="match_parent"
+	    android:layout_height="45dp"
+	    android:background="@color/bk_color_pink_heavy"
+	    android:gravity="center_vertical|center_horizontal"
+	    android:weightSum="1" >
+
+        <TextView
+            android:id="@+id/fragment_name_cycle_tracker_detail_map"
+            android:layout_width="0dip"
+            android:layout_height="match_parent"
+            android:layout_weight="0.1594"
+            android:gravity="center_vertical|center_horizontal"
+            android:text="Path"
+            android:textColor="@color/white"
+            android:textSize="15sp" />
+
+        <ImageView
+            android:id="@+id/location_icon_cycle_tracker_detail_map"
+            android:layout_width="0dip"
+            android:layout_height="wrap_content"
+            android:src="@drawable/location_icon_pink" 
+            android:layout_weight="0.0366"/>
+
+    </LinearLayout>
+
+    <LinearLayout 
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        
+        android:weightSum="1"
+        android:orientation="vertical">
+	        <View
+		        android:layout_width="match_parent"
+		        android:layout_height="0dip"
+		        android:layout_weight="0.0262"/>
+		
+		    <fragment
+		        android:id="@+id/map_cycle_tracker_detail_map"
+		        android:layout_width="wrap_content"
+		        android:layout_height="0dip"
+		        android:layout_weight="0.4895"
+		        class="com.google.android.gms.maps.MapFragment" />
+	    
+		    <View
+		        android:layout_width="match_parent"
+		        android:layout_height="0dip"
+		        android:layout_weight="0.04"/>
+		    
+		<LinearLayout
+		    android:id="@+id/mid_box_cycle_tracker_detail_map"
+		    android:layout_width="match_parent"
+		    android:layout_height="0dip"
+		    android:layout_marginLeft="5dp"
+		    android:layout_marginRight="5dp"
+		    android:layout_weight="0.3623"
+		    android:background="@color/white"
+		    android:orientation="vertical"
+		    android:weightSum="1" >
+
+		    <LinearLayout
+		        android:layout_width="match_parent"
+		        android:layout_height="wrap_content"
+		        android:layout_marginBottom="2dp"
+		        android:layout_marginTop="2dp" >
+
+		        <TextView
+		            android:layout_width="0dip"
+		            android:layout_height="wrap_content"
+		            android:layout_marginRight="5dp"
+		            android:layout_weight="0.3"
+		            android:background="@color/bk_color_pink_heavy"
+		            android:gravity="center_vertical|center_horizontal"
+		            android:paddingBottom="3dp"
+		            android:paddingTop="3dp"
+		            android:text="Total Distance"
+		            android:textColor="@color/white"
+		            android:textSize="10sp" />
+
+		        <TextView
+		            android:layout_width="0dip"
+		            android:layout_height="wrap_content"
+		            android:layout_weight="0.7"
+		            android:background="@color/bk_color_pink_opacity"
+		            android:gravity="center_vertical|center_horizontal"
+		            android:paddingBottom="3dp"
+		            android:paddingTop="3dp"
+		            android:text="Total Distance"
+		            android:textColor="@color/text_pink"
+		            android:textSize="10sp" />
+		    </LinearLayout>
+
+		    <LinearLayout
+		        android:layout_width="match_parent"
+		        android:layout_height="wrap_content"
+		        android:layout_marginBottom="2dp"
+		        android:layout_marginTop="2dp" >
+
+		        <TextView
+		            android:layout_width="0dip"
+		            android:layout_height="wrap_content"
+		            android:layout_marginRight="5dp"
+		            android:layout_weight="0.3"
+		            android:background="@color/bk_color_pink_heavy"
+		            android:gravity="center_vertical|center_horizontal"
+		            android:paddingBottom="3dp"
+		            android:paddingTop="3dp"
+		            android:text="Total Calories"
+		            android:textColor="@color/white"
+		            android:textSize="10sp" />
+
+		        <TextView
+		            android:layout_width="0dip"
+		            android:layout_height="wrap_content"
+		            android:layout_weight="0.7"
+		            android:background="@color/bk_color_pink_opacity"
+		            android:gravity="center_vertical|center_horizontal"
+		            android:paddingBottom="3dp"
+		            android:paddingTop="3dp"
+		            android:text="100 Kcal"
+		            android:textColor="@color/text_pink"
+		            android:textSize="10sp" />
+		    </LinearLayout>
+
+		    <LinearLayout
+		        android:layout_width="match_parent"
+		        android:layout_height="wrap_content"
+		        android:layout_marginBottom="2dp"
+		        android:layout_marginTop="2dp" >
+
+		        <TextView
+		            android:layout_width="0dip"
+		            android:layout_height="wrap_content"
+		            android:layout_marginRight="5dp"
+		            android:layout_weight="0.3"
+		            android:background="@color/bk_color_pink_heavy"
+		            android:gravity="center_vertical|center_horizontal"
+		            android:paddingBottom="3dp"
+		            android:paddingTop="3dp"
+		            android:text="Average Speed"
+		            android:textColor="@color/white"
+		            android:textSize="10sp" />
+
+		        <TextView
+		            android:layout_width="0dip"
+		            android:layout_height="wrap_content"
+		            android:layout_weight="0.7"
+		            android:background="@color/bk_color_pink_opacity"
+		            android:gravity="center_vertical|center_horizontal"
+		            android:paddingBottom="3dp"
+		            android:paddingTop="3dp"
+		            android:text="22 Km/h"
+		            android:textColor="@color/text_pink"
+		            android:textSize="10sp" />
+		    </LinearLayout>
+
+		    <LinearLayout
+		        android:layout_width="match_parent"
+		        android:layout_height="wrap_content"
+		        android:layout_marginBottom="2dp"
+		        android:layout_marginTop="2dp" >
+
+		        <TextView
+		            android:layout_width="0dip"
+		            android:layout_height="wrap_content"
+		            android:layout_marginRight="5dp"
+		            android:layout_weight="0.3"
+		            android:background="@color/bk_color_pink_heavy"
+		            android:gravity="center_vertical|center_horizontal"
+		            android:paddingBottom="3dp"
+		            android:paddingTop="3dp"
+		            android:text="Number of people"
+		            android:textColor="@color/white"
+		            android:textSize="10sp" />
+
+		        <TextView
+		            android:layout_width="0dip"
+		            android:layout_height="wrap_content"
+		            android:layout_weight="0.7"
+		            android:background="@color/bk_color_pink_opacity"
+		            android:gravity="center_vertical|center_horizontal"
+		            android:paddingBottom="3dp"
+		            android:paddingTop="3dp"
+		            android:text="5 Person"
+		            android:textColor="@color/text_pink"
+		            android:textSize="10sp" />
+		    </LinearLayout>
+
+		    <LinearLayout
+		        android:layout_width="match_parent"
+		        android:layout_height="wrap_content"
+		        android:layout_marginBottom="2dp"
+		        android:layout_marginTop="2dp" >
+
+		        <TextView
+		            android:layout_width="0dip"
+		            android:layout_height="wrap_content"
+		            android:layout_marginRight="5dp"
+		            android:layout_weight="0.3"
+		            android:background="@color/bk_color_pink_heavy"
+		            android:gravity="center_vertical|center_horizontal"
+		            android:paddingBottom="3dp"
+		            android:paddingTop="3dp"
+		            android:text="Atmosphere"
+		            android:textColor="@color/white"
+		            android:textSize="10sp" />
+
+		        <TextView
+		            android:layout_width="0dip"
+		            android:layout_height="wrap_content"
+		            android:layout_weight="0.7"
+		            android:background="@color/bk_color_pink_opacity"
+		            android:gravity="center_vertical|center_horizontal"
+		            android:paddingBottom="3dp"
+		            android:paddingTop="3dp"
+		            android:text="27 / 66 %"
+		            android:textColor="@color/text_pink"
+		            android:textSize="10sp" />
+		    </LinearLayout>
+
+		    <LinearLayout
+		        android:layout_width="match_parent"
+		        android:layout_height="wrap_content"
+		        android:layout_marginBottom="2dp"
+		        android:layout_marginTop="2dp" >
+
+		        <TextView
+		            android:layout_width="0dip"
+		            android:layout_height="wrap_content"
+		            android:layout_marginRight="5dp"
+		            android:layout_weight="0.3"
+		            android:background="@color/bk_color_pink_heavy"
+		            android:gravity="center_vertical|center_horizontal"
+		            android:paddingBottom="3dp"
+		            android:paddingTop="3dp"
+		            android:text="Wind"
+		            android:textColor="@color/white"
+		            android:textSize="10sp" />
+
+		        <TextView
+		            android:layout_width="0dip"
+		            android:layout_height="wrap_content"
+		            android:layout_weight="0.7"
+		            android:background="@color/bk_color_pink_opacity"
+		            android:gravity="center_vertical|center_horizontal"
+		            android:paddingBottom="3dp"
+		            android:paddingTop="3dp"
+		            android:text="West  2.2 Km/h"
+		            android:textColor="@color/text_pink"
+		            android:textSize="10sp" />
+		    </LinearLayout>
+		</LinearLayout>
+	    
+	    <View
+	        android:layout_width="match_parent"
+	        android:layout_height="0dip"
+	        android:layout_weight="0.040"/>
+	        
+	    <TextView
+	        android:id="@+id/app_name_cycle_tracker_detail_map"
+	        android:layout_width="match_parent"
+	        android:layout_height="0dip"
+	        android:layout_weight="0.0420"
+	        android:layout_marginBottom="10dp"
+	        android:gravity="center_vertical|center_horizontal"
+	        android:text="@string/app_name"
+	        android:textStyle="bold"
+	        android:textSize="13sp"
+	        android:textColor="@color/text_pink" />
+	        
+        
+    </LinearLayout>
+    
+</LinearLayout>

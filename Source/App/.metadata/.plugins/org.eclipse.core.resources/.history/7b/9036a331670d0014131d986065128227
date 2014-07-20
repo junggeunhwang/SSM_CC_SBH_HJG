@@ -1,0 +1,13 @@
+package com.ssm.ExCycling.controller.timertask;
+
+import java.util.TimerTask;
+
+public class DistDiffMonitorTimertask extends TimerTask {
+
+	@Override
+	public void run() {
+		// TODO Auto-generated method stub
+
+	}
+
+}

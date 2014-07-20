@@ -1,0 +1,333 @@
+package com.ssm.ExCycling.view.layout;
+
+import java.util.ArrayList;
+
+import com.ssm.ExCycling.R;
+import com.ssm.ExCycling.controller.activity.MainActivity;
+import com.ssm.ExCycling.controller.manager.CruiseDataManager;
+import com.ssm.ExCycling.controller.manager.ResourceManager;
+import com.ssm.ExCycling.controller.manager.SettingsDataManager;
+
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Polyline;
+import com.google.android.gms.maps.model.PolylineOptions;
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.MapFragment;
+
+import android.app.Fragment;
+import android.content.Context;
+import android.graphics.Color;
+import android.location.Criteria;
+import android.location.Location;
+import android.location.LocationManager;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
+
+public class CycleTrackerDetailMapLayout extends BaseFragmentLayout {
+
+	static String TAG = CycleTrackerDetailMapLayout.class.getSimpleName();
+	
+	private TextView tvFragmentName;
+	private TextView tvAppName;
+	
+	private TextView tvTitleTotalDistance;
+	private TextView tvTitleTotalCalories;
+	private TextView tvTitleAverageSpeed;
+	private TextView tvTitleNumberofPeople;
+	private TextView tvTitleAtmosphere;
+	private TextView tvTitleWind;
+	private TextView tvDataTotalDistance;
+	private TextView tvDataTotalCalories;
+	private TextView tvDataAverageSpeed;
+	private TextView tvDataNumberofPeople;
+	private TextView tvDataAtmosphere;
+	private TextView tvDataWind;
+	
+	private GoogleMap mGoogleMap;
+	
+	private LinearLayout lyTopBar;
+	
+	private ImageView ivLocationIcon;
+//	MapView map_view;
+	
+	boolean init_map = false;
+	
+	public CycleTrackerDetailMapLayout(Fragment instance) {
+		super(instance);
+		Log.d(TAG,"MapViewLayout");
+	}
+	
+	public void clean(){
+		mGoogleMap.setMyLocationEnabled(false);
+	}
+
+	@Override
+	public void createView(LayoutInflater inflater, ViewGroup container) {
+		Log.d(TAG,"onCreateView");
+		if(view==null)
+			view = inflater.inflate(R.layout.fragment_cycle_tracker_detail_map, container, false);
+	}
+	
+	public void init(){
+		Log.d(TAG,"init");
+		
+		tvFragmentName = (TextView)getView().findViewById(R.id.fragment_name_cycle_tracker_detail_map);
+		tvAppName = (TextView)getView().findViewById(R.id.app_name_cycle_tracker_detail_map);
+		
+		tvTitleTotalDistance = (TextView)getView().findViewById(R.id.tv_title_total_distance_cycletracker_detail);
+		tvTitleTotalCalories = (TextView)getView().findViewById(R.id.tv_title_total_calories_cycletracker_detail);
+		tvTitleAverageSpeed = (TextView)getView().findViewById(R.id.tv_title_avgspeed_cycletracker_detail);
+		tvTitleNumberofPeople = (TextView)getView().findViewById(R.id.tv_title_number_of_people_cycletracker_detail);
+		tvTitleAtmosphere = (TextView)getView().findViewById(R.id.tv_title_atmosphere_cycletracker_detail);
+		tvTitleWind = (TextView)getView().findViewById(R.id.tv_title_wind_cycletracker_detail);
+		tvDataTotalDistance = (TextView)getView().findViewById(R.id.tv_data_total_distance_cycletracker_detail);
+		tvDataTotalCalories = (TextView)getView().findViewById(R.id.tv_data_total_calories_cycletracker_detail);
+		tvDataAverageSpeed = (TextView)getView().findViewById(R.id.tv_data_avgspeed_cycletracker_detail);
+		tvDataNumberofPeople = (TextView)getView().findViewById(R.id.tv_data_number_of_people_cycletracker_detail);
+		tvDataAtmosphere = (TextView)getView().findViewById(R.id.tv_data_atmosphere_cycletracker_detail);
+		tvDataWind = (TextView)getView().findViewById(R.id.tv_data_wind_cycletracker_detail);
+		
+		tvTitleTotalDistance.setTypeface(ResourceManager.getInstance().getFont("helvetica"));
+		tvTitleTotalCalories.setTypeface(ResourceManager.getInstance().getFont("helvetica"));
+		tvTitleAverageSpeed.setTypeface(ResourceManager.getInstance().getFont("helvetica"));
+		tvTitleNumberofPeople.setTypeface(ResourceManager.getInstance().getFont("helvetica"));
+		tvTitleAtmosphere.setTypeface(ResourceManager.getInstance().getFont("helvetica"));
+		tvTitleWind.setTypeface(ResourceManager.getInstance().getFont("helvetica"));
+		tvDataTotalDistance.setTypeface(ResourceManager.getInstance().getFont("nanum_gothic"));
+		tvDataTotalCalories.setTypeface(ResourceManager.getInstance().getFont("nanum_gothic"));
+		tvDataAverageSpeed.setTypeface(ResourceManager.getInstance().getFont("nanum_gothic"));
+		tvDataNumberofPeople.setTypeface(ResourceManager.getInstance().getFont("nanum_gothic"));
+		tvDataAtmosphere.setTypeface(ResourceManager.getInstance().getFont("nanum_gothic"));
+		tvDataWind.setTypeface(ResourceManager.getInstance().getFont("nanum_gothic"));
+		
+		
+		lyTopBar = (LinearLayout)getView().findViewById(R.id.top_bar_cycle_tracker_detail_map);
+		
+		ivLocationIcon = (ImageView)getView().findViewById(R.id.location_icon_cycle_tracker_detail_map);
+		
+		tvFragmentName.setTypeface(ResourceManager.getInstance().getFont("helvetica"));
+		tvAppName.setTypeface(ResourceManager.getInstance().getFont("helvetica"));
+			
+		MapFragment mf =(MapFragment)MainActivity.getInstasnce().getFragmentManager().findFragmentById(R.id.map_cycle_tracker_detail_map); 
+		
+ 		mGoogleMap = mf.getMap();
+		mGoogleMap.setMyLocationEnabled(true);
+		
+//		ArrayList<LatLng> input = new ArrayList<LatLng>();
+//		input.add(new LatLng(37.560431,127.037295));
+//		input.add(new LatLng(37.558168,127.038883));
+//		input.add(new LatLng(37.553915,127.038947));
+//		input.add(new LatLng(37.551414,127.035471));
+		ArrayList<Location> locationList = MainActivity.getInstasnce().getLayout().getmFragmentCycleTracker().getCurrentActivatedData().getLocationList();
+		ArrayList<LatLng> locationList_latlng = new ArrayList<LatLng>();
+		for(int i = 0 ; i < locationList.size();i++){
+			LatLng newLoc = new LatLng(locationList.get(i).getLatitude(),locationList.get(i).getLongitude());
+			locationList_latlng.add(newLoc);
+		}
+		
+		addPolyline(locationList_latlng);
+		
+		Location lo = mGoogleMap.getMyLocation();
+		if(lo==null) {
+			lo = CruiseDataManager.getInstance().getCurrent_loc();
+			if(lo==null)
+			{
+				 // Creating a criteria object to retrieve provider
+	            Criteria criteria = new Criteria();
+	 
+	            // Getting the name of the best provider
+	            String provider = ((LocationManager) getView().getContext().getSystemService(Context.LOCATION_SERVICE)).getBestProvider(criteria, true);
+	            lo = new Location(provider);
+				lo.setLatitude(37.2391647);
+				lo.setLongitude(131.8682344);
+			}
+			
+		}
+		else{
+			moveMapCamenra(lo);
+			final Location loc = lo;
+			CruiseDataManager.getInstance().setCurrent_loc(loc.getLatitude(),loc.getLongitude());
+		}
+		
+		
+		updateMapViewInfo();
+		updateColor();
+	}
+
+	public void addPolyline(ArrayList<LatLng> src){
+		
+		PolylineOptions options = new PolylineOptions();
+		
+		for(int i = 0 ; i < src.size();i++){
+			options.add(src.get(i));
+		}
+		options.width(10).color(Color.BLUE);
+		
+		Polyline result = mGoogleMap.addPolyline(options);
+		result.setVisible(true);
+	}
+	
+	public void updateDetailMapLayout(){
+		tvDataTotalDistance.post(new Runnable() {
+			
+			@Override
+			public void run() {
+				tvDataTotalDistance.setText(String.valueOf(MainActivity.getInstasnce().getLayout().getmFragmentCycleTracker().getCurrentActivatedData().getDistance()));
+			}
+		});
+		tvDataTotalCalories.post(new Runnable() {
+			
+			@Override
+			public void run() {
+				tvDataTotalCalories.setText(String.valueOf(MainActivity.getInstasnce().getLayout().getmFragmentCycleTracker().getCurrentActivatedData().getTotalConsumeCalrories()));
+			}
+		});
+		tvDataAverageSpeed.post(new Runnable() {
+			
+			@Override
+			public void run() {
+				double sum = 0;
+				for(int i = 0 ; i < MainActivity.getInstasnce().getLayout().getmFragmentCycleTracker().getCurrentActivatedData().getSpeedList().size() ; i++){
+					sum += Double.valueOf(MainActivity.getInstasnce().getLayout().getmFragmentCycleTracker().getCurrentActivatedData().getSpeedList().get(i));
+				}
+				tvDataAverageSpeed.setText(String.valueOf(sum/MainActivity.getInstasnce().getLayout().getmFragmentCycleTracker().getCurrentActivatedData().getSpeedList().size()));
+				
+			}
+		});
+		tvDataNumberofPeople.post(new Runnable() {
+			
+			@Override
+			public void run() {
+//				tvDataNumberofPeople.setText(text);
+				
+			}
+		});
+		tvDataAtmosphere.post(new Runnable() {
+			
+			@Override
+			public void run() {
+//				tvDataAtmosphere.setText(text);
+				
+			}
+		});
+		tvDataWind.post(new Runnable() {
+			
+			@Override
+			public void run() {
+//				tvDataWind.setText(text);
+				
+			}
+		});
+	}
+	
+	
+	
+	public void moveMapCamenra(Location location){
+			
+		Log.d(TAG,"moveMapCamenra");
+
+		
+		// Getting latitude of the current location
+		double latitude = location.getLatitude();
+		 
+		// Getting longitude of the current location
+		double longitude = location.getLongitude();
+		 
+		// Creating a LatLng object for the current location
+		LatLng latLng = new LatLng(latitude, longitude);
+		 	     
+		if(!init_map){
+			// Showing the current location in Google Map
+			mGoogleMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
+			mGoogleMap.animateCamera(CameraUpdateFactory.zoomTo(15));
+		    init_map = true;
+		}
+
+		// Zoom in the Google Map
+	}
+	
+	public GoogleMap getMapInstance(){
+		assert(mGoogleMap!=null);
+		return mGoogleMap;
+	}
+
+	public void updateMapViewInfo(){
+		moveMapCamenra(CruiseDataManager.getInstance().getCurrent_loc());
+	}
+	
+	public void updateColor(){
+		if(SettingsDataManager.getInstance().getThemeColor().equals("pink")){
+			lyTopBar.setBackgroundColor(MainActivity.getInstasnce().getResources().getColor(R.color.bk_color_pink_heavy));
+			lyMidBar.setBackgroundColor(MainActivity.getInstasnce().getResources().getColor(R.color.bk_color_pink_mid));
+			
+			tvAppName.setTextColor(MainActivity.getInstasnce().getResources().getColor(R.color.text_pink));
+			tvTitleTotalDistance.setBackgroundColor(MainActivity.getInstasnce().getResources().getColor(R.color.bk_color_pink_heavy));
+			tvTitleTotalCalories.setBackgroundColor(MainActivity.getInstasnce().getResources().getColor(R.color.bk_color_pink_heavy));
+			tvTitleAverageSpeed.setBackgroundColor(MainActivity.getInstasnce().getResources().getColor(R.color.bk_color_pink_heavy));
+			tvTitleNumberofPeople.setBackgroundColor(MainActivity.getInstasnce().getResources().getColor(R.color.bk_color_pink_heavy));
+			tvTitleAtmosphere.setBackgroundColor(MainActivity.getInstasnce().getResources().getColor(R.color.bk_color_pink_heavy));
+			tvTitleWind.setBackgroundColor(MainActivity.getInstasnce().getResources().getColor(R.color.bk_color_pink_heavy));
+			
+			tvDataTotalDistance.setBackgroundColor(MainActivity.getInstasnce().getResources().getColor(R.color.bk_color_pink_light));
+			tvDataTotalCalories.setBackgroundColor(MainActivity.getInstasnce().getResources().getColor(R.color.bk_color_pink_light));
+			tvDataAverageSpeed.setBackgroundColor(MainActivity.getInstasnce().getResources().getColor(R.color.bk_color_pink_light));
+			tvDataNumberofPeople.setBackgroundColor(MainActivity.getInstasnce().getResources().getColor(R.color.bk_color_pink_light));
+			tvDataAtmosphere.setBackgroundColor(MainActivity.getInstasnce().getResources().getColor(R.color.bk_color_pink_light));
+			tvDataWind.setBackgroundColor(MainActivity.getInstasnce().getResources().getColor(R.color.bk_color_pink_light));
+			
+			
+			
+			ivLocationIcon.setImageDrawable(MainActivity.getInstasnce().getResources().getDrawable(R.drawable.location_icon_pink));
+		}else if(SettingsDataManager.getInstance().getThemeColor().equals("green")){
+			lyTopBar.setBackgroundColor(MainActivity.getInstasnce().getResources().getColor(R.color.bk_color_green_heavy));
+			lyMidBar.setBackgroundColor(MainActivity.getInstasnce().getResources().getColor(R.color.bk_color_green_mid));
+			
+			tvAppName.setTextColor(MainActivity.getInstasnce().getResources().getColor(R.color.text_green));
+			tvTitleTotalDistance.setBackgroundColor(MainActivity.getInstasnce().getResources().getColor(R.color.bk_color_green_heavy));
+			tvTitleTotalCalories.setBackgroundColor(MainActivity.getInstasnce().getResources().getColor(R.color.bk_color_green_heavy));
+			tvTitleAverageSpeed.setBackgroundColor(MainActivity.getInstasnce().getResources().getColor(R.color.bk_color_green_heavy));
+			tvTitleNumberofPeople.setBackgroundColor(MainActivity.getInstasnce().getResources().getColor(R.color.bk_color_green_heavy));
+			tvTitleAtmosphere.setBackgroundColor(MainActivity.getInstasnce().getResources().getColor(R.color.bk_color_green_heavy));
+			tvTitleWind.setBackgroundColor(MainActivity.getInstasnce().getResources().getColor(R.color.bk_color_green_heavy));
+			
+			tvDataTotalDistance.setBackgroundColor(MainActivity.getInstasnce().getResources().getColor(R.color.bk_color_green_light));
+			tvDataTotalCalories.setBackgroundColor(MainActivity.getInstasnce().getResources().getColor(R.color.bk_color_green_light));
+			tvDataAverageSpeed.setBackgroundColor(MainActivity.getInstasnce().getResources().getColor(R.color.bk_color_green_light));
+			tvDataNumberofPeople.setBackgroundColor(MainActivity.getInstasnce().getResources().getColor(R.color.bk_color_green_light));
+			tvDataAtmosphere.setBackgroundColor(MainActivity.getInstasnce().getResources().getColor(R.color.bk_color_green_light));
+			tvDataWind.setBackgroundColor(MainActivity.getInstasnce().getResources().getColor(R.color.bk_color_green_light));
+			
+			ivLocationIcon.setImageDrawable(MainActivity.getInstasnce().getResources().getDrawable(R.drawable.location_icon_green));
+		}else if(SettingsDataManager.getInstance().getThemeColor().equals("gray")){
+			lyTopBar.setBackgroundColor(MainActivity.getInstasnce().getResources().getColor(R.color.bk_color_gray_heavy));
+			lyMidBar.setBackgroundColor(MainActivity.getInstasnce().getResources().getColor(R.color.bk_color_gray_mid));
+			
+			tvAppName.setTextColor(MainActivity.getInstasnce().getResources().getColor(R.color.text_gray));
+			tvTitleTotalDistance.setBackgroundColor(MainActivity.getInstasnce().getResources().getColor(R.color.bk_color_gray_heavy));
+			tvTitleTotalCalories.setBackgroundColor(MainActivity.getInstasnce().getResources().getColor(R.color.bk_color_gray_heavy));
+			tvTitleAverageSpeed.setBackgroundColor(MainActivity.getInstasnce().getResources().getColor(R.color.bk_color_gray_heavy));
+			tvTitleNumberofPeople.setBackgroundColor(MainActivity.getInstasnce().getResources().getColor(R.color.bk_color_gray_heavy));
+			tvTitleAtmosphere.setBackgroundColor(MainActivity.getInstasnce().getResources().getColor(R.color.bk_color_gray_heavy));
+			tvTitleWind.setBackgroundColor(MainActivity.getInstasnce().getResources().getColor(R.color.bk_color_gray_heavy));
+			
+			tvDataTotalDistance.setBackgroundColor(MainActivity.getInstasnce().getResources().getColor(R.color.bk_color_gray_light));
+			tvDataTotalCalories.setBackgroundColor(MainActivity.getInstasnce().getResources().getColor(R.color.bk_color_gray_light));
+			tvDataAverageSpeed.setBackgroundColor(MainActivity.getInstasnce().getResources().getColor(R.color.bk_color_gray_light));
+			tvDataNumberofPeople.setBackgroundColor(MainActivity.getInstasnce().getResources().getColor(R.color.bk_color_gray_light));
+			tvDataAtmosphere.setBackgroundColor(MainActivity.getInstasnce().getResources().getColor(R.color.bk_color_gray_light));
+			tvDataWind.setBackgroundColor(MainActivity.getInstasnce().getResources().getColor(R.color.bk_color_gray_light));
+			
+			ivLocationIcon.setImageDrawable(MainActivity.getInstasnce().getResources().getDrawable(R.drawable.location_icon_gray));
+		}
+	}
+	
+	
+}

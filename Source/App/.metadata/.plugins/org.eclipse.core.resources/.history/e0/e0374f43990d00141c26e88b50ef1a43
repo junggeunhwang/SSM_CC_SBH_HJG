@@ -1,0 +1,110 @@
+package com.ssm.ExCycling.controller.timertask;
+
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.TimerTask;
+
+import android.util.Base64;
+import android.util.Log;
+
+import com.ssm.ExCycling.controller.activity.MainActivity;
+import com.ssm.ExCycling.controller.communication.https.Protocol;
+import com.ssm.ExCycling.controller.manager.CruiseDataManager;
+import com.ssm.ExCycling.controller.manager.DataBaseManager;
+import com.ssm.ExCycling.controller.manager.SettingsDataManager;
+
+public class CruiseInfoTimerTask extends TimerTask {
+	
+	static String TAG = CruiseInfoTimerTask.class.getSimpleName();
+	
+	long startTime = System.currentTimeMillis();
+	int count = 0;
+	ArrayList<Double> speedList = new ArrayList<Double>();
+	
+	@Override
+	public void run() {
+		
+		long now = System.currentTimeMillis();
+		long dif = now-startTime;
+		
+		dif = dif % 86400000; 
+
+		long hours = (int) (dif / 3600000);//1000(ms)*60(S)*60(M) 
+		dif = dif % 3600000;
+		
+		long mins = (int) (dif / 60000);//1000(ms)*60(S) 
+		dif = dif % 60000; 
+		long secs = (int) (dif / 1000);//1000(ms) 
+		
+		String elapsedTime= String.format("%02d : %02d : %02d", hours,mins,secs);
+		
+		
+		CruiseDataManager.getInstance().setElapsedTime(elapsedTime);
+		
+		DataBaseManager.getInstance().insertCruiseData(
+				String.valueOf(startTime),
+				String.valueOf(CruiseDataManager.getInstance().getCurrent_speed()),	//speed
+				String.valueOf(CruiseDataManager.getInstance().getElevation()),		//altitude
+				String.valueOf(CruiseDataManager.getInstance().getDistnace()),		//distance
+				String.valueOf(CruiseDataManager.getInstance().getCalory()),		//calory
+				String.valueOf(CruiseDataManager.getInstance().getCurrent_loc().getLatitude()),
+				String.valueOf(CruiseDataManager.getInstance().getCurrent_loc().getLongitude()),
+				String.valueOf(now));						//timestamp
+		
+		count++;
+		if(count == 5){
+			String location = "location,"+
+					Base64.encodeToString(SettingsDataManager.getInstance().getMe().getUserName().getBytes(),Base64.DEFAULT) + "," + 
+					CruiseDataManager.getInstance().getCurrent_loc().getLatitude() + "," + 
+					CruiseDataManager.getInstance().getCurrent_loc().getLongitude()+ "," +
+					CruiseDataManager.getInstance().getCurrent_speed();
+					
+			Protocol.getInstance().SendString(location, SettingsDataManager.getInstance().getMe().getUniqueID());
+					
+			count = 0;
+		}
+		
+		CruiseDataManager manager = CruiseDataManager.getInstance();
+		speedList.add(Double.valueOf(manager.getCurrent_speed()));
+		
+		Double avgSpeed = 0.0;
+		
+		for(int i = 0 ; i < speedList.size();i++){
+			avgSpeed+=speedList.get(i);
+		}
+		avgSpeed /= speedList.size();
+		String strAvgSpeed = String.format("%.2f", avgSpeed);
+		
+		if(MainActivity.getInstasnce().getLayout().getmCruiseContainerFragment().getmMapViewFragment().isVisible())
+			MainActivity.getInstasnce().getLayout().getmCruiseContainerFragment().getmMapViewFragment().updateMapViewInfo();
+		
+		if(MainActivity.getInstasnce().getLayout().getmCruiseContainerFragment().getmCruiseFragment().isVisible())
+			MainActivity.getInstasnce().getLayout().getmCruiseContainerFragment().getmCruiseFragment().updateCruiseInfo();
+		
+		if(MainActivity.getInstasnce().getLayout().getmCruiseContainerFragment().getmMapViewFragment().isVisible())
+			MainActivity.getInstasnce().getLayout().getmCruiseContainerFragment().getmMapViewFragment().updateMapViewInfo();
+		
+		
+		//send to gear
+		sendFitnessinfo(CruiseDataManager.getInstance().getMaximum_speed(),
+				Double.valueOf(strAvgSpeed),
+				CruiseDataManager.getInstance().getDistnace(),
+				CruiseDataManager.getInstance().getElevation(),
+				CruiseDataManager.getInstance().getCalory());
+
+		
+		
+		
+		Log.d(TAG,"speed : "+ manager.getCurrent_speed() + "\n"+
+				"altitude : "+ manager.getElevation()+ "\n"+
+				"distance : " + manager.getDistnace()+ "\n"+
+				"calory : " + manager.getCalory());
+	}
+	
+	public void sendFitnessinfo(double maxspeed,double avgspeed,double distance,double altitude,double kcal){
+		String response = String.format("fitninfo;%.2f;%.2f;%.2f;%.2f;%.2f",maxspeed,avgspeed,distance,altitude,kcal);
+		Log.d(TAG,response);
+		MainActivity.getInstasnce().getmSAPService().SendByteData(response.getBytes());
+	}
+}
