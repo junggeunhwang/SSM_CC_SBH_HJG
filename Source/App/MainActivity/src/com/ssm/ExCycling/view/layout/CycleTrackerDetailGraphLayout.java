@@ -1,6 +1,7 @@
 package com.ssm.ExCycling.view.layout;
 
 import java.util.ArrayList;
+<<<<<<< HEAD
 import java.util.Calendar;
 import java.util.Date;
 
@@ -9,6 +10,12 @@ import android.app.AlertDialog;
 import android.app.Fragment;
 import android.app.FragmentTransaction;
 import android.content.DialogInterface;
+=======
+
+import net.simonvt.menudrawer.MenuDrawer;
+import android.app.Fragment;
+import android.app.FragmentTransaction;
+>>>>>>> 276e7d88dd36c958c6c77998ee4fe5801d5d9d98
 import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
 import android.os.Bundle;
@@ -20,7 +27,10 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+<<<<<<< HEAD
 import android.widget.Adapter;
+=======
+>>>>>>> 276e7d88dd36c958c6c77998ee4fe5801d5d9d98
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
@@ -36,9 +46,12 @@ import com.jjoe64.graphview.GraphViewSeries.GraphViewSeriesStyle;
 import com.jjoe64.graphview.LineGraphView;
 import com.ssm.ExCycling.R;
 import com.ssm.ExCycling.controller.activity.MainActivity;
+<<<<<<< HEAD
 import com.ssm.ExCycling.controller.communication.https.Protocol;
 import com.ssm.ExCycling.controller.manager.CruiseDataManager;
 import com.ssm.ExCycling.controller.manager.DataBaseManager;
+=======
+>>>>>>> 276e7d88dd36c958c6c77998ee4fe5801d5d9d98
 import com.ssm.ExCycling.controller.manager.ResourceManager;
 import com.ssm.ExCycling.controller.manager.SettingsDataManager;
 import com.ssm.ExCycling.model.CycleData;
@@ -48,7 +61,10 @@ public class CycleTrackerDetailGraphLayout extends BaseFragmentLayout {
 	static String TAG = CycleTrackerDetailGraphLayout.class.getSimpleName();
 	
 	private Button btnBack;
+<<<<<<< HEAD
 	private Button btnDelete;
+=======
+>>>>>>> 276e7d88dd36c958c6c77998ee4fe5801d5d9d98
 	
 	private RadioButton radioSpeed;
 	private RadioButton radioAltitude;
@@ -61,9 +77,15 @@ public class CycleTrackerDetailGraphLayout extends BaseFragmentLayout {
 	private TextView tvVelocityUnit;
 	private GraphViewData[] SpeedData;
 	private GraphViewData[] AltitudeData;
+<<<<<<< HEAD
 	private LinearLayout graphLayout;
 	private double SpeedMax = 0, AltitudeMax=0, DistMax=0;
 	private double SpeedMin = 9999999999999.9, AltitudeMin=9999999999999.9, DistMin=9999999999999.9;
+=======
+	
+	private LinearLayout graphLayout;
+	private double SpeedMax = 0, AltitudeMax=0, DistMax=0;
+>>>>>>> 276e7d88dd36c958c6c77998ee4fe5801d5d9d98
 	
 	public CycleTrackerDetailGraphLayout(Fragment instance) {
 		super(instance);
@@ -98,6 +120,7 @@ public class CycleTrackerDetailGraphLayout extends BaseFragmentLayout {
 		tvFragmentName = (TextView)getView().findViewById(R.id.fragment_name_cycletracker_detail);
 		tvFragmentName.setTypeface(ResourceManager.getInstance().getFont("nanum_gothic"));
 		
+<<<<<<< HEAD
 		Calendar calendar = Calendar.getInstance();
 		calendar.setTime(new Date(Long.valueOf(MainActivity.getInstasnce().getLayout().getmFragmentCycleTracker().getCurrentActivatedData().getDate())));
 		
@@ -114,6 +137,8 @@ public class CycleTrackerDetailGraphLayout extends BaseFragmentLayout {
 		
 		
 		
+=======
+>>>>>>> 276e7d88dd36c958c6c77998ee4fe5801d5d9d98
 		tvAppName = (TextView)getView().findViewById(R.id.app_name_cycletrackerdetail);
 		tvAppName.setTypeface(ResourceManager.getInstance().getFont("helvetica"));
 		
@@ -121,6 +146,7 @@ public class CycleTrackerDetailGraphLayout extends BaseFragmentLayout {
 		tvVelocityUnit.setTypeface(ResourceManager.getInstance().getFont("helvetica"));
 		tvDistanceUnit = (TextView)getView().findViewById(R.id.distance_unit_cycletracker_detail);
 		tvDistanceUnit.setTypeface(ResourceManager.getInstance().getFont("helvetica"));
+<<<<<<< HEAD
 		btnDelete = (Button)getView().findViewById(R.id.delete_cycletracker_detail);
 		btnDelete.setOnClickListener(new OnClickListener() {
 			
@@ -178,10 +204,53 @@ public class CycleTrackerDetailGraphLayout extends BaseFragmentLayout {
 			}
 		}
 		
+=======
+		
+	
+		//그래프그리기
+		CycleData cycleData = MainActivity.getInstasnce().getLayout().getmFragmentCycleTracker().getCurrentActivatedData();
+//		ArrayList<String> speedList = cycleData.getSpeedList();
+//		ArrayList<String> altitudeList = cycleData.getAltitudeList();
+//		ArrayList<Double> distList = cycleData.getDistanceList();
+		ArrayList<String> speedList = new ArrayList<String>();
+		ArrayList<String> altitudeList = new ArrayList<String>();
+		ArrayList<Double> distList = new ArrayList<Double>();
+		
+		speedList.add("2");
+		speedList.add("6");
+		speedList.add("5");
+		speedList.add("10");
+		speedList.add("10");
+		speedList.add("8");
+		speedList.add("13");
+		speedList.add("4");
+		speedList.add("5");
+		
+		altitudeList.add("23.5");
+		altitudeList.add("24");
+		altitudeList.add("24.2");
+		altitudeList.add("24");
+		altitudeList.add("25");
+		altitudeList.add("28");
+		altitudeList.add("23.5");
+		altitudeList.add("22");
+		altitudeList.add("25");
+		
+		distList.add(0.3);
+		distList.add(0.3);
+		distList.add(0.3);
+		distList.add(0.4);
+		distList.add(0.3);
+		distList.add(0.3);
+		distList.add(0.4);
+		distList.add(0.3);
+		distList.add(0.3);
+>>>>>>> 276e7d88dd36c958c6c77998ee4fe5801d5d9d98
 		
 		SpeedData = new GraphViewData[speedList.size()];
 		AltitudeData = new GraphViewData[altitudeList.size()];
 		
+<<<<<<< HEAD
 		
 		for(int i = 0 ; i < speedList.size();i++){
 			
@@ -198,12 +267,34 @@ public class CycleTrackerDetailGraphLayout extends BaseFragmentLayout {
 			
 			if(DistMax<distList.get(i)) DistMax = distList.get(i);//
 			if(DistMin>distList.get(i)) DistMin = distList.get(i);
+=======
+		double distanceSum=0;
+		
+		for(int i = 0 ; i < speedList.size();i++){
+			distanceSum+=distList.get(i);
+			
+			if(SpeedMax<Double.valueOf(speedList.get(i))) SpeedMax =Double.valueOf(speedList.get(i)); 
+			GraphViewData gvSpeedData = new GraphViewData(distanceSum,Double.valueOf(speedList.get(i)));
+			SpeedData[i] = gvSpeedData;
+			
+			if(AltitudeMax<Double.valueOf(altitudeList.get(i)))
+				AltitudeMax =Double.valueOf(altitudeList.get(i));
+			GraphViewData gvAltitudeData = new GraphViewData(distanceSum,Double.valueOf(altitudeList.get(i)));
+			AltitudeData[i] = gvAltitudeData;
+			
+			if(DistMax<distanceSum) DistMax =distanceSum;//거리고렬를 안했네.. 누적으로해야하는데..
+>>>>>>> 276e7d88dd36c958c6c77998ee4fe5801d5d9d98
 			
 		}
 		
 		generateGraph();
+<<<<<<< HEAD
 		graphView.setManualYAxisBounds(SpeedMax+SpeedMax*0.3, SpeedMin - SpeedMin*0.3);
 		graphView.setViewPort(DistMin,DistMax-DistMin);
+=======
+		graphView.setManualYAxisBounds(SpeedMax+SpeedMax*0.2, 0);
+		graphView.setViewPort(0,DistMax);
+>>>>>>> 276e7d88dd36c958c6c77998ee4fe5801d5d9d98
 		
 		radioSpeed.setOnCheckedChangeListener(new OnCheckedChangeListener(){
 
@@ -212,8 +303,13 @@ public class CycleTrackerDetailGraphLayout extends BaseFragmentLayout {
 					boolean isChecked) {
 				if(isChecked){
 					graphView.removeAllSeries();
+<<<<<<< HEAD
 					graphView.setManualYAxisBounds(SpeedMax+SpeedMax*0.3, SpeedMin - SpeedMin*0.3);
 					graphView.setViewPort(DistMin,DistMax);
+=======
+					graphView.setManualYAxisBounds(SpeedMax+SpeedMax*0.2, 0);
+					graphView.setViewPort(0,DistMax);
+>>>>>>> 276e7d88dd36c958c6c77998ee4fe5801d5d9d98
 					if(SettingsDataManager.getInstance().getThemeColor().equals("pink")){
 						graphView.addSeries(new GraphViewSeries("speed_data",new GraphViewSeriesStyle(MainActivity.getInstasnce().getResources().getColor(R.color.bk_color_pink_heavy),3),SpeedData));
 						((LineGraphView)graphView).setBackgroundColor(MainActivity.getInstasnce().getResources().getColor(R.color.bk_color_pink_opacity));
@@ -235,8 +331,13 @@ public class CycleTrackerDetailGraphLayout extends BaseFragmentLayout {
 					boolean isChecked) {
 				if(isChecked){
 					graphView.removeAllSeries();
+<<<<<<< HEAD
 					graphView.setManualYAxisBounds(AltitudeMax+AltitudeMax*0.3, AltitudeMin - AltitudeMin*0.3);
 					graphView.setViewPort(DistMin,DistMax);
+=======
+					graphView.setManualYAxisBounds(AltitudeMax+AltitudeMax*0.2, 0);
+					graphView.setViewPort(0,DistMax);
+>>>>>>> 276e7d88dd36c958c6c77998ee4fe5801d5d9d98
 					if(SettingsDataManager.getInstance().getThemeColor().equals("pink")){
 						graphView.addSeries(new GraphViewSeries("altitude_data",new GraphViewSeriesStyle(MainActivity.getInstasnce().getResources().getColor(R.color.bk_color_pink_heavy),3),AltitudeData));
 					}else if(SettingsDataManager.getInstance().getThemeColor().equals("green")){
@@ -284,10 +385,18 @@ public class CycleTrackerDetailGraphLayout extends BaseFragmentLayout {
 			graphView.getGraphViewStyle().setTextSize(20);
 			graphView.setManualMaxY(true);
 			graphView.setManualMinY(true);
+<<<<<<< HEAD
+=======
+			graphView.setManualYAxisBounds(30, 0);
+>>>>>>> 276e7d88dd36c958c6c77998ee4fe5801d5d9d98
 			
 			// add data
 			graphView.addSeries(new GraphViewSeries("test_data",new GraphViewSeriesStyle(MainActivity.getInstasnce().getResources().getColor(R.color.bk_color_gray_heavy),3),SpeedData));
 			// set view port, start=0, size=5
+<<<<<<< HEAD
+=======
+			graphView.setViewPort(0, 5);
+>>>>>>> 276e7d88dd36c958c6c77998ee4fe5801d5d9d98
 			graphView.setScrollable(true);
 			// optional - activate scaling / zooming
 			graphView.setScalable(true);
@@ -297,11 +406,14 @@ public class CycleTrackerDetailGraphLayout extends BaseFragmentLayout {
 	}
 
 	public void backScreen(){
+<<<<<<< HEAD
 		graphView.removeAllSeries();
 		radioSpeed.setChecked(true);
 		radioAltitude.setChecked(false);
 		SpeedData = null;
 		AltitudeData = null;
+=======
+>>>>>>> 276e7d88dd36c958c6c77998ee4fe5801d5d9d98
 		MainActivity.getInstasnce().getLayout().replaceFragment(R.layout.fragment_cycle_tracker);
 		MainActivity.getInstasnce().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 		

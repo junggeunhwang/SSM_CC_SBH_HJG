@@ -6,11 +6,17 @@ import java.util.Date;
 
 import com.ssm.ExCycling.R;
 import com.ssm.ExCycling.controller.activity.MainActivity;
+<<<<<<< HEAD
 import com.ssm.ExCycling.controller.manager.CruiseDataManager;
 import com.ssm.ExCycling.controller.manager.ResourceManager;
 import com.ssm.ExCycling.controller.manager.SettingsDataManager;
 import com.ssm.ExCycling.model.CycleData;
 import com.ssm.ExCycling.model.SettingsData;
+=======
+import com.ssm.ExCycling.controller.manager.ResourceManager;
+import com.ssm.ExCycling.controller.manager.SettingsDataManager;
+import com.ssm.ExCycling.model.CycleData;
+>>>>>>> 276e7d88dd36c958c6c77998ee4fe5801d5d9d98
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -38,6 +44,7 @@ public class CycleTrackerListViewAdapter extends BaseAdapter {
 	
 	public CycleTrackerListViewAdapter(Context context,int alayout, ArrayList<CycleData> aarSrc) {
 		Inflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+<<<<<<< HEAD
 		arSrc = CruiseDataManager.getInstance().getCycle_data_list();
 		layout = alayout;
 	}
@@ -47,6 +54,12 @@ public class CycleTrackerListViewAdapter extends BaseAdapter {
 		notifyDataSetChanged();
 	}
 	
+=======
+		arSrc = aarSrc;
+		layout = alayout;
+	}
+	
+>>>>>>> 276e7d88dd36c958c6c77998ee4fe5801d5d9d98
 	@Override
 	public int getCount() {
 		return arSrc.size();

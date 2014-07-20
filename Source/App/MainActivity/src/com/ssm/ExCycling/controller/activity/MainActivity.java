@@ -4,10 +4,20 @@ package com.ssm.ExCycling.controller.activity;
 import java.io.File;
 import java.util.Date;
 import java.util.Timer;
+<<<<<<< HEAD
+=======
+
+
+
+>>>>>>> 276e7d88dd36c958c6c77998ee4fe5801d5d9d98
 import java.util.TimerTask;
 
 import net.simonvt.menudrawer.MenuDrawer;
 
+<<<<<<< HEAD
+=======
+import com.ssm.ExCycling.LawRightDialog;
+>>>>>>> 276e7d88dd36c958c6c77998ee4fe5801d5d9d98
 import com.ssm.ExCycling.R;
 import com.ssm.ExCycling.controller.communication.https.Protocol;
 import com.ssm.ExCycling.controller.communication.sapinterface.FileAction;
@@ -15,18 +25,27 @@ import com.ssm.ExCycling.controller.communication.sapinterface.SAPProviderServic
 import com.ssm.ExCycling.controller.communication.sapinterface.StringAction;
 import com.ssm.ExCycling.controller.communication.sapinterface.SAPProviderService.LocalBinder;
 import com.ssm.ExCycling.controller.manager.CruiseDataManager;
+<<<<<<< HEAD
 import com.ssm.ExCycling.controller.manager.DataBaseManager;
+=======
+>>>>>>> 276e7d88dd36c958c6c77998ee4fe5801d5d9d98
 import com.ssm.ExCycling.controller.manager.FacebookManager;
 import com.ssm.ExCycling.controller.manager.GoogleLocationManager;
 import com.ssm.ExCycling.controller.manager.SettingsDataManager;
 import com.ssm.ExCycling.controller.manager.TwitterManager;
 import com.ssm.ExCycling.controller.timertask.CruiseInfoTimerTask;
+<<<<<<< HEAD
 import com.ssm.ExCycling.controller.timertask.DistDiffMonitorTimerTask;
+=======
+>>>>>>> 276e7d88dd36c958c6c77998ee4fe5801d5d9d98
 import com.ssm.ExCycling.controller.timertask.GetTask;
 import com.ssm.ExCycling.fragment.CycleTrackerContainerFragment;
 import com.ssm.ExCycling.model.TwitterBasicInfo;
 import com.ssm.ExCycling.model.UserData;
+<<<<<<< HEAD
 import com.ssm.ExCycling.view.LawRightDialog;
+=======
+>>>>>>> 276e7d88dd36c958c6c77998ee4fe5801d5d9d98
 import com.ssm.ExCycling.view.layout.MainLayout;
 
 import android.support.v4.app.FragmentActivity;
@@ -37,13 +56,17 @@ import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.ComponentName;
+<<<<<<< HEAD
 import android.content.ContentResolver;
+=======
+>>>>>>> 276e7d88dd36c958c6c77998ee4fe5801d5d9d98
 import android.content.Context; 
 import android.content.Intent;
 import android.content.ServiceConnection;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.content.pm.ActivityInfo;
+<<<<<<< HEAD
 import android.net.wifi.WifiManager;
 import android.os.BatteryManager;
 import android.os.Bundle;
@@ -51,6 +74,11 @@ import android.os.IBinder;
 import android.os.PowerManager;
 import android.os.Vibrator;
 import android.provider.Settings;
+=======
+import android.os.Bundle;
+import android.os.IBinder;
+import android.os.Vibrator;
+>>>>>>> 276e7d88dd36c958c6c77998ee4fe5801d5d9d98
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Toast;
@@ -96,18 +124,25 @@ public class MainActivity extends FragmentActivity {
 	Timer cruiseInfoTimer;
 	CruiseInfoTimerTask cruiseInfoTimerTask;
 	
+<<<<<<< HEAD
 	//DistDiffMonitorTimertask
 	Timer distDiffMonitorTimer;
 	DistDiffMonitorTimerTask distDiffMonitorTimerTask;
 	
+=======
+>>>>>>> 276e7d88dd36c958c6c77998ee4fe5801d5d9d98
 	//layout
 	private MainLayout layout;
 	
 	//종료 플레그
 	int exit_flag = 0;
+<<<<<<< HEAD
 
 	//Wifi 꺼짐 방지
 	WifiManager.WifiLock wifiLock = null;
+=======
+	
+>>>>>>> 276e7d88dd36c958c6c77998ee4fe5801d5d9d98
 	
 	public MainActivity() {
 		this.instance = this;
@@ -120,6 +155,7 @@ public class MainActivity extends FragmentActivity {
     	mCtxt = getApplicationContext();
         mCtxt.bindService(new Intent(getApplicationContext(), SAPProviderService.class), 
                  this.mSAPConnection, Context.BIND_AUTO_CREATE);
+<<<<<<< HEAD
         DataBaseManager.getInstance().selectSettingInfo();
 		//테마 설정 저장
     	if(SettingsDataManager.getInstance().getThemeColor()==null)SettingsDataManager.getInstance().setThemeColor("gray");
@@ -146,13 +182,39 @@ public class MainActivity extends FragmentActivity {
         Protocol.getInstance().FriendsListRequest(SettingsDataManager.getInstance().getMe().getUniqueID());
 
         //저장된 이름 불러오기
+=======
+        
+        
+        
+        //전화번호 얻기 -> 로그인 -> 임시파일 저장할 디렉토리 생성 까지 멀티쓰레드 사용으로 성능 향상
+        new Thread(new Runnable() {
+			
+			@Override
+			public void run() {
+				//전화번호
+		        mTelephonyManager = (TelephonyManager)getSystemService(Context.TELEPHONY_SERVICE);
+		        myNumber = mTelephonyManager.getLine1Number();
+		        if(myNumber==null)myNumber = "01098765432";
+//		       	myNumber = "01012345678";
+		        	
+		        Log.d(TAG,"my number : "+myNumber);
+		        	
+		        UserData me = SettingsDataManager.getInstance().getMe();
+		        me.setUniqueID(myNumber);
+		        SettingsDataManager.getInstance().setMe(me);
+		        	
+		        //저장된 이름 불러오기
+>>>>>>> 276e7d88dd36c958c6c77998ee4fe5801d5d9d98
 		        SharedPreferences pref_init_username_in = getSharedPreferences("init_username", 0);
 		        String storedUserName = pref_init_username_in.getString("init_username", null);
 		        if(storedUserName!=null) SettingsDataManager.getInstance().getMe().setUserName(storedUserName);
 		          	
+<<<<<<< HEAD
 		        Protocol.getInstance().UpdateProfile(SettingsDataManager.getInstance().getMe().getUniqueID());
 				Protocol.getInstance().FriendsListRequest(SettingsDataManager.getInstance().getMe().getUniqueID());
 				
+=======
+>>>>>>> 276e7d88dd36c958c6c77998ee4fe5801d5d9d98
 		        //위치정보 법 관련 다이얼로그 수락 저장
 		        SharedPreferences pref1 = getSharedPreferences("law", 0);
 		        if(!pref1.getBoolean("right", false)){
@@ -162,6 +224,11 @@ public class MainActivity extends FragmentActivity {
 		        	dialog.show();
 		        }
 		          	
+<<<<<<< HEAD
+=======
+		        Protocol.getInstance().Login(myNumber);
+		        
+>>>>>>> 276e7d88dd36c958c6c77998ee4fe5801d5d9d98
 		       	MainActivity.getInstasnce().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 		    	 
 		    	File RootDir = new File(DEST_DIR);
@@ -178,12 +245,21 @@ public class MainActivity extends FragmentActivity {
 		    	if(!ReceiveDir.exists()){
 		    		ReceiveDir.mkdir();
 		    	}
+<<<<<<< HEAD
 
     	
         //Facebook 초기화       
         FacebookManager.getInstance().init(savedInstanceState);
     	
         
+=======
+			}
+		}).run();
+    	
+        //Faceboo 초기화       
+        FacebookManager.getInstance().init(savedInstanceState);
+    	
+>>>>>>> 276e7d88dd36c958c6c77998ee4fe5801d5d9d98
     	//Splash 시작
     	Intent intent = new Intent(this,SplashActivity.class);
     	intent.putExtra("color", SettingsDataManager.getInstance().getThemeColor());
@@ -222,11 +298,14 @@ public class MainActivity extends FragmentActivity {
 
     @Override
     protected void onDestroy() {
+<<<<<<< HEAD
 
     	if(wifiLock!=null){
     		wifiLock.release();
     		wifiLock = null;
     	}
+=======
+>>>>>>> 276e7d88dd36c958c6c77998ee4fe5801d5d9d98
     	
     	mSAPService.setVirtualBindStatus(false);
     	mSAPService.closeGearConnection();
@@ -286,6 +365,10 @@ public class MainActivity extends FragmentActivity {
         	if(exit_flag==1){
         		stopGetRequest();
         		Protocol.getInstance().DismissProgressDialog();
+<<<<<<< HEAD
+=======
+        		Protocol.getInstance().Logout(SettingsDataManager.getInstance().getMe().getUniqueID());
+>>>>>>> 276e7d88dd36c958c6c77998ee4fe5801d5d9d98
         		finish();
             	System.exit(0);
         	}
@@ -371,9 +454,12 @@ public class MainActivity extends FragmentActivity {
 					if(path.contains(DEST_DIR_SEND)){
 						Protocol.getInstance().SendFile(path, myNumber);
 					}
+<<<<<<< HEAD
 					if(path.contains(DEST_DIR_RECEIVE)){
 						new File(path).delete();
 					}
+=======
+>>>>>>> 276e7d88dd36c958c6c77998ee4fe5801d5d9d98
 				}
 
 				@Override
@@ -385,8 +471,12 @@ public class MainActivity extends FragmentActivity {
             });
         }
     };
+<<<<<<< HEAD
     
 
+=======
+      
+>>>>>>> 276e7d88dd36c958c6c77998ee4fe5801d5d9d98
     public void popupNotification(){
     	NotificationManager nm = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
     	PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, new Intent(), PendingIntent.FLAG_UPDATE_CURRENT);
@@ -426,6 +516,7 @@ public class MainActivity extends FragmentActivity {
     }
     
 	public void startCruiseInfoRecord(){
+<<<<<<< HEAD
 		if(cruiseInfoTimerTask==null){
 			cruiseInfoTimerTask = new CruiseInfoTimerTask();
 		}
@@ -442,6 +533,11 @@ public class MainActivity extends FragmentActivity {
 			distDiffMonitorTimer = new Timer();
 			distDiffMonitorTimer.scheduleAtFixedRate(distDiffMonitorTimerTask, new Date(), 20000);
 		}
+=======
+		cruiseInfoTimerTask = new CruiseInfoTimerTask();
+		cruiseInfoTimer = new Timer();
+		cruiseInfoTimer.scheduleAtFixedRate(cruiseInfoTimerTask, new Date(),1000);
+>>>>>>> 276e7d88dd36c958c6c77998ee4fe5801d5d9d98
 	}
 	
 	public void stopCruiseInfoRecord(){
@@ -450,11 +546,14 @@ public class MainActivity extends FragmentActivity {
 		cruiseInfoTimer.cancel();
 		cruiseInfoTimer = null;
 		
+<<<<<<< HEAD
 		distDiffMonitorTimerTask.cancel();
 		distDiffMonitorTimerTask = null;
 		distDiffMonitorTimer.cancel();
 		distDiffMonitorTimer = null;
 		
+=======
+>>>>>>> 276e7d88dd36c958c6c77998ee4fe5801d5d9d98
 	}
     
     public void open_button(View v){

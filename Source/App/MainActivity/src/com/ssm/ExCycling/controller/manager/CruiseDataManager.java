@@ -157,7 +157,11 @@ public class CruiseDataManager {
 		last_calory_update_time = current_time;
 		
 		double unitCalory = 0.01033333333333;
+<<<<<<< HEAD
 		return unitCalory*user_weight*velocity*diff/10;
+=======
+		return unitCalory*user_weight*velocity*diff;
+>>>>>>> 276e7d88dd36c958c6c77998ee4fe5801d5d9d98
 	}
 	
 	public CycleData getCycleData(String date){
@@ -295,8 +299,13 @@ public class CruiseDataManager {
 
 			//거리계산
 			double dist = current_loc.distanceTo(loc)/1000;//단위는 km
+<<<<<<< HEAD
 			dist = Double.valueOf(String.format("%.4f", dist));
 			this.distnace += dist;//누적
+=======
+			dist = Double.valueOf(String.format("%.2f", dist));
+			this.distnace += dist;
+>>>>>>> 276e7d88dd36c958c6c77998ee4fe5801d5d9d98
 			
 			//현재 속도 계산 (km/h)
 			this.current_speed = Double.valueOf(String.format("%.2f",(current_loc.distanceTo(loc)/dif)*3.6));
@@ -315,6 +324,10 @@ public class CruiseDataManager {
 		this.current_loc.setLatitude(latitude);
 		this.current_loc.setLongitude(longitude);
 		
+<<<<<<< HEAD
+=======
+//		MainActivity.getInstasnce().getLayout().getmFragmentCruise().updateCruiseInfo();
+>>>>>>> 276e7d88dd36c958c6c77998ee4fe5801d5d9d98
 	}
 
 	public void setElevation(double elevation) {

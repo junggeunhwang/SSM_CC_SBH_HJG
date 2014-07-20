@@ -1,19 +1,40 @@
 package com.ssm.ExCycling.fragment;
 
 
+<<<<<<< HEAD
 import com.ssm.ExCycling.R;
+=======
+import java.util.Timer;
+
+import org.apache.http.util.Args;
+
+import com.ssm.ExCycling.R;
+import com.ssm.ExCycling.controller.activity.MainActivity;
+import com.ssm.ExCycling.controller.manager.CruiseDataManager;
+import com.ssm.ExCycling.controller.manager.SettingsDataManager;
+import com.ssm.ExCycling.controller.timertask.CruiseInfoTimerTask;
+import com.ssm.ExCycling.model.SettingsData;
+>>>>>>> 276e7d88dd36c958c6c77998ee4fe5801d5d9d98
 
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v13.app.FragmentPagerAdapter;
+<<<<<<< HEAD
+=======
+import android.support.v13.app.FragmentStatePagerAdapter;
+>>>>>>> 276e7d88dd36c958c6c77998ee4fe5801d5d9d98
 import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
+<<<<<<< HEAD
+=======
+import android.view.View.OnTouchListener;
+>>>>>>> 276e7d88dd36c958c6c77998ee4fe5801d5d9d98
 import android.view.ViewGroup;
 
 

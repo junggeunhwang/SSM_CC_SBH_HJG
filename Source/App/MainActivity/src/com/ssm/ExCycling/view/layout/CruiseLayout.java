@@ -182,10 +182,14 @@ public class CruiseLayout extends BaseFragmentLayout {
 			
 			@Override
 			public void run() {
+<<<<<<< HEAD
 				
 				String dist = String.format("%.2f", CruiseDataManager.getInstance().getDistnace());
 				
 				tvDistanceData.setText(dist);
+=======
+				tvDistanceData.setText(String.valueOf(CruiseDataManager.getInstance().getDistnace()));
+>>>>>>> 276e7d88dd36c958c6c77998ee4fe5801d5d9d98
 			}
 		});
 		

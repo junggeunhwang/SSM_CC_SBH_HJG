@@ -19,7 +19,10 @@ import android.content.res.Configuration;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+<<<<<<< HEAD
 import android.text.InputType;
+=======
+>>>>>>> 276e7d88dd36c958c6c77998ee4fe5801d5d9d98
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -29,7 +32,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+<<<<<<< HEAD
 import android.widget.Toast;
+=======
+>>>>>>> 276e7d88dd36c958c6c77998ee4fe5801d5d9d98
 import android.widget.TextView.OnEditorActionListener;
 
 public class SplashActivity extends Activity {
@@ -43,7 +49,13 @@ public class SplashActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+<<<<<<< HEAD
 		
+=======
+		DataBaseManager.getInstance().selectSettingInfo();
+		//테마 설정 저장
+    	if(SettingsDataManager.getInstance().getThemeColor()==null)SettingsDataManager.getInstance().setThemeColor("gray");
+>>>>>>> 276e7d88dd36c958c6c77998ee4fe5801d5d9d98
 
     	layout = new SplashLayout(this);
 		setContentView(layout.getView());
@@ -90,6 +102,7 @@ public class SplashActivity extends Activity {
 					etUserName.setTypeface(ResourceManager.getInstance().getFont("helvetica"));
 					
 					final Button btnEnjoy = (Button)findViewById(R.id.btn_enjoy_cycling_initialize);
+<<<<<<< HEAD
 					
 					etUserName.setImeOptions(EditorInfo.IME_ACTION_DONE);
 					etUserName.setInputType(InputType.TYPE_CLASS_TEXT);
@@ -101,21 +114,36 @@ public class SplashActivity extends Activity {
 								if(etUserName.getText().toString().equals(""))
 									Toast.makeText(getApplicationContext(),"Please enter your name.",Toast.LENGTH_SHORT).show();
 								else btnEnjoy.callOnClick();
+=======
+					etUserName.setImeOptions(EditorInfo.IME_ACTION_DONE);
+					etUserName.setOnEditorActionListener(new OnEditorActionListener() {
+						
+						@Override
+						public boolean onEditorAction(TextView v, int actionID, KeyEvent event) {
+							if((actionID == EditorInfo.IME_ACTION_DONE) || (event != null && event.getKeyCode() == KeyEvent.KEYCODE_ENTER)){
+								btnEnjoy.callOnClick();
+>>>>>>> 276e7d88dd36c958c6c77998ee4fe5801d5d9d98
 							}
 							return false;
 						}
 					});
+<<<<<<< HEAD
 					
+=======
+>>>>>>> 276e7d88dd36c958c6c77998ee4fe5801d5d9d98
 					btnEnjoy.setTypeface(ResourceManager.getInstance().getFont("helvetica"));
 					btnEnjoy.setOnClickListener(new OnClickListener() {
 						
 						@Override
 						public void onClick(View v) {
+<<<<<<< HEAD
 							if(etUserName.getText().toString().equals(""))
 							{
 								Toast.makeText(getApplicationContext(),"Please enter your name.",Toast.LENGTH_SHORT).show();
 								return;
 							}
+=======
+>>>>>>> 276e7d88dd36c958c6c77998ee4fe5801d5d9d98
 							//이름 입력정보 저장
 							SharedPreferences pref_init_username_out = getSharedPreferences("init_username", 0);
 							Editor editor_init_username = pref_init_username_out.edit();
@@ -140,12 +168,16 @@ public class SplashActivity extends Activity {
 		handler.sendEmptyMessageDelayed(0, 2500);
 		
 	}
+<<<<<<< HEAD
 	
 	@Override
 	public void onBackPressed() {
 		// TODO Auto-generated method stub
 //		super.onBackPressed();
 	}
+=======
+
+>>>>>>> 276e7d88dd36c958c6c77998ee4fe5801d5d9d98
 	@Override
 	public void onConfigurationChanged(Configuration newConfig) {
 	}

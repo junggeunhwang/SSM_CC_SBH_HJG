@@ -35,9 +35,15 @@ public class HttpsCommunication
 	public static final String TYPE_STRING = "string";
 	public static final String TYPE_FILE = "file";
 	public static final String TYPE_REQUEST = "request";
+<<<<<<< HEAD
 //	private final String urlString = "https://moonlightchaser.mooo.com";
 	
 	private final String urlString = "https://mynightmyluna.mooo.com";
+=======
+	private final String urlString = "https://moonlightchaser.mooo.com";
+	
+//	private final String urlString = "https://mynightmyluna.mooo.com";
+>>>>>>> 276e7d88dd36c958c6c77998ee4fe5801d5d9d98
 
 	private boolean isUniqueNumberSet = false;
 	private boolean isTypeSet = false;
@@ -56,7 +62,10 @@ public class HttpsCommunication
 	private byte[] responseByteData;
 	private String responseStringData;
 
+<<<<<<< HEAD
 	private String path;
+=======
+>>>>>>> 276e7d88dd36c958c6c77998ee4fe5801d5d9d98
 	// default constructor
 
 
@@ -215,21 +224,27 @@ public class HttpsCommunication
 		return false;
 	}
 
+<<<<<<< HEAD
 	public void setPath(String path) {
 		this.path = path;
 	}
 	
+=======
+>>>>>>> 276e7d88dd36c958c6c77998ee4fe5801d5d9d98
 	public byte[] getByteResponseData()
 	{
 		return responseByteData;		
 	}
 
+<<<<<<< HEAD
 	public String getPath() {
 		return path;
 	}
 
 
 
+=======
+>>>>>>> 276e7d88dd36c958c6c77998ee4fe5801d5d9d98
 	public String getStringResponseData()
 	{
 		return responseStringData;

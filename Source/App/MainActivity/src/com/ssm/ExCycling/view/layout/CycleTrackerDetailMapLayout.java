@@ -5,9 +5,15 @@ import java.util.ArrayList;
 import com.ssm.ExCycling.R;
 import com.ssm.ExCycling.controller.activity.MainActivity;
 import com.ssm.ExCycling.controller.manager.CruiseDataManager;
+<<<<<<< HEAD
 import com.ssm.ExCycling.controller.manager.DataBaseManager;
 import com.ssm.ExCycling.controller.manager.ResourceManager;
 import com.ssm.ExCycling.controller.manager.SettingsDataManager;
+=======
+import com.ssm.ExCycling.controller.manager.ResourceManager;
+import com.ssm.ExCycling.controller.manager.SettingsDataManager;
+
+>>>>>>> 276e7d88dd36c958c6c77998ee4fe5801d5d9d98
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Polyline;
@@ -36,6 +42,7 @@ public class CycleTrackerDetailMapLayout extends BaseFragmentLayout {
 	static String TAG = CycleTrackerDetailMapLayout.class.getSimpleName();
 	
 	private TextView tvFragmentName;
+<<<<<<< HEAD
 	private TextView tvAppName;
 	
 	private TextView tvTitleTotalDistance;
@@ -54,6 +61,21 @@ public class CycleTrackerDetailMapLayout extends BaseFragmentLayout {
 	private GoogleMap mGoogleMap;
 	
 	private LinearLayout lyTopBar;
+=======
+	private TextView tvTitleTopLeft;
+	private TextView tvTitleBottomLeft;
+	private TextView tvValueTopLeft;
+	private TextView tvValueBottomLeft;
+	private TextView tvTitleTopRight;
+	private TextView tvTitleBottomRight;
+	private TextView tvValueTopRight;
+	private TextView tvValueBottomRight;
+	private TextView tvAppName;
+	private GoogleMap mGoogleMap;
+	
+	private LinearLayout lyTopBar;
+	private LinearLayout lyMidBar;
+>>>>>>> 276e7d88dd36c958c6c77998ee4fe5801d5d9d98
 	
 	private ImageView ivLocationIcon;
 //	MapView map_view;
@@ -78,6 +100,7 @@ public class CycleTrackerDetailMapLayout extends BaseFragmentLayout {
 	
 	public void init(){
 		Log.d(TAG,"init");
+<<<<<<< HEAD
 		DataBaseManager.getInstance().selectAtmosphere(MainActivity.getInstasnce().getLayout().getmFragmentCycleTracker().getCurrentActivatedData().getDate());
 		
 		tvFragmentName = (TextView)getView().findViewById(R.id.fragment_name_cycle_tracker_detail_map);
@@ -111,10 +134,37 @@ public class CycleTrackerDetailMapLayout extends BaseFragmentLayout {
 		
 		
 		lyTopBar = (LinearLayout)getView().findViewById(R.id.top_bar_cycle_tracker_detail_map);
+=======
+		
+		tvFragmentName = (TextView)getView().findViewById(R.id.fragment_name_cycle_tracker_detail_map);
+		tvTitleTopLeft = (TextView)getView().findViewById(R.id.tv_title_top_left_cycle_tracker_detail_map);
+		tvTitleBottomLeft = (TextView)getView().findViewById(R.id.tv_title_bottom_left_cycle_tracker_detail_map);
+		tvValueTopLeft = (TextView)getView().findViewById(R.id.tv_value_top_left_cycle_tracker_detail_map);
+		tvValueBottomLeft = (TextView)getView().findViewById(R.id.tv_value_bottom_left_cycle_tracker_detail_map);
+		tvTitleTopRight = (TextView)getView().findViewById(R.id.tv_title_top_right_cycle_tracker_detail_map);
+		tvTitleBottomRight = (TextView)getView().findViewById(R.id.tv_title_bottom_right_cycle_tracker_detail_map);
+		tvValueTopRight = (TextView)getView().findViewById(R.id.tv_value_top_right_cycle_tracker_detail_map);
+		tvValueBottomRight = (TextView)getView().findViewById(R.id.tv_value_bottom_right_cycle_tracker_detail_map);
+		tvAppName = (TextView)getView().findViewById(R.id.app_name_cycle_tracker_detail_map);
+		
+		lyTopBar = (LinearLayout)getView().findViewById(R.id.top_bar_cycle_tracker_detail_map);
+		lyMidBar = (LinearLayout)getView().findViewById(R.id.mid_box_cycle_tracker_detail_map);
+>>>>>>> 276e7d88dd36c958c6c77998ee4fe5801d5d9d98
 		
 		ivLocationIcon = (ImageView)getView().findViewById(R.id.location_icon_cycle_tracker_detail_map);
 		
 		tvFragmentName.setTypeface(ResourceManager.getInstance().getFont("helvetica"));
+<<<<<<< HEAD
+=======
+		tvTitleTopLeft.setTypeface(ResourceManager.getInstance().getFont("helvetica"));
+		tvTitleBottomLeft.setTypeface(ResourceManager.getInstance().getFont("helvetica"));
+		tvValueTopLeft.setTypeface(ResourceManager.getInstance().getFont("helvetica"));
+		tvValueBottomLeft.setTypeface(ResourceManager.getInstance().getFont("helvetica"));
+		tvTitleTopRight.setTypeface(ResourceManager.getInstance().getFont("helvetica"));
+		tvTitleBottomRight.setTypeface(ResourceManager.getInstance().getFont("helvetica"));
+		tvValueTopRight.setTypeface(ResourceManager.getInstance().getFont("helvetica"));
+		tvValueBottomRight.setTypeface(ResourceManager.getInstance().getFont("helvetica"));
+>>>>>>> 276e7d88dd36c958c6c77998ee4fe5801d5d9d98
 		tvAppName.setTypeface(ResourceManager.getInstance().getFont("helvetica"));
 			
 		MapFragment mf =(MapFragment)MainActivity.getInstasnce().getFragmentManager().findFragmentById(R.id.map_cycle_tracker_detail_map); 
@@ -122,6 +172,7 @@ public class CycleTrackerDetailMapLayout extends BaseFragmentLayout {
  		mGoogleMap = mf.getMap();
 		mGoogleMap.setMyLocationEnabled(true);
 		
+<<<<<<< HEAD
 //		ArrayList<LatLng> input = new ArrayList<LatLng>();
 //		input.add(new LatLng(37.560431,127.037295));
 //		input.add(new LatLng(37.558168,127.038883));
@@ -135,6 +186,15 @@ public class CycleTrackerDetailMapLayout extends BaseFragmentLayout {
 		}
 		
 		addPolyline(locationList_latlng);
+=======
+		ArrayList<LatLng> input = new ArrayList<LatLng>();
+		input.add(new LatLng(37.560431,127.037295));
+		input.add(new LatLng(37.558168,127.038883));
+		input.add(new LatLng(37.553915,127.038947));
+		input.add(new LatLng(37.551414,127.035471));
+		
+		addPolyline(input);
+>>>>>>> 276e7d88dd36c958c6c77998ee4fe5801d5d9d98
 		
 		Location lo = mGoogleMap.getMyLocation();
 		if(lo==null) {
@@ -147,8 +207,13 @@ public class CycleTrackerDetailMapLayout extends BaseFragmentLayout {
 	            // Getting the name of the best provider
 	            String provider = ((LocationManager) getView().getContext().getSystemService(Context.LOCATION_SERVICE)).getBestProvider(criteria, true);
 	            lo = new Location(provider);
+<<<<<<< HEAD
 				lo.setLatitude(37.2391647);
 				lo.setLongitude(131.8682344);
+=======
+				lo.setLatitude(37.523452);
+				lo.setLongitude(127.028540);
+>>>>>>> 276e7d88dd36c958c6c77998ee4fe5801d5d9d98
 			}
 			
 		}
@@ -176,6 +241,7 @@ public class CycleTrackerDetailMapLayout extends BaseFragmentLayout {
 		result.setVisible(true);
 	}
 	
+<<<<<<< HEAD
 	public void updateDetailMapLayout(){
 		tvDataTotalDistance.post(new Runnable() {
 			
@@ -235,6 +301,8 @@ public class CycleTrackerDetailMapLayout extends BaseFragmentLayout {
 	}
 	
 	
+=======
+>>>>>>> 276e7d88dd36c958c6c77998ee4fe5801d5d9d98
 	
 	public void moveMapCamenra(Location location){
 			
@@ -267,12 +335,16 @@ public class CycleTrackerDetailMapLayout extends BaseFragmentLayout {
 
 	public void updateMapViewInfo(){
 		moveMapCamenra(CruiseDataManager.getInstance().getCurrent_loc());
+<<<<<<< HEAD
 		updateDetailMapLayout();
+=======
+>>>>>>> 276e7d88dd36c958c6c77998ee4fe5801d5d9d98
 	}
 	
 	public void updateColor(){
 		if(SettingsDataManager.getInstance().getThemeColor().equals("pink")){
 			lyTopBar.setBackgroundColor(MainActivity.getInstasnce().getResources().getColor(R.color.bk_color_pink_heavy));
+<<<<<<< HEAD
 			
 			tvAppName.setTextColor(MainActivity.getInstasnce().getResources().getColor(R.color.text_pink));
 			tvTitleTotalDistance.setBackgroundColor(MainActivity.getInstasnce().getResources().getColor(R.color.bk_color_pink_heavy));
@@ -349,6 +421,50 @@ public class CycleTrackerDetailMapLayout extends BaseFragmentLayout {
 			tvDataAtmosphere.setTextColor(MainActivity.getInstasnce().getResources().getColor(R.color.text_gray));
 			tvDataWind.setTextColor(MainActivity.getInstasnce().getResources().getColor(R.color.text_gray));
 			
+=======
+			lyMidBar.setBackgroundColor(MainActivity.getInstasnce().getResources().getColor(R.color.bk_color_pink_mid));
+			
+			tvAppName.setTextColor(MainActivity.getInstasnce().getResources().getColor(R.color.text_pink));
+			
+			tvTitleTopLeft.setBackgroundColor(MainActivity.getInstasnce().getResources().getColor(R.color.bk_color_pink_heavy));
+			tvTitleBottomLeft.setBackgroundColor(MainActivity.getInstasnce().getResources().getColor(R.color.bk_color_pink_heavy));
+			tvValueTopLeft.setBackgroundColor(MainActivity.getInstasnce().getResources().getColor(R.color.bk_color_pink_heavy));
+			tvValueBottomLeft.setBackgroundColor(MainActivity.getInstasnce().getResources().getColor(R.color.bk_color_pink_heavy));
+			tvTitleTopRight.setBackgroundColor(MainActivity.getInstasnce().getResources().getColor(R.color.bk_color_pink_heavy));
+			tvTitleBottomRight.setBackgroundColor(MainActivity.getInstasnce().getResources().getColor(R.color.bk_color_pink_heavy));
+			tvValueTopRight.setBackgroundColor(MainActivity.getInstasnce().getResources().getColor(R.color.bk_color_pink_heavy));
+			tvValueBottomRight.setBackgroundColor(MainActivity.getInstasnce().getResources().getColor(R.color.bk_color_pink_heavy));
+			ivLocationIcon.setImageDrawable(MainActivity.getInstasnce().getResources().getDrawable(R.drawable.location_icon_pink));
+		}else if(SettingsDataManager.getInstance().getThemeColor().equals("green")){
+			lyTopBar.setBackgroundColor(MainActivity.getInstasnce().getResources().getColor(R.color.bk_color_green_heavy));
+			lyMidBar.setBackgroundColor(MainActivity.getInstasnce().getResources().getColor(R.color.bk_color_green_mid));
+			
+			tvAppName.setTextColor(MainActivity.getInstasnce().getResources().getColor(R.color.text_green));
+
+			tvTitleTopLeft.setBackgroundColor(MainActivity.getInstasnce().getResources().getColor(R.color.bk_color_green_heavy));
+			tvTitleBottomLeft.setBackgroundColor(MainActivity.getInstasnce().getResources().getColor(R.color.bk_color_green_heavy));
+			tvValueTopLeft.setBackgroundColor(MainActivity.getInstasnce().getResources().getColor(R.color.bk_color_green_heavy));
+			tvValueBottomLeft.setBackgroundColor(MainActivity.getInstasnce().getResources().getColor(R.color.bk_color_green_heavy));
+			tvTitleTopRight.setBackgroundColor(MainActivity.getInstasnce().getResources().getColor(R.color.bk_color_green_heavy));
+			tvTitleBottomRight.setBackgroundColor(MainActivity.getInstasnce().getResources().getColor(R.color.bk_color_green_heavy));
+			tvValueTopRight.setBackgroundColor(MainActivity.getInstasnce().getResources().getColor(R.color.bk_color_green_heavy));
+			tvValueBottomRight.setBackgroundColor(MainActivity.getInstasnce().getResources().getColor(R.color.bk_color_green_heavy));
+			ivLocationIcon.setImageDrawable(MainActivity.getInstasnce().getResources().getDrawable(R.drawable.location_icon_green));
+		}else if(SettingsDataManager.getInstance().getThemeColor().equals("gray")){
+			lyTopBar.setBackgroundColor(MainActivity.getInstasnce().getResources().getColor(R.color.bk_color_gray_heavy));
+			lyMidBar.setBackgroundColor(MainActivity.getInstasnce().getResources().getColor(R.color.bk_color_gray_mid));
+			
+			tvAppName.setTextColor(MainActivity.getInstasnce().getResources().getColor(R.color.text_gray));
+			
+			tvTitleTopLeft.setBackgroundColor(MainActivity.getInstasnce().getResources().getColor(R.color.bk_color_gray_heavy));
+			tvTitleBottomLeft.setBackgroundColor(MainActivity.getInstasnce().getResources().getColor(R.color.bk_color_gray_heavy));
+			tvValueTopLeft.setBackgroundColor(MainActivity.getInstasnce().getResources().getColor(R.color.bk_color_gray_heavy));
+			tvValueBottomLeft.setBackgroundColor(MainActivity.getInstasnce().getResources().getColor(R.color.bk_color_gray_heavy));
+			tvTitleTopRight.setBackgroundColor(MainActivity.getInstasnce().getResources().getColor(R.color.bk_color_gray_heavy));
+			tvTitleBottomRight.setBackgroundColor(MainActivity.getInstasnce().getResources().getColor(R.color.bk_color_gray_heavy));
+			tvValueTopRight.setBackgroundColor(MainActivity.getInstasnce().getResources().getColor(R.color.bk_color_gray_heavy));
+			tvValueBottomRight.setBackgroundColor(MainActivity.getInstasnce().getResources().getColor(R.color.bk_color_gray_heavy));
+>>>>>>> 276e7d88dd36c958c6c77998ee4fe5801d5d9d98
 			ivLocationIcon.setImageDrawable(MainActivity.getInstasnce().getResources().getDrawable(R.drawable.location_icon_gray));
 		}
 	}

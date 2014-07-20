@@ -33,7 +33,10 @@
     <uses-permission android:name="com.samsung.wmanager.APP" />
     <uses-permission android:name="com.samsung.wmanager.ENABLE_NOTIFICATION" />
     <uses-permission android:name="android.permission.INTERACT_ACROSS_USERS_FULL"/>
+<<<<<<< HEAD
     <uses-permission android:name="android.permission.WAKE_LOCK"/>
+=======
+>>>>>>> 276e7d88dd36c958c6c77998ee4fe5801d5d9d98
 
     <application
         android:allowBackup="true"

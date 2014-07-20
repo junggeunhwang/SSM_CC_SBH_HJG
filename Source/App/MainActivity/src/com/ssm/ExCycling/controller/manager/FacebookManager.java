@@ -225,8 +225,12 @@ public class FacebookManager {
     {
             PackageInfo info;
             try {
+<<<<<<< HEAD
             info = MainActivity.getInstasnce().getPackageManager().getPackageInfo("" +
             		"com.ssm.ExCycling", PackageManager.GET_SIGNATURES);
+=======
+            info = MainActivity.getInstasnce().getPackageManager().getPackageInfo("com.example.facebooklogintest", PackageManager.GET_SIGNATURES);
+>>>>>>> 276e7d88dd36c958c6c77998ee4fe5801d5d9d98
             for (Signature signature : info.signatures) {MessageDigest md;
             md = MessageDigest.getInstance("SHA");
             md.update(signature.toByteArray());

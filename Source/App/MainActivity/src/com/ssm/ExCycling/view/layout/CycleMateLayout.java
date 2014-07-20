@@ -82,6 +82,10 @@ public class CycleMateLayout extends BaseFragmentLayout{
 		
 		etSearchData.setImeOptions(EditorInfo.IME_ACTION_SEARCH);
 		etSearchData.setInputType(InputType.TYPE_CLASS_TEXT);
+<<<<<<< HEAD
+=======
+		
+>>>>>>> 276e7d88dd36c958c6c77998ee4fe5801d5d9d98
 		etSearchData.setOnEditorActionListener(new OnEditorActionListener() {
 			
 			@Override
@@ -96,11 +100,35 @@ public class CycleMateLayout extends BaseFragmentLayout{
 			
 			@Override
 			public void onClick(View v) {
+<<<<<<< HEAD
 				Protocol.getInstance().SearchFriend(SettingsDataManager.getInstance().getMe().getUniqueID(), etSearchData.getText().toString());
 				etSearchData.setText("");
 			}
 		});
 		
+=======
+//				Adapter.search(etSearchData.getText().toString());
+				Protocol.getInstance().SearchFriend(SettingsDataManager.getInstance().getMe().getUniqueID(), etSearchData.getText().toString());
+			}
+		});
+		
+//		btnAdd.setTypeface(ResourceManager.getInstance().getFont("helveitca"));
+//		btnAdd.setOnClickListener(new OnClickListener() {
+//			
+//			@Override
+//			public void onClick(View arg0) {
+//				SearchCycleMateFragment searchCycleMateFragment = new SearchCycleMateFragment();
+//				FragmentTransaction transaction = MainActivity.getInstasnce().getFragmentManager().beginTransaction();
+//				transaction.add(R.id.fragment,searchCycleMateFragment);
+//				transaction.hide(MainActivity.getInstasnce().getLayout().getActivated_fragment());
+//				transaction.show(searchCycleMateFragment);
+//				MainActivity.getInstasnce().getLayout().setActivated_fragment(searchCycleMateFragment);
+//				transaction.commit();
+//				
+//			}
+//		});
+		
+>>>>>>> 276e7d88dd36c958c6c77998ee4fe5801d5d9d98
 		
 		tvAppName.setTypeface(ResourceManager.getInstance().getFont("helvetica"));
 		tvFragmentName.setTypeface(ResourceManager.getInstance().getFont("helvetica"));

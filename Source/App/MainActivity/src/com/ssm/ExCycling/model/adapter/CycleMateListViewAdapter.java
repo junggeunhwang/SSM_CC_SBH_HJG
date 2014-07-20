@@ -124,6 +124,7 @@ public class CycleMateListViewAdapter extends BaseAdapter {
 		
 		Button btnDelete = (Button)convertView.findViewById(R.id.delete_cyclemate_listview_row);
 		if(modify){
+<<<<<<< HEAD
 			if(SettingsDataManager.getInstance().getThemeColor().equals("pink")){
 				btnDelete.setBackground(MainActivity.getInstasnce().getResources().getDrawable(R.drawable.add_pink));
 			}else if(SettingsDataManager.getInstance().getThemeColor().equals("green")){
@@ -140,6 +141,11 @@ public class CycleMateListViewAdapter extends BaseAdapter {
 			}else if(SettingsDataManager.getInstance().getThemeColor().equals("gray")){
 				btnDelete.setBackground(MainActivity.getInstasnce().getResources().getDrawable(R.drawable.delete_gray));
 			}
+=======
+			btnDelete.setBackground(MainActivity.getInstasnce().getResources().getDrawable(R.drawable.add_gray));
+		}else{
+			btnDelete.setBackground(MainActivity.getInstasnce().getResources().getDrawable(R.drawable.delete_gray));
+>>>>>>> 276e7d88dd36c958c6c77998ee4fe5801d5d9d98
 		}
 		
 		btnDelete.setOnClickListener(new OnClickListener() {

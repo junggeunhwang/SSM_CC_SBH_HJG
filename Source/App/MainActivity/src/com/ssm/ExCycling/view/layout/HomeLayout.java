@@ -124,6 +124,7 @@ public class HomeLayout extends BaseFragmentLayout {
 						@Override
 						public void run() {
 							CruiseDataManager.getInstance().setCycle_data_list(DataBaseManager.getInstance().selectCruiseData());
+<<<<<<< HEAD
 //							MainActivity.getInstasnce().getLayout().getmCruiseContainerFragment().getmHomeFragment().
 							}
 					}).start();
@@ -135,6 +136,16 @@ public class HomeLayout extends BaseFragmentLayout {
 					
 					//뷰페이저  비활성화
 					MainLayout.getmCruiseContainerFragment().setViewPagerEnable(false);
+=======
+							MainActivity.getInstasnce().stopCruiseInfoRecord();
+							Protocol.getInstance().ExitRoom(SettingsDataManager.getInstance().getMe().getUniqueID());
+							CruiseDataManager.getInstance().clear();
+							SettingsDataManager.getInstance().getCurrentRoomFriendList().clear();
+						}
+					}).start();
+					//뷰페이저  활성화
+					MainLayout.getmCruiseContainerFragment().setViewPagerEnable(true);
+>>>>>>> 276e7d88dd36c958c6c77998ee4fe5801d5d9d98
 					MainActivity.getInstasnce().getLayout().replaceFragment(R.layout.fragment_cruise_container);
 				}
 				convertStartBtn();

@@ -21,11 +21,13 @@ var voicerecordStatus = document.getElementById("recordinfo");
 // 디바이스 통신 관련
 var msg_devicedetached = 'Device detached';//'디바이스와 분리됨';
 var msg_deviceattached = 'Device attached';//'디바이스와 연결됨';
-var msg_peernotfound = 'No peer app';//'피어 앱을 찾지 못함';
-var msg_peerfound = 'Find peer app!';//'피어 앱을 발견!';
+var msg_peernotfound = 'No host app';//'피어 앱을 찾지 못함';
+var msg_peerfound = 'HostApp installed';//'피어 앱을 발견!';
 var msg_sapavailable = 'Available!!';//'디바이스와 통신 가능!';
-var msg_sapunavailable = 'Transmission invalid';//'디바이스와 통신 불가';
-var msg_peernoresponse = 'Peer Srv is invalid';//'피어 서비스 사용 불가';
+var msg_sapunavailable = 'Unavailable';//'디바이스와 통신 불가';
+var msg_peernotrunning = "HostApp not running"
+var msg_peernoresponse = 'HostSrv no response';//'피어 서비스 사용 불가';
+var msg_peerinvalid = "HostSrv invalid";
 
 // 추가 정보 관련
 
@@ -184,7 +186,7 @@ function onQueueprocessingtimer()
 			}
 			
 			// 4초간 alertmessage
-			initAlertMessagepage(4000);			
+			initAlertMessagepage(4500);			
 		}
 	}
 }
@@ -206,7 +208,7 @@ myevent.listeners({
 function initAlertMessagepage(timeout)
 {
 	myevent.fire('page.alertpage');
-	navigator.vibrate([500,250,500]);
+	navigator.vibrate([1000,250,1000]);
 	setTimeout(function(){
 		myevent.fire('page.mainpage');
 		queueprocessingtimer.run();

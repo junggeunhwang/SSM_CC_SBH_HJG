@@ -8,6 +8,7 @@ import com.ssm.ExCycling.controller.manager.ResourceManager;
 import com.ssm.ExCycling.controller.manager.SettingsDataManager;
 import com.ssm.ExCycling.controller.manager.TwitterManager;
 import com.ssm.ExCycling.fragment.SettingsFragment;
+<<<<<<< HEAD
 import com.ssm.ExCycling.model.SettingsData;
 
 import android.content.SharedPreferences;
@@ -32,6 +33,21 @@ import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.TextView.OnEditorActionListener;
+=======
+
+import android.media.audiofx.BassBoost.Settings;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.view.View.OnClickListener;
+import android.widget.Button;
+import android.widget.CompoundButton;
+import android.widget.CompoundButton.OnCheckedChangeListener;
+import android.widget.LinearLayout;
+import android.widget.RadioButton;
+import android.widget.TextView;
+>>>>>>> 276e7d88dd36c958c6c77998ee4fe5801d5d9d98
 
 public class SettingsLayout extends BaseFragmentLayout {
 
@@ -44,12 +60,18 @@ public class SettingsLayout extends BaseFragmentLayout {
 	private TextView tvColor;
 	private TextView tvContactSNS;
 	private TextView tvFacebook;
+<<<<<<< HEAD
 	private TextView tvAppName;
 	private TextView tvName;
 	
 	
 	private EditText etName;
 	private Button btnEditName;
+=======
+	private TextView tvTwitter;
+	private TextView tvInstagram;
+	private TextView tvAppName;
+>>>>>>> 276e7d88dd36c958c6c77998ee4fe5801d5d9d98
 	
 	private LinearLayout llFacebookLayout;
 	private LinearLayout llTwitterLayout;
@@ -62,10 +84,14 @@ public class SettingsLayout extends BaseFragmentLayout {
 	
 	private	View vColorBar;
 	private View vContactSnsBar;
+<<<<<<< HEAD
 	private View vNameBar;
 	
 	
 	private boolean editable = false;
+=======
+	
+>>>>>>> 276e7d88dd36c958c6c77998ee4fe5801d5d9d98
 	public SettingsLayout(SettingsFragment instance) {
 		super(instance);
 	}
@@ -84,8 +110,14 @@ public class SettingsLayout extends BaseFragmentLayout {
 		tvColor = (TextView)getView().findViewById(R.id.tv_color_settings);
 		tvContactSNS = (TextView)getView().findViewById(R.id.tv_contact_sns_settings);
 		tvFacebook = (TextView)getView().findViewById(R.id.tv_facebook_settings);
+<<<<<<< HEAD
 		tvAppName = (TextView)getView().findViewById(R.id.app_name_settings);
 		tvName = (TextView)getView().findViewById(R.id.tv_name_settings);
+=======
+		tvTwitter = (TextView)getView().findViewById(R.id.tv_twitter_settings);
+		tvInstagram = (TextView)getView().findViewById(R.id.tv_instagram_settings);
+		tvAppName = (TextView)getView().findViewById(R.id.app_name_settings);
+>>>>>>> 276e7d88dd36c958c6c77998ee4fe5801d5d9d98
 		
 		llFacebookLayout = (LinearLayout)getView().findViewById(R.id.ll_facebook_settings);
 		llTwitterLayout = (LinearLayout)getView().findViewById(R.id.ll_twitter_settings);
@@ -98,6 +130,7 @@ public class SettingsLayout extends BaseFragmentLayout {
 		
 		vColorBar = (View)getView().findViewById(R.id.color_bar_settings);
 		vContactSnsBar = (View)getView().findViewById(R.id.contact_sns_bar_settings);
+<<<<<<< HEAD
 		vNameBar = (View)getView().findViewById(R.id.name_bar_settings);
 		
 		etName  = (EditText)getView().findViewById(R.id.et_edit_name_settings);
@@ -107,10 +140,15 @@ public class SettingsLayout extends BaseFragmentLayout {
 
 		etName.setTypeface(ResourceManager.getInstance().getFont("helvetica"));
 		btnEditName.setTypeface(ResourceManager.getInstance().getFont("helvetica"));
+=======
+		
+		
+>>>>>>> 276e7d88dd36c958c6c77998ee4fe5801d5d9d98
 		tvFragmentName.setTypeface(ResourceManager.getInstance().getFont("helvetica"));
 		tvColor.setTypeface(ResourceManager.getInstance().getFont("helvetica"));
 		tvContactSNS.setTypeface(ResourceManager.getInstance().getFont("helvetica"));
 		tvFacebook.setTypeface(ResourceManager.getInstance().getFont("helvetica"));
+<<<<<<< HEAD
 		tvAppName.setTypeface(ResourceManager.getInstance().getFont("helvetica"));
 		tvName.setTypeface(ResourceManager.getInstance().getFont("helvetica"));
 		
@@ -199,6 +237,62 @@ public class SettingsLayout extends BaseFragmentLayout {
 				return false;
 			}
 		});
+=======
+		tvTwitter.setTypeface(ResourceManager.getInstance().getFont("helvetica"));
+		tvInstagram.setTypeface(ResourceManager.getInstance().getFont("helvetica"));
+		tvAppName.setTypeface(ResourceManager.getInstance().getFont("helvetica"));
+		
+		llFacebookLayout.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				FacebookManager.getInstance().onClickFacebook();
+			}
+		});
+		
+		llTwitterLayout.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				TwitterManager.getInstance().connect();
+			}
+		});
+		
+		llInstagramLayout.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
+		
+		getView().findViewById(R.id.btn_facebook_logout).setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				FacebookManager.getInstance().onClickFacebookLogout();
+			}
+		});
+		
+		getView().findViewById(R.id.btn_twitter_logout).setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
+
+		getView().findViewById(R.id.btn_instagram_logout).setOnClickListener(new OnClickListener() {
+	
+	@Override
+	public void onClick(View v) {
+		// TODO Auto-generated method stub
+		
+	}
+});
+>>>>>>> 276e7d88dd36c958c6c77998ee4fe5801d5d9d98
 		
 		
 		radioPink.setOnCheckedChangeListener(buildRadioButtonCheckedListener());
@@ -253,16 +347,22 @@ public class SettingsLayout extends BaseFragmentLayout {
 			lyTopBar.setBackgroundColor(MainActivity.getInstasnce().getResources().getColor(R.color.bk_color_pink_heavy));
 			vColorBar.setBackgroundColor(MainActivity.getInstasnce().getResources().getColor(R.color.bk_color_pink_heavy));
 			vContactSnsBar.setBackgroundColor(MainActivity.getInstasnce().getResources().getColor(R.color.bk_color_pink_heavy));
+<<<<<<< HEAD
 			vNameBar.setBackgroundColor(MainActivity.getInstasnce().getResources().getColor(R.color.bk_color_pink_heavy));
+=======
+>>>>>>> 276e7d88dd36c958c6c77998ee4fe5801d5d9d98
 			
 			tvAppName.setTextColor(MainActivity.getInstasnce().getResources().getColor(R.color.text_pink));
 			tvColor.setTextColor(MainActivity.getInstasnce().getResources().getColor(R.color.text_pink));
 			tvContactSNS.setTextColor(MainActivity.getInstasnce().getResources().getColor(R.color.text_pink));
+<<<<<<< HEAD
 			tvName.setTextColor(MainActivity.getInstasnce().getResources().getColor(R.color.text_pink));
 			
 			if(editable) btnEditName.setBackground(MainActivity.getInstasnce().getResources().getDrawable(R.drawable.done_check_pink));
 			else btnEditName.setBackground(MainActivity.getInstasnce().getResources().getDrawable(R.drawable.edit_pink));
 			
+=======
+>>>>>>> 276e7d88dd36c958c6c77998ee4fe5801d5d9d98
 			radioPink.setButtonDrawable(MainActivity.getInstasnce().getResources().getDrawable(R.drawable.custom_drawable_radiobox_pink));
 			radioGreen.setButtonDrawable(MainActivity.getInstasnce().getResources().getDrawable(R.drawable.custom_drawable_radiobox_pink));
 			radioGray.setButtonDrawable(MainActivity.getInstasnce().getResources().getDrawable(R.drawable.custom_drawable_radiobox_pink));
@@ -273,15 +373,22 @@ public class SettingsLayout extends BaseFragmentLayout {
 			lyTopBar.setBackgroundColor(MainActivity.getInstasnce().getResources().getColor(R.color.bk_color_green_heavy));
 			vColorBar.setBackgroundColor(MainActivity.getInstasnce().getResources().getColor(R.color.bk_color_green_heavy));
 			vContactSnsBar.setBackgroundColor(MainActivity.getInstasnce().getResources().getColor(R.color.bk_color_green_heavy));
+<<<<<<< HEAD
 			vNameBar.setBackgroundColor(MainActivity.getInstasnce().getResources().getColor(R.color.bk_color_green_heavy));
+=======
+>>>>>>> 276e7d88dd36c958c6c77998ee4fe5801d5d9d98
 			
 			tvAppName.setTextColor(MainActivity.getInstasnce().getResources().getColor(R.color.text_green));
 			tvColor.setTextColor(MainActivity.getInstasnce().getResources().getColor(R.color.text_green));
 			tvContactSNS.setTextColor(MainActivity.getInstasnce().getResources().getColor(R.color.text_green));
+<<<<<<< HEAD
 			tvName.setTextColor(MainActivity.getInstasnce().getResources().getColor(R.color.text_green));
 			
 			if(editable) btnEditName.setBackground(MainActivity.getInstasnce().getResources().getDrawable(R.drawable.done_check_green));
 			else btnEditName.setBackground(MainActivity.getInstasnce().getResources().getDrawable(R.drawable.edit_green));
+=======
+	
+>>>>>>> 276e7d88dd36c958c6c77998ee4fe5801d5d9d98
 			radioPink.setButtonDrawable(MainActivity.getInstasnce().getResources().getDrawable(R.drawable.custom_drawable_radiobox_green));
 			radioGreen.setButtonDrawable(MainActivity.getInstasnce().getResources().getDrawable(R.drawable.custom_drawable_radiobox_green));
 			radioGray.setButtonDrawable(MainActivity.getInstasnce().getResources().getDrawable(R.drawable.custom_drawable_radiobox_green));
@@ -294,14 +401,20 @@ public class SettingsLayout extends BaseFragmentLayout {
 			lyTopBar.setBackgroundColor(MainActivity.getInstasnce().getResources().getColor(R.color.bk_color_gray_heavy));
 			vColorBar.setBackgroundColor(MainActivity.getInstasnce().getResources().getColor(R.color.bk_color_gray_heavy));
 			vContactSnsBar.setBackgroundColor(MainActivity.getInstasnce().getResources().getColor(R.color.bk_color_gray_heavy));
+<<<<<<< HEAD
 			vNameBar.setBackgroundColor(MainActivity.getInstasnce().getResources().getColor(R.color.bk_color_gray_heavy));
+=======
+>>>>>>> 276e7d88dd36c958c6c77998ee4fe5801d5d9d98
 			
 			tvAppName.setTextColor(MainActivity.getInstasnce().getResources().getColor(R.color.text_gray));
 			tvColor.setTextColor(MainActivity.getInstasnce().getResources().getColor(R.color.text_gray));
 			tvContactSNS.setTextColor(MainActivity.getInstasnce().getResources().getColor(R.color.text_gray));
+<<<<<<< HEAD
 			tvName.setTextColor(MainActivity.getInstasnce().getResources().getColor(R.color.text_gray));
 			if(editable) btnEditName.setBackground(MainActivity.getInstasnce().getResources().getDrawable(R.drawable.done_check_gray));
 			else btnEditName.setBackground(MainActivity.getInstasnce().getResources().getDrawable(R.drawable.edit_gray));
+=======
+>>>>>>> 276e7d88dd36c958c6c77998ee4fe5801d5d9d98
 
 			radioPink.setButtonDrawable(MainActivity.getInstasnce().getResources().getDrawable(R.drawable.custom_drawable_radiobox_gray));
 			radioGreen.setButtonDrawable(MainActivity.getInstasnce().getResources().getDrawable(R.drawable.custom_drawable_radiobox_gray));

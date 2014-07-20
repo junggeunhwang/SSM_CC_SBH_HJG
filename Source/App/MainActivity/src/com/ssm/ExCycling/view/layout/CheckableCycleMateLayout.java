@@ -82,7 +82,12 @@ public class CheckableCycleMateLayout extends BaseFragmentLayout{
 			
 			@Override
 			public void onClick(View arg0) {
+<<<<<<< HEAD
 				
+=======
+				MainLayout.getmCruiseContainerFragment().setViewPagerEnable(true);
+				SettingsDataManager.getInstance().setStart_stopBicycleFlag(true);
+>>>>>>> 276e7d88dd36c958c6c77998ee4fe5801d5d9d98
 				
 				ArrayList<UserData> checkedUser = new ArrayList<UserData>();
 				for(int i = 0 ; i < Adapter.getCount();i++){
@@ -91,10 +96,16 @@ public class CheckableCycleMateLayout extends BaseFragmentLayout{
 					}
 				}
 
+<<<<<<< HEAD
 //				SettingsDataManager.getInstance().setCurrentRoomFriendList(checkedUser);
 				//号 持失
 				Protocol.getInstance().MakeRoom(SettingsDataManager.getInstance().getMe().getUniqueID());
 //				Adapter.reset();
+=======
+				SettingsDataManager.getInstance().setCurrentRoomFriendList(checkedUser);
+				//号 持失
+				Protocol.getInstance().MakeRoom(SettingsDataManager.getInstance().getMe().getUniqueID());
+>>>>>>> 276e7d88dd36c958c6c77998ee4fe5801d5d9d98
 			}
 		});
 		

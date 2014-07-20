@@ -68,6 +68,7 @@ public class CheckableCycleMateListViewAdapter extends BaseAdapter {
 
 	public void reset(){
 		arSrc = SettingsDataManager.getInstance().getFriendList();
+<<<<<<< HEAD
 		MainActivity.getInstasnce().runOnUiThread(new Runnable() {
 			
 			@Override
@@ -75,6 +76,9 @@ public class CheckableCycleMateListViewAdapter extends BaseAdapter {
 				notifyDataSetChanged();
 			}
 		});
+=======
+		notifyDataSetChanged();
+>>>>>>> 276e7d88dd36c958c6c77998ee4fe5801d5d9d98
 	}
 	
 	public CheckableCycleMateListViewAdapter(Context context,int alayout, ArrayList<UserData> aarSrc) {

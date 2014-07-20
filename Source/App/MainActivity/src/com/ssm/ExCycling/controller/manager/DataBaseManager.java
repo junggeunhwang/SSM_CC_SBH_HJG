@@ -41,6 +41,7 @@ public class DataBaseManager extends SQLiteOpenHelper {
 	final int LONGITUDE_CRUISEDATA = 7;
 	final int TIME_STAMP = 8;
 	
+<<<<<<< HEAD
 	final int START_TIME = 0;
 	final int TEMP = 1;
 	final int HUMIDITY = 2;
@@ -48,6 +49,8 @@ public class DataBaseManager extends SQLiteOpenHelper {
 	final int WIND_DIR = 4;
 	final int MEMBER_COUNT = 5;
 	
+=======
+>>>>>>> 276e7d88dd36c958c6c77998ee4fe5801d5d9d98
 	static DataBaseManager manager;
 	SQLiteDatabase db;
 	Context context;
@@ -91,6 +94,7 @@ public class DataBaseManager extends SQLiteOpenHelper {
 				"uniqueNumber TEXT PRIMARY KEY,"+
 				"name TEXT);";
 		db.execSQL(sql4);
+<<<<<<< HEAD
 		
 		String sql5 = "CREATE TABLE atmosphere("+
 				"startTime TEXT PRIMARY KEY,"+
@@ -100,6 +104,8 @@ public class DataBaseManager extends SQLiteOpenHelper {
 				"wind_dir TEXT," +
 				"member_count TEXT);";
 		db.execSQL(sql5);
+=======
+>>>>>>> 276e7d88dd36c958c6c77998ee4fe5801d5d9d98
 	}
 
 	@Override
@@ -108,6 +114,7 @@ public class DataBaseManager extends SQLiteOpenHelper {
 		db.execSQL("DROP TABLE IF EXISTS settings;");
 		db.execSQL("DROP TABLE IF EXISTS cruise_data;");
 		db.execSQL("DROP TABLE IF EXISTS friend;");
+<<<<<<< HEAD
 		db.execSQL("DROP TABLE IF EXISTS atmosphere;");
 		onCreate(db);
 	}
@@ -144,6 +151,13 @@ public class DataBaseManager extends SQLiteOpenHelper {
 	
 	public void recreateFriendTable(){
 		db = manager.getWritableDatabase();
+=======
+		onCreate(db);
+	}
+	
+	public void recreateFriendTable(){
+		db = db = manager.getWritableDatabase();
+>>>>>>> 276e7d88dd36c958c6c77998ee4fe5801d5d9d98
 		db.execSQL("DROP TABLE IF EXISTS friend;");
 		
 		String sql = "CREATE TABLE friend("+
@@ -210,6 +224,10 @@ public class DataBaseManager extends SQLiteOpenHelper {
 		
 		Cursor c = db.query("last_location", null,null,null,null,null,null);
 		
+<<<<<<< HEAD
+=======
+		int count = c.getCount();
+>>>>>>> 276e7d88dd36c958c6c77998ee4fe5801d5d9d98
 		c.moveToNext();
 		if(c.getCount()==0){
 			db.insert("last_location",null,row);
@@ -295,7 +313,11 @@ public class DataBaseManager extends SQLiteOpenHelper {
 	public ArrayList<CycleData> selectCruiseData(){
 
 		db = manager.getReadableDatabase();
+<<<<<<< HEAD
 		Cursor c = db.rawQuery("select * from cruise_data;",null);
+=======
+		Cursor c = db.rawQuery("select * from cruise_data order by timestamp;",null);
+>>>>>>> 276e7d88dd36c958c6c77998ee4fe5801d5d9d98
 
 		ArrayList<CycleData> cycleDataList = new ArrayList<CycleData>();
 		
@@ -314,6 +336,10 @@ public class DataBaseManager extends SQLiteOpenHelper {
 			if(!prevStartTime.equals(c.getString(DATE))){
 				
 				if(!prevStartTime.equals("")){
+<<<<<<< HEAD
+=======
+					prevStartTime = c.getString(DATE);
+>>>>>>> 276e7d88dd36c958c6c77998ee4fe5801d5d9d98
 					CycleData data = new CycleData();
 					data.setStartTime(prevStartTime);
 					data.setSpeedList(velocity);
@@ -321,7 +347,10 @@ public class DataBaseManager extends SQLiteOpenHelper {
 					data.setLocationList(location);
 					data.setDistanceList(distance);
 					data.setConsumeCalroriesList(calory);
+<<<<<<< HEAD
 					prevStartTime = c.getString(DATE);
+=======
+>>>>>>> 276e7d88dd36c958c6c77998ee4fe5801d5d9d98
 					
 					cycleDataList.add(data);	
 				}
@@ -349,7 +378,10 @@ public class DataBaseManager extends SQLiteOpenHelper {
 			
 			if(i+1 == c.getCount()){
 				CycleData data = new CycleData();
+<<<<<<< HEAD
 				prevStartTime = c.getString(DATE);
+=======
+>>>>>>> 276e7d88dd36c958c6c77998ee4fe5801d5d9d98
 				data.setStartTime(prevStartTime);
 				data.setSpeedList(velocity);
 				data.setAltitudeList(altitude);
@@ -363,7 +395,11 @@ public class DataBaseManager extends SQLiteOpenHelper {
 //			Log.d(TAG,"1 : " +c.getString(1));
 //			Log.d(TAG,"2 : " +c.getString(2));
 //			Log.d(TAG,"3 : " +c.getString(3));
+<<<<<<< HEAD
 			Log.d(TAG,"Distance in DB : " +c.getString(4));
+=======
+//			Log.d(TAG,"4 : " +c.getString(4));
+>>>>>>> 276e7d88dd36c958c6c77998ee4fe5801d5d9d98
 //			Log.d(TAG,"5 : " +c.getString(5));
 //			Log.d(TAG,"6 : " +c.getString(6));
 //			Log.d(TAG,"7 : " +c.getString(7));
@@ -374,6 +410,7 @@ public class DataBaseManager extends SQLiteOpenHelper {
 		return cycleDataList;		
 	}
 	
+<<<<<<< HEAD
 	public void deleteCycleData(String startTime){
 		db = manager.getWritableDatabase(); 
 		String[] args = {startTime};
@@ -381,6 +418,8 @@ public class DataBaseManager extends SQLiteOpenHelper {
 		Log.d(TAG,"delete result : " + result);
 	}
 	
+=======
+>>>>>>> 276e7d88dd36c958c6c77998ee4fe5801d5d9d98
 	public void close(){
 		db.close();
 	}

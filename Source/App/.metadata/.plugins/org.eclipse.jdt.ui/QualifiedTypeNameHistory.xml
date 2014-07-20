@@ -1,7 +1,43 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <qualifiedTypeNameHistroy>
+<<<<<<< HEAD
+=======
+<fullyQualifiedTypeName name="android.view.View.OnClickListener"/>
+<fullyQualifiedTypeName name="com.ssm.cyclists.controller.asynctask.WeatherUpdateAsyncTask"/>
+<fullyQualifiedTypeName name="java.lang.NullPointerException"/>
+<fullyQualifiedTypeName name="android.net.Uri"/>
+<fullyQualifiedTypeName name="com.ssm.cyclists.controller.manager.TwitterManager"/>
+<fullyQualifiedTypeName name="twitter4j.auth.AccessToken"/>
+<fullyQualifiedTypeName name="twitter4j.TwitterFactory"/>
+<fullyQualifiedTypeName name="com.ssm.cyclists.model.TwitterBasicInfo"/>
+<fullyQualifiedTypeName name="android.widget.Toast"/>
+<fullyQualifiedTypeName name="com.ssm.cyclists.controller.communication.sapinterface.SAPProviderService"/>
+<fullyQualifiedTypeName name="com.ssm.cyclists.R.layout"/>
+<fullyQualifiedTypeName name="android.content.Context"/>
+<fullyQualifiedTypeName name="android.widget.ProgressBar"/>
+<fullyQualifiedTypeName name="android.os.Handler"/>
+<fullyQualifiedTypeName name="android.os.SystemClock"/>
+<fullyQualifiedTypeName name="android.os.Looper"/>
+<fullyQualifiedTypeName name="com.ssm.cyclists.controller.fragment.SearchCycleMateFragment"/>
+<fullyQualifiedTypeName name="android.app.ProgressDialog"/>
+<fullyQualifiedTypeName name="android.graphics.drawable.ColorDrawable"/>
+<fullyQualifiedTypeName name="android.graphics.Color"/>
+<fullyQualifiedTypeName name="com.ssm.cyclists.ProgressDialog"/>
+<fullyQualifiedTypeName name="android.widget.TextView"/>
+<fullyQualifiedTypeName name="android.widget.LinearLayout"/>
+<fullyQualifiedTypeName name="java.util.Timer"/>
+<fullyQualifiedTypeName name="java.util.TimerTask"/>
+<fullyQualifiedTypeName name="com.google.android.gms.internal.is"/>
+<fullyQualifiedTypeName name="com.ssm.cyclists.controller.activity.SplashActivity"/>
+<fullyQualifiedTypeName name="android.view.View.OnKeyListener"/>
+<fullyQualifiedTypeName name="android.view.inputmethod.EditorInfo"/>
+>>>>>>> 276e7d88dd36c958c6c77998ee4fe5801d5d9d98
 <fullyQualifiedTypeName name="android.text.InputType"/>
 <fullyQualifiedTypeName name="android.app.AlertDialog.Builder"/>
+<<<<<<< HEAD
+=======
+<fullyQualifiedTypeName name="android.provider.Settings"/>
+>>>>>>> 276e7d88dd36c958c6c77998ee4fe5801d5d9d98
 <fullyQualifiedTypeName name="android.content.DialogInterface"/>
 <fullyQualifiedTypeName name="android.content.DialogInterface.OnClickListener"/>
 <fullyQualifiedTypeName name="android.location.LocationManager"/>
@@ -18,11 +54,16 @@
 <fullyQualifiedTypeName name="com.ssm.ExCycling.R"/>
 <fullyQualifiedTypeName name="android.graphics.Bitmap"/>
 <fullyQualifiedTypeName name="android.content.Intent"/>
+<<<<<<< HEAD
+=======
+<fullyQualifiedTypeName name="android.util.Log"/>
+>>>>>>> 276e7d88dd36c958c6c77998ee4fe5801d5d9d98
 <fullyQualifiedTypeName name="android.app.Notification"/>
 <fullyQualifiedTypeName name="android.graphics.BitmapFactory"/>
 <fullyQualifiedTypeName name="android.os.AsyncTask"/>
 <fullyQualifiedTypeName name="com.ssm.cyclists.controller.manager.CruiseDataManager"/>
 <fullyQualifiedTypeName name="android.util.Base64"/>
+<<<<<<< HEAD
 <fullyQualifiedTypeName name="com.ssm.ExCycling.view.layout.CheckableCycleMateLayout"/>
 <fullyQualifiedTypeName name="android.util.Log"/>
 <fullyQualifiedTypeName name="android.widget.EditText"/>
@@ -60,4 +101,11 @@
 <fullyQualifiedTypeName name="com.ssm.ExCycling.controller.manager.SettingsDataManager"/>
 <fullyQualifiedTypeName name="java.lang.Runnable"/>
 <fullyQualifiedTypeName name="com.ssm.ExCycling.controller.activity.MainActivity"/>
+=======
+<fullyQualifiedTypeName name="java.lang.Runnable"/>
+<fullyQualifiedTypeName name="com.ssm.ExCycling.controller.manager.SettingsDataManager"/>
+<fullyQualifiedTypeName name="com.ssm.ExCycling.controller.activity.MainActivity"/>
+<fullyQualifiedTypeName name="com.ssm.ExCycling.controller.manager.CruiseDataManager"/>
+<fullyQualifiedTypeName name="java.util.ArrayList"/>
+>>>>>>> 276e7d88dd36c958c6c77998ee4fe5801d5d9d98
 </qualifiedTypeNameHistroy>

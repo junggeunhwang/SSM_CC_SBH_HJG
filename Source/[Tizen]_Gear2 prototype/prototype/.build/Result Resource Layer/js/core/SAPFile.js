@@ -70,7 +70,7 @@ function SAPFileInit()
 				
 				console.log(queuedata.name);
 				
-				multicastedqueue.push(queuedata);
+				multicastedqueue.unshift(queuedata);
 				
 			}, 
 			onerror : function(errorCode, transferId){ 

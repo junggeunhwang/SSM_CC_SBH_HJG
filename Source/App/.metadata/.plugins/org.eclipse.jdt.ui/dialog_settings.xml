@@ -98,6 +98,7 @@
 		<item value="3" key="pageIndex"/>
 	</section>
 	<section name="JavaSearchPage">
+<<<<<<< HEAD
 		<item value="4" key="HISTORY_SIZE"/>
 		<item value="false" key="CASE_SENSITIVE"/>
 		<item value="15" key="INCLUDE_MASK"/>
@@ -114,6 +115,12 @@
 			</list>
 		</section>
 		<section name="HISTORY3">
+=======
+		<item value="3" key="HISTORY_SIZE"/>
+		<item value="false" key="CASE_SENSITIVE"/>
+		<item value="15" key="INCLUDE_MASK"/>
+		<section name="HISTORY2">
+>>>>>>> 276e7d88dd36c958c6c77998ee4fe5801d5d9d98
 			<item value="false" key="isCaseSensitive"/>
 			<item value="" key="javaElement"/>
 			<item value="3" key="scope"/>
@@ -128,9 +135,15 @@
 		<section name="HISTORY0">
 			<item value="false" key="isCaseSensitive"/>
 			<item value="" key="javaElement"/>
+<<<<<<< HEAD
 			<item value="3" key="scope"/>
 			<item value="15" key="includeMask"/>
 			<item value="Number of people" key="pattern"/>
+=======
+			<item value="0" key="scope"/>
+			<item value="15" key="includeMask"/>
+			<item value="BEZEL" key="pattern"/>
+>>>>>>> 276e7d88dd36c958c6c77998ee4fe5801d5d9d98
 			<item value="3" key="limitTo"/>
 			<item value="0" key="matchLocations"/>
 			<item value="4" key="searchFor"/>
@@ -140,12 +153,21 @@
 		<section name="HISTORY1">
 			<item value="false" key="isCaseSensitive"/>
 			<item value="" key="javaElement"/>
+<<<<<<< HEAD
 			<item value="0" key="scope"/>
 			<item value="15" key="includeMask"/>
 			<item value="BEZEL" key="pattern"/>
 			<item value="3" key="limitTo"/>
 			<item value="0" key="matchLocations"/>
 			<item value="4" key="searchFor"/>
+=======
+			<item value="3" key="scope"/>
+			<item value="15" key="includeMask"/>
+			<item value="import com.ssm.cyclists.R;" key="pattern"/>
+			<item value="2" key="limitTo"/>
+			<item value="0" key="matchLocations"/>
+			<item value="0" key="searchFor"/>
+>>>>>>> 276e7d88dd36c958c6c77998ee4fe5801d5d9d98
 			<list key="workingSets">
 			</list>
 		</section>

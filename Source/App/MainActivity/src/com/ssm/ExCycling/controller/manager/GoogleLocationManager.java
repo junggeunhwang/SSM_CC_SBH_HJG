@@ -80,12 +80,18 @@ public class GoogleLocationManager implements LocationListener ,ConnectionCallba
     	
     	alertDialog.show();
     }
+<<<<<<< HEAD
    
+=======
+>>>>>>> 276e7d88dd36c958c6c77998ee4fe5801d5d9d98
     public void resume(){
     	 locationClient.connect();
     }
     
+<<<<<<< HEAD
     
+=======
+>>>>>>> 276e7d88dd36c958c6c77998ee4fe5801d5d9d98
     public void pause(){
     	isReconnect = false;
            locationClient.disconnect();
@@ -102,8 +108,12 @@ public class GoogleLocationManager implements LocationListener ,ConnectionCallba
             MainActivity.getInstasnce().sendBroadcast(poke);
         }
     }
+<<<<<<< HEAD
 	
     @Override
+=======
+	@Override
+>>>>>>> 276e7d88dd36c958c6c77998ee4fe5801d5d9d98
 	public void onLocationChanged(Location location) {
 		
 		CruiseDataManager.getInstance().setCurrent_loc(location.getLatitude(),location.getLongitude());

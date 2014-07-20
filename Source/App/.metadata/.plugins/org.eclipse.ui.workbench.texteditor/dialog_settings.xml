@@ -2,12 +2,17 @@
 <section name="Workbench">
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
 		<item value="false" key="isRegEx"/>
+<<<<<<< HEAD
 		<item value="Search" key="selection"/>
+=======
+		<item value="mkroom" key="selection"/>
+>>>>>>> 276e7d88dd36c958c6c77998ee4fe5801d5d9d98
 		<item value="false" key="casesensitive"/>
 		<item value="false" key="incremental"/>
 		<item value="true" key="wrap"/>
 		<item value="false" key="wholeword"/>
 		<list key="findhistory">
+<<<<<<< HEAD
 			<item value="search"/>
 			<item value="tokenizer.nextToken()"/>
 			<item value="repla"/>
@@ -16,6 +21,16 @@
 			<item value="et"/>
 			<item value="searc"/>
 			<item value="FriendList"/>
+=======
+			<item value="mkroom"/>
+			<item value="noti"/>
+			<item value="getmMe"/>
+			<item value="getMenu"/>
+			<item value="BEZEL"/>
+			<item value="Protocol"/>
+			<item value="`"/>
+			<item value="start_stopBicycleFlag"/>
+>>>>>>> 276e7d88dd36c958c6c77998ee4fe5801d5d9d98
 		</list>
 		<list key="replacehistory">
 			<item value="@string/app_name"/>

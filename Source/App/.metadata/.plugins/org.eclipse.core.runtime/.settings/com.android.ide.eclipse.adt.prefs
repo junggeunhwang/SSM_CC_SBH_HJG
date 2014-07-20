@@ -1,6 +1,9 @@
 com.android.ide.eclipse.adt.fixLegacyEditors=1
+<<<<<<< HEAD
 com.android.ide.eclipse.adt.lintOnExport=false
 com.android.ide.eclipse.adt.lintSeverities=MissingQuantity\=WARNING,MissingTranslation\=WARNING
+=======
+>>>>>>> 276e7d88dd36c958c6c77998ee4fe5801d5d9d98
 com.android.ide.eclipse.adt.sdk=C\:\\Users\\\uC815\uADFC\\Documents\\adt-bundle-windows-x86_64-20140624\\sdk
 com.android.ide.eclipse.adt.xmlEditor=true
 design.structure.flyout.width=267

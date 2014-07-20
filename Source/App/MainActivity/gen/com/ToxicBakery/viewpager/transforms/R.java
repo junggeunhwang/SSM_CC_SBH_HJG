@@ -8,7 +8,11 @@ package com.ToxicBakery.viewpager.transforms;
 
 public final class R {
 	public static final class drawable {
+<<<<<<< HEAD
 		public static final int ic_launcher = 0x7f0200cf;
+=======
+		public static final int ic_launcher = 0x7f0200c6;
+>>>>>>> 276e7d88dd36c958c6c77998ee4fe5801d5d9d98
 	}
 	public static final class string {
 		public static final int app_name = 0x7f060000;

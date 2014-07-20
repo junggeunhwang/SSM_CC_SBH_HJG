@@ -18,6 +18,7 @@
 	<!-- main Page -->
 	<div class="ui-page ui-page-active" id="mainpage">
 		<div id="mainbackground">
+			<img id="mainrecordbutton" src="./image/secondpage/recording.png" style="position:absolute;height:18%;width:18%;margin-left:80%">
 			<span id="altitude" class="fitnessinfo" style="text-align:center;margin-top:50px;width:320px">0.0 m</span>
 			<span id="distance" class="fitnessinfo" style="text-align:center;margin-top:160px;width:320px">0.0 km</span>
 			<span id="avgspeed" class="fitnessinfo" style="text-align:center;margin-top:285px;width:150px">0.0 km/h</span>
@@ -30,9 +31,9 @@
 	<div class="ui-page" id="secondpage">
 		<div id="secondbackground">
 			<span id="deviceinfo" class="fitnessinfo" style="font-size:25px;margin-top:25px;margin-left:10px"></span>
-			<img id="recordbutton" src="./image/secondpage/recording.png" style="position:absolute;height:25%;width:25%;margin-left:75%">
-			<img id="leftToggle" src="./image/secondpage/leftToggle.png" style="position:absolute;margin-top:38%;margin-left:7px">
-			<img id="rightToggle" src="./image/secondpage/rightToggle.png" style="position:absolute;margin-top:38%;margin-left:79%">
+			<img id="recordbutton" src="./image/secondpage/recording.png" style="position:absolute;height:18%;width:18%;margin-left:80%">
+			<img id="leftToggle" src="./image/secondpage/leftToggle.png" style="position:absolute;margin-top:38%;margin-left:7px;width:15%;height:20%">
+			<img id="rightToggle" src="./image/secondpage/rightToggle.png" style="position:absolute;margin-top:38%;margin-left:83%;width:15%;height:20%">
 			<span id="kcalinfo" class="fitnessinfo" style="text-align:center;margin-top:180px;width:320px;font-size:30px">0 kcal</span>
 			<input type="checkbox" id="motioncheckbox" style="margin-top:260px;">
 			<label for="motioncheckbox" style="font-size:20px;position:absolute;margin-top:275px">Enable Motion Recognition</label>
@@ -89,14 +90,14 @@
 <script src="./js/core/audiorecord.js"></script>
 <script src="./js/core/displayvariable.js"></script>
 <script src="./js/toggle.js"></script>
+<script src="./js/healthinfo.js"></script>
+<script src="./js/core/SAPInit.js"></script>
 <script src="./js/core/SAPString.js"></script>
 <script src="./js/core/SAPFile.js"></script>
-<script src="./js/core/SAPInit.js"></script>
 <script src="./js/motioncheck.js"></script>
 <script src="./js/option.js"></script>
 <script src="./js/main.js"></script>
 <script src="./js/lowBatteryCheck.js"></script>
 <!-- Just for prototype script -->
 <script src="./js/motionlog.js"></script>
-<script src="./js/transfertest.js"></script>
 </html>

@@ -250,6 +250,10 @@ public class MapViewLayout extends BaseFragmentLayout {
 	}
 	public void setAvgTeamSpeed(){
 		
+<<<<<<< HEAD
+=======
+		
+>>>>>>> 276e7d88dd36c958c6c77998ee4fe5801d5d9d98
 		tvValueTopRight.post(new Runnable() {
 			
 			@Override
@@ -259,7 +263,10 @@ public class MapViewLayout extends BaseFragmentLayout {
 				for(int i = 0 ; i < friendlist.size();i++){
 					sum+=friendlist.get(i).getSpeed();
 				}
+<<<<<<< HEAD
 				sum+=CruiseDataManager.getInstance().getCurrent_speed();
+=======
+>>>>>>> 276e7d88dd36c958c6c77998ee4fe5801d5d9d98
 				Log.d(TAG,String.format("%.2f", sum/(friendlist.size()+1)));
 				String avgSpeed = String.format("%.2f", sum/(friendlist.size()+1)) + " Km/h";
 				tvValueTopRight.setText(avgSpeed);

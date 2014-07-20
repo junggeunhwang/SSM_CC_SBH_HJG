@@ -35,6 +35,7 @@
 1405533691457	Rename package 'com.ssm.cyclists.model.adapter'
 1405533697139	Rename package 'com.ssm.cyclists.view'
 1405533704112	Rename package 'com.ssm.cyclists.view.layout'
+<<<<<<< HEAD
 1405545477437	Delete element
 1405569932456	Rename type 'DistDiffMonitorTimertask'
 1405593343739	Move compilation units
@@ -42,3 +43,5 @@
 1405597475915	Delete element
 1405617598155	Delete element
 1405629344618	Delete element
+=======
+>>>>>>> 276e7d88dd36c958c6c77998ee4fe5801d5d9d98

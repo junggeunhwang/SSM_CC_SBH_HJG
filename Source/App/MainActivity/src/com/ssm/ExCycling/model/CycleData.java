@@ -19,12 +19,15 @@ public class CycleData {
 	private ArrayList<Location> arLocation;
 	private ArrayList<String> arTimeStamp;
 	
+<<<<<<< HEAD
 	private String temp;
 	private String humidity;
 	private String wind;
 	private String wind_dir;
 	private String mem_count;
 	
+=======
+>>>>>>> 276e7d88dd36c958c6c77998ee4fe5801d5d9d98
 	public CycleData() {
 		arConsumeCalrories = new ArrayList<String>();
 	}
@@ -77,6 +80,7 @@ public class CycleData {
 		return arTimeStamp;
 	}
 
+<<<<<<< HEAD
 	public String getTemp() {
 		return temp;
 	}
@@ -117,6 +121,8 @@ public class CycleData {
 		this.mem_count = mem_count;
 	}
 
+=======
+>>>>>>> 276e7d88dd36c958c6c77998ee4fe5801d5d9d98
 	public void setArTimeStampList(ArrayList<String> arTimeStamp) {
 		this.arTimeStamp = arTimeStamp;
 	}
