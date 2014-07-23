@@ -4,7 +4,7 @@
 <SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha256"></SignatureMethod>
 <Reference URI="author-signature.xml">
 <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
-<DigestValue>7phOnP5qjYGVrfZdVkhF09CX3qKg4AiGU1QGXJGxPuo=</DigestValue>
+<DigestValue>R+/NnRgy6qszECGNtCDYdijIco7GlBSQeDY5NeEeMTs=</DigestValue>
 </Reference>
 <Reference URI="config.xml">
 <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
@@ -126,29 +126,17 @@
 <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
 <DigestValue>/j7yyQCnxFV7gJDINskk2CFjNAOod1WrXtx6c9ZPRuc=</DigestValue>
 </Reference>
-<Reference URI="js/healthInfo.js">
-<DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
-<DigestValue>U1uXZpsUnGYGURAHJ7SfsnfzfV7iGFSzHGHga0vSKeY=</DigestValue>
-</Reference>
 <Reference URI="js/lowBatteryCheck.js">
 <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
 <DigestValue>4IDI/MGoEVQKVqe6/8f+PkUg7ijqXFnxAKL33nbhziY=</DigestValue>
 </Reference>
 <Reference URI="js/main.js">
 <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
-<DigestValue>tyuxx0yduqjN016e/CkRpqytkzm89a83HgOk1FnvviQ=</DigestValue>
+<DigestValue>0jS7XQcwkaP7g6VIpgFBY8FUrPBt3oqMDUTnHfE2ex8=</DigestValue>
 </Reference>
 <Reference URI="js/motioncheck.js">
 <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
-<DigestValue>xgyQMVz5En87ChDpYuCE91izgpiHSaI7b/lHXwsZZco=</DigestValue>
-</Reference>
-<Reference URI="js/motionlog.js">
-<DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
-<DigestValue>ubU+5HsrZ4JSJfWglXjhJMk49ZADED41qS7+d/XTJGw=</DigestValue>
-</Reference>
-<Reference URI="js/option.js">
-<DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
-<DigestValue>2qFFOnS51NSDQkiuEw38nysWGbszcQ/zRANgPm7nfRE=</DigestValue>
+<DigestValue>0iq7Io9XVV4mnh3AeozJ6Zzb8lfPmbceHxkh1eCzXOg=</DigestValue>
 </Reference>
 <Reference URI="js/toggle.js">
 <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
@@ -391,11 +379,11 @@
 </Reference>
 </SignedInfo>
 <SignatureValue>
-oak3p/7stCInNMLKKnqxOSXMcGD5GzoQbB6g8S8Y86gK9UOepaM84vKP82SIt0nhR09ywpSeSx5n
-dR+ylp+PPiTDpCQTtPsgWGhbCdSi+0JFQe/D0/p0JaaO8AI28KkAggeAQzTKO8qcNowvV3ruVCXI
-DGHU+ghLYzOzylCqQRmPDuLoM22uERdqhqubEjfgCco6EUXEF4bXV9rgUWAcn8HBGCurD39Ln20Y
-G9VNScYFGZqd/4TyNFoHe7v5XX8GJeslwPIO955xGP1ELbdB3xYTepXKdwZeium6xE9nQ2gbk1ca
-kwtrDK+5XhoYZjLwuA1lTqD73THPHsQj+IiBkg==
+HCwDnYtDn2nTJaJUNoTOFiT3GsLJQQJZyrvqDBaTHuhVHdxjgilDsfRbPyV/X5H32AhPuK4x0Bv5
+vqDarIv+6v1W1Y6fA5IuilRLKnQ8RSRlyJ0M0N+f2ABu+081P8Yk7nhifw+zyFQZPLDVAT70oRxK
+M9RP+RUNfOGQNkdvtrK2/KpqwuOrFRP8itR3tY+a6tXUkmvGBmVxjHOzJwKP338y3NI0TW0H9saz
+Sj34lE8YUK8edPAdk/FlEzzVn8VBY3xUC2EwEa4e+OvTRRJczvH8OyNGqsm22b95Wj+3jZW63gAH
+3GF1aKVaf5k1oFpasa1yd24BaHCBHmzuKJCf1w==
 </SignatureValue>
 <KeyInfo>
 <X509Data>

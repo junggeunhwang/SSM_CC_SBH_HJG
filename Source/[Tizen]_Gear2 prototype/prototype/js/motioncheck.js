@@ -9,14 +9,24 @@ function MotionCheckStart()
 		MotionSensorStop();		
 		console.log("YES Motion detected "+ i);
 		myevent.fire('audio.onAudioRecordingOperation');
-		setTimeout(MotionSensorStart,750);
+		setTimeout(MotionSensorStart,1000);
 	}
 	function onWRIST_UP()
 	{
+		//audiorecord.isRecording() === true && 
+		var accelobj = extract(false);
+		console.log("WRIST_UP EXPECTED");
+		console.log(accelobj);
+		console.log(accelobj.va_avg,+","+accelobj.hq_avg+","+accelobj.va_SD+","+accelobj.hq_SD);
 		if(isMotionProceed === false)
-		{
-			isMotionProceed = true;
-			MotionSuccess("WRIST_UP");			
+		{		
+			//console.log("WRIST_UP EXPECTED");
+			//console.log(accelobj.va_avg,+","+accelobj.hq_avg+","+accelobj.va_SD+","+accelobj.hq_SD);
+			if(audiorecord.isRecording() === true ||(0.8 < accelobj.va_avg && accelobj.va_avg < 3.0) && (1.0 < accelobj.va_SD && accelobj.va_SD < 4.0))
+			{
+				isMotionProceed = true;
+				MotionSuccess("WRIST_UP");
+			}					
 		}
 	}
 	
@@ -36,11 +46,11 @@ function MotionCheckStart()
 	
 	function MotionCheck(va_avg,va_SD,hq_avg,hq_SD)
 	{
-		if(va_avg > 0.71)// || va_avg <=0.22)
+		if(0.71<va_avg && va_avg < 2.0)// || va_avg <=0.22)
 		{
 			if(hq_avg <= 0.88)
 			{
-				if(va_SD > 1.1)
+				if(1.1<va_SD && va_SD < 2.0)
 				{
 					if(hq_SD > 0.5)
 					{
@@ -67,13 +77,21 @@ function MotionCheckStart()
 		
 		if(count == avg_motion_count)
 		{
-			extract();
+			extract(true);
 			motionqueue.shift();
 		}
 	}
-	function extract()
+	function extract(isAutoMotionChecking)
 	{
-		var len = avg_motion_count;
+		var len;
+		if(isAutoMotionChecking === true)
+		{
+			len = avg_motion_count;
+		}
+		else
+		{
+			len = motionqueue.length;
+		}
 		var i = 0;
 		var avg_vector = {x:0,y:0,z:0};
 		var norm_vector = {x:0,y:0,z:0};
@@ -136,7 +154,17 @@ function MotionCheckStart()
 		va_SD = Math.sqrt(va_SD);
 		hq_SD = Math.sqrt(hq_SD);
 	
-		MotionCheck(va_avg,va_SD,hq_avg,hq_SD);
+		if(isAutoMotionChecking === true)
+		{
+			MotionCheck(va_avg,va_SD,hq_avg,hq_SD);
+		}
+		else
+		{
+			console.log(va_avg +","+ hq_avg +","+ va_SD+","+hq_SD);
+		}
+		
+		
+		return {'va_avg':va_avg,'hq_avg':hq_avg,'va_SD':va_SD,'hq_SD':hq_SD};
 	}
 	myevent.listeners({
 	    	'motionsensor.start':MotionSensorStart,

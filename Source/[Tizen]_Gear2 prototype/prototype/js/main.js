@@ -6,8 +6,6 @@
     var MotionRecognitionCheckbox = document.getElementById("motioncheckbox");
     
     // 오디오 녹음 및 정지 버튼
-    //var recordOperationImg = document.getElementById("recordOperationImg");
-    var recordOperation = document.getElementById("recordOperation");
     var recordView = document.getElementById("voicerecordpage");
     var recordbutton = document.getElementById("recordbutton");
     var mainrecordbutton = document.getElementById("mainrecordbutton");
@@ -213,12 +211,21 @@
     	if(MotionRecognitionCheckbox.checked === true)
     	{
     		isMotionCheckUsed = true;
+    		recordbutton.style.display = "none";
+    		mainrecordbutton.style.display = "none";
+    		recordbutton.removeEventListener("click", onAudioRecordingOperation);
+    	    mainrecordbutton.removeEventListener("click", onAudioRecordingOperation);
+    	    
     		myevent.fire('motionsensor.start');
     	}
     	else
     	{
     		isMotionCheckUsed = false;
     		myevent.fire('motionsensor.stop');
+    		recordbutton.style.display = "inline";
+    		mainrecordbutton.style.display = "inline";
+    		recordbutton.addEventListener("click", onAudioRecordingOperation);
+    	    mainrecordbutton.addEventListener("click", onAudioRecordingOperation);
     	}
     }
 
@@ -238,7 +245,7 @@
     });
     
     // 오디오 버튼 이벤트 등록
-    recordOperation.addEventListener("click", onAudioRecordingOperation);
+    //recordOperation.addEventListener("click", onAudioRecordingOperation);
     recordView.addEventListener("click", onAudioRecordingOperation);
     recordbutton.addEventListener("click", onAudioRecordingOperation);
     mainrecordbutton.addEventListener("click", onAudioRecordingOperation);
